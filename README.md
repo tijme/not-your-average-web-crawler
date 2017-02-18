@@ -11,4 +11,4 @@ ToDo.
 
 ## License
 
-Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the [MIT license](LICENSE.md).
