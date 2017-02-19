@@ -20,27 +20,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from crawler.Crawler import Crawler
-from crawler.Request import Request
-from urllib.parse import urljoin
+from src.Crawler import Crawler
+from src.Request import Request
+from src.helpers.LinkHelper import LinkHelper
+from bs4 import BeautifulSoup
 
 """
 
 """
-class LinkFinder:
+class SoupLinkFinder:
 
-    def __init__(self, host, soup):
+    def __init__(self, host, content):
         self.__host = host
-        self.__soup = soup
+        self.__soup = BeautifulSoup(content, "html.parser")
 
     def get_requests(self):
         found_requests = []
 
         for link in self.__soup.find_all("a", href=True):
-            new_request = Request(self.make_absolute(link["href"]), Request.METHOD_GET)
+            absolute_link = LinkHelper.get_instance().make_absolute(self.__host, link["href"])
+            new_request = Request(absolute_link, Request.METHOD_GET)
             found_requests.append(new_request)
 
         return found_requests
-
-    def make_absolute(self, relative):
-        return urljoin(self.__host, relative)

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -22,41 +20,40 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from crawler.Crawler import Crawler
-from crawler.Request import Request
+from urllib.parse import urljoin
 
-def crawler_started():
-    print("crawler_started")
+"""
 
-def crawler_request_started(started_request):
-    print("Crawling: {}".format(started_request.req_url))
-    return True
-    
-def crawler_request_finished(finished_request, new_requests):
-    print("Found {} new requests!".format(len(new_requests)))
-    return True
+"""
+class LinkHelper:
 
-def crawler_finished(requests):
-    print("crawler_finished")
-    print("")
-    print("")
+    """
+    Keep track of the LinkHelper instance
+    """
+    _instance = None
 
-    for request in requests:
-        print("Found: {}".format(request.req_url))
+    def make_absolute(self, host, relative):
+        return urljoin(host, relative)
 
-def main():
-    crawler = Crawler(Request("https://finnwea.com/", Request.METHOD_GET))
+    def does_url_match(self, req1, req2):
+        url1 = req1.req_url
+        url2 = req2.req_url
 
-    crawler.cb_crawler_started = crawler_started
-    crawler.cb_crawler_request_started = crawler_request_started
-    crawler.cb_crawler_request_finished = crawler_request_finished
-    crawler.cb_crawler_finished = crawler_finished
+        if url1.endswith("/"):
+            url1 = url1[:-1]
 
-    crawler.opt_max_depth = 3
-    crawler.opt_max_processes = 8
-    crawler.opt_domain_must_match = True
+        if url2.endswith("/"):
+            url2 = url2[:-1]
 
-    crawler.start()
+        return url1 == url2
 
-if __name__ == "__main__":
-    main()
+    """
+    Get the LinkHelper instance
+    """
+    def get_instance():
+        if LinkHelper._instance == None:
+            LinkHelper._instance = LinkHelper()
+
+        return LinkHelper._instance
+
+    get_instance = staticmethod(get_instance)

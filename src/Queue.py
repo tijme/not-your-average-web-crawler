@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from src.helpers.LinkHelper import LinkHelper
+
 """
 
 """
@@ -49,26 +51,35 @@ class Queue:
 
         return results
 
+    def get_count(self, status=None):
+        if status is None:
+            return len(self.__requests)
+
+        count = 0
+
+        for request in self.__requests:
+            if request.status is status:
+                count += 1
+
+        return count
+
+    def get_count_without(self, status):
+        count = 0
+
+        for request in self.__requests:
+            if request.status is not status:
+                count += 1
+
+        return count
+
     def __is_unique(self, request):
         is_unique = True
 
         for existing_request in self.__requests:
-            if self.__does_url_match(request, existing_request):
+            if LinkHelper.get_instance().does_url_match(request, existing_request):
                 is_unique = False
                 break
 
             # TODO: Add more matches here!
 
         return is_unique
-
-    def __does_url_match(self, req1, req2):
-        url1 = req1.req_url
-        url2 = req2.req_url
-
-        if url1.endswith("/"):
-            url1 = url1[:-1]
-
-        if url2.endswith("/"):
-            url2 = url2[:-1]
-
-        return url1 == url2

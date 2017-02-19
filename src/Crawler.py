@@ -20,8 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from crawler.Queue import Queue
-from crawler.Request import Request
+from src.Queue import Queue
+from src.Request import Request
+
 from multiprocessing import Process
 from urllib.parse import urlparse
 
@@ -63,7 +64,7 @@ class Crawler:
         self.__crawler_request_started(request)
 
     def __crawler_request_started(self, request):
-        do_continue = self.__cb_crawler_request_started(request)
+        do_continue = self.__cb_crawler_request_started(self.__queue, request)
         if not do_continue:
             self.__crawler_finished()
             return
@@ -71,20 +72,20 @@ class Crawler:
         self.__crawler_request_execute(request)
 
     def __crawler_request_execute(self, request):
-        new_requests = request.execute()
-        self.__crawler_request_finished(request, new_requests)
+        found_requests = request.execute()
+        self.__crawler_request_finished(request, found_requests)
 
-    def __crawler_request_finished(self, request, new_requests):
-        do_continue = self.__cb_crawler_request_finished(request, new_requests)
+    def __crawler_request_finished(self, request, found_requests):
+        do_continue = self.__cb_crawler_request_finished(self.__queue, request, found_requests)
         if not do_continue:
             self.__crawler_finished()
             return
 
-        for new_request in new_requests:
+        for found_request in found_requests:
             if not self.opt_domain_must_match:
-                self.__queue.add(new_request)
-            elif self.__do_domains_match(request, new_request):
-                self.__queue.add(new_request)
+                self.__queue.add(found_request)
+            elif self.__do_domains_match(request, found_request):
+                self.__queue.add(found_request)
 
         request = self.__queue.get_first(Request.STATUS_QUEUED)
         if request is not None:
@@ -108,19 +109,19 @@ class Crawler:
         if self.cb_crawler_started is not None:
             self.cb_crawler_started()
 
-    def __cb_crawler_request_started(self, started_request):
+    def __cb_crawler_request_started(self, queue, started_request):
         do_continue = True
 
         if self.cb_crawler_request_started is not None:
-            do_continue = self.cb_crawler_request_started(started_request)
+            do_continue = self.cb_crawler_request_started(queue, started_request)
 
         return do_continue
 
-    def __cb_crawler_request_finished(self, finished_request, new_requests):
+    def __cb_crawler_request_finished(self, queue, finished_request, found_requests):
         do_continue = True
 
         if self.cb_crawler_request_finished is not None:
-            do_continue = self.cb_crawler_request_finished(finished_request, new_requests)
+            do_continue = self.cb_crawler_request_finished(queue, finished_request, found_requests)
 
         return do_continue
 

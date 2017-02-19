@@ -20,14 +20,30 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from src.Crawler import Crawler
+from src.Request import Request
+from src.helpers.LinkHelper import LinkHelper
+from bs4 import BeautifulSoup
+
+import re
+import sys
+
 """
 
 """
-class FormFinder:
+class RegexLinkFinder:
 
-    def __init__(self, host, soup):
+    def __init__(self, host, content):
         self.__host = host
-        self.__soup = soup
+        self.__content = content
 
     def get_requests(self):
-        return []
+        found_requests = []
+
+        matches = re.findall("(\"|\'|\`)((http:\/|https:\/)?(\/[^\s\"\'\`<>]+)+\/?)(\"|\'|\`)", str(self.__content))
+        for match in matches:
+            absolute_link = LinkHelper.get_instance().make_absolute(self.__host, match[1])
+            new_request = Request(absolute_link, Request.METHOD_GET)
+            found_requests.append(new_request)
+
+        return found_requests

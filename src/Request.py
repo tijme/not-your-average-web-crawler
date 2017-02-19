@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from bs4 import BeautifulSoup
 import urllib.request
 import importlib
 
@@ -35,7 +34,9 @@ class Request:
 
     STATUS_DONE = "done"
 
-    STATUS_NOT_HTML = "not_html"
+    STATUS_INVALID_CONTENT_TYPE = "invalid_content_type"
+
+    STATUS_GET_ADDRESS_INFO_FAILED = "get_address_info_failed"
 
     METHOD_GET = "GET"
 
@@ -51,10 +52,25 @@ class Request:
 
     req_method = None
 
-    __finders = [
-        "crawler.finders.FormFinder:FormFinder",
-        "crawler.finders.LinkFinder:LinkFinder"
-    ]
+    __finders = {
+        "text/html": [
+            "src.finders.SoupFormFinder:SoupFormFinder",
+            "src.finders.SoupLinkFinder:SoupLinkFinder",
+            "src.finders.RegexLinkFinder:RegexLinkFinder"
+        ],
+        "text/css": [
+            "src.finders.RegexLinkFinder:RegexLinkFinder"
+        ],
+        "text/javascript": [
+            "src.finders.RegexLinkFinder:RegexLinkFinder"
+        ],
+        "text/xml": [
+            "src.finders.RegexLinkFinder:RegexLinkFinder"
+        ],
+        "application/xml": [
+            "src.finders.RegexLinkFinder:RegexLinkFinder"
+        ],
+    }
 
     __found_requests = [
     ]
@@ -70,20 +86,27 @@ class Request:
         details = None
         content = None
 
-        with urllib.request.urlopen(self.req_url) as resource:
-            details = resource.info();
+        try:
+            resource = urllib.request.urlopen(self.req_url)
+            details = resource.info()
             content = resource.read()
-
-        if "text/html" not in details.get_content_type():
-            self.status = self.STATUS_NOT_HTML
+        except urllib.error.HTTPError as error:
+            details = error.fp.info()
+            content = error.fp.read()
+        except Exception:
+            self.status = self.STATUS_GET_ADDRESS_INFO_FAILED
             return []
 
-        soup = BeautifulSoup(content, "html.parser")
+        finder_available = False
+        for content_type, finders in self.__finders.items():
+            for finder in finders:
+                if content_type in details.get_content_type():
+                    finder_available = True
+                    self.__found_requests.extend(self.__run_finder(finder, content))
 
-        for finder in self.__finders:
-            finder_class = self.__get_finder(finder)
-            finder_instance = finder_class(self.req_url, soup)
-            self.__found_requests.extend(finder_instance.get_requests())
+        if not finder_available:
+            self.status = self.STATUS_INVALID_CONTENT_TYPE
+            return []
 
         self.status = self.STATUS_DONE
         return self.__found_requests
@@ -92,3 +115,8 @@ class Request:
         components = name.split(':')
         module = importlib.import_module(components[0])
         return getattr(module, components[1])
+
+    def __run_finder(self, finder, content):
+        finder_class = self.__get_finder(finder)
+        finder_instance = finder_class(self.req_url, content)
+        return finder_instance.get_requests()

@@ -20,23 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""
+from src.Crawler import Crawler
+from src.Request import Request
+from src.helpers.LinkHelper import LinkHelper
+from bs4 import BeautifulSoup
 
 """
-class LinkHelper:
 
-    """
-    Keep track of the LinkHelper instance
-    """
-    _instance = None
+"""
+class SoupFormFinder:
 
-    """
-    Get the LinkHelper instance
-    """
-    def get_instance():
-        if LinkHelper._instance == None:
-            LinkHelper._instance = LinkHelper()
+    def __init__(self, host, content):
+        self.__host = host
+        self.__soup = BeautifulSoup(content, "html.parser")
 
-        return LinkHelper._instance
-
-    get_instance = staticmethod(get_instance)
+    def get_requests(self):
+        return []
