@@ -1,6 +1,6 @@
 import unittest
 
-from src.finders.RegexLinkFinder import RegexLinkFinder
+from src.finders.SoupLinkFinder import SoupLinkFinder
  
 class TestFindersRegexLinkFinder(unittest.TestCase):
 
@@ -37,34 +37,25 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
         {"url": """https://example.ltd/unique=28/folder`/?unique=28""", "must_pass": True, "test": """<a href='https://example.ltd/unique=28/folder`/?unique=28'>test</a>"""},
         {"url": """https://example.ltd/unique=29/folder`/?unique=29""", "must_pass": True, "test": """<a href='https://example.ltd/unique=29/folder`/?unique=29'&b=not-included'>test</a>"""},
         {"url": """https://example.ltd/unique=30/folder`/?unique=30'&b=included""", "must_pass": True, "test": """<a href="https://example.ltd/unique=30/folder`/?unique=30'&b=included">test</a>"""},
-        {"url": """https://example.ltd/?unique=31""", "must_pass": True, "test": """var json = {"url": "https://example.ltd/?unique=31"}"""},
-        {"url": """https://example.ltd/?unique=32""", "must_pass": True, "test": """var json = {"url": 'https://example.ltd/?unique=32'}"""},
-        {"url": None, "must_pass": False, "test": """<a href="https:/example.ltd?unique=-1">"""},
-        {"url": None, "must_pass": False, "test": """<a href="https:example.ltd/?unique=-2">"""},
-        {"url": None, "must_pass": False, "test": """<a href="http/example.ltd/?unique=-3">"""},
-        {"url": None, "must_pass": False, "test": """http:/example.ltd/?unique=-4"""},
-        {"url": None, "must_pass": False, "test": """https:/example.ltd/?unique=-5"""},
-        {"url": None, "must_pass": False, "test": """https:example.ltd/?unique=-6"""},
-        {"url": None, "must_pass": False, "test": """https/example.ltd/?unique=-7"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4?unique=-8"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-9"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-10&a=b"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-11#anchor"""}
+        {"url": """https://example.ltd/sample/page/1?unique=31""", "must_pass": True, "test": """<a href="sample/page/1?unique=31">test</a>"""},
+        {"url": """https://example.ltd/page/2?unique=32""", "must_pass": True, "test": """<a href="/page/2?unique=32">test</a>"""},
+        {"url": """https://example.ltd/page/3?unique=33""", "must_pass": True, "test": """<a href="page/3?unique=33">test</a>"""},
+        {"url": """https://example.ltd/page4?unique=34""", "must_pass": True, "test": """<a href="page4?unique=34">test</a>"""}
     ]
 
-    def test_regex_url_count(self):
+    def test_soup_url_count(self):
         html = ""
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = RegexLinkFinder(self.__host, html)
+        finder = SoupLinkFinder(self.__host, html)
         matches = finder.get_requests()
 
-        self.assertEqual(len(matches), 32)
+        self.assertEqual(len(matches), 34)
  
-    def test_regex_url_matches(self):
+    def test_soup_url_matches(self):
         for url in self.__urls:
-            finder = RegexLinkFinder(self.__host, url["test"])
+            finder = SoupLinkFinder(self.__host, url["test"])
             matches = finder.get_requests()
 
             if url["must_pass"]:
@@ -72,3 +63,6 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
                 self.assertEqual(matches[0].req_url, url["url"])
             else:
                 self.assertEqual(len(matches), 0)
+
+if __name__ == '__main__':
+    unittest.main()
