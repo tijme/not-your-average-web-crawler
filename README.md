@@ -1,6 +1,7 @@
 # Not Your Average Web Crawler
 #### A Python app that crawls requests instead of URLs.
 
+[![Build Status](https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&branch=master)](https://travis-ci.com/tijme/not-your-average-web-crawler)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 
 ## Description
