@@ -33,6 +33,9 @@ class LinkHelper:
     _instance = None
 
     def make_absolute(self, host, relative):
+        if relative.startswith("http://") or relative.startswith("https://"):
+            return relative
+
         return urljoin(host, relative)
 
     def does_url_match(self, req1, req2):

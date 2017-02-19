@@ -24,6 +24,7 @@ from src.Crawler import Crawler
 from src.Request import Request
 from src.helpers.LinkHelper import LinkHelper
 from bs4 import BeautifulSoup
+import html5lib
 
 """
 
@@ -32,14 +33,25 @@ class SoupLinkFinder:
 
     def __init__(self, host, content):
         self.__host = host
-        self.__soup = BeautifulSoup(content, "html.parser")
+        self.__soup = BeautifulSoup(content, "html5lib")
 
     def get_requests(self):
         found_requests = []
 
+
         for link in self.__soup.find_all("a", href=True):
-            absolute_link = LinkHelper.get_instance().make_absolute(self.__host, link["href"])
+            href = self.trim_grave_accent(link["href"])
+            absolute_link = LinkHelper.get_instance().make_absolute(self.__host, href)
             new_request = Request(absolute_link, Request.METHOD_GET)
             found_requests.append(new_request)
 
         return found_requests
+
+    def trim_grave_accent(self, href):
+        if href.startswith("`"):
+            href = href[1:]
+
+        if href.endswith("`"):
+            href = href[:-1]
+
+        return href

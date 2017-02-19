@@ -24,7 +24,8 @@ from src.Crawler import Crawler
 from src.Request import Request
 from src.helpers.LinkHelper import LinkHelper
 from bs4 import BeautifulSoup
-
+import html5lib
+ 
 """
 
 """
@@ -32,7 +33,7 @@ class SoupFormFinder:
 
     def __init__(self, host, content):
         self.__host = host
-        self.__soup = BeautifulSoup(content, "html.parser")
+        self.__soup = BeautifulSoup(content, "html5lib")
 
     def get_requests(self):
         return []
