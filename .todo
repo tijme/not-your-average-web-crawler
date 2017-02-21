@@ -1,0 +1,5 @@
+* Build XML parser to find URLs in XML.
+* Return \Responses to the user instead of \Requests.
+* Create more useful unit tests.
+* Document code.
+* Document usage.
