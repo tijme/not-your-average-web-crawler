@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -94,6 +96,3 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
                 self.assertEqual(matches[0].req_url, url["url"])
             else:
                 self.assertEqual(len(matches), 0)
-
-if __name__ == '__main__':
-    unittest.main()

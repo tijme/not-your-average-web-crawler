@@ -8,7 +8,17 @@
 N.Y.A.W.C is a Python 3 application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request and keeps track of the request data. It's main purpose is to be used in web application vulnerability scanners like [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner).
 
 ## Usage
-ToDo.
+First make sure you're on Python 3.5 or higher. Then run the command below to install the dependencies.
+
+`pip install -r requirements.txt`
+
+ToDo: explain how this module can be implemented and used in another project.
+
+## Testing
+
+The testing can and will automatically be done by [Travis CI](https://travis-ci.com/) on every push to the master branch. If you want to manually run the unit tests, usage the command below.
+
+`python -m unittest discover -s tests`.
 
 ## License
 
