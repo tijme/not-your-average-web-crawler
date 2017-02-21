@@ -63,6 +63,7 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
         {"url": """https://example.ltd/unique=30/folder`/?unique=30'&b=included""", "must_pass": True, "test": """<a href="https://example.ltd/unique=30/folder`/?unique=30'&b=included">test</a>"""},
         {"url": """https://example.ltd/?unique=31""", "must_pass": True, "test": """var json = {"url": "https://example.ltd/?unique=31"}"""},
         {"url": """https://example.ltd/?unique=32""", "must_pass": True, "test": """var json = {"url": 'https://example.ltd/?unique=32'}"""},
+
         {"url": None, "must_pass": False, "test": """<a href="https:/example.ltd?unique=-1">"""},
         {"url": None, "must_pass": False, "test": """<a href="https:example.ltd/?unique=-2">"""},
         {"url": None, "must_pass": False, "test": """<a href="http/example.ltd/?unique=-3">"""},

@@ -3,3 +3,4 @@
 * Create more useful unit tests.
 * Document code.
 * Document usage.
+* If parent and child are 404's, stop recursion.

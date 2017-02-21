@@ -50,6 +50,8 @@ class Request:
 
     res_content_type = None
 
+    res_status = 200
+
     __finders = {
         "text/html": [
             "src.finders.SoupFormFinder:SoupFormFinder",
