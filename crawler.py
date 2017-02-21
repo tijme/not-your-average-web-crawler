@@ -27,11 +27,11 @@ def crawler_started():
     print("crawler_started")
 
 def crawler_request_started(queue, started_request):
-    #print("Crawling: {}".format(started_request.req_url))
+   # print("Crawling: {}".format(started_request.req_url))
     return True
     
 def crawler_request_finished(queue, finished_request, found_requests):
-    message = "Crawled {}/{}.".format(queue.get_count_without(Request.STATUS_QUEUED), queue.get_count())
+    message = "Crawled {}/{} {}.".format(queue.get_count_without(Request.STATUS_QUEUED), queue.get_count(), finished_request.res_content_type)
 
     if len(found_requests) > 0:
         message += " Found {} requests, these will be added to the queue (ignoring any duplicates).".format(len(found_requests))
@@ -48,7 +48,7 @@ def crawler_finished(requests):
     print("")
 
     for request in requests:
-        print("Found: {}".format(request.req_url))
+        print("Found: {} - {}".format(request.res_content_type, request.req_url))
 
 def main():
     crawler = Crawler(Request("https://finnwea.com/", Request.METHOD_GET))

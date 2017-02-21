@@ -34,10 +34,6 @@ class Request:
 
     STATUS_DONE = "done"
 
-    STATUS_INVALID_CONTENT_TYPE = "invalid_content_type"
-
-    STATUS_GET_ADDRESS_INFO_FAILED = "get_address_info_failed"
-
     METHOD_GET = "GET"
 
     METHOD_POST = "POST"
@@ -52,6 +48,8 @@ class Request:
 
     req_method = None
 
+    res_content_type = None
+
     __finders = {
         "text/html": [
             "src.finders.SoupFormFinder:SoupFormFinder",
@@ -64,12 +62,9 @@ class Request:
         "text/javascript": [
             "src.finders.RegexLinkFinder:RegexLinkFinder"
         ],
-        "text/xml": [
-            "src.finders.RegexLinkFinder:RegexLinkFinder"
-        ],
-        "application/xml": [
-            "src.finders.RegexLinkFinder:RegexLinkFinder"
-        ],
+        # ToDo: build XML link finder
+        # "text/xml": [],
+        # "application/xml": [],
     }
 
     __found_requests = [
@@ -89,23 +84,33 @@ class Request:
         try:
             resource = urllib.request.urlopen(self.req_url)
             details = resource.info()
-            content = resource.read().decode(resource.headers.get_content_charset())
+            content = resource.read()
+
+            if resource.headers.get_content_charset():
+                content = content.decode(resource.headers.get_content_charset())
+
         except urllib.error.HTTPError as error:
             details = error.fp.info()
-            content = error.fp.read().decode(error.fp.headers.get_content_charset())
-        except Exception:
-            self.status = self.STATUS_GET_ADDRESS_INFO_FAILED
+            content = error.fp.read()
+
+            if error.fp.headers.get_content_charset():
+                content = content.decode(error.fp.headers.get_content_charset())
+          
+        except Exception as e:
+            self.status = self.STATUS_DONE
             return []
+
+        self.res_content_type = details.get_content_type()
 
         finder_available = False
         for content_type, finders in self.__finders.items():
             for finder in finders:
-                if content_type in details.get_content_type():
+                if content_type in self.res_content_type:
                     finder_available = True
                     self.__found_requests.extend(self.__run_finder(finder, content))
 
         if not finder_available:
-            self.status = self.STATUS_INVALID_CONTENT_TYPE
+            self.status = self.STATUS_DONE
             return []
 
         self.status = self.STATUS_DONE
