@@ -38,7 +38,6 @@ class SoupLinkFinder:
     def get_requests(self):
         found_requests = []
 
-
         for link in self.__soup.find_all("a", href=True):
             href = self.trim_grave_accent(link["href"])
             absolute_link = LinkHelper.get_instance().make_absolute(self.__host, href)

@@ -89,10 +89,10 @@ class Request:
         try:
             resource = urllib.request.urlopen(self.req_url)
             details = resource.info()
-            content = resource.read()
+            content = resource.read().decode(resource.headers.get_content_charset())
         except urllib.error.HTTPError as error:
             details = error.fp.info()
-            content = error.fp.read()
+            content = error.fp.read().decode(error.fp.headers.get_content_charset())
         except Exception:
             self.status = self.STATUS_GET_ADDRESS_INFO_FAILED
             return []

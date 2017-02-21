@@ -40,7 +40,7 @@ def crawler_request_finished(queue, finished_request, found_requests):
 
     print(message)
 
-    return False
+    return True
 
 def crawler_finished(requests):
     print("crawler_finished")
