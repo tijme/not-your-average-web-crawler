@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/dvyqFAP.png" width="300" height="300" alt="NYAWC">
+  <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
   <br>
   <a href="https://travis-ci.com/tijme/not-your-average-web-crawler">
     <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&amp;branch=master" alt="Build Status">
