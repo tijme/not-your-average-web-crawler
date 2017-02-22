@@ -74,7 +74,9 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
         {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4?unique=-8"""},
         {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-9"""},
         {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-10&a=b"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-11#anchor"""}
+        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-11#anchor"""},
+        {"url": None, "must_pass": False, "test": """<a href="http/examp%0ale.ltd/?unique=-12">"""},
+        {"url": None, "must_pass": False, "test": """<a href="http/examp\nle.ltd/?unique=-13">"""}
     ]
 
     def test_regex_url_count(self):

@@ -37,7 +37,7 @@ ToDo: explain how to use this module.
 
 The testing can and will automatically be done by [Travis CI](https://travis-ci.com/) on every push to the master branch. If you want to manually run the unit tests, use the command below.
 
-`python -m unittest discover -s tests`.
+`python -m unittest discover -s tests`
 
 ## Issues
 
