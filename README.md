@@ -1,8 +1,15 @@
-# Not Your Average Web Crawler
-#### A Python application that crawls requests instead of URLs.
+<p align="center">
+  <img src="http://imgur.com/M5Ix4sQ.png" alt="unfetch">
+  <br>
+  <a href="https://travis-ci.com/tijme/not-your-average-web-crawler">
+    <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&amp;branch=master" alt="Build Status">
+  </a>
 
-[![Build Status](https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&branch=master)](https://travis-ci.com/tijme/not-your-average-web-crawler)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+  <a href="/tijme/not-your-average-web-crawler/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  </a>
+
+</p>
 
 ## Description
 N.Y.A.W.C is a Python 3 application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request and keeps track of the request data. It's main purpose is to be used in web application vulnerability scanners like [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner).
