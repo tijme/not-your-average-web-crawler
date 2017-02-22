@@ -64,7 +64,9 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
         {"url": """https://example.ltd/sample/page/1?unique=31""", "must_pass": True, "test": """<a href="sample/page/1?unique=31">test</a>"""},
         {"url": """https://example.ltd/page/2?unique=32""", "must_pass": True, "test": """<a href="/page/2?unique=32">test</a>"""},
         {"url": """https://example.ltd/page/3?unique=33""", "must_pass": True, "test": """<a href="page/3?unique=33">test</a>"""},
-        {"url": """https://example.ltd/page4?unique=34""", "must_pass": True, "test": """<a href="page4?unique=34">test</a>"""}
+        {"url": """https://example.ltd/page4?unique=34""", "must_pass": True, "test": """<a href="page4?unique=34">test</a>"""},
+        {"url": """http://examp%0ale.ltd/?unique=35""", "must_pass": True, "test": """<a href="http://examp%0ale.ltd/?unique=35">"""},
+        {"url": """http://examp\nle.ltd/?unique=36""", "must_pass": True, "test": """<a href="http://examp\nle.ltd/?unique=36">"""}
     ]
 
     def test_soup_url_count(self):
@@ -75,7 +77,7 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
         finder = SoupLinkFinder(self.__host, html)
         matches = finder.get_requests()
 
-        self.assertEqual(len(matches), 34)
+        self.assertEqual(len(matches), 36)
  
     def test_soup_url_matches(self):
         for url in self.__urls:

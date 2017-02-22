@@ -1,6 +1,10 @@
-* Build XML parser to find URLs in XML.
+* If parent and child are 404's, stop recursion.
 * Return \Responses to the user instead of \Requests.
-* Create more useful unit tests.
+* Support max depth functionality.
 * Document code.
 * Document usage.
-* If parent and child are 404's, stop recursion.
+* Create more useful unit tests.
+* Test setup/installation (and add pip install support).
+* First release.
+* Build XML parser to find URLs in XML.
+* Support multiprocessing.

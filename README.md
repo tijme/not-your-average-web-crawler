@@ -4,7 +4,7 @@
   <a href="https://travis-ci.com/tijme/not-your-average-web-crawler">
     <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&amp;branch=master" alt="Build Status">
   </a>
-  <a href="/tijme/not-your-average-web-crawler/blob/master/LICENSE.md">
+  <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
   </a>
 </p>
@@ -14,11 +14,12 @@ But very useful for hacking. Not Your Average Web Crawler (N.Y.A.W.C) is a Pytho
 
 **Crawls:**
 
-- **Links:** URLs in HTML attributes, JSON, XML, etc.
+- **Links:** URLs in HTML attributes, JSON, etc.
 - **Forms:** GET & POST forms and their request data.
 
 **Future development:**
 
+- Support XML crawling.
 - Support XHR crawling.
 - Support Open XML crawling.
 
