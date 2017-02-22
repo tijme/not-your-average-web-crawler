@@ -22,6 +22,8 @@ But very useful for hacking. Not Your Average Web Crawler (N.Y.A.W.C) is a Pytho
 - Support XML crawling.
 - Support XHR crawling.
 - Support Open XML crawling.
+- Support custom cookies.
+- Support custom/random user agents.
 
 ## Installation
 First make sure you're on [Python 3.5](https://www.python.org/) or higher. Then run the command below to install the dependencies.

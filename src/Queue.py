@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -20,66 +22,137 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.helpers.LinkHelper import LinkHelper
-
-"""
-
-"""
 class Queue:
+    """The Queue class contains all the request/response pairs that are going to be or have been crawled.
 
-    __requests = []
+    Attributes:
+        __items list(obj): The request/response pairs (as QueueItem's). 
+    """
 
-    def add(self, request):
-        if self.__is_unique(request):
-            self.__requests.append(request)
-        
-    def get_first(self, status=None):
-        for request in self.__requests:
-            if status is not None and request.status is not status:
-                continue
+    __items = []
 
-            return request
+    def add(self, item):
+        """Add a request/response pair (QueueItem) to the queue.
+
+        Args:
+            item (obj): The QueueItem to add.
+        """
+
+        self.__items.append(item)
+
+    def get_first(self, status):
+        """Get the first item in the queue that has the given status.
+
+        Args:
+            status (str): return the first item with this status.
+        """
+
+        for item in self.__items:
+            if item.status is status:
+                return item
 
         return None
 
-    def get_all(self, status=None):
-        results = []
+    def get_all(self):
+        """Get all the items in the queue."""
 
-        for request in self.__requests:
-            if status is not None and request.status is status:
-                results.append(request)
+        return self.__items
 
-        return results
+    def get_all_including(self, include):
+        """Get all the items that contain atleast one of the given statuses.
 
-    def get_count(self, status=None):
-        if status is None:
-            return len(self.__requests)
+        Args:
+            include list(str): an array of statuses.
+        """
+
+        filtered_items = []
+
+        for item in self.__items:
+            if item.status in include:
+                filtered_items.append(item)
+
+        return filtered_items
+
+    def get_all_excluding(self, exclude):
+        """Get all the items that do not contain one of the given statuses.
+
+        Args:
+            exclude list(str): an array of statuses.
+        """
+
+        filtered_items = []
+
+        for item in self.__items:
+            if item.status not in exclude:
+                filtered_items.append(item)
+
+        return filtered_items
+
+    def get_count(self):
+        """Get a count of all the items in the queue."""
+
+        return len(self.__items)
+
+    def get_count_including(self, include):
+        """Get a count of the items that contain atleast one of the given statuses.
+
+        Args:
+            include list(str): an array of statuses.
+        """
 
         count = 0
 
-        for request in self.__requests:
-            if request.status is status:
+        for item in self.__items:
+            if item.status in include:
                 count += 1
 
         return count
 
-    def get_count_without(self, status):
+    def get_count_excluding(self, exclude):
+        """Get a count of the items that do not contain one of the given statuses.
+
+        Args:
+            exclude list(str): an array of statuses.
+        """
+
         count = 0
 
-        for request in self.__requests:
-            if request.status is not status:
+        for item in self.__items:
+            if item.status not in exclude:
                 count += 1
 
         return count
 
-    def __is_unique(self, request):
-        is_unique = True
+class QueueItem:
+    """The QueueItem class keeps track of the request, response and the crawling status.
 
-        for existing_request in self.__requests:
-            if LinkHelper.get_instance().does_url_match(request, existing_request):
-                is_unique = False
-                break
+    Attributes:
+        STATUS_QUEUED (str): Status for when the crawler did not yet start the request.
+        STATUS_IN_PROGRESS (str): Status for when the crawler is currently crawling the request.
+        STATUS_FINISHED (str): Status for when the crawler has finished crawling the request.
+        status (str): The current crawling status.
+        request (obj): The Request object.
+        response (obj): The Response object.
+    """
 
-            # TODO: Add more matches here!
+    STATUS_QUEUED = "queued"
 
-        return is_unique
+    STATUS_IN_PROGRESS = "in_progress"
+
+    STATUS_FINISHED = "finished"
+
+    status = STATUS_QUEUED
+
+    request = None
+
+    response = None
+
+    def __init__(self, request, response):
+        """Constructs a QueueItem class.
+
+        Args:
+            request (obj): The Request object.
+            response (obj): The Response object (empty object when initialized).
+        """
+        self.request = request
+        self.response = response

@@ -64,9 +64,6 @@ class Request:
         "text/javascript": [
             "src.finders.RegexLinkFinder:RegexLinkFinder"
         ],
-        # ToDo: build XML link finder
-        # "text/xml": [],
-        # "application/xml": [],
     }
 
     __found_requests = [

@@ -22,15 +22,7 @@
 
 from urllib.parse import urljoin
 
-"""
-
-"""
-class LinkHelper:
-
-    """
-    Keep track of the LinkHelper instance
-    """
-    _instance = None
+class URLHelper:
 
     def make_absolute(self, host, relative):
         if relative.startswith("http://") or relative.startswith("https://"):
@@ -49,14 +41,3 @@ class LinkHelper:
             url2 = url2[:-1]
 
         return url1 == url2
-
-    """
-    Get the LinkHelper instance
-    """
-    def get_instance():
-        if LinkHelper._instance == None:
-            LinkHelper._instance = LinkHelper()
-
-        return LinkHelper._instance
-
-    get_instance = staticmethod(get_instance)

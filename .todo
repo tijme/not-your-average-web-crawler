@@ -1,10 +1,16 @@
+* Return \src\http\Responses to the user instead of \src\Requests.
+* Rename LinkHelper to URLHelper.
 * If parent and child are 404's, stop recursion.
-* Return \Responses to the user instead of \Requests.
 * Support max depth functionality.
 * Document code.
 * Document usage.
 * Create more useful unit tests.
 * Test setup/installation (and add pip install support).
+* Add CONTRIBUTING.md.
 * First release.
+
 * Build XML parser to find URLs in XML.
+* Python backwards compatibility.
 * Support multiprocessing.
+* Support custom cookies.
+* Support custom/random user agents.
