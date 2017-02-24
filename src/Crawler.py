@@ -22,15 +22,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Queue import Queue
+from src.Queue import Queue, QueueItem
+from src.helpers import HTTPRequestHelper
+from src.helpers import HTTPResponseHelper
 
 class Crawler:
-
-    DO_CONTINUE_CRAWLING = 1
-
-    DO_SKIP_TO_NEXT = 1
-
-    DO_STOP_CRAWLING = 1
 
     __options = None
 
@@ -40,4 +36,57 @@ class Crawler:
         self.__options = options
 
     def start_with(self, request):
-        pass
+        patched_request = HTTPRequestHelper.patch_with_options(request, self.__options)
+        self.__queue.add(patched_request)
+        self.__crawler_start()
+
+    def __spawn_new_requests():
+        # ToDo: Get count from database
+        while self.__concurrent_requests_count < self.__options.performance.max_processes:
+            self.__spawn_new_request()
+
+    def __spawn_new_request():
+        first_in_line = self.__queue.get_first(QueueItem.STATUS_QUEUED)
+        self.__request_start(first_in_line)
+
+    def __crawler_start():
+        self.__options.callbacks.crawler_before_start()
+
+    def __crawler_stop():
+        # ToDo: stop all active processes
+        # ToDo: set flag so that no new processes will be spawned
+        self.__crawler_finish()
+
+    def __crawler_finish():
+        self.__options.callbacks.crawler_after_finish()
+
+    def __request_start(request):
+        action = self.__options.callback.crawler_before_start()
+
+        if action == CrawlerActions.DO_STOP_CRAWLING:
+            return self.__crawler_stop()
+
+        if action == CrawlerActions.DO_SKIP_TO_NEXT:
+            return None
+
+        if action == CrawlerActions.DO_CONTINUE_CRAWLING:
+            # ToDo: make the actual request
+            # ToDo: call request finish
+            pass
+
+    def __request_finish(request, response):
+        action = self.__options.callbacks.cb_crawler_after_finish()
+
+        if action == CrawlerActions.DO_STOP_CRAWLING:
+            return self.__crawler_stop()
+
+        if action == CrawlerActions.DO_CONTINUE_CRAWLING:
+            return self.__spawn_new_requests()
+
+class CrawlerActions:
+
+    DO_CONTINUE_CRAWLING = 1
+
+    DO_SKIP_TO_NEXT = 2
+
+    DO_STOP_CRAWLING = 3

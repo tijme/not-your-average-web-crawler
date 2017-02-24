@@ -23,7 +23,7 @@
 # SOFTWARE.
 
 from src.Options import Options
-from src.Crawler import Crawler
+from src.Crawler import Crawler, CrawlerActions
 from src.http.Request import Request
 
 def cb_crawler_before_start():
@@ -35,15 +35,15 @@ def cb_crawler_after_finish():
 def cb_request_before_start():
     print("Crawler request started.")
 
-    # return Crawler.DO_SKIP_TO_NEXT
-    # return Crawler.DO_STOP_CRAWLING
-    return Crawler.DO_CONTINUE_CRAWLING
+    # return CrawlerActions.DO_SKIP_TO_NEXT
+    # return CrawlerActions.DO_STOP_CRAWLING
+    return CrawlerActions.DO_CONTINUE_CRAWLING
 
 def cb_request_after_finish():
     print("Crawler request finished.")
 
-    # return Crawler.DO_STOP_CRAWLING
-    return Crawler.DO_CONTINUE_CRAWLING
+    # return CrawlerActions.DO_STOP_CRAWLING
+    return CrawlerActions.DO_CONTINUE_CRAWLING
 
 
 # Declare the options

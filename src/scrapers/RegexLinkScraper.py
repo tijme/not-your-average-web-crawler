@@ -24,16 +24,44 @@ from src.Crawler import Crawler
 from src.Request import Request
 from src.helpers.LinkHelper import LinkHelper
 from bs4 import BeautifulSoup
-import html5lib
- 
+
+import re
+import sys
+
 """
 
 """
-class SoupFormFinder:
+class RegexLinkScraper:
+
+    __expressions = [
+        # Match absolute/relative URLs between any type of HTML quote
+        { "group": 1, "raw": r"([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" },
+
+        # Match all absolute URLs outside of HTML quotes
+        { "group": 1, "raw": r"([^\"\'\`])((https?:\/\/)([^\s\"\'\`]*))" }
+    ]
 
     def __init__(self, host, content):
         self.__host = host
-        self.__soup = BeautifulSoup(content, "html5lib")
+        self.__content = content
 
     def get_requests(self):
-        return []
+        found_urls = []
+        found_requests = []
+
+        for expression in self.__expressions:
+            matches = re.findall(expression["raw"], str(self.__content))
+
+            for match in matches:
+                found_url = match[expression["group"]]
+                absolute_url = LinkHelper.get_instance().make_absolute(self.__host, found_url)
+
+                if absolute_url in found_urls:
+                    continue
+              
+                found_urls.append(absolute_url)
+
+                new_request = Request(absolute_url, Request.METHOD_GET)
+                found_requests.append(new_request)
+
+        return found_requests

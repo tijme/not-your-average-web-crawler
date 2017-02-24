@@ -22,6 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from src.Crawler import CrawlerActions
+
 class Options:
     """The Options class contains all the crawling settings/options.
 
@@ -92,10 +94,10 @@ class OptionsCallbacks:
         pass
 
     def __null_route_request_before_start(self):
-        pass
+        return CrawlerActions.DO_CONTINUE_CRAWLING
 
     def __null_route_request_after_finish(self):
-        pass
+        return CrawlerActions.DO_CONTINUE_CRAWLING
 
 class OptionsPerformance:
     """The OptionsPerformance class contains the performance settings/options.
