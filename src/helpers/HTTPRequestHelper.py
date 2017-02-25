@@ -24,12 +24,12 @@
 
 class HTTPRequestHelper:
 
-	@staticmethod
-	def patch_with_options(request, options)
-		# ToDo
-		return request
+    @staticmethod
+    def patch_with_options(request, options)
+        # ToDo: add options to request
+        # ToDo: by reference, no need to return
 
-	@staticmethod
-	def is_already_in_queue(request, queue):
-		# ToDo
-		return False
+    @staticmethod
+    def is_already_in_queue(request, queue):
+        # ToDo
+        return False

@@ -40,6 +40,15 @@ class Queue:
 
         self.__items.append(item)
 
+    def add_request(self, request):
+        """Add a request to the queue.
+
+        Args:
+            request (obj): The request to add.
+        """
+
+        self.add(QueueItem(request, Response()))
+
     def get_first(self, status):
         """Get the first item in the queue that has the given status.
 

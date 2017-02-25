@@ -93,7 +93,7 @@ class OptionsCallbacks:
     def __null_route_crawler_after_finish(self):
         pass
 
-    def __null_route_request_before_start(self):
+    def __null_route_request_before_start(self, queue_item):
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
     def __null_route_request_after_finish(self):

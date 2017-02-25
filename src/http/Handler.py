@@ -30,5 +30,6 @@ class Handler:
     # ToDo: set queue_item.response
 
     # get_new_requests
+    # ToDo: find scrapers in folder (instead of defining)
     # ToDo: iterate scrapers
     # ToDo: return new \Request's

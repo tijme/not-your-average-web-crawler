@@ -32,7 +32,7 @@ def cb_crawler_before_start():
 def cb_crawler_after_finish():
     print("Crawler finished.")
 
-def cb_request_before_start():
+def cb_request_before_start(queue_item):
     print("Crawler request started.")
 
     # return CrawlerActions.DO_SKIP_TO_NEXT
@@ -50,10 +50,10 @@ def cb_request_after_finish():
 options = Options()
 
 # Callback options
-options.callbacks.crawler_before_start = cb_crawler_before_start # Called when the crawler starts crawling. Default is a null route.
-options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called when the crawler finished crawling. Default is a null route.
-options.callbacks.request_before_start = cb_request_before_start # Called when the crawler starts a new request. Default is a null route.
-options.callbacks.request_after_finish = cb_request_after_finish # Called when the crawler finishes a request. Default is a null route.
+options.callbacks.crawler_before_start = cb_crawler_before_start # Called before the crawler starts crawling. Default is a null route.
+options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called after the crawler finished crawling. Default is a null route.
+options.callbacks.request_before_start = cb_request_before_start # Called before the crawler starts a new request. Default is a null route.
+options.callbacks.request_after_finish = cb_request_after_finish # Called after the crawler finishes a request. Default is a null route.
 
 # Scope options
 options.scope.protocol_must_match = False # Only crawl pages with the same protocol as the startpoint (e.g. only https). Default is False.
