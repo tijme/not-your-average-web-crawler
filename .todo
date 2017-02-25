@@ -8,6 +8,7 @@
 * Add CONTRIBUTING.md.
 * Remove `tmp` directory.
 * Build XML parser to find URLs in XML.
+* Move to travis.org and make build status public (also in readme).
 * First release.
 
 * Python backwards compatibility.
