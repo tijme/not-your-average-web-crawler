@@ -31,6 +31,10 @@ import html5lib
 """
 class SoupLinkFinder:
 
+    __content_types = [
+        "text/html"
+    ]
+
     def __init__(self, host, content):
         self.__host = host
         self.__soup = BeautifulSoup(content, "html5lib")

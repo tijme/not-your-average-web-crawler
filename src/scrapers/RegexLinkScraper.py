@@ -26,12 +26,14 @@ from src.helpers.LinkHelper import LinkHelper
 from bs4 import BeautifulSoup
 
 import re
-import sys
 
-"""
-
-"""
 class RegexLinkScraper:
+
+    __content_types = [
+        "text/html",
+        "text/css",
+        "text/javascript"
+    ]
 
     __expressions = [
         # Match absolute/relative URLs between any type of HTML quote

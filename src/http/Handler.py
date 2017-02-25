@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -20,24 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Crawler import Crawler
-from src.Request import Request
-from src.helpers.LinkHelper import LinkHelper
-from bs4 import BeautifulSoup
-import html5lib
- 
-"""
+class Handler:
 
-"""
-class SoupFormScraper:
+    # __init__
+    # ToDo: init with queue_item
+    # ToDo: execute the request
+    # ToDo: set queue_item.response
 
-    __content_types = [
-        "text/html"
-    ]
-
-    def __init__(self, host, content):
-        self.__host = host
-        self.__soup = BeautifulSoup(content, "html5lib")
-
-    def get_requests(self):
-        return []
+    # get_new_requests
+    # ToDo: iterate scrapers
+    # ToDo: return new \Request's

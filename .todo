@@ -1,4 +1,4 @@
-# Implement SQLite as storage.
+* Rename to `crawl-like-a-sir`.
 * Return \src\http\Responses to the user instead of \src\Requests.
 * Rename LinkHelper to URLHelper.
 * If parent and child are 404's, stop recursion.
