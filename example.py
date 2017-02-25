@@ -29,7 +29,7 @@ from src.http.Request import Request
 def cb_crawler_before_start():
     print("Crawler started.")
 
-def cb_crawler_after_finish():
+def cb_crawler_after_finish(queue):
     print("Crawler finished.")
 
 def cb_request_before_start(queue_item):
@@ -39,7 +39,7 @@ def cb_request_before_start(queue_item):
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
-def cb_request_after_finish():
+def cb_request_after_finish(queue_item, new_queue_items):
     print("Crawler request finished.")
 
     # return CrawlerActions.DO_STOP_CRAWLING

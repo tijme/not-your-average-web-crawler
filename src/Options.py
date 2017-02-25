@@ -90,7 +90,7 @@ class OptionsCallbacks:
     def __null_route_crawler_before_start(self):
         pass
 
-    def __null_route_crawler_after_finish(self):
+    def __null_route_crawler_after_finish(self, queue):
         pass
 
     def __null_route_request_before_start(self, queue_item):

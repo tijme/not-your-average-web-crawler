@@ -46,19 +46,19 @@ class Response:
 
     __raw_info = None
 
-    def __init__(self, body, info, status):
-        """Constructs a Request class.
+    def fill(self, status, body, info):
+        """Fill the Request class.
 
         Args:
+            status (str): The HTTP response status code.
 	        body (str): The response body (e.g. HTML or image data).
 	        info (obj): The meta-information of the response, such as headers.
-	        status (str): The HTTP response status code.
         """
 
+        self.status = status
         self.body = body
         self.cookie = None # ToDo
         self.content_type = info.get_content_type()
-        self.status = status
 
         self.__raw_body = body
         self.__raw_info = info

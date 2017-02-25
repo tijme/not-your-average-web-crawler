@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
-  <br>
-  <a href="https://travis-ci.com/tijme/not-your-average-web-crawler">
-    <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&amp;branch=master" alt="Build Status">
-  </a>
-  <a href="LICENSE.md">
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  </a>
+    <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
+    <br/>
+    <a href="https://travis-ci.com/tijme/not-your-average-web-crawler">
+        <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&amp;branch=master" alt="Build Status">
+    </a>
+    <a href="LICENSE.md">
+        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+    </a>
 </p>
 
 ## Below average...
@@ -14,16 +14,21 @@ But very useful for hacking. Not Your Average Web Crawler (N.Y.A.W.C) is a Pytho
 
 **Crawls:**
 
-- **Links:** URLs in HTML attributes, JSON, etc.
+- **Links:** URLs in HTML attributes, JSON, XML, etc.
 - **Forms:** GET & POST forms and their request data.
+
+**Current limitations:**
+- Only works on Python 3.5 or higher.
+- Multiprocessing is not yet working.
+- Maximum recursion depth exception when crawling too much resources.
 
 **Future development:**
 
-- Support XML crawling.
+- Fix current limitations.
 - Support XHR crawling.
 - Support Open XML crawling.
 - Support custom cookies.
-- Support custom/random user agents.
+- Support custom user agents.
 
 ## Installation
 First make sure you're on [Python 3.5](https://www.python.org/) or higher. Then run the command below to install the dependencies.

@@ -25,7 +25,8 @@
 class HTTPRequestHelper:
 
     @staticmethod
-    def patch_with_options(request, options)
+    def patch_with_options(request, options):
+        pass
         # ToDo: add options to request
         # ToDo: by reference, no need to return
 

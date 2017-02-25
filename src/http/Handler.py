@@ -24,12 +24,14 @@
 
 class Handler:
 
-    # __init__
-    # ToDo: init with queue_item
-    # ToDo: execute the request
-    # ToDo: set queue_item.response
+    def __init__(self, queue_item):
+        # ToDo: init with queue_item
+        # ToDo: execute the request
+        # ToDo: set queue_item.response
+        pass
 
-    # get_new_requests
-    # ToDo: find scrapers in folder (instead of defining)
-    # ToDo: iterate scrapers
-    # ToDo: return new \Request's
+    def get_new_requests(self):
+        # ToDo: find scrapers in folder (instead of defining)
+        # ToDo: iterate scrapers
+        # ToDo: return new \Request's
+        return []
