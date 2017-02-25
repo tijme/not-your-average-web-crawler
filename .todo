@@ -15,3 +15,4 @@
 * Support multiprocessing.
 * Support custom cookies.
 * Support custom/random user agents.
+* Support rate limiting.

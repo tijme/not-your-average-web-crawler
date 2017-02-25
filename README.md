@@ -29,6 +29,7 @@ But very useful for hacking. Crawl Like A Sir (C.L.A.S) is a Python 3 applicatio
 - Support Open XML crawling.
 - Support custom cookies.
 - Support custom user agents.
+- Support rate limiting.
 
 ## Installation
 First make sure you're on [Python 3.5](https://www.python.org/) or higher. Then run the command below to install the dependencies.
