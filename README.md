@@ -1,8 +1,8 @@
 <p align="center">
   <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
   <br>
-  <a href="https://travis-ci.com/tijme/not-your-average-web-crawler">
-    <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?token=CRkUqxZ8WNMhxZYQUj18&amp;branch=master" alt="Build Status">
+  <a href="https://travis-ci.com/tijme/crawl-like-a-sir">
+    <img src="https://travis-ci.com/tijme/crawl-like-a-sir.svg?token=CRkUqxZ8WNMhxZYQUj18&branch=master" alt="Build Status">
   </a>
   <a href="LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
