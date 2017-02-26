@@ -43,27 +43,35 @@ class RegexLinkScraper:
         { "group": 1, "raw": r"([^\"\'\`])((https?:\/\/)([^\s\"\'\`]*))" }
     ]
 
-    def __init__(self, host, content):
-        self.__host = host
-        self.__content = content
+    __queue_item = None
+
+    def __init__(self, queue_item):
+        self.__queue_item = queue_item
 
     def get_requests(self):
+        content_type = self.__queue_item.response.headers.get('content-type')
+        content = self.__queue_item.response.text
+        host = self.__queue_item.request.url
+
+        if content_type not in self.__content_types:
+            return []
+
         found_urls = []
         found_requests = []
 
-        for expression in self.__expressions:
-            matches = re.findall(expression["raw"], str(self.__content))
+        # for expression in self.__expressions:
+        #     matches = re.findall(expression["raw"], content)
 
-            for match in matches:
-                found_url = match[expression["group"]]
-                absolute_url = LinkHelper.get_instance().make_absolute(self.__host, found_url)
+        #     for match in matches:
+        #         found_url = match[expression["group"]]
+        #         absolute_url = LinkHelper.get_instance().make_absolute(host, found_url)
 
-                if absolute_url in found_urls:
-                    continue
+        #         if absolute_url in found_urls:
+        #             continue
               
-                found_urls.append(absolute_url)
+        #         found_urls.append(absolute_url)
 
-                new_request = Request(absolute_url, Request.METHOD_GET)
-                found_requests.append(new_request)
+        #         new_request = Request(absolute_url, Request.METHOD_GET)
+        #         found_requests.append(new_request)
 
         return found_requests

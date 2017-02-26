@@ -35,22 +35,22 @@ class Request:
         REQUEST_METHODS list(str): All available request methods in a list.
         url (str): The absolute URL to use when making the request.
         method (str): The request method to use for the request.
-        cookie (str): The cookie string to use for the request.
+        cookie (obj): The cookies {key: value} object to use for the request.
         user_agent (str): The user agent to use for the request.
-        data (str): The post data string that will be sent.
+        data (obj): The post data {key: value} object that will be sent.
     """
 
-    METHOD_OPTIONS = "OPTIONS"
+    METHOD_OPTIONS = "options"
 
-    METHOD_GET = "GET"
+    METHOD_GET = "get"
 
-    METHOD_HEAD = "HEAD"
+    METHOD_HEAD = "head"
 
-    METHOD_POST = "POST"
+    METHOD_POST = "post"
 
-    METHOD_PUT = "PUT"
+    METHOD_PUT = "put"
 
-    METHOD_DELETE = "DELETE"
+    METHOD_DELETE = "delete"
 
     METHODS = [
         METHOD_OPTIONS,
@@ -77,9 +77,9 @@ class Request:
         Args:
             url (str): The absolute URL to use when making the request.
             method (str): The request method to use for the request.
-            cookie (str): The cookie string to use for the request.
+            cookie (obj): The cookies {key: value} object to use for the request.
             user_agent (str): The user agent to use for the request.
-            data (str): The post data string that will be sent.
+            data (obj): The post data {key: value} object that will be sent.
         """
 
         self.url = url

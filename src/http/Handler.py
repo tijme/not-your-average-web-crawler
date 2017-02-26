@@ -22,16 +22,62 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import requests
+import importlib
+import os
+
 class Handler:
 
+    queue_item = None
+
     def __init__(self, queue_item):
-        # ToDo: init with queue_item
-        # ToDo: execute the request
-        # ToDo: set queue_item.response
-        pass
+        self.queue_item = queue_item
+
+        self.queue_item.response = self.__make_request(
+            self.queue_item.request.url,
+            self.queue_item.request.method,
+            self.queue_item.request.data,
+            self.queue_item.request.cookie,
+            {
+                'User-Agent': self.queue_item.request.user_agent
+            }
+        )
 
     def get_new_requests(self):
-        # ToDo: find scrapers in folder (instead of defining)
-        # ToDo: iterate scrapers
-        # ToDo: return new \Request's
-        return []
+        scrapers = self.__get_all_scrapers()
+        requests = []
+
+        for scraper in scrapers:
+            instance = scraper(queue_item)
+            requests.extend(instance.get_requests())
+
+        return requests
+
+    def __make_request(self, url, method, data, cookies, headers):
+        request_by_method = getattr(requests, method)
+        return request_by_method(
+            url=url, 
+            data=data, 
+            cookies=cookies, 
+            headers=headers,
+            allow_redirects=True
+        )
+
+    def __get_all_scrapers(self):
+        modules_strings = self.__get_all_scrapers_modules()
+        modules = []
+
+        for module_string in modules_strings:
+            module = importlib.import_module("src.scrapers.{}".format(module_string))
+            modules.append(getattr(module, module_string))
+
+        return modules
+
+    def __get_all_scrapers_modules(self):
+        modules = []
+
+        for filename in os.listdir("src/scrapers"):
+            if filename.endswith("Scraper.py"):
+                modules.append(filename)
+
+        return modules

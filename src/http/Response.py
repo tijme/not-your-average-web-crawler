@@ -23,42 +23,6 @@
 # SOFTWARE.
 
 class Response:
-    """The Response class contains details that the request returned.
+    """Response placeholder class for before request is finished."""
 
-    Attributes:
-        status (int): The HTTP response status.
-        cookie (str): The cookie string that the server returned.
-        content_type (str): The content type that the server returned.
-        body (str): The response body (e.g. HTML or image data).
-        __raw_body (str): The raw response body (not yet decoded).
-        __raw_info (obj): The meta-information of the response, such as headers.
-    """
-
-    status = None
-
-    cookie = None
-
-    content_type = None
-
-    body = None
-
-    __raw_body = None
-
-    __raw_info = None
-
-    def fill(self, status, body, info):
-        """Fill the Request class.
-
-        Args:
-            status (str): The HTTP response status code.
-	        body (str): The response body (e.g. HTML or image data).
-	        info (obj): The meta-information of the response, such as headers.
-        """
-
-        self.status = status
-        self.body = body
-        self.cookie = None # ToDo
-        self.content_type = info.get_content_type()
-
-        self.__raw_body = body
-        self.__raw_info = info
+    pass

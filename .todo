@@ -1,13 +1,16 @@
-* Rename to `crawl-like-a-sir`.
 * If parent and child are 404's, stop recursion.
 * Support max depth functionality.
 * Document code.
 * Document usage.
 * Create more useful unit tests.
+    * What if 404
+    * What if time-out
+    * What if GZIP
 * Test setup/installation (and add pip install support).
+* Build XML parser to find URLs in XML.
+* Fix all #ToDo's.
 * Add CONTRIBUTING.md.
 * Remove `tmp` directory.
-* Build XML parser to find URLs in XML.
 * Move to travis.org and make build status public (also in readme).
 * First release.
 
