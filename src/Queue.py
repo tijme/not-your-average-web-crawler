@@ -48,9 +48,16 @@ class Queue:
 
         Args:
             request (obj): The request to add.
+
+        Returns:
+            obj: The created queue item.
         """
 
-        self.add(QueueItem(request, Response()))
+        queue_item = QueueItem(request, Response())
+
+        self.add(queue_item)
+        
+        return queue_item
 
     def get_first(self, status):
         """Get the first item in the queue that has the given status.

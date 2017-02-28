@@ -28,18 +28,18 @@ import os
 
 class Handler:
 
-    queue_item = None
+    __queue_item = None
 
     def __init__(self, queue_item):
-        self.queue_item = queue_item
+        self.__queue_item = queue_item
 
-        self.queue_item.response = self.__make_request(
-            self.queue_item.request.url,
-            self.queue_item.request.method,
-            self.queue_item.request.data,
-            self.queue_item.request.cookie,
+        self.__queue_item.response = self.__make_request(
+            self.__queue_item.request.url,
+            self.__queue_item.request.method,
+            self.__queue_item.request.data,
+            self.__queue_item.request.cookie,
             {
-                'User-Agent': self.queue_item.request.user_agent
+                'User-Agent': self.__queue_item.request.user_agent
             }
         )
 
@@ -48,7 +48,7 @@ class Handler:
         requests = []
 
         for scraper in scrapers:
-            instance = scraper(queue_item)
+            instance = scraper(self.__queue_item)
             requests.extend(instance.get_requests())
 
         return requests
@@ -68,7 +68,7 @@ class Handler:
         modules = []
 
         for module_string in modules_strings:
-            module = importlib.import_module("src.scrapers.{}".format(module_string))
+            module = importlib.import_module("src.scrapers." + module_string)
             modules.append(getattr(module, module_string))
 
         return modules
@@ -78,6 +78,6 @@ class Handler:
 
         for filename in os.listdir("src/scrapers"):
             if filename.endswith("Scraper.py"):
-                modules.append(filename)
+                modules.append(filename[:-3])
 
         return modules

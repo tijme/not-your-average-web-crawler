@@ -33,14 +33,17 @@ def cb_crawler_after_finish(queue):
     print("Crawler finished.")
 
 def cb_request_before_start(queue_item):
-    print("Crawler request started.")
+    print("Request started: " + queue_item.request.url)
 
     # return CrawlerActions.DO_SKIP_TO_NEXT
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
 def cb_request_after_finish(queue_item, new_queue_items):
-    print("Crawler request finished.")
+    print("Request finished")
+
+    #for new_queue_item in new_queue_items:
+    	#print(new_queue_item.request.url)
 
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
@@ -65,4 +68,4 @@ options.performance.max_processes = 8 # The maximum amount of simultaneous proce
 options.performance.max_depth = 10 # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://finnwea.com/"))
+crawler.start_with(Request("https://www.finnwea.com/"))

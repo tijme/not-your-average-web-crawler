@@ -20,9 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Crawler import Crawler
-from src.Request import Request
-from src.helpers.LinkHelper import LinkHelper
+from src.http.Request import Request
+from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 
 import re
@@ -53,25 +52,27 @@ class RegexLinkScraper:
         content = self.__queue_item.response.text
         host = self.__queue_item.request.url
 
-        if content_type not in self.__content_types:
+        if not self.__content_type_matches(content_type):
             return []
 
-        found_urls = []
         found_requests = []
 
-        # for expression in self.__expressions:
-        #     matches = re.findall(expression["raw"], content)
+        for expression in self.__expressions:
+            matches = re.findall(expression["raw"], content)
 
-        #     for match in matches:
-        #         found_url = match[expression["group"]]
-        #         absolute_url = LinkHelper.get_instance().make_absolute(host, found_url)
-
-        #         if absolute_url in found_urls:
-        #             continue
-              
-        #         found_urls.append(absolute_url)
-
-        #         new_request = Request(absolute_url, Request.METHOD_GET)
-        #         found_requests.append(new_request)
+            for match in matches:
+                found_url = match[expression["group"]]
+                absolute_url = URLHelper.make_absolute(host, found_url)
+                found_requests.append(Request(absolute_url))
 
         return found_requests
+
+    def __content_type_matches(self, content_type):
+        if content_type in self.__content_types:
+            return True
+
+        for available_content_type in self.__content_types:
+            if available_content_type in content_type:
+                return True
+
+        return False

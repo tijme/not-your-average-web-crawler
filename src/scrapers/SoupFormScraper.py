@@ -20,9 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Crawler import Crawler
-from src.Request import Request
-from src.helpers.LinkHelper import LinkHelper
+from src.http.Request import Request
+from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 import html5lib
  
@@ -35,9 +34,13 @@ class SoupFormScraper:
         "text/html"
     ]
 
-    def __init__(self, host, content):
-        self.__host = host
-        self.__soup = BeautifulSoup(content, "html5lib")
+    __queue_item = None
+
+    __soup = None
+
+    def __init__(self, queue_item):
+        self.__queue_item = queue_item
+        self.__soup = BeautifulSoup(queue_item.response.text, "html5lib")
 
     def get_requests(self):
         return []

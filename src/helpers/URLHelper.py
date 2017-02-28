@@ -24,20 +24,21 @@ from urllib.parse import urljoin
 
 class URLHelper:
 
-    def make_absolute(self, host, relative):
+    @staticmethod
+    def make_absolute(host, relative):
         if relative.startswith("http://") or relative.startswith("https://"):
             return relative
 
         return urljoin(host, relative)
 
-    def does_url_match(self, req1, req2):
-        url1 = req1.req_url
-        url2 = req2.req_url
+    # def does_url_match(self, req1, req2):
+    #     url1 = req1.req_url
+    #     url2 = req2.req_url
 
-        if url1.endswith("/"):
-            url1 = url1[:-1]
+    #     if url1.endswith("/"):
+    #         url1 = url1[:-1]
 
-        if url2.endswith("/"):
-            url2 = url2[:-1]
+    #     if url2.endswith("/"):
+    #         url2 = url2[:-1]
 
-        return url1 == url2
+    #     return url1 == url2

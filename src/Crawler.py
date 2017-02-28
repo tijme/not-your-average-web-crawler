@@ -87,6 +87,7 @@ class Crawler:
 
         # ToDo: stop all active processes
         # ToDo: set flag so that no new processes will be spawned
+        # ToDo: change all queud to cancelled
         self.__crawler_finish()
 
     def __crawler_finish(self):
@@ -121,9 +122,12 @@ class Crawler:
                 if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
                     continue
 
-                HTTPRequestHelper.patch_with_options(request, self.__options)
-                self.__queue.add_request(request)
-                new_queue_items.append(request)
+                if not HTTPRequestHelper.complies_with_scope(queue_item, new_request, self.__options.scope):
+                    continue
+                    
+                HTTPRequestHelper.patch_with_options(new_request, self.__options)
+                new_queue_item = self.__queue.add_request(new_request)
+                new_queue_items.append(new_queue_item)
                 
             self.__request_finish(queue_item, new_queue_items)
 

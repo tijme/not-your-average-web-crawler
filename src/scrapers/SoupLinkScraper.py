@@ -20,33 +20,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Crawler import Crawler
-from src.Request import Request
-from src.helpers.LinkHelper import LinkHelper
+from src.http.Request import Request
+from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 import html5lib
 
 """
 
 """
-class SoupLinkFinder:
+class SoupLinkScraper:
 
     __content_types = [
         "text/html"
     ]
 
-    def __init__(self, host, content):
-        self.__host = host
-        self.__soup = BeautifulSoup(content, "html5lib")
+    __queue_item = None
+
+    __soup = None
+
+    def __init__(self, queue_item):
+        self.__queue_item = queue_item
+        self.__soup = BeautifulSoup(queue_item.response.text, "html5lib")
 
     def get_requests(self):
+        content_type = self.__queue_item.response.headers.get('content-type')
+        host = self.__queue_item.request.url
+
+        if not self.__content_type_matches(content_type):
+            return []
+
         found_requests = []
 
         for link in self.__soup.find_all("a", href=True):
-            href = self.trim_grave_accent(link["href"])
-            absolute_link = LinkHelper.get_instance().make_absolute(self.__host, href)
-            new_request = Request(absolute_link, Request.METHOD_GET)
-            found_requests.append(new_request)
+            found_url = self.trim_grave_accent(link["href"])
+            absolute_url = URLHelper.make_absolute(host, found_url)
+            found_requests.append(Request(absolute_url))
 
         return found_requests
 
@@ -58,3 +66,13 @@ class SoupLinkFinder:
             href = href[:-1]
 
         return href
+
+    def __content_type_matches(self, content_type):
+        if content_type in self.__content_types:
+            return True
+
+        for available_content_type in self.__content_types:
+            if available_content_type in content_type:
+                return True
+
+        return False
