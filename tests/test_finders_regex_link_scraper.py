@@ -24,9 +24,12 @@
 
 import unittest
 
-from src.finders.RegexLinkFinder import RegexLinkFinder
+from src.scrapers.RegexLinkScraper import RegexLinkScraper
+from src.Queue import Queue, QueueItem
+from src.http.Request import Request
+from src.http.Response import Response
  
-class TestFindersRegexLinkFinder(unittest.TestCase):
+class TestFindersRegexLinkScraper(unittest.TestCase):
 
     __host = "https://example.ltd/"
 
@@ -83,18 +86,18 @@ class TestFindersRegexLinkFinder(unittest.TestCase):
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = RegexLinkFinder(self.__host, html)
-        matches = finder.get_requests()
+        finder = RegexLinkScraper(QueueItem(Request(""), Response()))
+        matches = finder.get_requests_from_content(self.__host, html)
 
         self.assertEqual(len(matches), 32)
  
     def test_regex_url_matches(self):
         for url in self.__urls:
-            finder = RegexLinkFinder(self.__host, url["test"])
-            matches = finder.get_requests()
+            finder = RegexLinkScraper(QueueItem(Request(""), Response()))
+            requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:
-                self.assertEqual(matches[0].req_url, url["url"])
-                self.assertEqual(len(matches), 1)
+                self.assertEqual(requests[0].url, url["url"])
+                self.assertEqual(len(requests), 1)
             else:
-                self.assertEqual(len(matches), 0)
+                self.assertEqual(len(requests), 0)

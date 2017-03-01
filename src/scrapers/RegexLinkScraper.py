@@ -56,6 +56,9 @@ class RegexLinkScraper:
         host = self.__queue_item.request.url
         content = self.__queue_item.response.text
 
+        return self.get_requests_from_content(host, content)
+
+    def get_requests_from_content(self, host, content):
         found_requests = []
 
         for expression in self.__expressions:
