@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse, parse_qsl
 
 class URLHelper:
 
@@ -29,16 +29,25 @@ class URLHelper:
         if relative.startswith("http://") or relative.startswith("https://"):
             return relative
 
+        parsed_host = urlparse(host)
+
+        if relative.startswith("//"):
+            return parsed_host.scheme + ":" + relative
+
         return urljoin(host, relative)
 
-    # def does_url_match(self, req1, req2):
-    #     url1 = req1.req_url
-    #     url2 = req2.req_url
+    @staticmethod
+    def are_urls_similar(url1, url2):
+        parsed_url1 = urlparse(url1)
+        parsed_url2 = urlparse(url2)
 
-    #     if url1.endswith("/"):
-    #         url1 = url1[:-1]
+        if parsed_url1.netloc != parsed_url2.netloc:
+            return False
 
-    #     if url2.endswith("/"):
-    #         url2 = url2[:-1]
+        if parsed_url1.path != parsed_url2.path:
+            return False
 
-    #     return url1 == url2
+        dict_url1 = dict(parse_qsl(parsed_url1.query))
+        dict_url2 = dict(parse_qsl(parsed_url2.query))
+
+        return dict_url1.keys() == dict_url2.keys()

@@ -24,10 +24,7 @@ from src.http.Request import Request
 from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 import html5lib
- 
-"""
 
-"""
 class SoupFormScraper:
 
     __content_types = [
@@ -36,11 +33,8 @@ class SoupFormScraper:
 
     __queue_item = None
 
-    __soup = None
-
     def __init__(self, queue_item):
         self.__queue_item = queue_item
-        self.__soup = BeautifulSoup(queue_item.response.text, "html5lib")
 
     def get_requests(self):
         return []

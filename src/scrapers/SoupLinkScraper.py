@@ -25,9 +25,6 @@ from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 import html5lib
 
-"""
-
-"""
 class SoupLinkScraper:
 
     __content_types = [
@@ -36,22 +33,22 @@ class SoupLinkScraper:
 
     __queue_item = None
 
-    __soup = None
-
     def __init__(self, queue_item):
         self.__queue_item = queue_item
-        self.__soup = BeautifulSoup(queue_item.response.text, "html5lib")
 
     def get_requests(self):
         content_type = self.__queue_item.response.headers.get('content-type')
-        host = self.__queue_item.request.url
 
         if not self.__content_type_matches(content_type):
             return []
 
+        host = self.__queue_item.request.url
+        soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
+        links = soup.find_all("a", href=True)
+
         found_requests = []
 
-        for link in self.__soup.find_all("a", href=True):
+        for link in links:
             found_url = self.trim_grave_accent(link["href"])
             absolute_url = URLHelper.make_absolute(host, found_url)
             found_requests.append(Request(absolute_url))

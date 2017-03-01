@@ -22,6 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from src.helpers.URLHelper import URLHelper
+
 class Request:
     """The Request class contains details that were used to request the specified URL.
 
@@ -33,6 +35,7 @@ class Request:
         REQUEST_METHOD_PUT (str): A request method that can be used to request the URL.
         REQUEST_METHOD_DELETE (str): A request method that can be used to request the URL.
         REQUEST_METHODS list(str): All available request methods in a list.
+        parent_raised_error (bool): If the parent request raised an error (e.g. 404).
         url (str): The absolute URL to use when making the request.
         method (str): The request method to use for the request.
         cookie (obj): The cookies {key: value} object to use for the request.
@@ -61,6 +64,10 @@ class Request:
         METHOD_DELETE
     ]
 
+    parent_raised_error = False
+
+    depth = 0
+
     url = None
 
     method = None
@@ -87,3 +94,28 @@ class Request:
         self.data = data
         self.cookie = cookie
         self.user_agent = user_agent
+
+    def is_same_as(self, request):
+        return self.__dict__ == request.__dict__
+
+    def is_similar_to(self, request):
+        """Check if this request is similar to the given request.
+
+        Args:
+            request (obj): The request to check
+        """
+
+        if self.method != request.method:
+            return False
+
+        if self.data != request.data:
+            return False
+
+        if self.cookie != request.cookie:
+            return False
+
+        if self.url != request.url:
+            if not URLHelper.are_urls_similar(self.url, request.url):
+                return False
+
+        return True

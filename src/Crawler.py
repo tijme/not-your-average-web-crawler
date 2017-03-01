@@ -40,6 +40,8 @@ class Crawler:
 
     __queue = Queue()
 
+    __stopped = False
+
     def __init__(self, options):
         """Constructs a Crawler class.
 
@@ -65,16 +67,23 @@ class Crawler:
         """Spawn new requests until the max processes option value is reached."""
 
         concurrent_requests_count = self.__queue.get_count_including([QueueItem.STATUS_IN_PROGRESS])
+        new_requests_spawned = False
         while concurrent_requests_count < self.__options.performance.max_processes:
             self.__spawn_new_request()
+            new_requests_spawned = False
             concurrent_requests_count += 1
+
+        if concurrent_requests_count > 0 and not new_requests_spawned and not self.__stopped:
+            self.__crawler_stop()
 
     def __spawn_new_request(self):
         """Spawn the first queued request if available."""
 
         first_in_line = self.__queue.get_first(QueueItem.STATUS_QUEUED)
-        if first_in_line is not None:
-            self.__request_start(first_in_line)
+        if first_in_line is None:
+            return None
+
+        self.__request_start(first_in_line)
 
     def __crawler_start(self):
         """Spawn the first X queued request, where X is the max processes option."""
@@ -82,8 +91,14 @@ class Crawler:
         self.__options.callbacks.crawler_before_start()
         self.__spawn_new_requests()
 
-    def __crawler_stop(self):
-        """Spawn the first X queued request, where X is the max processes option."""
+    def __crawler_stop(self, force_quit=False):
+        """Mark the crawler as stopped.
+
+        Args:
+            force_quit (bool): Also cancel any ongoing requests.
+        """
+
+        self.__stopped = True
 
         # ToDo: stop all active processes
         # ToDo: set flag so that no new processes will be spawned
@@ -102,10 +117,10 @@ class Crawler:
             queue_item (obj): The request/response pair to scrape.
         """
 
-        action = self.__options.callbacks.request_before_start(queue_item)
+        action = self.__options.callbacks.request_before_start(self.__queue, queue_item)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
-            return self.__crawler_stop()
+            return self.__crawler_stop(True)
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
             queue_item.status = QueueItem.STATUS_FINISHED
@@ -114,7 +129,16 @@ class Crawler:
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             queue_item.status = QueueItem.STATUS_IN_PROGRESS
 
-            handler = Handler(queue_item)
+            try:
+                handler = Handler(queue_item)
+                queue_item.response.raise_for_status()
+            except Exception:
+                if queue_item.request.parent_raised_error:
+                    queue_item.status = QueueItem.STATUS_FINISHED
+                    return None
+                else:
+                    queue_item.request.parent_raised_error = True
+
             new_requests = handler.get_new_requests()
             new_queue_items = []
             
@@ -122,7 +146,11 @@ class Crawler:
                 if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
                     continue
 
-                if not HTTPRequestHelper.complies_with_scope(queue_item, new_request, self.__options.scope):
+                if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
+                    continue
+
+                new_request.depth = queue_item.request.depth + 1
+                if new_request.depth > self.__options.scope.max_depth:
                     continue
                     
                 HTTPRequestHelper.patch_with_options(new_request, self.__options)
@@ -140,7 +168,10 @@ class Crawler:
         """
 
         queue_item.status = QueueItem.STATUS_FINISHED
-        action = self.__options.callbacks.request_after_finish(queue_item, new_queue_items)
+        action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
+
+        if self.__stopped:
+            return False
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             return self.__crawler_stop()

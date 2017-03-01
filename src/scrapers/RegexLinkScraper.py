@@ -49,11 +49,12 @@ class RegexLinkScraper:
 
     def get_requests(self):
         content_type = self.__queue_item.response.headers.get('content-type')
-        content = self.__queue_item.response.text
-        host = self.__queue_item.request.url
 
         if not self.__content_type_matches(content_type):
             return []
+
+        host = self.__queue_item.request.url
+        content = self.__queue_item.response.text
 
         found_requests = []
 

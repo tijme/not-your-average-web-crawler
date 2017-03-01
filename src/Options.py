@@ -53,6 +53,8 @@ class OptionsScope:
         protocol_must_match (bool): only crawl pages with the same protocol as the startpoint (e.g. only https).
         subdomain_must_match (bool): only crawl pages with the same subdomain as the startpoint, if the startpoint is not a subdomain, no subdomains will be crawled.
         domain_must_match (bool): only crawl pages with the same domain as the startpoint (e.g. only finnwea.com).
+        ignore_similar_requests (bool): ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`.
+        max_depth (obj): the maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
     """
 
     protocol_must_match = False
@@ -60,6 +62,10 @@ class OptionsScope:
     subdomain_must_match = True
 
     domain_must_match = True
+
+    ignore_similar_requests = True
+
+    max_depth = 10
 
 class OptionsCallbacks:
     """The OptionsCallbacks class contains all the callback methods.
@@ -104,9 +110,6 @@ class OptionsPerformance:
 
     Attributes:
         max_processes (obj): the maximum amount of simultaneous processes to use for crawling.
-        max_depth (obj): the maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
     """
 
     max_processes = 8
-
-    max_depth = 10

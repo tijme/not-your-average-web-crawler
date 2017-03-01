@@ -60,7 +60,8 @@ class Handler:
             data=data, 
             cookies=cookies, 
             headers=headers,
-            allow_redirects=True
+            allow_redirects=True,
+            stream=True
         )
 
     def __get_all_scrapers(self):

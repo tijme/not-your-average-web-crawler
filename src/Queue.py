@@ -142,6 +142,17 @@ class Queue:
 
         return count
 
+    def get_progress(self):
+        """Get the progress of the queue in percentage (float)."""
+
+        all_count = self.get_count()
+        finished_count = self.get_count_excluding([
+            QueueItem.STATUS_QUEUED, 
+            QueueItem.STATUS_IN_PROGRESS
+        ])
+
+        return 100 / all_count * finished_count
+
 class QueueItem:
     """The QueueItem class keeps track of the request, response and the crawling status.
 

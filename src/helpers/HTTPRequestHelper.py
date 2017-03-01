@@ -28,25 +28,28 @@ class HTTPRequestHelper:
 
     @staticmethod
     def patch_with_options(request, options):
-        pass
         # ToDo: add options to request.
         # ToDo: by reference, no need to return.
+        pass
 
     @staticmethod
     def is_already_in_queue(request, queue):
-        # ToDo: check get/post request already in queue.
-        # ToDo: strip trailing slashes etc.
-        # ToDo: the check below is definetely not enough.
-
         for queue_item in queue.get_all():
-            if queue_item.request.method == request.method:
-                if queue_item.request.url == request.url:
-                    return True
+            if queue_item.request.is_same_as(request):
+                return True
 
         return False
 
     @staticmethod
-    def complies_with_scope(queue_item, new_request, scope):
+    def is_similar_already_in_queue(request, queue):
+        for queue_item in queue.get_all():
+            if queue_item.request.is_similar_to(request):
+                return True
+
+        return False
+
+    @staticmethod
+    def complies_with_scope(queue, queue_item, new_request, scope):
         parsed_url = urlparse(queue_item.request.url)
         parsed_new_url = urlparse(new_request.url)
 
@@ -63,6 +66,10 @@ class HTTPRequestHelper:
 
         if scope.domain_must_match:
             if parsed_url.netloc != parsed_new_url.netloc:
+                return False
+
+        if scope.ignore_similar_requests:
+            if HTTPRequestHelper.is_similar_already_in_queue(new_request, queue):
                 return False
 
         return True

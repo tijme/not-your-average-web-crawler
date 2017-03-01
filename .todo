@@ -1,24 +1,24 @@
-* If parent and child are 404's, stop recursion.
-* Support max depth functionality.
 * Document code.
 	* Add return to Google Style.
 * Document usage.
 * Create more useful unit tests.
-    * What if 404
-    * What if time-out
-    * What if GZIP
 * Test setup/installation (and add pip install support).
-* Build XML parser to find URLs in XML.
 * Fix all #ToDo's.
 * Add CONTRIBUTING.md.
 * Remove `tmp` directory.
 * Move to travis.org and make build status public (also in readme).
+* Support form crawling
 * First release.
 
+* Build XML parser to find URLs in XML.
 * Python backwards compatibility.
 * Support multiprocessing.
 * Support custom cookies.
 * Support custom/random user agents.
 * Optimize time complexity of several methods.
 * Support rate limiting.
-* Add more scope options, like request method etc.
+* Add more scope options.
+	* Request method.
+	* Prevent similar requests (?page=122 and ?page=381 are probably the same, only content differs)
+* Refactor for single responsibility.
+* Urls like /page/1 and page/2 are similar.

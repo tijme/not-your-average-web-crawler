@@ -14,7 +14,7 @@ A very useful web crawler for vulnerability scanning. Crawl Like A Sir (C.L.A.S)
 
 **Crawls:**
 
-- **Links:** URLs in HTML attributes, JSON, XML, etc.
+- **Links:** URLs in HTML attributes, JSON, etc.
 - **Forms:** GET & POST forms and their request data.
 
 **Current limitations:**
@@ -25,8 +25,9 @@ A very useful web crawler for vulnerability scanning. Crawl Like A Sir (C.L.A.S)
 **Future development:**
 
 - Fix current limitations.
+- Performance improvements.
 - Support XHR crawling.
-- Support Open XML crawling.
+- Support XML & Open XML crawling.
 - Support custom cookies.
 - Support custom user agents.
 - Support rate limiting.
