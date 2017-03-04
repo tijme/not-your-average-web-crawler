@@ -30,6 +30,7 @@ class Queue:
 
     Attributes:
         __items list(obj): The request/response pairs (as QueueItem's). 
+
     """
 
     __items = []
@@ -39,6 +40,7 @@ class Queue:
 
         Args:
             item (obj): The QueueItem to add.
+
         """
 
         self.__items.append(item)
@@ -51,6 +53,7 @@ class Queue:
 
         Returns:
             obj: The created queue item.
+
         """
 
         queue_item = QueueItem(request, Response())
@@ -64,6 +67,10 @@ class Queue:
 
         Args:
             status (str): return the first item with this status.
+
+        Returns:
+            obj: The first queue item with the given status.
+
         """
 
         for item in self.__items:
@@ -73,7 +80,12 @@ class Queue:
         return None
 
     def get_all(self):
-        """Get all the items in the queue."""
+        """Get all the items in the queue.
+
+        Returns:
+            list(obj): All the queue items.
+
+        """
 
         return self.__items
 
@@ -82,6 +94,10 @@ class Queue:
 
         Args:
             include list(str): an array of statuses.
+
+        Returns:
+            list(obj): All the queue items with one of the given statuses.
+
         """
 
         filtered_items = []
@@ -97,6 +113,10 @@ class Queue:
 
         Args:
             exclude list(str): an array of statuses.
+
+        Returns:
+            list(obj): All the queue items that don't have one of the given statuses.
+
         """
 
         filtered_items = []
@@ -117,6 +137,10 @@ class Queue:
 
         Args:
             include list(str): an array of statuses.
+
+        Returns:
+            int: The amount of queue items that have one of the given statuses.
+
         """
 
         count = 0
@@ -132,6 +156,10 @@ class Queue:
 
         Args:
             exclude list(str): an array of statuses.
+
+        Returns:
+            list(obj): The amount of queue items that don't have one of the given statuses.
+
         """
 
         count = 0
@@ -143,7 +171,12 @@ class Queue:
         return count
 
     def get_progress(self):
-        """Get the progress of the queue in percentage (float)."""
+        """Get the progress of the queue in percentage (float).
+
+        Returns:
+            float: The 'finished' progress in percentage.
+
+        """
 
         all_count = self.get_count()
         finished_count = self.get_count_excluding([
@@ -164,6 +197,7 @@ class QueueItem:
         status (str): The current crawling status.
         request (obj): The Request object.
         response (obj): The Response object.
+
     """
 
     STATUS_QUEUED = "queued"
@@ -186,6 +220,8 @@ class QueueItem:
         Args:
             request (obj): The Request object.
             response (obj): The Response object (empty object when initialized).
+
         """
+        
         self.request = request
         self.response = response

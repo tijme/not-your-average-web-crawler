@@ -85,13 +85,14 @@ class SoupFormScraper:
     def __get_form_data(self, soup):
         "Turn a BeautifulSoup form in to a dict of fields and default values"
         fields = {}
+
         for input in soup.findAll('input'):
             # ignore if no name attribute
             if not input.has_attr('name'):
                 continue
             
             # single element nome/value fields
-            if input['type'] in ('text', 'hidden', 'password', 'submit', 'image'):
+            if input['type'] in ('text', 'hidden', 'email', 'password', 'submit', 'image'):
                 value = ''
                 if input.has_attr('value'):
                     value = input['value']
@@ -106,10 +107,10 @@ class SoupFormScraper:
                         value = input['value']
                     else:
                         value = 'on'
-                if fields.has_attr(input['name']) and value:
+                if input['name'] in fields and value:
                     fields[input['name']] = value
                 
-                if not fields.has_attr(input['name']):
+                if not input['name'] in fields:
                     fields[input['name']] = value
                 
                 continue

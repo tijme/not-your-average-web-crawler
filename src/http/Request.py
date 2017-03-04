@@ -36,11 +36,13 @@ class Request:
         REQUEST_METHOD_DELETE (str): A request method that can be used to request the URL.
         REQUEST_METHODS list(str): All available request methods in a list.
         parent_raised_error (bool): If the parent request raised an error (e.g. 404).
+        depth (int): The current crawling depth.
         url (str): The absolute URL to use when making the request.
         method (str): The request method to use for the request.
+        data (obj): The post data {key: value} object that will be sent.
         cookie (obj): The cookies {key: value} object to use for the request.
         user_agent (str): The user agent to use for the request.
-        data (obj): The post data {key: value} object that will be sent.
+
     """
 
     METHOD_OPTIONS = "options"
@@ -84,9 +86,10 @@ class Request:
         Args:
             url (str): The absolute URL to use when making the request.
             method (str): The request method to use for the request.
+            data (obj): The post data {key: value} object that will be sent.
             cookie (obj): The cookies {key: value} object to use for the request.
             user_agent (str): The user agent to use for the request.
-            data (obj): The post data {key: value} object that will be sent.
+
         """
 
         self.url = url
@@ -96,13 +99,27 @@ class Request:
         self.user_agent = user_agent
 
     def is_same_as(self, request):
+        """Check if this request is the same to the given request.
+
+        Args:
+            request (obj): Check if self is the same as this request.
+
+        Returns:
+            bool: True if the same, False otherwise.
+
+        """
+
         return self.__dict__ == request.__dict__
 
     def is_similar_to(self, request):
         """Check if this request is similar to the given request.
 
         Args:
-            request (obj): The request to check
+            request (obj): Check if self is similar as this request.
+
+        Returns:
+            bool: True if similar, False otherwise.
+
         """
 
         if self.method != request.method:

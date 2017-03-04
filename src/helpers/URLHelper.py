@@ -23,9 +23,21 @@
 from urllib.parse import urljoin, urlparse, parse_qsl
 
 class URLHelper:
+    """A helper for URL strings."""
 
     @staticmethod
-    def make_absolute(host, relative):
+    def make_absolute(parent_absolute, relative):
+        """Make the given (relative) URL absolute.
+
+        Args:
+            parent_absolute (str): The absolute URL the relative url was found on.
+            relative (str): The (possibly relative) url to make absolute.
+
+        Returns:
+            str: The absolute URL.
+
+        """
+
         if relative.startswith("http://") or relative.startswith("https://"):
             return relative
 
@@ -38,6 +50,17 @@ class URLHelper:
 
     @staticmethod
     def are_urls_similar(url1, url2):
+        """Check if the given URLs are similar to each other.
+
+        Args:
+            url1 (str): The first URL.
+            url2 (str): The second URL.
+
+        Returns:
+            bool: True if similar, False otherwise.
+
+        """
+
         parsed_url1 = urlparse(url1)
         parsed_url2 = urlparse(url2)
 

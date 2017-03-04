@@ -1,15 +1,16 @@
-* Support form crawling
-* Fix all #ToDo's.
-* Test setup/installation (and add pip install support).
 * Document code.
-	* Add return to Google Style.
+* Fix all #ToDo's.
+* Similar post data should be ignored too.
+* Test setup/installation (and add pip install support).
 * Document usage.
 * Create more useful unit tests.
 * Add CONTRIBUTING.md.
 * Move to travis.org and make build status public (also in readme).
+* Remove fail assert in form scraper.
 * First release.
 
 * Build XML parser to find URLs in XML.
+* Refactor scrapers.
 * Python backwards compatibility.
 * Support multiprocessing.
 * Support custom cookies.

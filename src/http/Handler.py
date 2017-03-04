@@ -27,10 +27,23 @@ import importlib
 import os
 
 class Handler:
+    """The Handler class executes HTTP requests.
+
+    Attributes:
+        __queue_item (obj): The queue item containing a request to execute.
+
+    """
 
     __queue_item = None
 
     def __init__(self, queue_item):
+        """Construct the HTTP handler.
+
+        Args:
+            queue_item (obj): The queue item containing the request.
+
+        """
+
         self.__queue_item = queue_item
 
         self.__queue_item.response = self.__make_request(
@@ -44,6 +57,13 @@ class Handler:
         )
 
     def get_new_requests(self):
+        """Retrieve all the new request that were found in this request.
+
+        Returns:
+            list(obj): A list of request objects.
+
+        """
+
         scrapers = self.__get_all_scrapers()
         requests = []
 
@@ -54,6 +74,20 @@ class Handler:
         return requests
 
     def __make_request(self, url, method, data, cookies, headers):
+        """Execute a request with the given data.
+
+        Args:
+            url (str): The URL to call.
+            method (str): The method (e.g. `get` or `post`).
+            data (str): The data to call the URL with.
+            cookies (obj): The cookie dict.
+            headers (obj): The header dict.
+
+        Returns:
+            obj: The response object.
+
+        """
+
         request_by_method = getattr(requests, method)
         return request_by_method(
             url=url, 
@@ -65,6 +99,13 @@ class Handler:
         )
 
     def __get_all_scrapers(self):
+        """Find all available scraper references.
+
+        Returns:
+            list(obj): The scraper references.
+
+        """
+
         modules_strings = self.__get_all_scrapers_modules()
         modules = []
 
@@ -75,6 +116,13 @@ class Handler:
         return modules
 
     def __get_all_scrapers_modules(self):
+        """Find all available scraper modules.
+
+        Returns:
+            list(obj): The scraper modules.
+
+        """
+
         modules = []
 
         for filename in os.listdir("src/scrapers"):

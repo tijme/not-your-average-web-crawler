@@ -34,6 +34,7 @@ class Crawler:
     Attributes:
         __options (obj): The options to use for the current crawling runtime.
         __queue (obj): The request/response pair queue containing everything to crawl.
+
     """
 
     __options = None
@@ -47,6 +48,7 @@ class Crawler:
 
         Args:
             options (obj): The options to use for the current crawling runtime.
+
         """
 
         self.__options = options
@@ -56,6 +58,7 @@ class Crawler:
 
         Args:
             request (obj): The startpoint for the crawler.
+
         """
 
         HTTPRequestHelper.patch_with_options(request, self.__options)
@@ -68,6 +71,7 @@ class Crawler:
 
         concurrent_requests_count = self.__queue.get_count_including([QueueItem.STATUS_IN_PROGRESS])
         new_requests_spawned = False
+        
         while concurrent_requests_count < self.__options.performance.max_processes:
             self.__spawn_new_request()
             new_requests_spawned = False
@@ -96,6 +100,7 @@ class Crawler:
 
         Args:
             force_quit (bool): Also cancel any ongoing requests.
+
         """
 
         self.__stopped = True
@@ -115,6 +120,7 @@ class Crawler:
 
         Args:
             queue_item (obj): The request/response pair to scrape.
+
         """
 
         action = self.__options.callbacks.request_before_start(self.__queue, queue_item)
@@ -165,6 +171,7 @@ class Crawler:
         Args:
             queue_item (obj): The request/response pair that finished.
             new_queue_items list(obj): All the request/response pairs that were found during this request.
+
         """
 
         queue_item.status = QueueItem.STATUS_FINISHED
@@ -186,6 +193,7 @@ class CrawlerActions:
         DO_CONTINUE_CRAWLING (int): Continue by crawling the request.
         DO_SKIP_TO_NEXT (int): Skip the current request and continue with the next one in line.
         DO_STOP_CRAWLING (int): Stop crawling and quit ongoing requests.
+        
     """
 
     DO_CONTINUE_CRAWLING = 1
