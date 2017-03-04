@@ -24,6 +24,7 @@ from src.http.Request import Request
 from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 import html5lib
+import sys
 
 class SoupFormScraper:
 
@@ -37,4 +38,117 @@ class SoupFormScraper:
         self.__queue_item = queue_item
 
     def get_requests(self):
-        return []
+        content_type = self.__queue_item.response.headers.get('content-type')
+
+        if not self.__content_type_matches(content_type):
+            return []
+
+        soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
+        forms = soup.find_all("form")
+
+        found_requests = []
+
+        for form in forms:
+            found_requests.append(self.__get_request(form))
+
+        return found_requests
+
+    def __get_request(self, form):
+        host = self.__queue_item.request.url
+        url = URLHelper.make_absolute(host, self.__trim_grave_accent(form['action'])) if form.has_attr('action') else host
+        method_original = form['method'] if form.has_attr('method') else 'get'
+        method = 'post' if method_original.lower() == 'post' else 'get'
+        data = self.__get_form_data(form)
+
+        return Request(url, method, data)
+
+
+    def __trim_grave_accent(self, href):
+        if href.startswith("`"):
+            href = href[1:]
+
+        if href.endswith("`"):
+            href = href[:-1]
+
+        return href
+
+    def __content_type_matches(self, content_type):
+        if content_type in self.__content_types:
+            return True
+
+        for available_content_type in self.__content_types:
+            if available_content_type in content_type:
+                return True
+
+        return False
+
+    def __get_form_data(self, soup):
+        "Turn a BeautifulSoup form in to a dict of fields and default values"
+        fields = {}
+        for input in soup.findAll('input'):
+            # ignore if no name attribute
+            if not input.has_attr('name'):
+                continue
+            
+            # single element nome/value fields
+            if input['type'] in ('text', 'hidden', 'password', 'submit', 'image'):
+                value = ''
+                if input.has_attr('value'):
+                    value = input['value']
+                fields[input['name']] = value
+                continue
+            
+            # checkboxes and radios
+            if input['type'] in ('checkbox', 'radio'):
+                value = ''
+                if input.has_attr('checked'):
+                    if input.has_attr('value'):
+                        value = input['value']
+                    else:
+                        value = 'on'
+                if fields.has_attr(input['name']) and value:
+                    fields[input['name']] = value
+                
+                if not fields.has_attr(input['name']):
+                    fields[input['name']] = value
+                
+                continue
+            
+            assert False, 'input type %s not supported' % input['type']
+        
+        # textareas
+        for textarea in soup.findAll('textarea'):
+            # ignore if no name attribute
+            if not textarea.has_attr('name'):
+                continue
+
+            fields[textarea['name']] = textarea.string or ''
+        
+        # select fields
+        for select in soup.findAll('select'):
+            # ignore if no name attribute
+            if not select.has_attr('name'):
+                continue
+
+            value = ''
+            options = select.findAll('option')
+            is_multiple = select.has_attr('multiple')
+            selected_options = [
+                option for option in options
+                if option.has_attr('selected')
+            ]
+            
+            # If no select options, go with the first one
+            if not selected_options and options:
+                selected_options = [options[0]]
+            
+            if not is_multiple:
+                assert(len(selected_options) < 2)
+                if len(selected_options) == 1:
+                    value = selected_options[0]['value']
+            else:
+                value = [option['value'] for option in selected_options]
+            
+            fields[select['name']] = value
+        
+        return fields

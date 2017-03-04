@@ -1,13 +1,12 @@
+* Support form crawling
+* Fix all #ToDo's.
+* Test setup/installation (and add pip install support).
 * Document code.
 	* Add return to Google Style.
 * Document usage.
 * Create more useful unit tests.
-* Test setup/installation (and add pip install support).
-* Fix all #ToDo's.
 * Add CONTRIBUTING.md.
-* Remove `tmp` directory.
 * Move to travis.org and make build status public (also in readme).
-* Support form crawling
 * First release.
 
 * Build XML parser to find URLs in XML.

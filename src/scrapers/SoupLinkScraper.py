@@ -49,13 +49,13 @@ class SoupLinkScraper:
         found_requests = []
 
         for link in links:
-            found_url = self.trim_grave_accent(link["href"])
+            found_url = self.__trim_grave_accent(link["href"])
             absolute_url = URLHelper.make_absolute(host, found_url)
             found_requests.append(Request(absolute_url))
 
         return found_requests
 
-    def trim_grave_accent(self, href):
+    def __trim_grave_accent(self, href):
         if href.startswith("`"):
             href = href[1:]
 

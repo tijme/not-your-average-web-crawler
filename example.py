@@ -26,9 +26,6 @@ from src.Options import Options
 from src.Crawler import Crawler, CrawlerActions
 from src.http.Request import Request
 
-import time
-import sys
-
 def cb_crawler_before_start():
     print("Crawler started.")
 
@@ -36,7 +33,7 @@ def cb_crawler_after_finish(queue):
     print("Crawler finished. Found " + str(queue.get_count()) + " requests.")
 
     for queue_item in queue.get_all():
-        print(queue_item.request.url)
+        print(queue_item.request.method + ": " + queue_item.request.url + " (" + str(queue_item.request.data) + ")")
 
 def cb_request_before_start(queue, queue_item):
     # return CrawlerActions.DO_SKIP_TO_NEXT
@@ -72,4 +69,4 @@ options.scope.max_depth = 1 # The maximum search depth. For example, 2 would be 
 options.performance.max_processes = 8 # The maximum amount of simultaneous processes to use for crawling. Default is 8. 
 
 crawler = Crawler(options)
-crawler.start_with(Request("http://www.hva.nl/"))
+crawler.start_with(Request("http://localhost/playground.php"))
