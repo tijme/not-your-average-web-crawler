@@ -61,20 +61,38 @@ class SoupFormScraper:
 
         """
 
-        soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
+        host = self.__queue_item.request.url
+        content = self.__queue_item.response.text
+
+        return self.get_requests_from_content(host, content)
+
+    def get_requests_from_content(self, host, content):
+        """Find new requests from the given content.
+
+        Args:
+            host (str): The parent request URL.
+            content (obj): The HTML content.
+
+        Returns:
+            list(obj): Requests that were found.
+
+        """
+
+        soup = BeautifulSoup(content, "html5lib")
         forms = soup.find_all("form")
 
         found_requests = []
 
         for form in forms:
-            found_requests.append(self.__get_request(form))
+            found_requests.append(self.__get_request(host, form))
 
         return found_requests
 
-    def __get_request(self, soup):
+    def __get_request(self, host, soup):
         """Build a request from the given soup form.
 
         Args:
+            host str: The URL of the current queue item.
             soup (obj): The BeautifulSoup form.
 
         Returns:
@@ -82,7 +100,6 @@ class SoupFormScraper:
 
         """
 
-        host = self.__queue_item.request.url
         url = URLHelper.make_absolute(host, self.__trim_grave_accent(soup['action'])) if soup.has_attr('action') else host
         method_original = soup['method'] if soup.has_attr('method') else 'get'
         method = 'post' if method_original.lower() == 'post' else 'get'

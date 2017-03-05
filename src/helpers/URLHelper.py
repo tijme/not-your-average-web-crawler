@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from urllib.parse import urljoin, urlparse, parse_qsl
+from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
 
 class URLHelper:
     """A helper for URL strings."""
@@ -49,6 +49,31 @@ class URLHelper:
             return parsed_host.scheme + ":" + relative
 
         return urljoin(parent_absolute, relative)
+
+    @staticmethod
+    def append_with_data(url, data):
+        """Append the given URL with the given data dict.
+
+        Args:
+            url (str): The URL to append.
+            data (obj): The key value data to append to the URL.
+
+        Returns:
+            str: The new URL.
+
+        """
+
+        if data is None:
+            return url
+
+        url_parts = list(urlparse(url))
+
+        query = dict(parse_qsl(url_parts[4]))
+        query.update(data)
+
+        url_parts[4] = urlencode(query)
+
+        return urlunparse(url_parts)
 
     @staticmethod
     def are_urls_similar(url1, url2):

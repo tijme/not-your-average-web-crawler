@@ -94,9 +94,13 @@ class Request:
 
         self.url = url
         self.method = method
-        self.data = data
         self.cookie = cookie
         self.user_agent = user_agent
+
+        if method == self.METHOD_GET:
+            self.url = URLHelper.append_with_data(self.url, data)
+        else:
+            self.data = data
 
     def is_same_as(self, request):
         """Check if this request is the same to the given request.

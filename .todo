@@ -1,4 +1,4 @@
-* - Create more useful unit tests.
+* - Convert get form data dict to url.
 * Test setup/installation (and add pip install support).
 * Move to travis.org and make build status public (also in readme).
 * Document usage.
