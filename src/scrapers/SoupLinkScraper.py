@@ -25,6 +25,7 @@
 from src.http.Request import Request
 from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
+
 import html5lib
 
 class SoupLinkScraper:

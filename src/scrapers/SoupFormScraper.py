@@ -25,10 +25,17 @@
 from src.http.Request import Request
 from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
+
 import html5lib
-import sys
 
 class SoupFormScraper:
+    """The SoupLinkScraper finds requests from forms in HTML using BeautifulSoup.
+
+    Attributes:
+        content_types list(str): The supported content types.
+        __queue_item (obj): The queue item containing the response to scrape.
+
+    """
 
     content_types = [
         "text/html"
@@ -37,9 +44,23 @@ class SoupFormScraper:
     __queue_item = None
 
     def __init__(self, queue_item):
+        """Construct the SoupFormScraper class.
+
+        Args:
+            queue_item (obj): The queue item containing a response the scrape.
+
+        """
+
         self.__queue_item = queue_item
 
     def get_requests(self):
+        """Get all the new requests that were found in the response.
+
+        Returns:
+            list(obj): A list of new requests.
+
+        """
+
         soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
         forms = soup.find_all("form")
 
@@ -50,17 +71,37 @@ class SoupFormScraper:
 
         return found_requests
 
-    def __get_request(self, form):
+    def __get_request(self, soup):
+        """Build a request from the given soup form.
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+
+        Returns:
+            obj: The new Request.
+
+        """
+
         host = self.__queue_item.request.url
-        url = URLHelper.make_absolute(host, self.__trim_grave_accent(form['action'])) if form.has_attr('action') else host
-        method_original = form['method'] if form.has_attr('method') else 'get'
+        url = URLHelper.make_absolute(host, self.__trim_grave_accent(soup['action'])) if soup.has_attr('action') else host
+        method_original = soup['method'] if soup.has_attr('method') else 'get'
         method = 'post' if method_original.lower() == 'post' else 'get'
-        data = self.__get_form_data(form)
+        data = self.__get_form_data(soup)
 
         return Request(url, method, data)
 
 
     def __trim_grave_accent(self, href):
+        """Trim grave accents manually (because BeautifulSoup doesn't support it).
+
+        Args:
+            href (str): The BeautifulSoup href value.
+
+        Returns:
+            str: The BeautifulSoup href value without grave accents.
+
+        """
+
         if href.startswith("`"):
             href = href[1:]
 
@@ -70,30 +111,50 @@ class SoupFormScraper:
         return href
 
     def __get_form_data(self, soup):
-        "Turn a BeautifulSoup form in to a dict of fields and default values"
+        """Build a form data dict from the given form.
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+
+        Returns:
+            obj: The form data (key/value).
+
+        """
+
         fields = {}
 
-        for input in soup.findAll('input'):
-            # ignore if no name attribute
+        self.__get_form_data_from_inputs(soup, fields)
+        self.__get_form_data_from_textareas(soup, fields)
+        self.__get_form_data_from_selects(soup, fields)
+
+        return fields
+
+    def __get_form_data_from_inputs(self, soup, fields):
+        """Parse all the form data from input elements
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+            fields (obj): The fields (key/value) dict.
+
+        """
+
+        for input in soup.find_all('input'):
             if not input.has_attr('name'):
                 continue
             
-            # single element nome/value fields
-            if input['type'] in ('text', 'hidden', 'email', 'password', 'submit', 'image'):
-                value = ''
-                if input.has_attr('value'):
-                    value = input['value']
-                fields[input['name']] = value
+            if input['type'] in ('text', 'hidden', 'email', 'password', 'submit', 'image', 'color', 'date', 'month', 'number', 'search', 'tel', 'time', 'url', 'week', 'range'):
+                fields[input['name']] = input['value'] if input.has_attr('value') else ''
                 continue
             
-            # checkboxes and radios
             if input['type'] in ('checkbox', 'radio'):
                 value = ''
+
                 if input.has_attr('checked'):
                     if input.has_attr('value'):
                         value = input['value']
                     else:
                         value = 'on'
+
                 if input['name'] in fields and value:
                     fields[input['name']] = value
                 
@@ -101,42 +162,52 @@ class SoupFormScraper:
                     fields[input['name']] = value
                 
                 continue
-            
-            assert False, 'input type %s not supported' % input['type']
-        
-        # textareas
-        for textarea in soup.findAll('textarea'):
-            # ignore if no name attribute
+
+    def __get_form_data_from_textareas(self, soup, fields):
+        """Parse all the form data from textarea elements
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+            fields (obj): The fields (key/value) dict.
+
+        """
+
+        for textarea in soup.find_all('textarea'):
             if not textarea.has_attr('name'):
                 continue
 
             fields[textarea['name']] = textarea.string or ''
-        
-        # select fields
-        for select in soup.findAll('select'):
-            # ignore if no name attribute
+
+    def __get_form_data_from_selects(self, soup, fields):
+        """Parse all the form data from select elements
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+            fields (obj): The fields (key/value) dict.
+
+        """
+
+        for select in soup.find_all('select'):
             if not select.has_attr('name'):
                 continue
 
             value = ''
-            options = select.findAll('option')
+
+            options = select.find_all('option')
             is_multiple = select.has_attr('multiple')
+
             selected_options = [
                 option for option in options
                 if option.has_attr('selected')
             ]
             
-            # If no select options, go with the first one
             if not selected_options and options:
                 selected_options = [options[0]]
             
             if not is_multiple:
-                assert(len(selected_options) < 2)
-                if len(selected_options) == 1:
+                if len(selected_options) >= 1:
                     value = selected_options[0]['value']
             else:
                 value = [option['value'] for option in selected_options]
             
             fields[select['name']] = value
-        
-        return fields

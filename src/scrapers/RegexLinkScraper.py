@@ -29,6 +29,14 @@ from bs4 import BeautifulSoup
 import re
 
 class RegexLinkScraper:
+    """The RegexLinkScraper finds relative URLs and absolute URLs between quotes.
+
+    Attributes:
+        content_types list(str): The supported content types.
+        __expressions list(obj): The queue item containing the response to scrape.
+        __queue_item (obj): The queue item containing the response to scrape.
+
+    """
 
     content_types = [
         "text/html",
@@ -46,15 +54,40 @@ class RegexLinkScraper:
     __queue_item = None
 
     def __init__(self, queue_item):
+        """Construct the RegexLinkScraper class.
+
+        Args:
+            queue_item (obj): The queue item containing a response the scrape.
+
+        """
+
         self.__queue_item = queue_item
 
     def get_requests(self):
+        """Get all the new requests that were found in the response.
+
+        Returns:
+            list(obj): A list of new requests.
+
+        """
+
         host = self.__queue_item.request.url
         content = self.__queue_item.response.text
 
         return self.get_requests_from_content(host, content)
 
     def get_requests_from_content(self, host, content):
+        """Find new requests from the given content.
+
+        Args:
+            host (str): The parent request URL.
+            content (obj): The HTML content.
+
+        Returns:
+            list(obj): Requests that were found.
+
+        """
+
         found_requests = []
 
         for expression in self.__expressions:
