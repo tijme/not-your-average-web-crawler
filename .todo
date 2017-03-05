@@ -1,13 +1,11 @@
-* - Fix all #ToDo's.
 * - Create more useful unit tests.
 * Test setup/installation (and add pip install support).
-* Add CONTRIBUTING.md.
 * Move to travis.org and make build status public (also in readme).
 * Document usage.
 * First release.
 
 * Build XML parser to find URLs in XML.
-* Refactor scrapers.
+* Add CONTRIBUTING.md.
 * Python backwards compatibility.
 * Support multiprocessing.
 * Support custom cookies.

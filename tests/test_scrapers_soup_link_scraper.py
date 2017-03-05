@@ -22,14 +22,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import unittest
-
-from src.scrapers.RegexLinkScraper import RegexLinkScraper
+from src.scrapers.SoupLinkScraper import SoupLinkScraper
 from src.Queue import Queue, QueueItem
 from src.http.Request import Request
 from src.http.Response import Response
+
+import unittest
  
-class TestFindersRegexLinkScraper(unittest.TestCase):
+class TestScrapersSoupLinkScraper(unittest.TestCase):
+    """The TestScrapersSoupLinkScraper tests if the SoupLinkScraper is working correctly.
+
+    Attributes:
+        __host str: The host were the new URLs were found on
+        __urls list(obj): The URLs that were found
+
+    """
 
     __host = "https://example.ltd/"
 
@@ -64,36 +71,31 @@ class TestFindersRegexLinkScraper(unittest.TestCase):
         {"url": """https://example.ltd/unique=28/folder`/?unique=28""", "must_pass": True, "test": """<a href='https://example.ltd/unique=28/folder`/?unique=28'>test</a>"""},
         {"url": """https://example.ltd/unique=29/folder`/?unique=29""", "must_pass": True, "test": """<a href='https://example.ltd/unique=29/folder`/?unique=29'&b=not-included'>test</a>"""},
         {"url": """https://example.ltd/unique=30/folder`/?unique=30'&b=included""", "must_pass": True, "test": """<a href="https://example.ltd/unique=30/folder`/?unique=30'&b=included">test</a>"""},
-        {"url": """https://example.ltd/?unique=31""", "must_pass": True, "test": """var json = {"url": "https://example.ltd/?unique=31"}"""},
-        {"url": """https://example.ltd/?unique=32""", "must_pass": True, "test": """var json = {"url": 'https://example.ltd/?unique=32'}"""},
-
-        {"url": None, "must_pass": False, "test": """<a href="https:/example.ltd?unique=-1">"""},
-        {"url": None, "must_pass": False, "test": """<a href="https:example.ltd/?unique=-2">"""},
-        {"url": None, "must_pass": False, "test": """<a href="http/example.ltd/?unique=-3">"""},
-        {"url": None, "must_pass": False, "test": """http:/example.ltd/?unique=-4"""},
-        {"url": None, "must_pass": False, "test": """https:/example.ltd/?unique=-5"""},
-        {"url": None, "must_pass": False, "test": """https:example.ltd/?unique=-6"""},
-        {"url": None, "must_pass": False, "test": """https/example.ltd/?unique=-7"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4?unique=-8"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-9"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-10&a=b"""},
-        {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-11#anchor"""},
-        {"url": None, "must_pass": False, "test": """<a href="http://examp\nle.ltd/?unique=-13">"""}
+        {"url": """https://example.ltd/sample/page/1?unique=31""", "must_pass": True, "test": """<a href="sample/page/1?unique=31">test</a>"""},
+        {"url": """https://example.ltd/page/2?unique=32""", "must_pass": True, "test": """<a href="/page/2?unique=32">test</a>"""},
+        {"url": """https://example.ltd/page/3?unique=33""", "must_pass": True, "test": """<a href="page/3?unique=33">test</a>"""},
+        {"url": """https://example.ltd/page4?unique=34""", "must_pass": True, "test": """<a href="page4?unique=34">test</a>"""},
+        {"url": """http://examp%0ale.ltd/?unique=35""", "must_pass": True, "test": """<a href="http://examp%0ale.ltd/?unique=35">"""},
+        {"url": """http://examp\nle.ltd/?unique=36""", "must_pass": True, "test": """<a href="http://examp\nle.ltd/?unique=36">"""}
     ]
 
-    def test_regex_url_count(self):
+    def test_soup_url_count(self):
+        """Test if the amount of URLs found complies with the expected amount."""
+
         html = ""
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = RegexLinkScraper(QueueItem(Request(""), Response()))
+        finder = SoupLinkScraper(QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
-        self.assertEqual(len(matches), 32)
+        self.assertEqual(len(matches), 36)
  
-    def test_regex_url_matches(self):
+    def test_soup_url_matches(self):
+        """Test if all the URLs match the found URLs."""
+
         for url in self.__urls:
-            finder = RegexLinkScraper(QueueItem(Request(""), Response()))
+            finder = SoupLinkScraper(QueueItem(Request(""), Response()))
             requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:

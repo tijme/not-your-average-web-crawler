@@ -62,7 +62,24 @@ class SoupLinkScraper:
         """
 
         host = self.__queue_item.request.url
-        soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
+        content = self.__queue_item.response.text
+
+        return self.get_requests_from_content(host, content)
+        
+
+    def get_requests_from_content(self, host, content):
+        """Find new requests from the given content.
+
+        Args:
+            host (str): The parent request URL.
+            content (obj): The HTML content.
+
+        Returns:
+            list(obj): Requests that were found.
+
+        """
+
+        soup = BeautifulSoup(content, "html5lib")
         links = soup.find_all("a", href=True)
 
         found_requests = []

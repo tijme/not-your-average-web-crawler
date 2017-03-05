@@ -104,9 +104,17 @@ class Crawler:
 
         self.__stopped = True
 
+        queued_items = self.__queue.get_all_including([
+            QueueItem.STATUS_QUEUED, 
+            QueueItem.STATUS_IN_PROGRESS
+        ])
+
+        for queue_item in queued_items:
+            queue_item.status = QueueItem.STATUS_CANCELLED
+
         # ToDo: stop all active processes
         # ToDo: set flag so that no new processes will be spawned
-        # ToDo: change all queud to cancelled
+
         self.__crawler_finish()
 
     def __crawler_finish(self):
@@ -157,10 +165,11 @@ class Crawler:
                 new_request.depth = queue_item.request.depth + 1
                 if new_request.depth > self.__options.scope.max_depth:
                     continue
-                    
-                HTTPRequestHelper.patch_with_options(new_request, self.__options)
-                new_queue_item = self.__queue.add_request(new_request)
-                new_queue_items.append(new_queue_item)
+
+                if queue_item.status != QueueItem.STATUS_CANCELLED:
+                    HTTPRequestHelper.patch_with_options(new_request, self.__options)
+                    new_queue_item = self.__queue.add_request(new_request)
+                    new_queue_items.append(new_queue_item)
                 
             self.__request_finish(queue_item, new_queue_items)
 
@@ -172,6 +181,9 @@ class Crawler:
             new_queue_items list(obj): All the request/response pairs that were found during this request.
 
         """
+
+        if queue_item.status == QueueItem.STATUS_CANCELLED:
+            return False
 
         queue_item.status = QueueItem.STATUS_FINISHED
         action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
