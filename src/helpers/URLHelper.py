@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -41,12 +43,12 @@ class URLHelper:
         if relative.startswith("http://") or relative.startswith("https://"):
             return relative
 
-        parsed_host = urlparse(host)
+        parsed_host = urlparse(parent_absolute)
 
         if relative.startswith("//"):
             return parsed_host.scheme + ":" + relative
 
-        return urljoin(host, relative)
+        return urljoin(parent_absolute, relative)
 
     @staticmethod
     def are_urls_similar(url1, url2):

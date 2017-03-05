@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -28,9 +30,8 @@ import re
 
 class RegexLinkScraper:
 
-    __content_types = [
+    content_types = [
         "text/html",
-        "text/css",
         "text/javascript"
     ]
 
@@ -48,11 +49,6 @@ class RegexLinkScraper:
         self.__queue_item = queue_item
 
     def get_requests(self):
-        content_type = self.__queue_item.response.headers.get('content-type')
-
-        if not self.__content_type_matches(content_type):
-            return []
-
         host = self.__queue_item.request.url
         content = self.__queue_item.response.text
 
@@ -70,13 +66,3 @@ class RegexLinkScraper:
                 found_requests.append(Request(absolute_url))
 
         return found_requests
-
-    def __content_type_matches(self, content_type):
-        if content_type in self.__content_types:
-            return True
-
-        for available_content_type in self.__content_types:
-            if available_content_type in content_type:
-                return True
-
-        return False

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -28,7 +30,7 @@ import sys
 
 class SoupFormScraper:
 
-    __content_types = [
+    content_types = [
         "text/html"
     ]
 
@@ -38,11 +40,6 @@ class SoupFormScraper:
         self.__queue_item = queue_item
 
     def get_requests(self):
-        content_type = self.__queue_item.response.headers.get('content-type')
-
-        if not self.__content_type_matches(content_type):
-            return []
-
         soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
         forms = soup.find_all("form")
 
@@ -71,16 +68,6 @@ class SoupFormScraper:
             href = href[:-1]
 
         return href
-
-    def __content_type_matches(self, content_type):
-        if content_type in self.__content_types:
-            return True
-
-        for available_content_type in self.__content_types:
-            if available_content_type in content_type:
-                return True
-
-        return False
 
     def __get_form_data(self, soup):
         "Turn a BeautifulSoup form in to a dict of fields and default values"

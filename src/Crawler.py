@@ -26,7 +26,6 @@ from src.Queue import Queue, QueueItem
 from src.http.Handler import Handler
 from src.http.Request import Request
 from src.helpers.HTTPRequestHelper import HTTPRequestHelper
-from src.helpers.HTTPResponseHelper import HTTPResponseHelper
 
 class Crawler:
     """The main Crawler class which handles the crawling recursion, queue and processes.
