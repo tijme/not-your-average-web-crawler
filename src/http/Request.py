@@ -126,7 +126,8 @@ class Request:
             return False
 
         if self.data != request.data:
-            return False
+            if not URLHelper.is_data_similar(self.data, request.data):
+                return False
 
         if self.cookie != request.cookie:
             return False

@@ -69,4 +69,4 @@ options.scope.max_depth = 2 # The maximum search depth. For example, 2 would be 
 options.performance.max_processes = 8 # The maximum amount of simultaneous processes to use for crawling. Default is 8. 
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://tweakers.net"))
+crawler.start_with(Request("http://localhost/playground.php"))

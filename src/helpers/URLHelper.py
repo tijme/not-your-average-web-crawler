@@ -75,4 +75,25 @@ class URLHelper:
         dict_url1 = dict(parse_qsl(parsed_url1.query))
         dict_url2 = dict(parse_qsl(parsed_url2.query))
 
-        return dict_url1.keys() == dict_url2.keys()
+        return URLHelper.is_data_similar(dict_url1, dict_url2)
+
+    @staticmethod
+    def is_data_similar(data1, data2):
+        """Check if the given data dicts are similar to each other.
+
+        Args:
+            data1 (obj): The first data object.
+            data2 (obj): The second data object.
+
+        Returns:
+            bool: True if similar, False otherwise.
+
+        """
+
+        if data1 is None and data2 is not None:
+            return False
+
+        if data2 is None and data1 is not None:
+            return False
+
+        return data1.keys() == data2.keys()

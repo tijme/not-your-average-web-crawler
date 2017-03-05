@@ -1,12 +1,9 @@
-* Document code.
-* Fix all #ToDo's.
-* Similar post data should be ignored too.
+* - Fix all #ToDo's.
+* - Create more useful unit tests.
 * Test setup/installation (and add pip install support).
-* Document usage.
-* Create more useful unit tests.
 * Add CONTRIBUTING.md.
 * Move to travis.org and make build status public (also in readme).
-* Remove fail assert in form scraper.
+* Document usage.
 * First release.
 
 * Build XML parser to find URLs in XML.
