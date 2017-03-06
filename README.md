@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
     <br/>
     <a href="https://travis-ci.org/tijme/not-your-average-web-crawler">
-        <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?&branch=master" alt="Build Status">
+        <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?branch=master" alt="Build Status">
     </a>
     <a href="LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
@@ -18,7 +18,7 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - **Forms:** GET & POST forms and their request data.
 
 **Current limitations:**
-- Only works on Python 3.5 or higher.
+- Only works on Python 3.6 or higher.
 - Multiprocessing is not yet working.
 - Maximum recursion depth exception when crawling too much resources.
 
@@ -33,7 +33,7 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - Support rate limiting.
 
 ## Installation
-First make sure you're on [Python 3.5](https://www.python.org/) or higher. Then run the command below to install the dependencies.
+First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install the dependencies.
 
 `pip install -r requirements.txt`
 
