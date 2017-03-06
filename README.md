@@ -38,7 +38,7 @@ First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then 
 `pip install nyawc`
 
 ## Example usage
-
+```
     from nyawc.Options import Options
     from nyawc.Crawler import Crawler, CrawlerActions
     from nyawc.http.Request import Request
@@ -87,6 +87,7 @@ First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then 
 
     crawler = Crawler(options)
     crawler.start_with(Request("https://finnwea.com/"))
+```
 
 ## Testing
 
