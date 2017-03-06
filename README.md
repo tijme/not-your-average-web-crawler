@@ -33,7 +33,7 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - Support rate limiting.
 
 ## Installation
-First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install the dependencies.
+First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
 
 `pip install nyawc`
 
