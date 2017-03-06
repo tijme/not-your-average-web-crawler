@@ -4,6 +4,7 @@
 * First release.
 
 * Build XML parser to find URLs in XML.
+* Separate scrapers for CSS & JavaScript.
 * Add CONTRIBUTING.md.
 * Python backwards compatibility.
 * Support multiprocessing.
