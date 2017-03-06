@@ -35,9 +35,7 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 ## Installation
 First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install the dependencies.
 
-`pip install -r requirements.txt`
-
-ToDo: explain how this module can be implemented and used in another project.
+`pip install nyawc`
 
 ## Usage
 
