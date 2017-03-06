@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -27,10 +29,17 @@ from bs4 import BeautifulSoup
 import re
 
 class RegexLinkScraper:
+    """The RegexLinkScraper finds relative URLs and absolute URLs between quotes.
 
-    __content_types = [
+    Attributes:
+        content_types list(str): The supported content types.
+        __expressions list(obj): The queue item containing the response to scrape.
+        __queue_item (obj): The queue item containing the response to scrape.
+
+    """
+
+    content_types = [
         "text/html",
-        "text/css",
         "text/javascript"
     ]
 
@@ -45,13 +54,22 @@ class RegexLinkScraper:
     __queue_item = None
 
     def __init__(self, queue_item):
+        """Construct the RegexLinkScraper class.
+
+        Args:
+            queue_item (obj): The queue item containing a response the scrape.
+
+        """
+
         self.__queue_item = queue_item
 
     def get_requests(self):
-        content_type = self.__queue_item.response.headers.get('content-type')
+        """Get all the new requests that were found in the response.
 
-        if not self.__content_type_matches(content_type):
-            return []
+        Returns:
+            list(obj): A list of new requests.
+
+        """
 
         host = self.__queue_item.request.url
         content = self.__queue_item.response.text
@@ -59,6 +77,17 @@ class RegexLinkScraper:
         return self.get_requests_from_content(host, content)
 
     def get_requests_from_content(self, host, content):
+        """Find new requests from the given content.
+
+        Args:
+            host (str): The parent request URL.
+            content (obj): The HTML content.
+
+        Returns:
+            list(obj): Requests that were found.
+
+        """
+
         found_requests = []
 
         for expression in self.__expressions:
@@ -70,13 +99,3 @@ class RegexLinkScraper:
                 found_requests.append(Request(absolute_url))
 
         return found_requests
-
-    def __content_type_matches(self, content_type):
-        if content_type in self.__content_types:
-            return True
-
-        for available_content_type in self.__content_types:
-            if available_content_type in content_type:
-                return True
-
-        return False

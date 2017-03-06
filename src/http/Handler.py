@@ -64,12 +64,14 @@ class Handler:
 
         """
 
+        content_type = self.__queue_item.response.headers.get('content-type')
         scrapers = self.__get_all_scrapers()
         requests = []
 
         for scraper in scrapers:
             instance = scraper(self.__queue_item)
-            requests.extend(instance.get_requests())
+            if self.__content_type_matches(content_type, instance.content_types):
+                requests.extend(instance.get_requests())
 
         return requests
 
@@ -130,3 +132,24 @@ class Handler:
                 modules.append(filename[:-3])
 
         return modules
+
+    def __content_type_matches(self, content_type, available_content_types):
+        """Check if the given content type matches one of the available content types.
+
+        Args:
+            content_type (str): The given content type.
+            available_content_types list(str): All the available content types.
+
+        Returns:
+            bool: True if a match was found, False otherwise.
+
+        """
+
+        if content_type in available_content_types:
+            return True
+
+        for available_content_type in available_content_types:
+            if available_content_type in content_type:
+                return True
+
+        return False

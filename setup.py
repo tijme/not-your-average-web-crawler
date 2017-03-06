@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -23,15 +25,15 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="not-your-average-web-crawler",
+    name="crawl-like-a-sir",
     version="0.0.1",
     description="A web crawler that gathers requests instead of URLs.",
-    long_description="""But very useful for hacking. Not Your Average Web Crawler (N.Y.A.W.C) is a Python 3 application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners like Angular CSTI scanner (https://github.com/tijme/angular-csti-scanner).""",
+    long_description="""A very useful web crawler for vulnerability scanning. Crawl Like A Sir (C.L.A.S) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners like Angular CSTI scanner (https://github.com/tijme/angular-csti-scanner).""",
     author="Tijme Gommers",
     author_email="tijme@finnwea.com",
     platforms=["any"],
     license="MIT",
-    url="https://github.com/tijme/not-your-average-web-crawler",
+    url="https://github.com/tijme/crawl-like-a-sir",
     packages=find_packages(),
     install_requires=[i.strip() for i in open("requirements.txt").readlines()]
 )

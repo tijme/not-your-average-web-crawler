@@ -63,10 +63,10 @@ options.scope.protocol_must_match = False # Only crawl pages with the same proto
 options.scope.subdomain_must_match = True # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 options.scope.domain_must_match = True # Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com). Default is True.
 options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is True.
-options.scope.max_depth = 2 # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
+options.scope.max_depth = 3 # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 # Performance options
 options.performance.max_processes = 8 # The maximum amount of simultaneous processes to use for crawling. Default is 8. 
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://tweakers.net"))
+crawler.start_with(Request("http://localhost/playground.php"))

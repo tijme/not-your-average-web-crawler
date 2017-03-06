@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -23,27 +25,61 @@
 from src.http.Request import Request
 from src.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
+
 import html5lib
 
 class SoupLinkScraper:
+    """The SoupLinkScraper finds URLs from href attributes in HTML using BeautifulSoup.
 
-    __content_types = [
+    Attributes:
+        content_types list(str): The supported content types.
+        __queue_item (obj): The queue item containing the response to scrape.
+
+    """
+
+    content_types = [
         "text/html"
     ]
 
     __queue_item = None
 
     def __init__(self, queue_item):
+        """Construct the SoupLinkScraper class.
+
+        Args:
+            queue_item (obj): The queue item containing a response the scrape.
+
+        """
+
         self.__queue_item = queue_item
 
     def get_requests(self):
-        content_type = self.__queue_item.response.headers.get('content-type')
+        """Get all the new requests that were found in the response.
 
-        if not self.__content_type_matches(content_type):
-            return []
+        Returns:
+            list(obj): A list of new requests.
+
+        """
 
         host = self.__queue_item.request.url
-        soup = BeautifulSoup(self.__queue_item.response.text, "html5lib")
+        content = self.__queue_item.response.text
+
+        return self.get_requests_from_content(host, content)
+        
+
+    def get_requests_from_content(self, host, content):
+        """Find new requests from the given content.
+
+        Args:
+            host (str): The parent request URL.
+            content (obj): The HTML content.
+
+        Returns:
+            list(obj): Requests that were found.
+
+        """
+
+        soup = BeautifulSoup(content, "html5lib")
         links = soup.find_all("a", href=True)
 
         found_requests = []
@@ -56,6 +92,16 @@ class SoupLinkScraper:
         return found_requests
 
     def __trim_grave_accent(self, href):
+        """Trim grave accents manually (because BeautifulSoup doesn't support it).
+
+        Args:
+            href (str): The BeautifulSoup href value.
+
+        Returns:
+            str: The BeautifulSoup href value without grave accents.
+
+        """
+
         if href.startswith("`"):
             href = href[1:]
 
@@ -63,13 +109,3 @@ class SoupLinkScraper:
             href = href[:-1]
 
         return href
-
-    def __content_type_matches(self, content_type):
-        if content_type in self.__content_types:
-            return True
-
-        for available_content_type in self.__content_types:
-            if available_content_type in content_type:
-                return True
-
-        return False

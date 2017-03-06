@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # MIT License
 # 
 # Copyright (c) 2017 Tijme Gommers
@@ -20,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from urllib.parse import urljoin, urlparse, parse_qsl
+from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
 
 class URLHelper:
     """A helper for URL strings."""
@@ -41,12 +43,37 @@ class URLHelper:
         if relative.startswith("http://") or relative.startswith("https://"):
             return relative
 
-        parsed_host = urlparse(host)
+        parsed_host = urlparse(parent_absolute)
 
         if relative.startswith("//"):
             return parsed_host.scheme + ":" + relative
 
-        return urljoin(host, relative)
+        return urljoin(parent_absolute, relative)
+
+    @staticmethod
+    def append_with_data(url, data):
+        """Append the given URL with the given data dict.
+
+        Args:
+            url (str): The URL to append.
+            data (obj): The key value data to append to the URL.
+
+        Returns:
+            str: The new URL.
+
+        """
+
+        if data is None:
+            return url
+
+        url_parts = list(urlparse(url))
+
+        query = dict(parse_qsl(url_parts[4]))
+        query.update(data)
+
+        url_parts[4] = urlencode(query)
+
+        return urlunparse(url_parts)
 
     @staticmethod
     def are_urls_similar(url1, url2):
@@ -73,4 +100,25 @@ class URLHelper:
         dict_url1 = dict(parse_qsl(parsed_url1.query))
         dict_url2 = dict(parse_qsl(parsed_url2.query))
 
-        return dict_url1.keys() == dict_url2.keys()
+        return URLHelper.is_data_similar(dict_url1, dict_url2)
+
+    @staticmethod
+    def is_data_similar(data1, data2):
+        """Check if the given data dicts are similar to each other.
+
+        Args:
+            data1 (obj): The first data object.
+            data2 (obj): The second data object.
+
+        Returns:
+            bool: True if similar, False otherwise.
+
+        """
+
+        if data1 is None and data2 is not None:
+            return False
+
+        if data2 is None and data1 is not None:
+            return False
+
+        return data1.keys() == data2.keys()
