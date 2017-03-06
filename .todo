@@ -10,6 +10,7 @@
 * First release.
 
 * Build XML parser to find URLs in XML.
+* Separate scrapers for CSS & JavaScript.
 * Refactor scrapers.
 * Python backwards compatibility.
 * Support multiprocessing.
