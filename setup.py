@@ -25,15 +25,16 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="crawl-like-a-sir",
-    version="0.0.1",
+    version="1.0.0",
+    name="NotYourAverageWebCrawler",
+    keywords = "web-crawler web-scraper request-crawler vulnerability-scanner crawler scanner",
     description="A web crawler that gathers requests instead of URLs.",
-    long_description="""A very useful web crawler for vulnerability scanning. Crawl Like A Sir (C.L.A.S) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners like Angular CSTI scanner (https://github.com/tijme/angular-csti-scanner).""",
+    long_description=open('README.md').read(),
     author="Tijme Gommers",
     author_email="tijme@finnwea.com",
     platforms=["any"],
     license="MIT",
-    url="https://github.com/tijme/crawl-like-a-sir",
-    packages=find_packages(),
+    url="https://github.com/tijme/not-your-average-web-crawler",
+    packages=["src"],
     install_requires=[i.strip() for i in open("requirements.txt").readlines()]
 )

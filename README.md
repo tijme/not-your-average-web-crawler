@@ -1,16 +1,16 @@
 <p align="center">
     <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
     <br/>
-    <a href="https://travis-ci.com/tijme/crawl-like-a-sir">
-        <img src="https://travis-ci.com/tijme/crawl-like-a-sir.svg?token=CRkUqxZ8WNMhxZYQUj18&branch=master" alt="Build Status">
+    <a href="https://travis-ci.org/tijme/not-your-average-web-crawler">
+        <img src="https://travis-ci.com/tijme/not-your-average-web-crawler.svg?&branch=master" alt="Build Status">
     </a>
     <a href="LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
     </a>
 </p>
 
-## Crawl Like A Sir
-A very useful web crawler for vulnerability scanning. Crawl Like A Sir (C.L.A.S) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners like [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner).
+## Not Your Average Web Crawler
+A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners like [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner).
 
 **Crawls:**
 
@@ -55,4 +55,4 @@ Issues or new features can be reported via the GitHub issue tracker. Please make
 
 ## License
 
-Crawl Like A Sir (C.L.A.S) is open-sourced software licensed under the [MIT license](LICENSE.md).
+Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the [MIT license](LICENSE.md).
