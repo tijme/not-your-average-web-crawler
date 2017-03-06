@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.http.Request import Request
-from src.http.Response import Response
+from nyawc.http.Request import Request
+from nyawc.http.Response import Response
 
 class Queue:
     """The Queue class contains all the request/response pairs that are going to be or have been crawled.

@@ -112,7 +112,7 @@ class Handler:
         modules = []
 
         for module_string in modules_strings:
-            module = importlib.import_module("src.scrapers." + module_string)
+            module = importlib.import_module("nyawc.scrapers." + module_string)
             modules.append(getattr(module, module_string))
 
         return modules
@@ -126,8 +126,11 @@ class Handler:
         """
 
         modules = []
+        
+        file = os.path.realpath(__file__)
+        folder = os.path.dirname(file)
 
-        for filename in os.listdir("src/scrapers"):
+        for filename in os.listdir(folder + "/../scrapers"):
             if filename.endswith("Scraper.py"):
                 modules.append(filename[:-3])
 

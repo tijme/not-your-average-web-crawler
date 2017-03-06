@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Options import Options
-from src.Crawler import Crawler, CrawlerActions
-from src.http.Request import Request
+from nyawc.Options import Options
+from nyawc.Crawler import Crawler, CrawlerActions
+from nyawc.http.Request import Request
 
 def cb_crawler_before_start():
     print("Crawler started.")

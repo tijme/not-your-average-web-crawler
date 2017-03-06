@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Crawler import CrawlerActions
+from nyawc.Crawler import CrawlerActions
 
 class Options:
     """The Options class contains all the crawling settings/options.

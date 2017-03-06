@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.helpers.URLHelper import URLHelper
+from nyawc.helpers.URLHelper import URLHelper
 
 class Request:
     """The Request class contains details that were used to request the specified URL.

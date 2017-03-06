@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.http.Request import Request
-from src.helpers.URLHelper import URLHelper
+from nyawc.http.Request import Request
+from nyawc.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 
 import re

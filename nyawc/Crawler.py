@@ -22,10 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.Queue import Queue, QueueItem
-from src.http.Handler import Handler
-from src.http.Request import Request
-from src.helpers.HTTPRequestHelper import HTTPRequestHelper
+from nyawc.Queue import Queue, QueueItem
+from nyawc.http.Handler import Handler
+from nyawc.http.Request import Request
+from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 
 class Crawler:
     """The main Crawler class which handles the crawling recursion, queue and processes.
@@ -163,8 +163,9 @@ class Crawler:
                     continue
 
                 new_request.depth = queue_item.request.depth + 1
-                if new_request.depth > self.__options.scope.max_depth:
-                    continue
+                if self.__options.scope.max_depth is not None:
+                    if new_request.depth > self.__options.scope.max_depth:
+                        continue
 
                 if queue_item.status != QueueItem.STATUS_CANCELLED:
                     HTTPRequestHelper.patch_with_options(new_request, self.__options)
