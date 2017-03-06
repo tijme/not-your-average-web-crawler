@@ -22,10 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from src.scrapers.RegexLinkScraper import RegexLinkScraper
-from src.Queue import Queue, QueueItem
-from src.http.Request import Request
-from src.http.Response import Response
+from nyawc.scrapers.RegexLinkScraper import RegexLinkScraper
+from nyawc.Queue import Queue, QueueItem
+from nyawc.http.Request import Request
+from nyawc.http.Response import Response
 
 import unittest
  
