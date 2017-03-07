@@ -142,8 +142,8 @@ class OptionsPerformance:
     """The OptionsPerformance class contains the performance settings/options.
 
     Attributes:
-        max_processes (obj): the maximum amount of simultaneous processes to use for crawling.
+        max_threads (obj): the maximum amount of simultaneous threads to use for crawling.
         
     """
 
-    max_processes = 8
+    max_threads = 4

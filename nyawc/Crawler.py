@@ -27,12 +27,17 @@ from nyawc.http.Handler import Handler
 from nyawc.http.Request import Request
 from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 
+import threading
+import time
+
 class Crawler:
     """The main Crawler class which handles the crawling recursion, queue and processes.
 
     Attributes:
         __options (obj): The options to use for the current crawling runtime.
         __queue (obj): The request/response pair queue containing everything to crawl.
+        __stopped (bool): If the crawler has stopped crawling.
+        __lock (obj): The callback lock to prevent race conditions.
 
     """
 
@@ -41,6 +46,8 @@ class Crawler:
     __queue = Queue()
 
     __stopped = False
+
+    __lock = threading.Lock()
 
     def __init__(self, options):
         """Constructs a Crawler class.
@@ -70,13 +77,15 @@ class Crawler:
 
         concurrent_requests_count = self.__queue.get_count_including([QueueItem.STATUS_IN_PROGRESS])
         new_requests_spawned = False
-        
-        while concurrent_requests_count < self.__options.performance.max_processes:
-            self.__spawn_new_request()
-            new_requests_spawned = False
-            concurrent_requests_count += 1
 
-        if concurrent_requests_count > 0 and not new_requests_spawned and not self.__stopped:
+        while concurrent_requests_count < self.__options.performance.max_threads:
+            if self.__spawn_new_request():
+                new_requests_spawned = True
+                concurrent_requests_count += 1
+            else:
+                break
+
+        if concurrent_requests_count == 0 and not new_requests_spawned and not self.__stopped:
             self.__crawler_stop()
 
     def __spawn_new_request(self):
@@ -84,15 +93,23 @@ class Crawler:
 
         first_in_line = self.__queue.get_first(QueueItem.STATUS_QUEUED)
         if first_in_line is None:
-            return None
+            return False
 
         self.__request_start(first_in_line)
+        return True
 
     def __crawler_start(self):
         """Spawn the first X queued request, where X is the max processes option."""
 
         self.__options.callbacks.crawler_before_start()
-        self.__spawn_new_requests()
+
+        try:
+            self.__spawn_new_requests()
+
+            while not self.__stopped: 
+                time.sleep(1)
+        except (KeyboardInterrupt, SystemExit):
+            pass
 
     def __crawler_stop(self, force_quit=False):
         """Mark the crawler as stopped.
@@ -111,9 +128,6 @@ class Crawler:
 
         for queue_item in queued_items:
             queue_item.status = QueueItem.STATUS_CANCELLED
-
-        # ToDo: stop all active processes
-        # ToDo: set flag so that no new processes will be spawned
 
         self.__crawler_finish()
 
@@ -142,49 +156,40 @@ class Crawler:
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             queue_item.status = QueueItem.STATUS_IN_PROGRESS
 
-            try:
-                handler = Handler(queue_item)
-                queue_item.response.raise_for_status()
-            except Exception:
-                if queue_item.request.parent_raised_error:
-                    queue_item.status = QueueItem.STATUS_FINISHED
-                    return None
-                else:
-                    queue_item.request.parent_raised_error = True
+            thread = CrawlerThread(self.__request_finish, self.__lock, queue_item)
+            thread.daemon = True
+            thread.start()
 
-            new_requests = handler.get_new_requests()
-            new_queue_items = []
-            
-            for new_request in new_requests:
-                if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
-                    continue
-
-                if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
-                    continue
-
-                new_request.depth = queue_item.request.depth + 1
-                if self.__options.scope.max_depth is not None:
-                    if new_request.depth > self.__options.scope.max_depth:
-                        continue
-
-                if queue_item.status != QueueItem.STATUS_CANCELLED:
-                    HTTPRequestHelper.patch_with_options(new_request, self.__options)
-                    new_queue_item = self.__queue.add_request(new_request)
-                    new_queue_items.append(new_queue_item)
-                
-            self.__request_finish(queue_item, new_queue_items)
-
-    def __request_finish(self, queue_item, new_queue_items):
+    def __request_finish(self, queue_item, new_requests):
         """Called when the crawler finished the given queued item.
 
         Args:
             queue_item (obj): The request/response pair that finished.
-            new_queue_items list(obj): All the request/response pairs that were found during this request.
+            new_requests list(obj): All the requests that were found during this request.
 
         """
 
         if queue_item.status == QueueItem.STATUS_CANCELLED:
             return False
+
+        new_queue_items = []
+            
+        for new_request in new_requests:
+            if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
+                continue
+
+            if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
+                continue
+
+            new_request.depth = queue_item.request.depth + 1
+            if self.__options.scope.max_depth is not None:
+                if new_request.depth > self.__options.scope.max_depth:
+                    continue
+
+            if queue_item.status != QueueItem.STATUS_CANCELLED:
+                HTTPRequestHelper.patch_with_options(new_request, self.__options)
+                new_queue_item = self.__queue.add_request(new_request)
+                new_queue_items.append(new_queue_item)
 
         queue_item.status = QueueItem.STATUS_FINISHED
         action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
@@ -197,6 +202,46 @@ class Crawler:
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             return self.__spawn_new_requests()
+
+
+
+
+
+
+class CrawlerThread(threading.Thread):
+
+    __callback = None
+
+    __queue_item = None
+
+    __callback_lock = None
+
+    def __init__(self, callback, callback_lock, queue_item):
+        threading.Thread.__init__(self)
+        self.__callback = callback
+        self.__queue_item = queue_item
+        self.__callback_lock = callback_lock
+
+    def run(self):
+        try:
+            handler = Handler(self.__queue_item)
+            self.__queue_item.response.raise_for_status()
+        except Exception:
+            if self.__queue_item.request.parent_raised_error:
+                self.__queue_item.status = QueueItem.STATUS_FINISHED
+                return None
+            else:
+                self.__queue_item.request.parent_raised_error = True
+
+        new_requests = handler.get_new_requests()
+
+        with self.__callback_lock:
+            self.__callback(self.__queue_item, new_requests)
+
+
+
+
+
 
 class CrawlerActions:
     """The actions that crawler callbacks can return.

@@ -23,6 +23,7 @@
 # SOFTWARE.
 
 from nyawc.Options import Options
+from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions
 from nyawc.http.Request import Request
 
@@ -38,6 +39,7 @@ def cb_crawler_after_finish(queue):
 def cb_request_before_start(queue, queue_item):
     # return CrawlerActions.DO_SKIP_TO_NEXT
     # return CrawlerActions.DO_STOP_CRAWLING
+
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
 def cb_request_after_finish(queue, queue_item, new_queue_items):
@@ -66,7 +68,7 @@ options.scope.ignore_similar_requests = True # Ignore similar requests like `?pa
 options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 # Performance options
-options.performance.max_processes = 8 # The maximum amount of simultaneous processes to use for crawling. Default is 8. 
+options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4. 
 
 crawler = Crawler(options)
 crawler.start_with(Request("https://finnwea.com/"))
