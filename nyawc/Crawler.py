@@ -212,26 +212,40 @@ class Crawler:
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             return self.__spawn_new_requests()
 
-
-
-
-
-
 class CrawlerThread(threading.Thread):
+    """The crawler thread executes the HTTP request using the HTTP handler.
+
+    Attributes:
+        __callback (obj): The method to call when finished
+        __callback_lock (bool): The callback lock that prevents race conditions.
+        __queue_item (obj): The queue item containing a request to execute.
+
+    """
 
     __callback = None
 
-    __queue_item = None
-
     __callback_lock = None
 
+    __queue_item = None
+
     def __init__(self, callback, callback_lock, queue_item):
+        """Constructs a crawler thread class
+
+        Args:
+            callback (obj): The method to call when finished
+            callback_lock (bool): The callback lock that prevents race conditions.
+            queue_item (obj): The queue item containing a request to execute.
+
+        """
+
         threading.Thread.__init__(self)
         self.__callback = callback
         self.__queue_item = queue_item
         self.__callback_lock = callback_lock
 
     def run(self):
+        """Executes the HTTP call"""
+
         try:
             handler = Handler(self.__queue_item)
             self.__queue_item.response.raise_for_status()
@@ -246,12 +260,6 @@ class CrawlerThread(threading.Thread):
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)
-
-
-
-
-
-
 
 class CrawlerActions:
     """The actions that crawler callbacks can return.

@@ -27,8 +27,6 @@ from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions
 from nyawc.http.Request import Request
 
-import sys
-
 def cb_crawler_before_start():
     print("Crawler started.")
 
@@ -36,7 +34,7 @@ def cb_crawler_after_finish(queue):
     print("Crawler finished. Found " + str(queue.get_count()) + " requests.")
 
     for queue_item in queue.get_all():
-        print(queue_item.request.method + ": " + queue_item.request.url + " (" + str(queue_item.request.data) + ")")
+        print("[" + queue_item.request.method + "] " + queue_item.request.url + " (PostData: " + str(queue_item.request.data) + ")")
 
 def cb_request_before_start(queue, queue_item):
     # return CrawlerActions.DO_SKIP_TO_NEXT
@@ -48,7 +46,7 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
     percentage = str(int(queue.get_progress()))
     total_requests = str(queue.get_count())
 
-    print("At " + percentage + "% of " + total_requests + " requests (" + str(queue_item.response.status_code) + "/" + queue_item.request.url + ").")
+    print("At " + percentage + "% of " + total_requests + " requests ([" + str(queue_item.response.status_code) + "] " + queue_item.request.url + ").")
 
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
@@ -70,7 +68,7 @@ options.scope.ignore_similar_requests = True # Ignore similar requests like `?pa
 options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 # Performance options
-options.performance.max_threads = 16 # The maximum amount of simultaneous threads to use for crawling. Default is 4. 
+options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4. 
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://tweakers.net/"))
+crawler.start_with(Request("https://finnwea.com/"))
