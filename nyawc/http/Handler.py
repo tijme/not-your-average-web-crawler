@@ -148,6 +148,9 @@ class Handler:
 
         """
 
+        if content_type is None:
+            return False
+
         if content_type in available_content_types:
             return True
 

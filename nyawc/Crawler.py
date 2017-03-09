@@ -36,7 +36,8 @@ class Crawler:
     Attributes:
         __options (obj): The options to use for the current crawling runtime.
         __queue (obj): The request/response pair queue containing everything to crawl.
-        __stopped (bool): If the crawler has stopped crawling.
+        __stopping (bool): If the crawler is topping the crawling process.
+        __stopped (bool): If the crawler finished stopping the crawler process.
         __lock (obj): The callback lock to prevent race conditions.
 
     """
@@ -44,6 +45,8 @@ class Crawler:
     __options = None
 
     __queue = Queue()
+
+    __stopping = False
 
     __stopped = False
 
@@ -85,7 +88,7 @@ class Crawler:
             else:
                 break
 
-        if concurrent_requests_count == 0 and not new_requests_spawned and not self.__stopped:
+        if concurrent_requests_count == 0 and not new_requests_spawned and not self.__stopping:
             self.__crawler_stop()
 
     def __spawn_new_request(self):
@@ -114,12 +117,16 @@ class Crawler:
     def __crawler_stop(self, force_quit=False):
         """Mark the crawler as stopped.
 
+        Note:
+            If self.__stopped is True, the main thread will be stopped. Every piece of code that gets
+            executed after self.__stopped is True could cause Thread exceptions and or race conditions.
+
         Args:
             force_quit (bool): Also cancel any ongoing requests.
 
         """
 
-        self.__stopped = True
+        self.__stopping = True
 
         queued_items = self.__queue.get_all_including([
             QueueItem.STATUS_QUEUED, 
@@ -130,6 +137,8 @@ class Crawler:
             queue_item.status = QueueItem.STATUS_CANCELLED
 
         self.__crawler_finish()
+
+        self.__stopped = True
 
     def __crawler_finish(self):
         """Called when the crawler is finished because there are no queued requests left or it was stopped."""
@@ -194,7 +203,7 @@ class Crawler:
         queue_item.status = QueueItem.STATUS_FINISHED
         action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
 
-        if self.__stopped:
+        if self.__stopping:
             return False
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
@@ -237,6 +246,7 @@ class CrawlerThread(threading.Thread):
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)
+
 
 
 
