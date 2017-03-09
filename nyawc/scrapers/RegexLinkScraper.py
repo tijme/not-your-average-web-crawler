@@ -48,7 +48,7 @@ class RegexLinkScraper:
         { "group": 1, "raw": r"([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" },
 
         # Match all absolute URLs outside of HTML quotes
-        { "group": 1, "raw": r"([^\"\'\`])((https?:\/\/)([^\s\"\'\`]*))" }
+        #{ "group": 1, "raw": r"([^\"\'\`])((https?:\/\/)([^\s\"\'\`]*))" }
     ]
 
     __queue_item = None

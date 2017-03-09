@@ -141,6 +141,7 @@ class SoupFormScraper:
         fields = {}
 
         self.__get_form_data_from_inputs(soup, fields)
+        self.__get_form_data_from_buttons(soup, fields)
         self.__get_form_data_from_textareas(soup, fields)
         self.__get_form_data_from_selects(soup, fields)
 
@@ -179,6 +180,21 @@ class SoupFormScraper:
                     fields[input['name']] = value
                 
                 continue
+
+    def __get_form_data_from_buttons(self, soup, fields):
+        """Parse all the form data from button elements
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+            fields (obj): The fields (key/value) dict.
+
+        """
+
+        for button in soup.find_all('button'):
+            if not button.has_attr('name'):
+                continue
+
+            fields[button['name']] = button['value'] if button.has_attr('value') else ''
 
     def __get_form_data_from_textareas(self, soup, fields):
         """Parse all the form data from textarea elements

@@ -27,6 +27,8 @@ from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions
 from nyawc.http.Request import Request
 
+import sys
+
 def cb_crawler_before_start():
     print("Crawler started.")
 
@@ -46,7 +48,7 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
     percentage = str(int(queue.get_progress()))
     total_requests = str(queue.get_count())
 
-    print("At " + percentage + "% of " + total_requests + " requests (" + queue_item.request.url + ").")
+    print("At " + percentage + "% of " + total_requests + " requests (" + str(queue_item.response.status_code) + "/" + queue_item.request.url + ").")
 
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
@@ -62,7 +64,7 @@ options.callbacks.request_after_finish = cb_request_after_finish # Called after 
 
 # Scope options
 options.scope.protocol_must_match = False # Only crawl pages with the same protocol as the startpoint (e.g. only https). Default is False.
-options.scope.subdomain_must_match = True # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
+options.scope.subdomain_must_match = False # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 options.scope.domain_must_match = True # Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com). Default is True.
 options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is True.
 options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
@@ -71,4 +73,4 @@ options.scope.max_depth = None # The maximum search depth. For example, 2 would 
 options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4. 
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://finnwea.com/"))
+crawler.start_with(Request("https://www.zomato.com"))
