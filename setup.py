@@ -28,7 +28,7 @@ with open('requirements.txt') as file:
     requirements = file.read().splitlines()
 
 setup(
-    version="1.1.0",
+    version="1.2.0",
     name="nyawc",
     keywords = "web-crawler web-scraper request-crawler vulnerability-scanner crawler scanner",
     description="A web crawler that gathers requests instead of URLs.",

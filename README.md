@@ -33,10 +33,16 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 ## Installation
 First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
 
-`pip install nyawc`
+`pip install --upgrade nyawc`
 
 ## Example usage
+
+* `python example.py`
+* `python -u example.py > output.log`
+
 ```python
+# example.py
+
 from nyawc.Options import Options
 from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions

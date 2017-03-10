@@ -31,6 +31,7 @@ class Options:
         scope (obj): Can be used to define the crawling scope.
         callbacks (obj): Can be used to define crawling callbacks.
         performance (obj): Can be used to define performance options.
+        identity (obj): Can be used to define the identity/footprint options.
 
     """
 
@@ -40,12 +41,15 @@ class Options:
 
     performance = None
 
+    identity = None
+
     def __init__(self):
         """Constructs an Options class."""
 
         self.scope = OptionsScope()
         self.callbacks = OptionsCallbacks()
         self.performance = OptionsPerformance()
+        self.identity = OptionsIdentity()
 
 class OptionsScope:
     """The OptionsScope class contains the scope settings/options.
@@ -147,3 +151,14 @@ class OptionsPerformance:
     """
 
     max_threads = 4
+
+class OptionsIdentity:
+    """The OptionsIdentity class contains the identity/footprint settings/options.
+
+    Attributes:
+        user_agent (str): the user agent to use when making a request.
+        
+    """
+
+    # ToDo: Default this string to a random user agent
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"

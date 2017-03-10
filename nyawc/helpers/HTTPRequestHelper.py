@@ -39,6 +39,8 @@ class HTTPRequestHelper:
 
         # ToDo: add options to request (by reference, no need to return).
 
+        request.user_agent = options.identity.user_agent
+
         pass
 
     @staticmethod
