@@ -246,17 +246,18 @@ class CrawlerThread(threading.Thread):
     def run(self):
         """Executes the HTTP call"""
 
+        new_requests = []
+            
         try:
             handler = Handler(self.__queue_item)
             self.__queue_item.response.raise_for_status()
+            new_requests = handler.get_new_requests()
         except Exception:
             if self.__queue_item.request.parent_raised_error:
                 self.__queue_item.status = QueueItem.STATUS_FINISHED
                 return None
             else:
                 self.__queue_item.request.parent_raised_error = True
-
-        new_requests = handler.get_new_requests()
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)

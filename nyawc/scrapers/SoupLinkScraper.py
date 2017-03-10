@@ -80,12 +80,24 @@ class SoupLinkScraper:
         """
 
         soup = BeautifulSoup(content, "html5lib")
-        links = soup.find_all("a", href=True)
+        a_elements = soup.find_all("a", href=True)
+        link_elements = soup.find_all("link", href=True)
+        script_elements = soup.find_all("script", src=True)
 
         found_requests = []
 
-        for link in links:
-            found_url = self.__trim_grave_accent(link["href"])
+        for a_element in a_elements:
+            found_url = self.__trim_grave_accent(a_element["href"])
+            absolute_url = URLHelper.make_absolute(host, found_url)
+            found_requests.append(Request(absolute_url))
+
+        for link_element in link_elements:
+            found_url = self.__trim_grave_accent(link_element["href"])
+            absolute_url = URLHelper.make_absolute(host, found_url)
+            found_requests.append(Request(absolute_url))
+
+        for script_element in script_elements:
+            found_url = self.__trim_grave_accent(script_element["src"])
             absolute_url = URLHelper.make_absolute(host, found_url)
             found_requests.append(Request(absolute_url))
 
