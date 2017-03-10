@@ -21,3 +21,31 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+class RandomInputHelper:
+    """A helper for generating random user input strings."""
+
+    @staticmethod
+    def get_random_value():
+        pass
+
+    @staticmethod
+    def get_random_text():
+        pass
+
+    @staticmethod
+    def get_random_email():
+        pass
+
+    @staticmethod
+    def get_random_password():
+        pass
+
+    @staticmethod
+    def get_random_url():
+        pass
+
+    @staticmethod
+    def get_random_telephonenumber():
+        pass
+        
