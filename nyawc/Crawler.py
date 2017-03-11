@@ -92,7 +92,12 @@ class Crawler:
             self.__crawler_stop()
 
     def __spawn_new_request(self):
-        """Spawn the first queued request if available."""
+        """Spawn the first queued request if available.
+
+        Returns:
+            bool: If a new request was spawned.
+
+        """
 
         first_in_line = self.__queue.get_first(QueueItem.STATUS_QUEUED)
         if first_in_line is None:
@@ -156,11 +161,12 @@ class Crawler:
         action = self.__options.callbacks.request_before_start(self.__queue, queue_item)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
-            return self.__crawler_stop(True)
+            self.__crawler_stop(True)
+            return
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
             queue_item.status = QueueItem.STATUS_FINISHED
-            return None
+            return
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             queue_item.status = QueueItem.STATUS_IN_PROGRESS
@@ -203,13 +209,15 @@ class Crawler:
             action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
 
         if self.__stopping:
-            return False
+            return
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
-            return self.__crawler_stop()
+            self.__crawler_stop()
+            return
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
-            return self.__spawn_new_requests()
+            self.__spawn_new_requests()
+            return
 
 class CrawlerThread(threading.Thread):
     """The crawler thread executes the HTTP request using the HTTP handler.
@@ -248,6 +256,7 @@ class CrawlerThread(threading.Thread):
         Note:
             If the this and the parent handler raised an error, the queue item status will be set to errored
             instead of finished.
+            
         """
 
         new_requests = []
