@@ -27,8 +27,8 @@ from nyawc.helpers.URLHelper import URLHelper
 
 import re
 
-class RegexLinkScraper:
-    """The RegexLinkScraper finds absolute URLs between quotes.
+class XMLLinkScraper:
+    """The XMLLinkScraper finds absolute URLs in XML values.
 
     Attributes:
         content_types list(str): The supported content types.
@@ -38,20 +38,19 @@ class RegexLinkScraper:
     """
 
     content_types = [
-        "text/html",
-        "text/javascript",
-        "text/css"
+        "text/xml",
+        "application/xml",
     ]
 
     __expressions = [
         # Match absolute/relative URLs between any type of HTML quote
-        { "group": 1, "raw": r"([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" },
+        { "group": 2, "raw": r"(\<(.*)\>)(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))(\<\/\2\>)" },
     ]
 
     __queue_item = None
 
     def __init__(self, queue_item):
-        """Construct the RegexLinkScraper class.
+        """Construct the XMLLinkScraper class.
 
         Args:
             queue_item (obj): The queue item containing a response the scrape.

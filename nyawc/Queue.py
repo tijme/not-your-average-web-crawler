@@ -194,6 +194,7 @@ class QueueItem:
         STATUS_IN_PROGRESS (str): Status for when the crawler is currently crawling the request.
         STATUS_FINISHED (str): Status for when the crawler has finished crawling the request.
         STATUS_CANCELLED (str): Status for when the crawler has cancelled the request.
+        STATUS_ERRORED (str): Status for when the crawler could not execute the request.
         status (str): The current crawling status.
         request (obj): The Request object.
         response (obj): The Response object.
@@ -207,6 +208,8 @@ class QueueItem:
     STATUS_FINISHED = "finished"
 
     STATUS_CANCELLED = "cancelled"
+
+    STATUS_ERRORED = "errored"
 
     status = STATUS_QUEUED
 

@@ -28,20 +28,22 @@ class HTTPRequestHelper:
     """A helper for the src.http.Request module."""
 
     @staticmethod
-    def patch_with_options(request, options):
+    def patch_with_options(request, options, parent_response=None):
         """Patch the given request with the given options (e.g. user agent).
 
         Args:
             request (obj): The request to check.
             options (obj): The options to patch the request with.
+            parent_response(obj): The parent response object if exists.
 
         """
 
-        # ToDo: add options to request (by reference, no need to return).
-
         request.user_agent = options.identity.user_agent
+        request.cookies = options.identity.cookies
 
-        pass
+        if parent_response != None:
+            for cookie in parent_response.cookies:
+                request.cookies.set(cookie.name, cookie.value, domain=cookie.domain, path=cookie.path)
 
     @staticmethod
     def is_already_in_queue(request, queue):

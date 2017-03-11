@@ -88,8 +88,11 @@ options.scope.domain_must_match = True # Only crawl pages with the same domain a
 options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is True.
 options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
+# Identity options
+options.identity.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" # The user agent to make requests with. Default is Chrome.
+
 # Performance options
-options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4. 
+options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
 
 crawler = Crawler(options)
 crawler.start_with(Request("https://finnwea.com/"))
@@ -99,7 +102,7 @@ crawler.start_with(Request("https://finnwea.com/"))
 
 The testing can and will automatically be done by [Travis CI](https://travis-ci.com/) on every push to the master branch. If you want to manually run the unit tests, use the command below.
 
-`python -m unittest discover -s tests`
+`python -m unittest discover`
 
 ## Issues
 

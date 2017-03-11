@@ -69,9 +69,11 @@ options.scope.max_depth = None # The maximum search depth. For example, 2 would 
 
 # Identity options
 options.identity.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" # The user agent to make requests with. Default is Chrome.
+options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
+options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea.com', path='/elsewhere')
 
 # Performance options
-options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4. 
+options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
 
 crawler = Crawler(options)
-crawler.start_with(Request("http://www.finnwea.com/"))
+crawler.start_with(Request("https://finnwea.com/"))

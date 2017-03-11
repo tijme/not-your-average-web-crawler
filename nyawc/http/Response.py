@@ -25,4 +25,4 @@
 class Response:
     """Response placeholder class for before request is finished."""
 
-    pass
+    status_code = -1

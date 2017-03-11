@@ -23,6 +23,7 @@
 # SOFTWARE.
 
 from nyawc.helpers.URLHelper import URLHelper
+from nyawc.helpers.CookieHelper import CookieHelper
 
 class Request:
     """The Request class contains details that were used to request the specified URL.
@@ -40,7 +41,7 @@ class Request:
         url (str): The absolute URL to use when making the request.
         method (str): The request method to use for the request.
         data (obj): The post data {key: value} object that will be sent.
-        cookie (obj): The cookies {key: value} object to use for the request.
+        cookies (obj): The (requests module) cookie jar to use for the request.
         user_agent (str): The user agent to use for the request.
 
     """
@@ -76,25 +77,25 @@ class Request:
 
     data = None
 
-    cookie = None
+    cookies = None
 
     user_agent = None
 
-    def __init__(self, url, method=METHOD_GET, data=None, cookie=None, user_agent=None):
+    def __init__(self, url, method=METHOD_GET, data=None, cookies=None, user_agent=None):
         """Constructs a Request class.
 
         Args:
             url (str): The absolute URL to use when making the request.
             method (str): The request method to use for the request.
             data (obj): The post data {key: value} object that will be sent.
-            cookie (obj): The cookies {key: value} object to use for the request.
+            cookies (obj): The (requests module) cookie jar to use for the request.
             user_agent (str): The user agent to use for the request.
 
         """
 
         self.url = url
         self.method = method
-        self.cookie = cookie
+        self.cookies = cookies
         self.user_agent = user_agent
 
         if method == self.METHOD_GET:
@@ -113,7 +114,16 @@ class Request:
 
         """
 
-        return self.__dict__ == request.__dict__
+        if self.url != request.url:
+            return False
+
+        if self.method != request.method:
+            return False
+
+        if not CookieHelper.are_cookies_the_same(self.cookies, request.cookies):
+            return False
+
+        return True
 
     def is_similar_to(self, request):
         """Check if this request is similar to the given request.
@@ -129,11 +139,10 @@ class Request:
         if self.method != request.method:
             return False
 
-        if self.data != request.data:
-            if not URLHelper.is_data_similar(self.data, request.data):
-                return False
+        if not URLHelper.is_data_similar(self.data, request.data):
+            return False
 
-        if self.cookie != request.cookie:
+        if not CookieHelper.are_cookies_similar(self.cookies, request.cookies):
             return False
 
         if self.url != request.url:

@@ -178,30 +178,29 @@ class Crawler:
 
         """
 
-        if queue_item.status == QueueItem.STATUS_CANCELLED:
-            return False
-
         new_queue_items = []
-            
-        for new_request in new_requests:
-            if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
-                continue
+        action = None
 
-            if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
-                continue
-
-            new_request.depth = queue_item.request.depth + 1
-            if self.__options.scope.max_depth is not None:
-                if new_request.depth > self.__options.scope.max_depth:
+        if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
+            for new_request in new_requests:
+                HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item.response)
+                
+                if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
                     continue
 
-            if queue_item.status != QueueItem.STATUS_CANCELLED:
-                HTTPRequestHelper.patch_with_options(new_request, self.__options)
+                if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
+                    continue
+
+                new_request.depth = queue_item.request.depth + 1
+                if self.__options.scope.max_depth is not None:
+                    if new_request.depth > self.__options.scope.max_depth:
+                        continue
+
                 new_queue_item = self.__queue.add_request(new_request)
                 new_queue_items.append(new_queue_item)
 
-        queue_item.status = QueueItem.STATUS_FINISHED
-        action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
+            queue_item.status = QueueItem.STATUS_FINISHED
+            action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
 
         if self.__stopping:
             return False
@@ -244,20 +243,30 @@ class CrawlerThread(threading.Thread):
         self.__callback_lock = callback_lock
 
     def run(self):
-        """Executes the HTTP call"""
+        """Executes the HTTP call.
+
+        Note:
+            If the this and the parent handler raised an error, the queue item status will be set to errored
+            instead of finished.
+        """
 
         new_requests = []
             
         try:
             handler = Handler(self.__queue_item)
-            self.__queue_item.response.raise_for_status()
             new_requests = handler.get_new_requests()
-        except Exception:
-            if self.__queue_item.request.parent_raised_error:
-                self.__queue_item.status = QueueItem.STATUS_FINISHED
-                return None
-            else:
-                self.__queue_item.request.parent_raised_error = True
+
+            try:
+                self.__queue_item.response.raise_for_status()
+            except Exception:
+                if self.__queue_item.request.parent_raised_error:
+                    self.__queue_item.status = QueueItem.STATUS_ERRORED
+                else:
+                    for new_request in new_requests:
+                        new_request.parent_raised_error = True
+
+        except Exception as e:
+            self.__queue_item.status = QueueItem.STATUS_ERRORED
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)

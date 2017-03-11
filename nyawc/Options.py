@@ -24,6 +24,8 @@
 
 from nyawc.Crawler import CrawlerActions
 
+import requests
+
 class Options:
     """The Options class contains all the crawling settings/options.
 
@@ -69,7 +71,7 @@ class OptionsScope:
 
     domain_must_match = True
 
-    ignore_similar_requests = True
+    ignore_similar_requests = False
 
     max_depth = 10
 
@@ -157,8 +159,11 @@ class OptionsIdentity:
 
     Attributes:
         user_agent (str): the user agent to use when making a request.
+        cookies (obj): the cookies to use when making a request.
         
     """
 
     # ToDo: Default this string to a random user agent
     user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+
+    cookies = requests.cookies.RequestsCookieJar()

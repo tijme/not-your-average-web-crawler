@@ -50,7 +50,7 @@ class Handler:
             self.__queue_item.request.url,
             self.__queue_item.request.method,
             self.__queue_item.request.data,
-            self.__queue_item.request.cookie,
+            self.__queue_item.request.cookies,
             {
                 'User-Agent': self.__queue_item.request.user_agent
             }

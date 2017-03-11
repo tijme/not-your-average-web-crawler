@@ -121,4 +121,7 @@ class URLHelper:
         if data2 is None and data1 is not None:
             return False
 
+        if data1 is None and data2 is None:
+            return True
+
         return data1.keys() == data2.keys()
