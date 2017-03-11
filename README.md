@@ -14,7 +14,7 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 
 **Crawls:**
 
-- **Links:** URLs in HTML attributes, JSON, etc.
+- **Links:** URLs in HTML attributes, JSON, XML, etc.
 - **Forms:** GET & POST forms and their request data.
 
 **Current limitations:**
@@ -24,10 +24,6 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 **Future development:**
 - Fix current limitations.
 - Performance improvements.
-- Support XHR crawling.
-- Support XML & Open XML crawling.
-- Support custom cookies.
-- Support custom user agents.
 - Support rate limiting.
 
 ## Installation
@@ -36,6 +32,8 @@ First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then 
 `pip install --upgrade nyawc`
 
 ## Example usage
+
+You can use the callbacks in `example.py` to run your own exploit against the requests. If you an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 * `python example.py`
 * `python -u example.py > output.log`
