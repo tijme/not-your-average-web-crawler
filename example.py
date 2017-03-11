@@ -48,6 +48,9 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
 
     print("At " + percentage + "% of " + total_requests + " requests ([" + str(queue_item.response.status_code) + "] " + queue_item.request.url + ").")
 
+    if queue_item.response.status_code == 404:
+        print(queue_item.request.parent_url)
+
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
@@ -76,4 +79,4 @@ options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea
 options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://finnwea.com/"))
+crawler.start_with(Request("http://nos.nl/"))

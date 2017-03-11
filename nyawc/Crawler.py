@@ -256,7 +256,7 @@ class CrawlerThread(threading.Thread):
         Note:
             If the this and the parent handler raised an error, the queue item status will be set to errored
             instead of finished.
-            
+
         """
 
         new_requests = []
@@ -276,6 +276,10 @@ class CrawlerThread(threading.Thread):
 
         except Exception as e:
             self.__queue_item.status = QueueItem.STATUS_ERRORED
+
+
+        for new_request in new_requests:
+            new_request.parent_url = self.__queue_item.request.url
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)

@@ -98,8 +98,11 @@ class HTTPRequestHelper:
 
         """
 
-        parsed_url = urlparse(queue_item.request.url)
-        parsed_new_url = urlparse(new_request.url)
+        try:
+            parsed_url = urlparse(queue_item.request.url)
+            parsed_new_url = urlparse(new_request.url)
+        except:
+            return False
 
         subdomain = parsed_url.netloc.split(".")[:-2]
         subdomain_new = parsed_new_url.netloc.split(".")[:-2]

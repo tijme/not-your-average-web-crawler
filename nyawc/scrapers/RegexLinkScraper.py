@@ -38,14 +38,12 @@ class RegexLinkScraper:
     """
 
     content_types = [
-        "text/html",
-        "text/javascript",
-        "text/css"
+        "text/html"
     ]
 
     __expressions = [
         # Match absolute/relative URLs between any type of HTML quote
-        { "group": 1, "raw": r"([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" },
+        { "group": 4, "raw": r"((src|link|href|url)(\=))([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)([^\s]*?))\4" },
     ]
 
     __queue_item = None

@@ -71,8 +71,6 @@ class TestScrapersRegexLinkScraper(unittest.TestCase):
         {"url": """https://example.ltd/unique=28/folder`/?unique=28""", "must_pass": True, "test": """<a href='https://example.ltd/unique=28/folder`/?unique=28'>test</a>"""},
         {"url": """https://example.ltd/unique=29/folder`/?unique=29""", "must_pass": True, "test": """<a href='https://example.ltd/unique=29/folder`/?unique=29'&b=not-included'>test</a>"""},
         {"url": """https://example.ltd/unique=30/folder`/?unique=30'&b=included""", "must_pass": True, "test": """<a href="https://example.ltd/unique=30/folder`/?unique=30'&b=included">test</a>"""},
-        {"url": """https://example.ltd/?unique=31""", "must_pass": True, "test": """var json = {"url": "https://example.ltd/?unique=31"}"""},
-        {"url": """https://example.ltd/?unique=32""", "must_pass": True, "test": """var json = {"url": 'https://example.ltd/?unique=32'}"""},
 
         {"url": None, "must_pass": False, "test": """<a href="https:/example.ltd?unique=-1">"""},
         {"url": None, "must_pass": False, "test": """<a href="https:example.ltd/?unique=-2">"""},
@@ -85,7 +83,9 @@ class TestScrapersRegexLinkScraper(unittest.TestCase):
         {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-9"""},
         {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-10&a=b"""},
         {"url": None, "must_pass": False, "test": """/folder1/folder2/folder3/folder4/?unique=-11#anchor"""},
-        {"url": None, "must_pass": False, "test": """<a href="http://examp\nle.ltd/?unique=-13">"""}
+        {"url": None, "must_pass": False, "test": """<a href="http://examp\nle.ltd/?unique=-13">"""},
+        {"url": None, "must_pass": False, "test": """var json = {"url": "https://example.ltd/?unique=-14"}"""},
+        {"url": None, "must_pass": False, "test": """var json = {"url": 'https://example.ltd/?unique=-14'}"""}
     ]
 
     def test_regex_url_count(self):
@@ -98,7 +98,7 @@ class TestScrapersRegexLinkScraper(unittest.TestCase):
         finder = RegexLinkScraper(QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
-        self.assertEqual(len(matches), 32)
+        self.assertEqual(len(matches), 30)
  
     def test_regex_url_matches(self):
         """Test if all the URLs match the found URLs."""
@@ -108,7 +108,7 @@ class TestScrapersRegexLinkScraper(unittest.TestCase):
             requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:
-                self.assertEqual(requests[0].url, url["url"])
                 self.assertEqual(len(requests), 1)
+                self.assertEqual(requests[0].url, url["url"])
             else:
                 self.assertEqual(len(requests), 0)
