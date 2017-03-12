@@ -125,3 +125,17 @@ class URLHelper:
             return True
 
         return data1.keys() == data2.keys()
+
+    @staticmethod
+    def is_mailto(url):
+        """Check if the given URL is a mailto URL
+
+        Args:
+            url (str): The URL to check.
+
+        Returns:
+            bool: True if mailto, False otherwise.
+
+        """
+
+        return url.startswith("mailto:")

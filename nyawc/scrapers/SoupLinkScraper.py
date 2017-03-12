@@ -88,18 +88,21 @@ class SoupLinkScraper:
 
         for a_element in a_elements:
             found_url = self.__trim_grave_accent(a_element["href"])
-            absolute_url = URLHelper.make_absolute(host, found_url)
-            found_requests.append(Request(absolute_url))
+            if not URLHelper.is_mailto(found_url):
+                absolute_url = URLHelper.make_absolute(host, found_url)
+                found_requests.append(Request(absolute_url))
 
         for link_element in link_elements:
             found_url = self.__trim_grave_accent(link_element["href"])
-            absolute_url = URLHelper.make_absolute(host, found_url)
-            found_requests.append(Request(absolute_url))
+            if not URLHelper.is_mailto(found_url):
+                absolute_url = URLHelper.make_absolute(host, found_url)
+                found_requests.append(Request(absolute_url))
 
         for script_element in script_elements:
             found_url = self.__trim_grave_accent(script_element["src"])
-            absolute_url = URLHelper.make_absolute(host, found_url)
-            found_requests.append(Request(absolute_url))
+            if not URLHelper.is_mailto(found_url):
+                absolute_url = URLHelper.make_absolute(host, found_url)
+                found_requests.append(Request(absolute_url))
 
         return found_requests
 
