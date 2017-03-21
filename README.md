@@ -37,7 +37,7 @@ Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler
 
 ## Example usage
 
-You can use the callbacks in `example.py` to run your own exploit against the requests. If you an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
+You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 * `python example.py`
 * `python -u example.py > output.log`
@@ -46,7 +46,6 @@ You can use the callbacks in `example.py` to run your own exploit against the re
 # example.py
 
 from nyawc.Options import Options
-from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions
 from nyawc.http.Request import Request
 
@@ -54,24 +53,14 @@ def cb_crawler_before_start():
     print("Crawler started.")
 
 def cb_crawler_after_finish(queue):
-    print("Crawler finished. Found " + str(queue.get_count()) + " requests.")
-
-    for queue_item in queue.get_all():
-        print("[" + queue_item.request.method + "] " + queue_item.request.url + " (PostData: " + str(queue_item.request.data) + ")")
+    print("Crawler finished, found " + str(queue.get_count()) + " requests.")
 
 def cb_request_before_start(queue, queue_item):
-    # return CrawlerActions.DO_SKIP_TO_NEXT
-    # return CrawlerActions.DO_STOP_CRAWLING
-
+    print("Starting: {}".format(queue_item.request.url))
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
 def cb_request_after_finish(queue, queue_item, new_queue_items):
-    percentage = str(int(queue.get_progress()))
-    total_requests = str(queue.get_count())
-
-    print("At " + percentage + "% of " + total_requests + " requests ([" + str(queue_item.response.status_code) + "] " + queue_item.request.url + ").")
-
-    # return CrawlerActions.DO_STOP_CRAWLING
+    print("Finished: {}".format(queue_item.request.url))
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
 # Declare the options
