@@ -73,7 +73,7 @@ class OptionsScope:
 
     ignore_similar_requests = False
 
-    max_depth = 10
+    max_depth = None
 
 class OptionsCallbacks:
     """The OptionsCallbacks class contains all the callback methods.

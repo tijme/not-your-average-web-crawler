@@ -23,7 +23,6 @@
 # SOFTWARE.
 
 from nyawc.Options import Options
-from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions
 from nyawc.http.Request import Request
 
@@ -47,9 +46,6 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
     total_requests = str(queue.get_count())
 
     print("At " + percentage + "% of " + total_requests + " requests ([" + str(queue_item.response.status_code) + "] " + queue_item.request.url + ").")
-
-    if queue_item.response.status_code == 404:
-        print(queue_item.request.parent_url)
 
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING

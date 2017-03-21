@@ -18,13 +18,15 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - **Forms:** GET & POST forms and their request data.
 
 **Current limitations:**
-- Only works on Python 3.6 or higher.
 - Ignore similar requests option not working.
 
 **Future development:**
 - Fix current limitations.
+- Wiki improvements.
 - Performance improvements.
 - Support rate limiting.
+- Support custom fomr data.
+- Expand callback functionality.
 
 ## Installation
 First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
@@ -42,7 +44,6 @@ You can use the callbacks in `example.py` to run your own exploit against the re
 # example.py
 
 from nyawc.Options import Options
-from nyawc.Queue import QueueItem
 from nyawc.Crawler import Crawler, CrawlerActions
 from nyawc.http.Request import Request
 
@@ -83,7 +84,7 @@ options.callbacks.request_after_finish = cb_request_after_finish # Called after 
 options.scope.protocol_must_match = False # Only crawl pages with the same protocol as the startpoint (e.g. only https). Default is False.
 options.scope.subdomain_must_match = False # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 options.scope.domain_must_match = True # Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com). Default is True.
-options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is True.
+options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is False.
 options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 # Identity options
