@@ -10,7 +10,7 @@
 </p>
 
 ## Not Your Average Web Crawler
-A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners like [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner).
+A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners.
 
 **Crawls:**
 
@@ -30,6 +30,10 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
 
 `pip install --upgrade nyawc`
+
+## Documentation
+
+Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler) for all the documentation on N.Y.A.W.C.
 
 ## Example usage
 
