@@ -33,7 +33,7 @@ First make sure you're on [Python 3.6](https://www.python.org/) or higher. Then 
 
 ## Documentation
 
-Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler) for all the documentation on N.Y.A.W.C.
+Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler/wiki) for all the documentation on N.Y.A.W.C.
 
 ## Example usage
 
