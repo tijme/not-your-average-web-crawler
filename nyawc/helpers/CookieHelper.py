@@ -48,8 +48,8 @@ class CookieHelper:
         if jar1 is None and jar2 is None:
             return True
 
+        cookieMatches = False
         for cookie1 in jar1:
-            cookieMatches = False
             for cookie2 in jar2:
                 if cookie1.name == cookie2.name:
                     if cookie1.value == cookie2.value:
@@ -58,8 +58,8 @@ class CookieHelper:
         if not cookieMatches:
             return False
 
+        cookieMatches = False
         for cookie2 in jar2:
-            cookieMatches = False
             for cookie1 in jar1:
                 if cookie2.name == cookie1.name:
                     if cookie2.value == cookie1.value:
