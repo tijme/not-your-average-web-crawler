@@ -30,7 +30,6 @@ with open('requirements.txt') as file:
 setup(
     version="1.2.2",
     name="nyawc",
-    keywords = "web-crawler web-scraper request-crawler vulnerability-scanner crawler scanner",
     description="A web crawler that gathers requests instead of URLs.",
     long_description="A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners",
     keywords = ['web-crawler', 'web-scraper', 'request-crawler', 'vulnerability-scanner', 'security', 'bug-bounty'],
