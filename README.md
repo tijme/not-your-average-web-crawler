@@ -18,14 +18,14 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - **Forms:** GET & POST forms and their request data.
 
 **Current limitations:**
-- Ignore similar requests option not working.
+- Ignore similar requests does not work for SEO URLs.
 
 **Future development:**
 - Fix current limitations.
 - Wiki improvements.
 - Performance improvements.
 - Support rate limiting.
-- Support custom fomr data.
+- Support custom/random form data.
 - Expand callback functionality.
 
 ## Installation
@@ -39,7 +39,7 @@ Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler
 
 ## Example usage
 
-You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
+You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner/tree/nyawc) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 * `python example.py`
 * `python -u example.py > output.log`
