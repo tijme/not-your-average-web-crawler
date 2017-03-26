@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/pypi/v/nyawc.svg" alt="PyPi Version">
     </a>
     <a href="LICENSE.md">
-        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+        <img src="https://img.shields.io/pypi/l/nyawc.svg" alt="License: MIT">
     </a>
 </p>
 
