@@ -43,7 +43,7 @@ class URLHelper:
 
         # Python 3.4 and lower do not remove folder traversal strings.
         # This was fixed in 3.5 (https://docs.python.org/3/whatsnew/3.5.html#urllib)
-        while(relative.startswith('../')):
+        while(relative.startswith('/../') or relative.startswith('../')):
             relative = relative[3:]
 
         return urljoin(parent_absolute, relative)
