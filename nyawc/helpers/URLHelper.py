@@ -23,6 +23,7 @@
 # SOFTWARE.
 
 from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
+from collections import OrderedDict
 
 class URLHelper:
     """A helper for URL strings."""
@@ -68,21 +69,8 @@ class URLHelper:
 
         url_parts = list(urlparse(url))
 
-        print('----------------------')
-
-        query = dict(parse_qsl(url_parts[4]))
-        
-        print('data')
-        print(data)
-        print('query')
-        print(query)
-        
+        query = OrderedDict(parse_qsl(url_parts[4]))
         query.update(data)
-
-        print('data')
-        print(data)
-        print('query')
-        print(query)
 
         url_parts[4] = urlencode(query)
 
