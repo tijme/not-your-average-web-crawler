@@ -68,8 +68,20 @@ class URLHelper:
 
         url_parts = list(urlparse(url))
 
+        print('----------------------')
+        
+        print('data')
+        print(data)
+        print('query')
+        print(query)
+
         query = dict(parse_qsl(url_parts[4]))
         query.update(data)
+
+        print('data')
+        print(data)
+        print('query')
+        print(query)
 
         url_parts[4] = urlencode(query)
 
