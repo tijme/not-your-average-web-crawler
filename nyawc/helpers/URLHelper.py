@@ -52,11 +52,11 @@ class URLHelper:
 
     @staticmethod
     def append_with_data(url, data):
-        """Append the given URL with the given data dict.
+        """Append the given URL with the given data OrderedDict.
 
         Args:
             url (str): The URL to append.
-            data (obj): The key value data to append to the URL.
+            data (obj): The key value OrderedDict to append to the URL.
 
         Returns:
             str: The new URL.
