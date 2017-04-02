@@ -25,6 +25,7 @@
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
+from collections import OrderedDict
 
 import html5lib
 
@@ -138,7 +139,7 @@ class SoupFormScraper:
 
         """
 
-        fields = {}
+        fields = OrderedDict()
 
         self.__get_form_data_from_inputs(soup, fields)
         self.__get_form_data_from_buttons(soup, fields)
@@ -152,7 +153,7 @@ class SoupFormScraper:
 
         Args:
             soup (obj): The BeautifulSoup form.
-            fields (obj): The fields (key/value) dict.
+            fields (obj): The fields (key/value) OrderedDict.
 
         """
 

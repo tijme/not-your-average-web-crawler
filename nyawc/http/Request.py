@@ -40,7 +40,7 @@ class Request:
         depth (int): The current crawling depth.
         url (str): The absolute URL to use when making the request.
         method (str): The request method to use for the request.
-        data (obj): The post data {key: value} object that will be sent.
+        data (obj): The post data {key: value} OrderedDict that will be sent.
         cookies (obj): The (requests module) cookie jar to use for the request.
         user_agent (str): The user agent to use for the request.
 
@@ -87,7 +87,7 @@ class Request:
         Args:
             url (str): The absolute URL to use when making the request.
             method (str): The request method to use for the request.
-            data (obj): The post data {key: value} object that will be sent.
+            data (obj): The post data {key: value} OrderedDict that will be sent.
             cookies (obj): The (requests module) cookie jar to use for the request.
             user_agent (str): The user agent to use for the request.
 
