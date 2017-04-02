@@ -41,13 +41,10 @@ class URLHelper:
 
         """
 
-        if relative.startswith("http://") or relative.startswith("https://"):
-            return relative
-
-        parsed_host = urlparse(parent_absolute)
-
-        if relative.startswith("//"):
-            return parsed_host.scheme + ":" + relative
+        # Python 3.4 and lower do not remove folder traversal strings.
+        # This was fixed in 3.5 (https://docs.python.org/3/whatsnew/3.5.html#urllib)
+        while(relative.startswith('../')):
+            relative = relative[3:]
 
         return urljoin(parent_absolute, relative)
 
