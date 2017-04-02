@@ -24,7 +24,7 @@
 
 import sys
 
-if sys.version_info.major != 3 or sys.version_info.minor < 6:
-    print("N.Y.A.W.C requires Python 3.6 or higher!")
+if sys.version_info.major != 3 or sys.version_info.minor < 5:
+    print("N.Y.A.W.C requires Python 3.5 or higher!")
     print("You are currently using Python " + str(sys.version_info.major) + "." + str(sys.version_info.minor) + ".")
     sys.exit(1)
