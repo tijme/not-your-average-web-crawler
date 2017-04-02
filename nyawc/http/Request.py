@@ -100,6 +100,7 @@ class Request:
 
         if method == self.METHOD_GET:
             self.url = URLHelper.append_with_data(self.url, data)
+            self.data = None
         else:
             self.data = data
 
