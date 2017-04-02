@@ -69,13 +69,14 @@ class URLHelper:
         url_parts = list(urlparse(url))
 
         print('----------------------')
+
+        query = dict(parse_qsl(url_parts[4]))
         
         print('data')
         print(data)
         print('query')
         print(query)
-
-        query = dict(parse_qsl(url_parts[4]))
+        
         query.update(data)
 
         print('data')
