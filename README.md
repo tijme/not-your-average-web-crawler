@@ -2,10 +2,9 @@
     <img src="https://i.imgur.com/ONCi3C2.png" width="300" height="300" alt="NYAWC">
     <br/>
     <a href="https://travis-ci.org/tijme/not-your-average-web-crawler"><img src="https://travis-ci.org/tijme/not-your-average-web-crawler.svg?branch=master" alt="Build Status"></a>
-    <a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/nyawc.svg" alt=Python version"></a>
+    <a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/nyawc.svg" alt="Python version"></a>
     <a href="https://pypi.python.org/pypi/nyawc/"><img src="https://img.shields.io/pypi/v/nyawc.svg" alt="PyPi version"></a>
     <a href="LICENSE.md"><img src="https://img.shields.io/pypi/l/nyawc.svg" alt="License: MIT"></a>
-
 </p>
 
 ## Not Your Average Web Crawler
