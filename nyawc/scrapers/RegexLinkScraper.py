@@ -33,6 +33,7 @@ class RegexLinkScraper:
     Attributes:
         content_types list(str): The supported content types.
         __expressions list(obj): The queue item containing the response to scrape.
+        __options (obj): The settins/options object.
         __queue_item (obj): The queue item containing the response to scrape.
 
     """
@@ -46,16 +47,20 @@ class RegexLinkScraper:
         { "group": 4, "raw": r"((src|link|href|url)(\=))([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)([^\s]*?))\4" },
     ]
 
+    __options = None
+
     __queue_item = None
 
-    def __init__(self, queue_item):
+    def __init__(self, options, queue_item):
         """Construct the RegexLinkScraper class.
 
         Args:
+            options (obj): The settins/options object.
             queue_item (obj): The queue item containing a response the scrape.
 
         """
 
+        self.__options = options
         self.__queue_item = queue_item
 
     def get_requests(self):

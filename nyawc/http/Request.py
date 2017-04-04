@@ -42,7 +42,7 @@ class Request:
         method (str): The request method to use for the request.
         data (obj): The post data {key: value} OrderedDict that will be sent.
         cookies (obj): The (requests module) cookie jar to use for the request.
-        user_agent (str): The user agent to use for the request.
+        headers (obj): The headers {key: value} to use for the request.
 
     """
 
@@ -79,9 +79,9 @@ class Request:
 
     cookies = None
 
-    user_agent = None
+    headers = None
 
-    def __init__(self, url, method=METHOD_GET, data=None, cookies=None, user_agent=None):
+    def __init__(self, url, method=METHOD_GET, data=None, cookies=None, headers=None):
         """Constructs a Request class.
 
         Args:
@@ -89,14 +89,14 @@ class Request:
             method (str): The request method to use for the request.
             data (obj): The post data {key: value} OrderedDict that will be sent.
             cookies (obj): The (requests module) cookie jar to use for the request.
-            user_agent (str): The user agent to use for the request.
+            headers (obj): The headers {key: value} to use for the request.
 
         """
 
         self.url = url
         self.method = method
         self.cookies = cookies
-        self.user_agent = user_agent
+        self.headers = headers
 
         if method == self.METHOD_GET:
             self.url = URLHelper.append_with_data(self.url, data)

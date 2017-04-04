@@ -79,10 +79,12 @@ class OptionsCallbacks:
     """The OptionsCallbacks class contains all the callback methods.
 
     Attributes:
-        crawler_before_start (obj): called when the crawler starts crawling. Default is a null route.
-        crawler_after_finish (obj): called when the crawler finished crawling. Default is a null route.
-        request_before_start (obj): called when the crawler starts a new request. Default is a null route.
-        request_after_finish (obj): called when the crawler finishes a request. Default is a null route.
+        crawler_before_start (obj): called before the crawler starts crawling. Default is a null route.
+        crawler_after_finish (obj): called after the crawler finished crawling. Default is a null route.
+        request_before_start (obj): called before the crawler starts a new request. Default is a null route.
+        request_after_finish (obj): called after the crawler finishes a request. Default is a null route.
+        form_before_autofill (obj): called before the crawler starts autofilling a form. Default is a null route.
+        form_after_autofill (obj): called after the crawler finishes autofilling a form. Default is a null route.
 
     """
 
@@ -94,6 +96,10 @@ class OptionsCallbacks:
 
     request_after_finish = None
 
+    form_before_autofill = None
+
+    form_after_autofill = None
+
     def __init__(self):
         """Constructs an OptionsCallbacks class."""
 
@@ -101,6 +107,8 @@ class OptionsCallbacks:
         self.crawler_after_finish = self.__null_route_crawler_after_finish
         self.request_before_start = self.__null_route_request_before_start
         self.request_after_finish = self.__null_route_request_after_finish
+        self.form_before_autofill = self.__null_route_form_before_autofill
+        self.form_after_autofill = self.__null_route_form_after_autofill
 
     def __null_route_crawler_before_start(self):
         """A null route for the 'crawler before start' callback."""
@@ -130,10 +138,11 @@ class OptionsCallbacks:
 
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
-    def __null_route_request_after_finish(self, queue_item, new_queue_items):
+    def __null_route_request_after_finish(self, queue, queue_item, new_queue_items):
         """A null route for the 'request after finish' callback.
 
         Args:
+            queue (obj): The current crawling queue.
             queue_item (obj): The queue item that was finished.
             new_queue_items (obj): The new queue items that were found in the one that finished.
 
@@ -143,6 +152,33 @@ class OptionsCallbacks:
         """
 
         return CrawlerActions.DO_CONTINUE_CRAWLING
+
+    def __null_route_form_before_autofill(self, queue_item, elements, form_data):
+        """A null route for the 'form before autofill' callback.
+
+        Args:
+            queue_item (obj): The queue item that was finished.
+            elements list(obj): The soup elements found in the form.
+            form_data (obj): The {key: value} form fields to be autofilled.
+
+        Returns:
+            str: A crawler action (either DO_AUTOFILL_FORM or DO_NOT_AUTOFILL_FORM).
+
+        """
+
+        return CrawlerActions.DO_AUTOFILL_FORM
+
+    def __null_route_form_after_autofill(self, queue_item, elements, form_data):
+        """A null route for the 'form after autofill' callback.
+
+        Args:
+            queue_item (obj): The queue item that was finished.
+            elements list(obj): The soup elements found in the form.
+            form_data (obj): The {key: value} form fields.
+
+        """
+
+        pass
 
 class OptionsPerformance:
     """The OptionsPerformance class contains the performance settings/options.
@@ -158,12 +194,13 @@ class OptionsIdentity:
     """The OptionsIdentity class contains the identity/footprint settings/options.
 
     Attributes:
-        user_agent (str): the user agent to use when making a request.
-        cookies (obj): the cookies to use when making a request.
+        headers (obj): The headers {key: value} to use when making a request.
+        cookies (obj): The (requests module) cookie jar to use when making a request.
         
     """
 
-    # ToDo: Default this string to a random user agent
-    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
-
     cookies = requests.cookies.RequestsCookieJar()
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+    }

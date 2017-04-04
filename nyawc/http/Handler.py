@@ -30,19 +30,25 @@ class Handler:
     """The Handler class executes HTTP requests.
 
     Attributes:
+        __options (obj): The settins/options object.
         __queue_item (obj): The queue item containing a request to execute.
 
     """
 
     __queue_item = None
 
-    def __init__(self, queue_item):
+    __options = None
+
+    def __init__(self, options, queue_item):
         """Construct the HTTP handler.
 
         Args:
+            options (obj): The settins/options object.
             queue_item (obj): The queue item containing the request.
 
         """
+
+        self.__options = options
 
         self.__queue_item = queue_item
 
@@ -51,9 +57,7 @@ class Handler:
             self.__queue_item.request.method,
             self.__queue_item.request.data,
             self.__queue_item.request.cookies,
-            {
-                'User-Agent': self.__queue_item.request.user_agent
-            }
+            self.__queue_item.request.headers
         )
 
     def get_new_requests(self):
@@ -69,7 +73,7 @@ class Handler:
         requests = []
 
         for scraper in scrapers:
-            instance = scraper(self.__queue_item)
+            instance = scraper(self.__options, self.__queue_item)
             if self.__content_type_matches(content_type, instance.content_types):
                 requests.extend(instance.get_requests())
 

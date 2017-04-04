@@ -66,7 +66,7 @@ class URLHelper:
 
         url_parts = list(urlparse(url))
 
-        query = OrderedDict(parse_qsl(url_parts[4]))
+        query = OrderedDict(parse_qsl(url_parts[4], keep_blank_values=True))
         query.update(data)
 
         url_parts[4] = urlencode(query)
@@ -86,6 +86,7 @@ class URLHelper:
 
         """
 
+
         parsed_url1 = urlparse(url1)
         parsed_url2 = urlparse(url2)
 
@@ -95,8 +96,8 @@ class URLHelper:
         if parsed_url1.path != parsed_url2.path:
             return False
 
-        dict_url1 = dict(parse_qsl(parsed_url1.query))
-        dict_url2 = dict(parse_qsl(parsed_url2.query))
+        dict_url1 = dict(parse_qsl(parsed_url1.query, keep_blank_values=True))
+        dict_url2 = dict(parse_qsl(parsed_url2.query, keep_blank_values=True))
 
         return URLHelper.is_data_similar(dict_url1, dict_url2)
 

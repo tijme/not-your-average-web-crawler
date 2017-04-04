@@ -33,6 +33,7 @@ class SoupLinkScraper:
 
     Attributes:
         content_types list(str): The supported content types.
+        __options (obj): The settins/options object.
         __queue_item (obj): The queue item containing the response to scrape.
 
     """
@@ -41,16 +42,20 @@ class SoupLinkScraper:
         "text/html"
     ]
 
+    __options = None
+
     __queue_item = None
 
-    def __init__(self, queue_item):
+    def __init__(self, options, queue_item):
         """Construct the SoupLinkScraper class.
 
         Args:
+            options (obj): The settins/options object.
             queue_item (obj): The queue item containing a response the scrape.
 
         """
 
+        self.__options = options
         self.__queue_item = queue_item
 
     def get_requests(self):

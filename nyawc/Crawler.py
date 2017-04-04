@@ -171,7 +171,7 @@ class Crawler:
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             queue_item.status = QueueItem.STATUS_IN_PROGRESS
 
-            thread = CrawlerThread(self.__request_finish, self.__lock, queue_item)
+            thread = CrawlerThread(self.__request_finish, self.__lock, self.__options, queue_item)
             thread.daemon = True
             thread.start()
 
@@ -190,7 +190,7 @@ class Crawler:
         if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
             for new_request in new_requests:
                 HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item.response)
-                
+
                 if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
                     continue
 
@@ -225,6 +225,7 @@ class CrawlerThread(threading.Thread):
     Attributes:
         __callback (obj): The method to call when finished
         __callback_lock (bool): The callback lock that prevents race conditions.
+        __options (obj): The settins/options object.
         __queue_item (obj): The queue item containing a request to execute.
 
     """
@@ -233,14 +234,17 @@ class CrawlerThread(threading.Thread):
 
     __callback_lock = None
 
+    __options = None
+
     __queue_item = None
 
-    def __init__(self, callback, callback_lock, queue_item):
+    def __init__(self, callback, callback_lock, options, queue_item):
         """Constructs a crawler thread class
 
         Args:
             callback (obj): The method to call when finished
             callback_lock (bool): The callback lock that prevents race conditions.
+            options (obj): The settins/options object.
             queue_item (obj): The queue item containing a request to execute.
 
         """
@@ -248,6 +252,7 @@ class CrawlerThread(threading.Thread):
         threading.Thread.__init__(self)
         self.__callback = callback
         self.__queue_item = queue_item
+        self.__options = options
         self.__callback_lock = callback_lock
 
     def run(self):
@@ -262,7 +267,7 @@ class CrawlerThread(threading.Thread):
         new_requests = []
             
         try:
-            handler = Handler(self.__queue_item)
+            handler = Handler(self.__options, self.__queue_item)
             new_requests = handler.get_new_requests()
 
             try:
@@ -292,6 +297,8 @@ class CrawlerActions:
         DO_CONTINUE_CRAWLING (int): Continue by crawling the request.
         DO_SKIP_TO_NEXT (int): Skip the current request and continue with the next one in line.
         DO_STOP_CRAWLING (int): Stop crawling and quit ongoing requests.
+        DO_AUTOFILL_FORM (int): Autofill this form with random values.
+        DO_NOT_AUTOFILL_FORM (int): Do not autofill this form with random values.
         
     """
 
@@ -300,3 +307,7 @@ class CrawlerActions:
     DO_SKIP_TO_NEXT = 2
 
     DO_STOP_CRAWLING = 3
+
+    DO_AUTOFILL_FORM = 4
+
+    DO_NOT_AUTOFILL_FORM = 5

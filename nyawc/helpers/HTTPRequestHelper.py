@@ -38,7 +38,7 @@ class HTTPRequestHelper:
 
         """
 
-        request.user_agent = options.identity.user_agent
+        request.headers = options.identity.headers
         request.cookies = options.identity.cookies
 
         if parent_response != None:
