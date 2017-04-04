@@ -5,7 +5,6 @@
     <a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/nyawc.svg" alt=Python version"></a>
     <a href="https://pypi.python.org/pypi/nyawc/"><img src="https://img.shields.io/pypi/v/nyawc.svg" alt="PyPi version"></a>
     <a href="LICENSE.md"><img src="https://img.shields.io/pypi/l/nyawc.svg" alt="License: MIT"></a>
-
 </p>
 
 ## Not Your Average Web Crawler
@@ -13,19 +12,14 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 
 **Crawls:**
 
-- **Links:** URLs in HTML attributes, JSON, XML, etc.
+- **Links:** URLs in HTML, JSON, XML, CSS, JSON, JavaScript, etc.
 - **Forms:** GET & POST forms and their request data.
 
-**Current limitations:**
-- Ignore similar requests does not work for SEO URLs.
-
 **Future development:**
-- Fix current limitations.
 - Wiki improvements.
 - Performance improvements.
 - Support rate limiting.
-- Support custom/random form data.
-- Expand callback functionality.
+- Support XHR crawling.
 
 ## Installation
 First make sure you're on [Python 3.2](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
@@ -38,7 +32,7 @@ Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler
 
 ## Example usage
 
-You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner/tree/nyawc) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
+You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner/tree/develop) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 * `python example.py`
 * `python -u example.py > output.log`
