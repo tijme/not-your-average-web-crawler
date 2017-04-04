@@ -29,6 +29,43 @@ class RandomInputHelper:
     """A helper for generating random user input strings."""
 
     @staticmethod
+    def get_for_type(input_type="text"):
+        """Get a random string for the given html input type
+
+        Args:
+            input_type (str): The input type (e.g. email).
+
+        Returns:
+            str: The random value.
+
+        """
+
+        types = {
+            "text": RandomInputHelper.get_random_value,
+            "hidden": RandomInputHelper.get_random_value,
+            "text": RandomInputHelper.get_random_value,
+            "search": RandomInputHelper.get_random_value,
+            "color": RandomInputHelper.get_random_color,
+            "week": {"function": RandomInputHelper.get_random_value, "params": [2, ["1234"]]},
+            "email": RandomInputHelper.get_random_email,
+            "password": RandomInputHelper.get_random_password,
+            "number": RandomInputHelper.get_random_number,
+            "tel": RandomInputHelper.get_random_telephonenumber,
+            "url": RandomInputHelper.get_random_url,
+            "textarea": RandomInputHelper.get_random_text,
+            "email": RandomInputHelper.get_random_email
+        }
+
+        if types.get(input_type) is None:
+            return ""
+
+        if type(types.get(input_type)) is dict:
+            generator = types.get(input_type)
+            return generator.get("function")(*generator.get("params"))
+
+        return types.get(input_type)()
+
+    @staticmethod
     def get_random_value(length=10, character_sets=[string.ascii_uppercase,string.ascii_lowercase]):
         """Get a random string with the given length.
 
@@ -42,6 +79,31 @@ class RandomInputHelper:
         """
 
         return "".join(random.choice("".join(character_sets)) for i in range(length))
+
+    @staticmethod
+    def get_random_number(length=4):
+        """Get a random number with the given length.
+
+        Args:
+            length (int): The length of the number to return.
+
+        Returns:
+            str: The random number.
+
+        """
+
+        return RandomInputHelper.get_random_value(length, [string.digits])
+
+    @staticmethod
+    def get_random_color():
+        """Get a random color in hex format (including hash character).
+
+        Returns:
+            str: The random hex color.
+
+        """
+
+        return '#{:06x}'.format(random.randint(0, 0x00ffff))
 
     @staticmethod
     def get_random_text():

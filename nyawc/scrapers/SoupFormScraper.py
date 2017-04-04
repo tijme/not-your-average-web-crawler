@@ -24,6 +24,7 @@
 
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
+from nyawc.helpers.RandomInputHelper import RandomInputHelper
 from bs4 import BeautifulSoup
 from collections import OrderedDict
 
@@ -101,16 +102,16 @@ class SoupFormScraper:
 
         """
 
-        url = URLHelper.make_absolute(host, self.__trim_grave_accent(soup['action'])) if soup.has_attr('action') else host
-        method_original = soup['method'] if soup.has_attr('method') else 'get'
-        method = 'post' if method_original.lower() == 'post' else 'get'
+        url = URLHelper.make_absolute(host, self.__trim_grave_accent(soup["action"])) if soup.has_attr("action") else host
+        method_original = soup["method"] if soup.has_attr("method") else "get"
+        method = "post" if method_original.lower() == "post" else "get"
         data = self.__get_form_data(soup)
 
         return Request(url, method, data)
 
 
     def __trim_grave_accent(self, href):
-        """Trim grave accents manually (because BeautifulSoup doesn't support it).
+        """Trim grave accents manually (because BeautifulSoup doesn"t support it).
 
         Args:
             href (str): The BeautifulSoup href value.
@@ -157,28 +158,32 @@ class SoupFormScraper:
 
         """
 
-        for input in soup.find_all('input'):
-            if not input.has_attr('name'):
+        for input in soup.find_all("input"):
+            if not input.has_attr("name"):
                 continue
             
-            if input['type'] in ('text', 'hidden', 'email', 'password', 'submit', 'image', 'color', 'date', 'month', 'number', 'search', 'tel', 'time', 'url', 'week', 'range'):
-                fields[input['name']] = input['value'] if input.has_attr('value') else ''
-                continue
-            
-            if input['type'] in ('checkbox', 'radio'):
-                value = ''
+            if input["type"] in ("text", "hidden", "email", "password", "submit", "image", "color", "date", "month", "number", "search", "tel", "time", "url", "week", "range"):
+                if input.has_attr("value"):
+                    fields[input["name"]] = input["value"]
+                else:
+                    fields[input["name"]] = RandomInputHelper.get_for_type(input["type"])
 
-                if input.has_attr('checked'):
-                    if input.has_attr('value'):
-                        value = input['value']
+                continue
+            
+            if input["type"] in ("checkbox", "radio"):
+                value = ""
+
+                if input.has_attr("checked"):
+                    if input.has_attr("value"):
+                        value = input["value"]
                     else:
-                        value = 'on'
+                        value = "on"
 
-                if input['name'] in fields and value:
-                    fields[input['name']] = value
+                if input["name"] in fields and value:
+                    fields[input["name"]] = value
                 
-                if not input['name'] in fields:
-                    fields[input['name']] = value
+                if not input["name"] in fields:
+                    fields[input["name"]] = value
                 
                 continue
 
@@ -191,11 +196,11 @@ class SoupFormScraper:
 
         """
 
-        for button in soup.find_all('button'):
-            if not button.has_attr('name'):
+        for button in soup.find_all("button"):
+            if not button.has_attr("name"):
                 continue
 
-            fields[button['name']] = button['value'] if button.has_attr('value') else ''
+            fields[button["name"]] = button["value"] if button.has_attr("value") else "1"
 
     def __get_form_data_from_textareas(self, soup, fields):
         """Parse all the form data from textarea elements
@@ -206,11 +211,11 @@ class SoupFormScraper:
 
         """
 
-        for textarea in soup.find_all('textarea'):
-            if not textarea.has_attr('name'):
+        for textarea in soup.find_all("textarea"):
+            if not textarea.has_attr("name"):
                 continue
 
-            fields[textarea['name']] = textarea.string or ''
+            fields[textarea["name"]] = textarea.string or RandomInputHelper.get_for_type("textarea")
 
     def __get_form_data_from_selects(self, soup, fields):
         """Parse all the form data from select elements
@@ -221,18 +226,18 @@ class SoupFormScraper:
 
         """
 
-        for select in soup.find_all('select'):
-            if not select.has_attr('name'):
+        for select in soup.find_all("select"):
+            if not select.has_attr("name"):
                 continue
 
-            value = ''
+            value = ""
 
-            options = select.find_all('option')
-            is_multiple = select.has_attr('multiple')
+            options = select.find_all("option")
+            is_multiple = select.has_attr("multiple")
 
             selected_options = [
                 option for option in options
-                if option.has_attr('selected')
+                if option.has_attr("selected")
             ]
             
             if not selected_options and options:
@@ -240,8 +245,8 @@ class SoupFormScraper:
             
             if not is_multiple:
                 if len(selected_options) >= 1:
-                    value = selected_options[0]['value']
+                    value = selected_options[0]["value"]
             else:
-                value = [option['value'] for option in selected_options]
+                value = [option["value"] for option in selected_options]
             
-            fields[select['name']] = value
+            fields[select["name"]] = value

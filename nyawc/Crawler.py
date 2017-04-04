@@ -275,6 +275,7 @@ class CrawlerThread(threading.Thread):
                         new_request.parent_raised_error = True
 
         except Exception as e:
+            print("Exception in crawler thread: " + str(e))
             self.__queue_item.status = QueueItem.STATUS_ERRORED
 
 
