@@ -22,7 +22,7 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - Support XHR crawling.
 
 ## Installation
-First make sure you're on [Python 3.2](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
+First make sure you're on [Python 3.3](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
 
 `pip install --upgrade nyawc`
 
