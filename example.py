@@ -53,7 +53,7 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
 def cb_form_before_autofill(queue_item, elements, form_data):
 
     # return CrawlerActions.DO_NOT_AUTOFILL_FORM
-    return CrawlerActions.DO_NOT_AUTOFILL_FORM
+    return CrawlerActions.DO_AUTOFILL_FORM
 
 def cb_form_after_autofill(queue_item, elements, form_data):
     pass

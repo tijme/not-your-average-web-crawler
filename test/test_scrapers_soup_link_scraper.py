@@ -26,6 +26,7 @@ from nyawc.scrapers.SoupLinkScraper import SoupLinkScraper
 from nyawc.Queue import Queue, QueueItem
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
+from nyawc.Options import Options
 
 import unittest
  
@@ -86,7 +87,7 @@ class TestScrapersSoupLinkScraper(unittest.TestCase):
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = SoupLinkScraper(QueueItem(Request(""), Response()))
+        finder = SoupLinkScraper(Options(), QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
         self.assertEqual(len(matches), 36)
@@ -95,7 +96,7 @@ class TestScrapersSoupLinkScraper(unittest.TestCase):
         """Test if all the URLs match the found URLs."""
 
         for url in self.__urls:
-            finder = SoupLinkScraper(QueueItem(Request(""), Response()))
+            finder = SoupLinkScraper(Options(), QueueItem(Request(""), Response()))
             requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:

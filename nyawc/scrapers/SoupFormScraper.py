@@ -146,26 +146,30 @@ class SoupFormScraper:
 
         """
 
-        elements = self.__get_all_valid_form_data_elements(soup)
-        form_data = OrderedDict()
+        elements = self.__get_valid_form_data_elements(soup)
+        form_data = self.__get_default_form_data_input(elements)
+        callback = self.__options.callbacks.form_before_autofill
+        action = callback(self.__queue_item, elements, form_data)
 
-        for element in elements:
-            default_value = self.__get_default_value_from_element(element)
-            if default_value is not False:
-                form_data[element["name"]] = default_value
-
-        action = self.__options.callbacks.form_before_autofill(self.__queue_item, elements, form_data)
-
-        if action == CrawlerActions.DO_NOT_AUTOFILL_FORM:
-            return form_data
-
-        for element in elements:
-            if not hasattr(form_data, element["name"]) and element.has_attr("type"):
-                form_data[element["name"]] = RandomInputHelper.get_for_type(element["type"])
+        if action == CrawlerActions.DO_AUTOFILL_FORM:
+            self.__autofill_form_data(form_data, elements)
 
         return form_data
 
-    def __get_all_valid_form_data_elements(self, soup):
+    def __get_valid_form_data_elements(self, soup):
+        """Get all valid form input elements.
+
+        Note: an element is valid when the value can be updated client-side
+        and the element has a name attribute.
+
+        Args:
+            soup (obj): The BeautifulSoup form.
+
+        Returns:
+            list(obj): Soup elements.
+
+        """
+
         elements = []
 
         for element in soup.find_all(["input", "button", "textarea", "select"]):
@@ -174,7 +178,65 @@ class SoupFormScraper:
 
         return elements
 
+    def __get_default_form_data_input(self, elements):
+        """Get the default form data {key: value} for the given elements.
+
+        Args:
+            elements list(obj): Soup elements.
+
+        Returns:
+            obj: The {key: value} form data
+
+        """
+
+        form_data = OrderedDict()
+
+        for element in elements:
+            default_value = self.__get_default_value_from_element(element)
+
+            if default_value is False:
+                continue
+
+            form_data[element["name"]] = default_value
+
+        return form_data
+
+    def __autofill_form_data(self, form_data, elements):
+        """Autofill empty form data with random data.
+
+        Args:
+            form_data (obj): The {key: value} form data
+            elements list(obj): Soup elements.
+
+        Returns:
+            obj: The {key: value} 
+
+        """
+
+        for element in elements:
+            if not element["name"] in form_data:
+                continue
+
+            if not len(form_data[element["name"]]) is 0:
+                continue
+
+            if element.name == "textarea":
+                form_data[element["name"]] = RandomInputHelper.get_for_type("textarea")
+                continue
+
+            if element.has_attr("type"):
+                form_data[element["name"]] = RandomInputHelper.get_for_type(element["type"])
+
     def __get_default_value_from_element(self, element):
+        """Get the default value of a form element
+
+        Args:
+            elements (obj): The soup element.
+
+        Returns:
+            str: The default value
+
+        """
 
         if element.name == "select":
             options = element.find_all("option")
@@ -187,15 +249,22 @@ class SoupFormScraper:
             
             if not selected_options and options:
                 selected_options = [options[0]]
+
+            selected_values = []
             
-            if not is_multiple:
-                if len(selected_options) >= 1:
-                    if selected_options[0].has_attr("value"):
-                        return selected_options[0]["value"]
-                    else:
-                        return selected_options[0].string
-            else:
-                return [option["value"] if option.has_attr("value") else option.string for option in selected_options]
+            if is_multiple:
+                for option in selected_options:
+                    value = option["value"] if option.has_attr("value") else option.string
+                    selected_values.append(value)
+
+                return selected_values
+            elif len(selected_options) >= 1:
+                if selected_options[0].has_attr("value"):
+                    return selected_options[0]["value"]
+                else:
+                    return selected_options[0].string
+
+            return ""
             
         if element.name == "textarea":
             return element.string if element.string is not None else ""

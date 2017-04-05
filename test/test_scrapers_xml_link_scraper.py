@@ -26,6 +26,7 @@ from nyawc.scrapers.XMLLinkScraper import XMLLinkScraper
 from nyawc.Queue import Queue, QueueItem
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
+from nyawc.Options import Options
 
 import unittest
  
@@ -57,7 +58,7 @@ class TestScrapersXMLLinkScraper(unittest.TestCase):
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = XMLLinkScraper(QueueItem(Request(""), Response()))
+        finder = XMLLinkScraper(Options(), QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
         self.assertEqual(len(matches), 4)
@@ -66,7 +67,7 @@ class TestScrapersXMLLinkScraper(unittest.TestCase):
         """Test if all the URLs match the found URLs."""
         
         for url in self.__urls:
-            finder = XMLLinkScraper(QueueItem(Request(""), Response()))
+            finder = XMLLinkScraper(Options(), QueueItem(Request(""), Response()))
             requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:
