@@ -12,8 +12,11 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 
 **Crawls:**
 
-- **Links:** URLs in HTML, JSON, XML, CSS, JSON, JavaScript, etc.
+- **Links:** URLs in HTML, XML, etc.
 - **Forms:** GET & POST forms and their request data.
+
+**Current limitations:**
+- Ignore similar requests does not work for SEO URLs.
 
 **Future development:**
 - Wiki improvements.
@@ -58,6 +61,12 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
     print("Finished: {}".format(queue_item.request.url))
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
+def cb_form_before_autofill(queue_item, elements, form_data):
+    return CrawlerActions.DO_AUTOFILL_FORM
+
+def cb_form_after_autofill(queue_item, elements, form_data):
+    pass
+
 # Declare the options
 options = Options()
 
@@ -66,16 +75,22 @@ options.callbacks.crawler_before_start = cb_crawler_before_start # Called before
 options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called after the crawler finished crawling. Default is a null route.
 options.callbacks.request_before_start = cb_request_before_start # Called before the crawler starts a new request. Default is a null route.
 options.callbacks.request_after_finish = cb_request_after_finish # Called after the crawler finishes a request. Default is a null route.
+options.callbacks.form_before_autofill = cb_form_before_autofill # Called before the crawler autofills a form. Default is a null route.
+options.callbacks.form_after_autofill = cb_form_after_autofill # Called after the crawler autofills a form. Default is a null route.
 
 # Scope options
 options.scope.protocol_must_match = False # Only crawl pages with the same protocol as the startpoint (e.g. only https). Default is False.
 options.scope.subdomain_must_match = False # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 options.scope.domain_must_match = True # Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com). Default is True.
-options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is False.
+options.scope.ignore_similar_requests = True # Ignore similar requests like `?page=1` & `?page=2` or `/page/1` and `/page/2`. Default is True.
 options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 # Identity options
-options.identity.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" # The user agent to make requests with. Default is Chrome.
+options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
+options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea.com', path='/elsewhere')
+options.identity.headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" # The user agent to make requests with. Default is Chrome.    
+}
 
 # Performance options
 options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
