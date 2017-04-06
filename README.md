@@ -32,7 +32,7 @@ Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler
 
 ## Example usage
 
-You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angular-csti-scanner/tree/develop) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
+You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angularjs-csti-scanner) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 * `python example.py`
 * `python -u example.py > output.log`
