@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/master/.github/logo.png" width="300" height="300" alt="NYAWC">
+    <img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/logo.png" width="300" height="300" alt="NYAWC">
     <br/>
     <a href="https://travis-ci.org/tijme/not-your-average-web-crawler"><img src="https://travis-ci.org/tijme/not-your-average-web-crawler.svg?branch=master" alt="Build Status"></a>
     <a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/nyawc.svg" alt="Python version"></a>
