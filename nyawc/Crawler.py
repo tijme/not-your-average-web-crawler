@@ -187,14 +187,15 @@ class Crawler:
         new_queue_items = []
         action = None
 
+
         if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
             for new_request in new_requests:
                 HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item.response)
 
-                if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
+                if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
                     continue
 
-                if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
+                if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
                     continue
 
                 new_request.depth = queue_item.request.depth + 1
@@ -286,6 +287,8 @@ class CrawlerThread(threading.Thread):
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
+
+
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)

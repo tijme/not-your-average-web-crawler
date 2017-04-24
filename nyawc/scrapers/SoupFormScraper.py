@@ -26,10 +26,7 @@ from nyawc.http.Request import Request
 from nyawc.Crawler import CrawlerActions
 from nyawc.helpers.URLHelper import URLHelper
 from nyawc.helpers.RandomInputHelper import RandomInputHelper
-from bs4 import BeautifulSoup
 from collections import OrderedDict
-
-import html5lib
 
 class SoupFormScraper:
     """The SoupLinkScraper finds requests from forms in HTML using BeautifulSoup.
@@ -86,7 +83,7 @@ class SoupFormScraper:
 
         """
 
-        soup = BeautifulSoup(content, "html5lib")
+        soup = self.__queue_item.get_bs_response()
         forms = soup.find_all("form")
 
         found_requests = []

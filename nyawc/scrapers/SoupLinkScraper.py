@@ -24,9 +24,6 @@
 
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
-from bs4 import BeautifulSoup
-
-import html5lib
 
 class SoupLinkScraper:
     """The SoupLinkScraper finds URLs from href attributes in HTML using BeautifulSoup.
@@ -84,7 +81,7 @@ class SoupLinkScraper:
 
         """
 
-        soup = BeautifulSoup(content, "html5lib")
+        soup = self.__queue_item.get_bs_response()
         a_elements = soup.find_all("a", href=True)
         link_elements = soup.find_all("link", href=True)
         script_elements = soup.find_all("script", src=True)

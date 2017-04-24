@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from bs4 import BeautifulSoup
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
 
@@ -198,6 +199,7 @@ class QueueItem:
         status (str): The current crawling status.
         request (obj): The Request object.
         response (obj): The Response object.
+        bs_response (obj): The BeautifulSoup container.
 
     """
 
@@ -217,6 +219,8 @@ class QueueItem:
 
     response = None
 
+    bs_response = None
+
     def __init__(self, request, response):
         """Constructs a QueueItem class.
 
@@ -228,3 +232,16 @@ class QueueItem:
         
         self.request = request
         self.response = response
+
+    def get_bs_response(self):
+        """Get the response as a cached BeautifulSoup container.
+
+        Returns:
+            obj: The BeautifulSoup container.
+
+        """
+
+        if self.response is not None and self.bs_response is None:
+            self.bs_response = BeautifulSoup(self.response.text, "lxml")
+
+        return self.bs_response
