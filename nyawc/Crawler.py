@@ -44,7 +44,7 @@ class Crawler:
 
     __options = None
 
-    __queue = Queue()
+    __queue = None
 
     __stopping = False
 
@@ -61,6 +61,7 @@ class Crawler:
         """
 
         self.__options = options
+        self.__queue = Queue(self.__options)
 
     def start_with(self, request):
         """Start the crawler using the given request.
@@ -78,7 +79,7 @@ class Crawler:
     def __spawn_new_requests(self):
         """Spawn new requests until the max processes option value is reached."""
 
-        concurrent_requests_count = self.__queue.get_count_including([QueueItem.STATUS_IN_PROGRESS])
+        concurrent_requests_count = len(self.__queue.get_all(QueueItem.STATUS_IN_PROGRESS))
         new_requests_spawned = False
 
         while concurrent_requests_count < self.__options.performance.max_threads:
@@ -133,13 +134,9 @@ class Crawler:
 
         self.__stopping = True
 
-        queued_items = self.__queue.get_all_including([
-            QueueItem.STATUS_QUEUED, 
-            QueueItem.STATUS_IN_PROGRESS
-        ])
-
-        for queue_item in queued_items:
-            queue_item.status = QueueItem.STATUS_CANCELLED
+        for status in [QueueItem.STATUS_QUEUED, QueueItem.STATUS_IN_PROGRESS]:
+            for queue_item in self.__queue.get_all(status):
+                self.__queue.move(queue_item, QueueItem.STATUS_CANCELLED)
 
         self.__crawler_finish()
 
@@ -165,11 +162,11 @@ class Crawler:
             return
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
-            queue_item.status = QueueItem.STATUS_FINISHED
+            self.__queue.move(queue_item, QueueItem.STATUS_FINISHED)
             return
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
-            queue_item.status = QueueItem.STATUS_IN_PROGRESS
+            self.__queue.move(queue_item, QueueItem.STATUS_IN_PROGRESS)
 
             thread = CrawlerThread(self.__request_finish, self.__lock, self.__options, queue_item)
             thread.daemon = True
@@ -187,7 +184,6 @@ class Crawler:
         new_queue_items = []
         action = None
 
-
         if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
             for new_request in new_requests:
                 HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item.response)
@@ -195,7 +191,7 @@ class Crawler:
                 if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
                     continue
 
-                if HTTPRequestHelper.is_already_in_queue(new_request, self.__queue):
+                if self.__queue.has_request(new_request):
                     continue
 
                 new_request.depth = queue_item.request.depth + 1
@@ -206,7 +202,7 @@ class Crawler:
                 new_queue_item = self.__queue.add_request(new_request)
                 new_queue_items.append(new_queue_item)
 
-            queue_item.status = QueueItem.STATUS_FINISHED
+            self.__queue.move(queue_item, QueueItem.STATUS_FINISHED)
             action = self.__options.callbacks.request_after_finish(self.__queue, queue_item, new_queue_items)
 
         if self.__stopping:
@@ -275,20 +271,17 @@ class CrawlerThread(threading.Thread):
                 self.__queue_item.response.raise_for_status()
             except Exception:
                 if self.__queue_item.request.parent_raised_error:
-                    self.__queue_item.status = QueueItem.STATUS_ERRORED
+                    self.__queue.move(self.__queue_item, QueueItem.STATUS_ERRORED)
                 else:
                     for new_request in new_requests:
                         new_request.parent_raised_error = True
 
         except Exception as e:
             print("Exception in crawler thread: " + str(e))
-            self.__queue_item.status = QueueItem.STATUS_ERRORED
-
+            self.__queue.move(self.__queue_item, QueueItem.STATUS_ERRORED)
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
-
-
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests)

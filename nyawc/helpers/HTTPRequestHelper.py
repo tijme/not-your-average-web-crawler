@@ -24,6 +24,8 @@
 
 from urllib.parse import urlparse
 
+import copy
+
 class HTTPRequestHelper:
     """A helper for the src.http.Request module."""
 
@@ -38,50 +40,12 @@ class HTTPRequestHelper:
 
         """
 
-        request.headers = options.identity.headers
-        request.cookies = options.identity.cookies
+        request.headers = copy.deepcopy(options.identity.headers)
+        request.cookies = copy.deepcopy(options.identity.cookies)
 
         if parent_response != None:
             for cookie in parent_response.cookies:
                 request.cookies.set(cookie.name, cookie.value, domain=cookie.domain, path=cookie.path)
-
-    @staticmethod
-    def is_already_in_queue(request, queue):
-        """Check if the given request is already in the queue.
-
-        Args:
-            request (obj): The request to check.
-            queue (obj): The queue to look in.
-
-        Returns:
-            bool: True if in queue, False otherwise.
-
-        """
-
-        for queue_item in queue.get_all():
-            if queue_item.request.is_same_as(request):
-                return True
-
-        return False
-
-    @staticmethod
-    def is_similar_already_in_queue(request, queue):
-        """Check if the given request (or a similar one) is already in the queue.
-
-        Args:
-            request (obj): The request to check.
-            queue (obj): The queue to look in.
-
-        Returns:
-            bool: True if in queue, False otherwise.
-
-        """
-
-        for queue_item in queue.get_all():
-            if queue_item.request.is_similar_to(request):
-                return True
-
-        return False
 
     @staticmethod
     def complies_with_scope(queue, queue_item, new_request, scope):
@@ -117,10 +81,6 @@ class HTTPRequestHelper:
 
         if scope.domain_must_match:
             if parsed_url.netloc != parsed_new_url.netloc:
-                return False
-
-        if scope.ignore_similar_requests:
-            if HTTPRequestHelper.is_similar_already_in_queue(new_request, queue):
                 return False
 
         return True

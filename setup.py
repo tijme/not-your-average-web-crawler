@@ -28,7 +28,7 @@ with open('requirements.txt') as file:
     requirements = file.read().splitlines()
 
 setup(
-    version="1.3.1",
+    version="1.4.0",
     name="nyawc",
     description="A web crawler that gathers more than you can imagine.",
     long_description="A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners",

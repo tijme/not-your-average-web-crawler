@@ -74,58 +74,6 @@ class URLHelper:
         return urlunparse(url_parts)
 
     @staticmethod
-    def are_urls_similar(url1, url2):
-        """Check if the given URLs are similar to each other.
-
-        Args:
-            url1 (str): The first URL.
-            url2 (str): The second URL.
-
-        Returns:
-            bool: True if similar, False otherwise.
-
-        """
-
-
-        parsed_url1 = urlparse(url1)
-        parsed_url2 = urlparse(url2)
-
-        if parsed_url1.netloc != parsed_url2.netloc:
-            return False
-
-        if parsed_url1.path != parsed_url2.path:
-            return False
-
-        dict_url1 = dict(parse_qsl(parsed_url1.query, keep_blank_values=True))
-        dict_url2 = dict(parse_qsl(parsed_url2.query, keep_blank_values=True))
-
-        return URLHelper.is_data_similar(dict_url1, dict_url2)
-
-    @staticmethod
-    def is_data_similar(data1, data2):
-        """Check if the given data dicts are similar to each other.
-
-        Args:
-            data1 (obj): The first data object.
-            data2 (obj): The second data object.
-
-        Returns:
-            bool: True if similar, False otherwise.
-
-        """
-
-        if data1 is None and data2 is not None:
-            return False
-
-        if data2 is None and data1 is not None:
-            return False
-
-        if data1 is None and data2 is None:
-            return True
-
-        return data1.keys() == data2.keys()
-
-    @staticmethod
     def is_mailto(url):
         """Check if the given URL is a mailto URL
 
@@ -138,3 +86,24 @@ class URLHelper:
         """
 
         return url.startswith("mailto:")
+
+    @staticmethod
+    def get_protocol(url):
+        parsed_url = urlparse(url)
+        return parsed_url.scheme
+
+    @staticmethod
+    def get_subdomain(url):
+        parsed_url = urlparse(url)
+        return ".".join(parsed_url.netloc.split(".")[:-2])
+
+    @staticmethod
+    def get_domain(url):
+        parsed_url = urlparse(url)
+        return ".".join(parsed_url.netloc.split(".")[-2:])
+
+    @staticmethod
+    def get_ordered_params(url):
+        parsed_url = urlparse(url)
+        params = dict(parse_qsl(parsed_url.query, keep_blank_values=True))
+        return OrderedDict(sorted(params.items()))

@@ -29,13 +29,12 @@ class Request:
     """The Request class contains details that were used to request the specified URL.
 
     Attributes:
-        REQUEST_METHOD_OPTIONS (str): A request method that can be used to request the URL.
-        REQUEST_METHOD_GET (str): A request method that can be used to request the URL.
-        REQUEST_METHOD_HEAD (str): A request method that can be used to request the URL.
-        REQUEST_METHOD_POST (str): A request method that can be used to request the URL.
-        REQUEST_METHOD_PUT (str): A request method that can be used to request the URL.
-        REQUEST_METHOD_DELETE (str): A request method that can be used to request the URL.
-        REQUEST_METHODS list(str): All available request methods in a list.
+        METHOD_OPTIONS (str): A request method that can be used to request the URL.
+        METHOD_GET (str): A request method that can be used to request the URL.
+        METHOD_HEAD (str): A request method that can be used to request the URL.
+        METHOD_POST (str): A request method that can be used to request the URL.
+        METHOD_PUT (str): A request method that can be used to request the URL.
+        METHOD_DELETE (str): A request method that can be used to request the URL.
         parent_raised_error (bool): If the parent request raised an error (e.g. 404).
         depth (int): The current crawling depth.
         url (str): The absolute URL to use when making the request.
@@ -57,15 +56,6 @@ class Request:
     METHOD_PUT = "put"
 
     METHOD_DELETE = "delete"
-
-    METHODS = [
-        METHOD_OPTIONS,
-        METHOD_GET,
-        METHOD_HEAD,
-        METHOD_POST,
-        METHOD_PUT,
-        METHOD_DELETE
-    ]
 
     parent_raised_error = False
 
@@ -103,51 +93,3 @@ class Request:
             self.data = None
         else:
             self.data = data
-
-    def is_same_as(self, request):
-        """Check if this request is the same to the given request.
-
-        Args:
-            request (obj): Check if self is the same as this request.
-
-        Returns:
-            bool: True if the same, False otherwise.
-
-        """
-
-        if self.url != request.url:
-            return False
-
-        if self.method != request.method:
-            return False
-
-        if not CookieHelper.are_cookies_the_same(self.cookies, request.cookies):
-            return False
-
-        return True
-
-    def is_similar_to(self, request):
-        """Check if this request is similar to the given request.
-
-        Args:
-            request (obj): Check if self is similar as this request.
-
-        Returns:
-            bool: True if similar, False otherwise.
-
-        """
-
-        if self.method != request.method:
-            return False
-
-        if not URLHelper.is_data_similar(self.data, request.data):
-            return False
-
-        if not CookieHelper.are_cookies_similar(self.cookies, request.cookies):
-            return False
-
-        if self.url != request.url:
-            if not URLHelper.are_urls_similar(self.url, request.url):
-                return False
-
-        return True

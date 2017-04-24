@@ -22,226 +22,108 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from bs4 import BeautifulSoup
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
+from nyawc.QueueItem import QueueItem
+from nyawc.helpers.URLHelper import URLHelper
+from nyawc.helpers.CookieHelper import CookieHelper
+from collections import OrderedDict
+
+import sys
 
 class Queue:
-    """The Queue class contains all the request/response pairs that are going to be or have been crawled.
 
-    Attributes:
-        __items list(obj): The request/response pairs (as QueueItem's). 
+    __options = None
 
-    """
+    count_total = 0
 
-    __items = []
+    count_queued = 0
 
-    def add(self, item):
-        """Add a request/response pair (QueueItem) to the queue.
+    count_in_progress = 0
 
-        Args:
-            item (obj): The QueueItem to add.
+    count_finished = 0
 
-        """
+    count_cancelled = 0
 
-        self.__items.append(item)
+    count_errored = 0
+
+    items_queued = OrderedDict()
+
+    items_in_progress = OrderedDict()
+
+    items_finished = OrderedDict()
+
+    items_cancelled = OrderedDict()
+
+    items_errored = OrderedDict()
+
+    def __init__(self, options):
+        self.__options = options
 
     def add_request(self, request):
-        """Add a request to the queue.
-
-        Args:
-            request (obj): The request to add.
-
-        Returns:
-            obj: The created queue item.
-
-        """
-
         queue_item = QueueItem(request, Response())
-
         self.add(queue_item)
-        
         return queue_item
 
+    def has_request(self, request):
+        queue_item = QueueItem(request, Response())
+        key = self.__get_key(queue_item)
+
+        for status in QueueItem.STATUSES:
+            if key in getattr(self, "items_" + status).keys():
+                return True
+
+        return False
+
+    def add(self, queue_item):
+        items = getattr(self, "items_" + queue_item.status)
+        items_count = getattr(self, "count_" + queue_item.status)
+
+        items[self.__get_key(queue_item)] = queue_item
+        items_count += 1
+
+        print("NEW COUNT {}: ".format(queue_item.status) + str(getattr(self, "count_" + queue_item.status)))
+
+        self.count_total += 1
+
+    def move(self, queue_item, status):
+        items = getattr(self, "items_" + queue_item.status)
+        count = getattr(self, "count_" + queue_item.status)
+
+        del items[self.__get_key(queue_item)]
+        count -= 1
+
+        queue_item.status = status
+        self.add(queue_item)
+
     def get_first(self, status):
-        """Get the first item in the queue that has the given status.
+        items = self.get_all(status)
 
-        Args:
-            status (str): return the first item with this status.
-
-        Returns:
-            obj: The first queue item with the given status.
-
-        """
-
-        for item in self.__items:
-            if item.status is status:
-                return item
+        if len(items) > 0:
+            return list(items.items())[0][1]
 
         return None
 
-    def get_all(self):
-        """Get all the items in the queue.
-
-        Returns:
-            list(obj): All the queue items.
-
-        """
-
-        return self.__items
-
-    def get_all_including(self, include):
-        """Get all the items that contain atleast one of the given statuses.
-
-        Args:
-            include list(str): an array of statuses.
-
-        Returns:
-            list(obj): All the queue items with one of the given statuses.
-
-        """
-
-        filtered_items = []
-
-        for item in self.__items:
-            if item.status in include:
-                filtered_items.append(item)
-
-        return filtered_items
-
-    def get_all_excluding(self, exclude):
-        """Get all the items that do not contain one of the given statuses.
-
-        Args:
-            exclude list(str): an array of statuses.
-
-        Returns:
-            list(obj): All the queue items that don't have one of the given statuses.
-
-        """
-
-        filtered_items = []
-
-        for item in self.__items:
-            if item.status not in exclude:
-                filtered_items.append(item)
-
-        return filtered_items
-
-    def get_count(self):
-        """Get a count of all the items in the queue."""
-
-        return len(self.__items)
-
-    def get_count_including(self, include):
-        """Get a count of the items that contain atleast one of the given statuses.
-
-        Args:
-            include list(str): an array of statuses.
-
-        Returns:
-            int: The amount of queue items that have one of the given statuses.
-
-        """
-
-        count = 0
-
-        for item in self.__items:
-            if item.status in include:
-                count += 1
-
-        return count
-
-    def get_count_excluding(self, exclude):
-        """Get a count of the items that do not contain one of the given statuses.
-
-        Args:
-            exclude list(str): an array of statuses.
-
-        Returns:
-            list(obj): The amount of queue items that don't have one of the given statuses.
-
-        """
-
-        count = 0
-
-        for item in self.__items:
-            if item.status not in exclude:
-                count += 1
-
-        return count
+    def get_all(self, status):
+        return getattr(self, "items_" + status)
 
     def get_progress(self):
-        """Get the progress of the queue in percentage (float).
+        count_remaining = self.count_queued + self.count_in_progress
+        percentage_remaining = 100 / self.count_total * count_remaining
 
-        Returns:
-            float: The 'finished' progress in percentage.
+        return 100 - percentage_remaining
 
-        """
+    def __get_key(self, queue_item):
+        key = queue_item.request.method
 
-        all_count = self.get_count()
-        finished_count = self.get_count_excluding([
-            QueueItem.STATUS_QUEUED, 
-            QueueItem.STATUS_IN_PROGRESS
-        ])
+        if self.__options.scope.protocol_must_match:
+            key += URLHelper.get_protocol(queue_item.request.url)
 
-        return 100 / all_count * finished_count
+        if self.__options.scope.subdomain_must_match:
+            key += URLHelper.get_subdomain(queue_item.request.url)
 
-class QueueItem:
-    """The QueueItem class keeps track of the request, response and the crawling status.
+        key += URLHelper.get_domain(queue_item.request.url)
+        key += str(URLHelper.get_ordered_params(queue_item.request.url))
+        key += str(CookieHelper.get_ordered_cookies(queue_item.request.cookies))
 
-    Attributes:
-        STATUS_QUEUED (str): Status for when the crawler did not yet start the request.
-        STATUS_IN_PROGRESS (str): Status for when the crawler is currently crawling the request.
-        STATUS_FINISHED (str): Status for when the crawler has finished crawling the request.
-        STATUS_CANCELLED (str): Status for when the crawler has cancelled the request.
-        STATUS_ERRORED (str): Status for when the crawler could not execute the request.
-        status (str): The current crawling status.
-        request (obj): The Request object.
-        response (obj): The Response object.
-        bs_response (obj): The BeautifulSoup container.
-
-    """
-
-    STATUS_QUEUED = "queued"
-
-    STATUS_IN_PROGRESS = "in_progress"
-
-    STATUS_FINISHED = "finished"
-
-    STATUS_CANCELLED = "cancelled"
-
-    STATUS_ERRORED = "errored"
-
-    status = STATUS_QUEUED
-
-    request = None
-
-    response = None
-
-    bs_response = None
-
-    def __init__(self, request, response):
-        """Constructs a QueueItem class.
-
-        Args:
-            request (obj): The Request object.
-            response (obj): The Response object (empty object when initialized).
-
-        """
-        
-        self.request = request
-        self.response = response
-
-    def get_bs_response(self):
-        """Get the response as a cached BeautifulSoup container.
-
-        Returns:
-            obj: The BeautifulSoup container.
-
-        """
-
-        if self.response is not None and self.bs_response is None:
-            self.bs_response = BeautifulSoup(self.response.text, "lxml")
-
-        return self.bs_response
+        return key
