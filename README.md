@@ -20,7 +20,6 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 
 **Future development:**
 - Wiki improvements.
-- Performance improvements.
 - Support rate limiting.
 - Support XHR crawling.
 
@@ -32,6 +31,17 @@ First make sure you're on [Python 3.3](https://www.python.org/) or higher. Then 
 ## Documentation
 
 Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler/wiki) for all the documentation on N.Y.A.W.C.
+
+## Crawling flow
+
+1. Add the start request to the queue.
+2. Start first first request in the queue _(repeat until  `max threads` option reached)_.
+3. Add all requests found in the response to the queue _(except duplicates)_.
+4. Go to step #2 again to spawn new requests.
+
+**Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
+
+<img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/feature-hash-queue/.github/flow.svg">
 
 ## Example usage
 
