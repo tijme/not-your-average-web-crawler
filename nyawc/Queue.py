@@ -26,7 +26,6 @@ from nyawc.http.Request import Request
 from nyawc.http.Response import Response
 from nyawc.QueueItem import QueueItem
 from nyawc.helpers.URLHelper import URLHelper
-from nyawc.helpers.CookieHelper import CookieHelper
 from collections import OrderedDict
 
 import sys
@@ -113,6 +112,8 @@ class Queue:
         return 100 - percentage_remaining
 
     def __get_key(self, queue_item):
+        # note; cookies should not be in here because otherwise requests are crawled multiple times
+
         key = queue_item.request.method
 
         if self.__options.scope.protocol_must_match:
@@ -124,7 +125,6 @@ class Queue:
         key += URLHelper.get_domain(queue_item.request.url)
         key += URLHelper.get_path(queue_item.request.url)
         key += str(URLHelper.get_ordered_params(queue_item.request.url))
-        key += str(CookieHelper.get_ordered_cookies(queue_item.request.cookies))
 
         return key
 

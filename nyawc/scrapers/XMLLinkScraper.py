@@ -48,7 +48,7 @@ class XMLLinkScraper:
         { "group": 0, "raw": r">(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))<\/" },
 
         # Match absolute/relative URLs between any type of XML quote
-        { "group": 0, "raw": r"=([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" }
+        { "group": 1, "raw": r"=([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" }
     ]
 
     __options = None

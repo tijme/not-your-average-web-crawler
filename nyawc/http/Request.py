@@ -23,7 +23,6 @@
 # SOFTWARE.
 
 from nyawc.helpers.URLHelper import URLHelper
-from nyawc.helpers.CookieHelper import CookieHelper
 
 class Request:
     """The Request class contains details that were used to request the specified URL.

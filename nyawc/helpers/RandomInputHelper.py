@@ -26,7 +26,19 @@ import random
 import string
 
 class RandomInputHelper:
-    """A helper for generating random user input strings."""
+    """A helper for generating random user input strings.
+
+    Note: We need to cache the generated values to prevent infinite crawling
+    loops. For example, if two responses contain a ?search= form, the random
+    generated value must be the same both of the times because otherwise the
+    crawling would treat the new requests as two different requests.
+
+    Attributes:
+        cache (obj): Cached values of the generated data.
+
+    """
+
+    cache = {}
 
     @staticmethod
     def get_for_type(input_type="text"):
@@ -39,6 +51,9 @@ class RandomInputHelper:
             str: The random value.
 
         """
+
+        if input_type in RandomInputHelper.cache:
+            return RandomInputHelper.cache[input_type]
 
         types = {
             "text": RandomInputHelper.get_random_value,
@@ -61,9 +76,12 @@ class RandomInputHelper:
 
         if type(types.get(input_type)) is dict:
             generator = types.get(input_type)
-            return generator.get("function")(*generator.get("params"))
+            value = generator.get("function")(*generator.get("params"))
+        else:
+            value = types.get(input_type)()
 
-        return types.get(input_type)()
+        RandomInputHelper.cache[input_type] = value
+        return value
 
     @staticmethod
     def get_random_value(length=10, character_sets=[string.ascii_uppercase,string.ascii_lowercase]):
