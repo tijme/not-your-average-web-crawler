@@ -70,31 +70,30 @@ class Queue:
         key = self.__get_key(queue_item)
 
         for status in QueueItem.STATUSES:
-            if key in getattr(self, "items_" + status).keys():
+            if key in self.__get_var("items_" + status).keys():
                 return True
 
         return False
 
-    def add(self, queue_item):
-        items = getattr(self, "items_" + queue_item.status)
-        items_count = getattr(self, "count_" + queue_item.status)
+    def add(self, queue_item, moving=False):
+        items = self.__get_var("items_" + queue_item.status)
+        items_count = self.__get_var("count_" + queue_item.status)
 
         items[self.__get_key(queue_item)] = queue_item
-        items_count += 1
-
-        print("NEW COUNT {}: ".format(queue_item.status) + str(getattr(self, "count_" + queue_item.status)))
+        self.__set_var("count_" + queue_item.status, (items_count + 1))
 
         self.count_total += 1
 
     def move(self, queue_item, status):
-        items = getattr(self, "items_" + queue_item.status)
-        count = getattr(self, "count_" + queue_item.status)
+        items = self.__get_var("items_" + queue_item.status)
+        items_count = self.__get_var("count_" + queue_item.status)
 
         del items[self.__get_key(queue_item)]
-        count -= 1
+        self.__set_var("count_" + queue_item.status, (items_count - 1))
+        self.count_total -= 1
 
         queue_item.status = status
-        self.add(queue_item)
+        self.add(queue_item, True)
 
     def get_first(self, status):
         items = self.get_all(status)
@@ -105,7 +104,7 @@ class Queue:
         return None
 
     def get_all(self, status):
-        return getattr(self, "items_" + status)
+        return self.__get_var("items_" + status)
 
     def get_progress(self):
         count_remaining = self.count_queued + self.count_in_progress
@@ -123,7 +122,14 @@ class Queue:
             key += URLHelper.get_subdomain(queue_item.request.url)
 
         key += URLHelper.get_domain(queue_item.request.url)
+        key += URLHelper.get_path(queue_item.request.url)
         key += str(URLHelper.get_ordered_params(queue_item.request.url))
         key += str(CookieHelper.get_ordered_cookies(queue_item.request.cookies))
 
         return key
+
+    def __set_var(self, name, value):
+        setattr(self, name, value)
+
+    def __get_var(self, name):
+        return getattr(self, name)

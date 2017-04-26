@@ -186,7 +186,7 @@ class Crawler:
 
         if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
             for new_request in new_requests:
-                HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item.response)
+                HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item)
 
                 if not HTTPRequestHelper.complies_with_scope(self.__queue, queue_item, new_request, self.__options.scope):
                     continue

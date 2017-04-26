@@ -74,7 +74,7 @@ options.callbacks.form_after_autofill = cb_form_after_autofill # Called after th
 options.scope.protocol_must_match = False # Only crawl pages with the same protocol as the startpoint (e.g. only https). Default is False.
 options.scope.subdomain_must_match = False # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 options.scope.domain_must_match = True # Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com). Default is True.
-options.scope.max_depth = 0 # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
+options.scope.max_depth = None # The maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
 # Identity options
 options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
@@ -84,7 +84,7 @@ options.identity.headers = {
 }
 
 # Performance options
-options.performance.max_threads = 1 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
+options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://finnwea.com?ka=va&kb=vb#kc=vc"))
+crawler.start_with(Request("https://finnwea.com/"))

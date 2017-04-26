@@ -103,6 +103,11 @@ class URLHelper:
         return ".".join(parsed_url.netloc.split(".")[-2:])
 
     @staticmethod
+    def get_path(url):
+        parsed_url = urlparse(url)
+        return parsed_url.path
+
+    @staticmethod
     def get_ordered_params(url):
         parsed_url = urlparse(url)
         params = dict(parse_qsl(parsed_url.query, keep_blank_values=True))
