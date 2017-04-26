@@ -34,9 +34,9 @@ class HTTPRequestHelper:
         """Patch the given request with the given options (e.g. user agent).
 
         Args:
-            request (obj): The request to check.
+            request (obj): The request to patch.
             options (obj): The options to patch the request with.
-            parent_queue_item(obj): The parent queue item object (request/response pair) if exists.
+            parent_queue_item (obj): The parent queue item object (request/response pair) if exists.
 
         """
 
@@ -51,11 +51,10 @@ class HTTPRequestHelper:
                 request.cookies.set(cookie.name, cookie.value, domain=cookie.domain, path=cookie.path)
 
     @staticmethod
-    def complies_with_scope(queue, queue_item, new_request, scope):
-        """Check if the new requests complies with the crawling scope.
+    def complies_with_scope(queue_item, new_request, scope):
+        """Check if the new request complies with the crawling scope.
 
         Args:
-            queue (obj): The current crawling queue.
             queue_item (obj): The parent queue item of the new request.
             new_request (obj): The request to check.
             scope (obj): The scope to check.

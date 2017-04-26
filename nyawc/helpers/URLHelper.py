@@ -89,26 +89,77 @@ class URLHelper:
 
     @staticmethod
     def get_protocol(url):
+        """Get the protocol (e.g. http, https or ftp) of the given URL.
+
+        Args:
+            url (str): The URL to get the protocol from.
+
+        Returns:
+            str: The URL protocol
+
+        """
+
         parsed_url = urlparse(url)
         return parsed_url.scheme
 
     @staticmethod
     def get_subdomain(url):
+        """Get the subdomain of the given URL.
+
+        Args:
+            url (str): The URL to get the subdomain from.
+
+        Returns:
+            str: The subdomain(s)
+
+        """
+
         parsed_url = urlparse(url)
         return ".".join(parsed_url.netloc.split(".")[:-2])
 
     @staticmethod
     def get_domain(url):
+        """Get the domain of the given URL.
+
+        Args:
+            url (str): The URL to get the domain from.
+
+        Returns:
+            str: The domain
+
+        """
+
         parsed_url = urlparse(url)
         return ".".join(parsed_url.netloc.split(".")[-2:])
 
     @staticmethod
     def get_path(url):
+        """Get the path (e.g /page/23) of the given URL.
+
+        Args:
+            url (str): The URL to get the path from.
+
+        Returns:
+            str: The path
+
+        """
+
         parsed_url = urlparse(url)
         return parsed_url.path
 
     @staticmethod
     def get_ordered_params(url):
+        """Get the query parameters of the given URL.
+
+        Args:
+            url (str): The URL to get the query parameters from.
+
+        Returns:
+            str: The query parameters
+
+        """
+
         parsed_url = urlparse(url)
         params = dict(parse_qsl(parsed_url.query, keep_blank_values=True))
+        
         return OrderedDict(sorted(params.items()))

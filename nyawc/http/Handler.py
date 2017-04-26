@@ -35,9 +35,9 @@ class Handler:
 
     """
 
-    __queue_item = None
-
     __options = None
+    
+    __queue_item = None
 
     def __init__(self, options, queue_item):
         """Construct the HTTP handler.
@@ -49,7 +49,6 @@ class Handler:
         """
 
         self.__options = options
-
         self.__queue_item = queue_item
 
         self.__queue_item.response = self.__make_request(

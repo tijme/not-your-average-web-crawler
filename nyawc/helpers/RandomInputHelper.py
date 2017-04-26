@@ -26,12 +26,13 @@ import random
 import string
 
 class RandomInputHelper:
-    """A helper for generating random user input strings.
+    """A helper for generating random user input.
 
     Note: We need to cache the generated values to prevent infinite crawling
-    loops. For example, if two responses contain a ?search= form, the random
-    generated value must be the same both of the times because otherwise the
-    crawling would treat the new requests as two different requests.
+    loops. For example, if two responses contain the same ?search= form, the 
+    random generated value must be the same both of the times because 
+    otherwise the crawling would treat the new requests as two different 
+    requests.
 
     Attributes:
         cache (obj): Cached values of the generated data.
@@ -48,7 +49,7 @@ class RandomInputHelper:
             input_type (str): The input type (e.g. email).
 
         Returns:
-            str: The random value.
+            str: The (cached) random value.
 
         """
 
@@ -81,6 +82,7 @@ class RandomInputHelper:
             value = types.get(input_type)()
 
         RandomInputHelper.cache[input_type] = value
+
         return value
 
     @staticmethod
@@ -114,10 +116,10 @@ class RandomInputHelper:
 
     @staticmethod
     def get_random_color():
-        """Get a random color in hex format (including hash character).
+        """Get a random color in HEX format (including hash character).
 
         Returns:
-            str: The random hex color.
+            str: The random HEX color.
 
         """
 

@@ -39,7 +39,8 @@ class RegexLinkScraper:
     """
 
     content_types = [
-        "text/html"
+        "text/html",
+        "application/xhtml+xml"
     ]
 
     __expressions = [

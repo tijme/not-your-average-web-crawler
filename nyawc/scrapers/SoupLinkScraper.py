@@ -36,7 +36,8 @@ class SoupLinkScraper:
     """
 
     content_types = [
-        "text/html"
+        "text/html",
+        "application/xhtml+xml"
     ]
 
     __options = None
