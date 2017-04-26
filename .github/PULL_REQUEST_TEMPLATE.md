@@ -22,4 +22,4 @@ the solution.
 - [ ] Code complies with the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html).
 - [ ] Change complies with the [contribution guidelines](https://github.com/tijme/not-your-average-web-crawler/blob/master/CONTRIBUTING.md).
 - [ ] Mention `Fixes #<issue number>` in the description _if relevant_.
-- [ ] Documentation is updated according to the change(s).
+- [ ] Documentation/wiki is updated according to the change(s).
