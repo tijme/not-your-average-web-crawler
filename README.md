@@ -41,7 +41,7 @@ Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler
 
 **Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
 
-<img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/feature-hash-queue/.github/flow.svg">
+<img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/feature-hash-queue/.github/flow.png">
 
 ## Example usage
 
