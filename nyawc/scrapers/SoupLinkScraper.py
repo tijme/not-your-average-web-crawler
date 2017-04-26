@@ -45,7 +45,7 @@ class SoupLinkScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the SoupLinkScraper class.
+        """Construct the SoupLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.
@@ -82,7 +82,7 @@ class SoupLinkScraper:
 
         """
 
-        soup = self.__queue_item.get_bs_response()
+        soup = self.__queue_item.get_soup_response()
         a_elements = soup.find_all("a", href=True)
         link_elements = soup.find_all("link", href=True)
         script_elements = soup.find_all("script", src=True)

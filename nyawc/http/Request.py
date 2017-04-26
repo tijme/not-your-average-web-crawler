@@ -71,7 +71,7 @@ class Request:
     headers = None
 
     def __init__(self, url, method=METHOD_GET, data=None, cookies=None, headers=None):
-        """Constructs a Request class.
+        """Constructs a Request instance.
 
         Args:
             url (str): The absolute URL to use when making the request.

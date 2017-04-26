@@ -53,7 +53,7 @@ class RegexLinkScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the RegexLinkScraper class.
+        """Construct the RegexLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.

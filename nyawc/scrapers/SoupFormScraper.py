@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
-from nyawc.Crawler import CrawlerActions
 from nyawc.helpers.URLHelper import URLHelper
 from nyawc.helpers.RandomInputHelper import RandomInputHelper
 from collections import OrderedDict
@@ -48,7 +48,7 @@ class SoupFormScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the SoupFormScraper class.
+        """Construct the SoupFormScraper instance.
 
         Args:
             options (obj): The settins/options object.
@@ -84,7 +84,7 @@ class SoupFormScraper:
 
         """
 
-        soup = self.__queue_item.get_bs_response()
+        soup = self.__queue_item.get_soup_response()
         forms = soup.find_all("form")
 
         found_requests = []

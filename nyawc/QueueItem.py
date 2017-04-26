@@ -37,7 +37,7 @@ class QueueItem:
         status (str): The current crawling status.
         request (obj): The Request object.
         response (obj): The Response object.
-        beautifulsoup_response (obj): The BeautifulSoup container for the response text.
+        response_soup (obj): The BeautifulSoup container for the response text.
 
     """
 
@@ -65,10 +65,10 @@ class QueueItem:
 
     response = None
 
-    beautifulsoup_response = None
+    response_soup = None
 
     def __init__(self, request, response):
-        """Constructs a QueueItem class.
+        """Constructs a QueueItem instance.
 
         Args:
             request (obj): The Request object.
@@ -79,7 +79,7 @@ class QueueItem:
         self.request = request
         self.response = response
 
-    def get_bs_response(self):
+    def get_soup_response(self):
         """Get the response as a cached BeautifulSoup container.
 
         Returns:
@@ -88,7 +88,7 @@ class QueueItem:
         """
 
         if self.response is not None:
-            if self.beautifulsoup_response is None:
-                self.beautifulsoup_response = BeautifulSoup(self.response.text, "lxml")
+            if self.response_soup is None:
+                self.response_soup = BeautifulSoup(self.response.text, "lxml")
 
-        return self.beautifulsoup_response
+        return self.response_soup

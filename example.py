@@ -24,7 +24,8 @@
 
 from nyawc.Options import Options
 from nyawc.QueueItem import QueueItem
-from nyawc.Crawler import Crawler, CrawlerActions
+from nyawc.Crawler import Crawler
+from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
 
 def cb_crawler_before_start():

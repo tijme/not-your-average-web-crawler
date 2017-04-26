@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.Crawler import CrawlerActions
+from nyawc.CrawlerActions import CrawlerActions
 
 import requests
 
@@ -46,7 +46,7 @@ class Options:
     identity = None
 
     def __init__(self):
-        """Constructs an Options class."""
+        """Constructs an Options instance."""
 
         self.scope = OptionsScope()
         self.callbacks = OptionsCallbacks()
@@ -98,7 +98,7 @@ class OptionsCallbacks:
     form_after_autofill = None
 
     def __init__(self):
-        """Constructs an OptionsCallbacks class."""
+        """Constructs an OptionsCallbacks instance."""
 
         self.crawler_before_start = self.__null_route_crawler_before_start
         self.crawler_after_finish = self.__null_route_crawler_after_finish
@@ -191,8 +191,8 @@ class OptionsIdentity:
     """The OptionsIdentity class contains the identity/footprint settings/options.
 
     Attributes:
-        headers (obj): The headers {key: value} to use when making a request.
         cookies (obj): The (requests module) cookie jar to use when making a request.
+        headers (obj): The headers {key: value} to use when making a request.
         
     """
 

@@ -23,11 +23,11 @@
 # SOFTWARE.
 
 from nyawc.Queue import Queue, QueueItem
-from nyawc.http.Handler import Handler
+from nyawc.CrawlerThread import CrawlerThread
+from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
 from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 
-import threading
 import time
 
 class Crawler:
@@ -53,7 +53,7 @@ class Crawler:
     __lock = threading.Lock()
 
     def __init__(self, options):
-        """Constructs a Crawler class.
+        """Constructs a Crawler instance.
 
         Args:
             options (obj): The options to use for the current crawling runtime.
@@ -77,9 +77,14 @@ class Crawler:
         self.__crawler_start()
 
     def __spawn_new_requests(self):
-        """Spawn new requests until the max processes option value is reached."""
+        """Spawn new requests until the max processes option value is reached.
 
-        concurrent_requests_count = len(self.__queue.get_all(QueueItem.STATUS_IN_PROGRESS))
+        Note: If no new requests were spawned and there are no requests in progress
+        the crawler will stop crawling.
+
+        """
+
+        concurrent_requests_count = self.__queue.count_in_progress
         new_requests_spawned = False
 
         while concurrent_requests_count < self.__options.performance.max_threads:
@@ -93,7 +98,7 @@ class Crawler:
             self.__crawler_stop()
 
     def __spawn_new_request(self):
-        """Spawn the first queued request if available.
+        """Spawn the first queued request if there is one available.
 
         Returns:
             bool: If a new request was spawned.
@@ -108,7 +113,13 @@ class Crawler:
         return True
 
     def __crawler_start(self):
-        """Spawn the first X queued request, where X is the max processes option."""
+        """Spawn the first X queued request, where X is the max threads option.
+
+        Note: The main thread will sleep until the crawler stopped or on keyboard
+        interruption. This prevents race conditions where sub threads will callback
+        to the main thread while the main thread is already finished.
+
+        """
 
         self.__options.callbacks.crawler_before_start()
 
@@ -215,95 +226,3 @@ class Crawler:
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             self.__spawn_new_requests()
             return
-
-class CrawlerThread(threading.Thread):
-    """The crawler thread executes the HTTP request using the HTTP handler.
-
-    Attributes:
-        __callback (obj): The method to call when finished
-        __callback_lock (bool): The callback lock that prevents race conditions.
-        __options (obj): The settins/options object.
-        __queue_item (obj): The queue item containing a request to execute.
-
-    """
-
-    __callback = None
-
-    __callback_lock = None
-
-    __options = None
-
-    __queue_item = None
-
-    def __init__(self, callback, callback_lock, options, queue_item):
-        """Constructs a crawler thread class
-
-        Args:
-            callback (obj): The method to call when finished
-            callback_lock (bool): The callback lock that prevents race conditions.
-            options (obj): The settins/options object.
-            queue_item (obj): The queue item containing a request to execute.
-
-        """
-
-        threading.Thread.__init__(self)
-        self.__callback = callback
-        self.__queue_item = queue_item
-        self.__options = options
-        self.__callback_lock = callback_lock
-
-    def run(self):
-        """Executes the HTTP call.
-
-        Note:
-            If the this and the parent handler raised an error, the queue item status will be set to errored
-            instead of finished.
-
-        """
-
-        new_requests = []
-            
-        try:
-            handler = Handler(self.__options, self.__queue_item)
-            new_requests = handler.get_new_requests()
-
-            try:
-                self.__queue_item.response.raise_for_status()
-            except Exception:
-                if self.__queue_item.request.parent_raised_error:
-                    self.__queue.move(self.__queue_item, QueueItem.STATUS_ERRORED)
-                else:
-                    for new_request in new_requests:
-                        new_request.parent_raised_error = True
-
-        except Exception as e:
-            print("Exception in crawler thread: " + str(e))
-            self.__queue.move(self.__queue_item, QueueItem.STATUS_ERRORED)
-
-        for new_request in new_requests:
-            new_request.parent_url = self.__queue_item.request.url
-
-        with self.__callback_lock:
-            self.__callback(self.__queue_item, new_requests)
-
-class CrawlerActions:
-    """The actions that crawler callbacks can return.
-
-    Attributes:
-        DO_CONTINUE_CRAWLING (int): Continue by crawling the request.
-        DO_SKIP_TO_NEXT (int): Skip the current request and continue with the next one in line.
-        DO_STOP_CRAWLING (int): Stop crawling and quit ongoing requests.
-        DO_AUTOFILL_FORM (int): Autofill this form with random values.
-        DO_NOT_AUTOFILL_FORM (int): Do not autofill this form with random values.
-        
-    """
-
-    DO_CONTINUE_CRAWLING = 1
-
-    DO_SKIP_TO_NEXT = 2
-
-    DO_STOP_CRAWLING = 3
-
-    DO_AUTOFILL_FORM = 4
-
-    DO_NOT_AUTOFILL_FORM = 5

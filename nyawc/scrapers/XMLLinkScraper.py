@@ -56,7 +56,7 @@ class XMLLinkScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the XMLLinkScraper class.
+        """Construct the XMLLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.
