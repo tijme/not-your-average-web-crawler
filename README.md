@@ -21,10 +21,20 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 - Support XHR/JS scraping.
 - Add other scrapers.
 
+## Table of contents
+
+  * [Installation](#installation)
+  * [Crawling flow](#crawling-flow)
+  * [Documentation](#documentation)
+  * [Example usage](#example-usage)
+  * [Testing](#testing)
+  * [Issues](#issues)
+  * [License](#license)
+
 ## Installation
 First make sure you're on [Python 3.3](https://www.python.org/) or higher. Then run the command below to install N.Y.A.W.C.
 
-`pip install --upgrade nyawc`
+`$ pip install --upgrade nyawc`
 
 ## Crawling flow
 
@@ -45,8 +55,8 @@ Please refer to the [wiki](https://github.com/tijme/not-your-average-web-crawler
 
 You can use the callbacks in `example.py` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at [Angular CSTI scanner](https://github.com/tijme/angularjs-csti-scanner) (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
-* `python example.py`
-* `python -u example.py > output.log`
+* `$ python example.py`
+* `$ python -u example.py > output.log`
 
 ```python
 # example.py
