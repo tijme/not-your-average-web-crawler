@@ -29,6 +29,7 @@ from nyawc.http.Request import Request
 from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 
 import time
+import threading
 
 class Crawler:
     """The main Crawler class which handles the crawling recursion, queue and processes.

@@ -46,8 +46,8 @@ class TestScrapersXMLLinkScraper(unittest.TestCase):
         {"url": """http://example.ltd/?unique=2""", "must_pass": True, "test": """<link>http://example.ltd/?unique=2</link>"""},
         {"url": """https://example.ltd/?unique=3""", "must_pass": True, "test": """<link>//example.ltd/?unique=3</link>"""},
         {"url": """https://example.ltd/aa/bb/?unique=4""", "must_pass": True, "test": """<link>/aa/bb/?unique=4</link>"""},
+        {"url": """https://example.ltd/aa/bb/?unique=5""", "must_pass": True, "test": """<abc>/aa/bb/?unique=5</def>"""},
 
-        {"url": None, "must_pass": False, "test": """<abc>/aa/bb/?unique=4</def>"""},
         {"url": None, "must_pass": False, "test": """<link>asdfasdf/asdfasdf</link>"""},
     ]
 
@@ -61,7 +61,7 @@ class TestScrapersXMLLinkScraper(unittest.TestCase):
         finder = XMLLinkScraper(Options(), QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
-        self.assertEqual(len(matches), 4)
+        self.assertEqual(len(matches), 5)
  
     def test_xml_url_matches(self):
         """Test if all the URLs match the found URLs."""

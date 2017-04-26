@@ -87,8 +87,12 @@ class TestScrapersSoupLinkScraper(unittest.TestCase):
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = SoupLinkScraper(Options(), QueueItem(Request(""), Response()))
-        matches = finder.get_requests_from_content(self.__host, html)
+        request = Request(self.__host)
+        response = Response()
+        response.text = html
+
+        finder = SoupLinkScraper(Options(), QueueItem(request, response))
+        matches = finder.get_requests()
 
         self.assertEqual(len(matches), 36)
  
@@ -96,8 +100,12 @@ class TestScrapersSoupLinkScraper(unittest.TestCase):
         """Test if all the URLs match the found URLs."""
 
         for url in self.__urls:
-            finder = SoupLinkScraper(Options(), QueueItem(Request(""), Response()))
-            requests = finder.get_requests_from_content(self.__host, url["test"])
+            request = Request(self.__host)
+            response = Response()
+            response.text = url["test"]
+
+            finder = SoupLinkScraper(Options(), QueueItem(request, response))
+            requests = finder.get_requests()
 
             if url["must_pass"]:
                 self.assertEqual(requests[0].url, url["url"])
