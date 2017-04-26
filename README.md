@@ -43,7 +43,7 @@ First make sure you're on [Python 3.3](https://www.python.org/) or higher. Then 
 3. Add all requests found in the response to the queue _(except duplicates)_.
 4. Go to step #2 again to spawn new requests.
 
-<img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/feature-hash-queue/.github/flow.png">
+<img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/flow.png">
 
 **Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
 
@@ -61,33 +61,10 @@ You can use the callbacks in `example.py` to run your own exploit against the re
 ```python
 # example.py
 
-# -*- coding: utf-8 -*-
-
-# MIT License
-# 
-# Copyright (c) 2017 Tijme Gommers
-# 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 from nyawc.Options import Options
 from nyawc.QueueItem import QueueItem
-from nyawc.Crawler import Crawler, CrawlerActions
+from nyawc.Crawler import Crawler
+from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
 
 def cb_crawler_before_start():
@@ -143,7 +120,7 @@ options.scope.max_depth = None
 options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
 options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea.com', path='/elsewhere')
 options.identity.headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" # The user agent to make requests with. Default is Chrome.    
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
 }
 
 # Performance options
