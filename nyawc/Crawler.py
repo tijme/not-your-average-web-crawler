@@ -147,7 +147,7 @@ class Crawler:
         self.__stopping = True
 
         for status in [QueueItem.STATUS_QUEUED, QueueItem.STATUS_IN_PROGRESS]:
-            for queue_item in self.__queue.get_all(status):
+            for queue_item in self.__queue.get_all(status).values():
                 self.__queue.move(queue_item, QueueItem.STATUS_CANCELLED)
 
         self.__crawler_finish()
