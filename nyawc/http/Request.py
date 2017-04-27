@@ -56,20 +56,6 @@ class Request:
 
     METHOD_DELETE = "delete"
 
-    parent_raised_error = False
-
-    depth = 0
-
-    url = None
-
-    method = None
-
-    data = None
-
-    cookies = None
-
-    headers = None
-
     def __init__(self, url, method=METHOD_GET, data=None, cookies=None, headers=None):
         """Constructs a Request instance.
 
@@ -82,6 +68,9 @@ class Request:
 
         """
 
+        self.parent_raised_error = False
+        self.depth = 0
+        
         self.url = url
         self.method = method
         self.cookies = cookies

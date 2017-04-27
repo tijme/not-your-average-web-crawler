@@ -37,14 +37,6 @@ class Options:
 
     """
 
-    scope = None
-
-    callbacks = None
-
-    performance = None
-
-    identity = None
-
     def __init__(self):
         """Constructs an Options instance."""
 
@@ -64,13 +56,13 @@ class OptionsScope:
 
     """
 
-    protocol_must_match = False
+    def __init__(self):
+        """Constructs an OptionsScope instance."""
 
-    subdomain_must_match = True
-
-    domain_must_match = True
-
-    max_depth = None
+        self.protocol_must_match = False
+        self.subdomain_must_match = True
+        self.domain_must_match = True
+        self.max_depth = None
 
 class OptionsCallbacks:
     """The OptionsCallbacks class contains all the callback methods.
@@ -84,18 +76,6 @@ class OptionsCallbacks:
         form_after_autofill (obj): called after the crawler finishes autofilling a form. Default is a null route.
 
     """
-
-    crawler_before_start = None
-
-    crawler_after_finish = None
-
-    request_before_start = None
-
-    request_after_finish = None
-
-    form_before_autofill = None
-
-    form_after_autofill = None
 
     def __init__(self):
         """Constructs an OptionsCallbacks instance."""
@@ -185,7 +165,10 @@ class OptionsPerformance:
         
     """
 
-    max_threads = 4
+    def __init__(self):
+        """Constructs an OptionsPerformance instance."""
+        
+        self.max_threads = 4
 
 class OptionsIdentity:
     """The OptionsIdentity class contains the identity/footprint settings/options.
@@ -196,8 +179,10 @@ class OptionsIdentity:
         
     """
 
-    cookies = requests.cookies.RequestsCookieJar()
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
-    }
+    def __init__(self):
+        """Constructs an OptionsIdentity instance."""
+        
+        self.cookies = requests.cookies.RequestsCookieJar()
+        self.headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+        }

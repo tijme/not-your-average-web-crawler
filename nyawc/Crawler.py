@@ -43,16 +43,6 @@ class Crawler:
 
     """
 
-    __options = None
-
-    __queue = None
-
-    __stopping = False
-
-    __stopped = False
-
-    __lock = threading.Lock()
-
     def __init__(self, options):
         """Constructs a Crawler instance.
 
@@ -63,6 +53,9 @@ class Crawler:
 
         self.__options = options
         self.__queue = Queue(self.__options)
+        self.__stopping = False
+        self.__stopped = False
+        self.__lock = threading.Lock()
 
     def start_with(self, request):
         """Start the crawler using the given request.

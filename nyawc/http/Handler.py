@@ -35,10 +35,6 @@ class Handler:
 
     """
 
-    __options = None
-    
-    __queue_item = None
-
     def __init__(self, options, queue_item):
         """Construct the HTTP handler.
 

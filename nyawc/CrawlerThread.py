@@ -37,14 +37,6 @@ class CrawlerThread(threading.Thread):
 
     """
 
-    __callback = None
-
-    __callback_lock = None
-
-    __options = None
-
-    __queue_item = None
-
     def __init__(self, callback, callback_lock, options, queue_item):
         """Constructs a crawler thread instance
 
@@ -57,10 +49,11 @@ class CrawlerThread(threading.Thread):
         """
 
         threading.Thread.__init__(self)
+        
         self.__callback = callback
-        self.__queue_item = queue_item
-        self.__options = options
         self.__callback_lock = callback_lock
+        self.__options = options
+        self.__queue_item = queue_item
 
     def run(self):
         """Executes the HTTP call.

@@ -23,7 +23,8 @@
 # SOFTWARE.
 
 from nyawc.scrapers.XMLLinkScraper import XMLLinkScraper
-from nyawc.Queue import Queue, QueueItem
+from nyawc.Queue import Queue
+from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
 from nyawc.Options import Options

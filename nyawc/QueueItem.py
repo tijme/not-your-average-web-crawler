@@ -59,14 +59,6 @@ class QueueItem:
         STATUS_ERRORED
     ]
 
-    status = STATUS_QUEUED
-
-    request = None
-
-    response = None
-
-    response_soup = None
-
     def __init__(self, request, response):
         """Constructs a QueueItem instance.
 
@@ -75,6 +67,9 @@ class QueueItem:
             response (obj): The Response object (empty object when initialized).
 
         """
+
+        self.status = QueueItem.STATUS_QUEUED
+        self.response_soup = None
         
         self.request = request
         self.response = response

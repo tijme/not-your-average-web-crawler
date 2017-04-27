@@ -51,30 +51,6 @@ class Queue:
 
     """
 
-    __options = None
-
-    count_total = 0
-
-    count_queued = 0
-
-    count_in_progress = 0
-
-    count_finished = 0
-
-    count_cancelled = 0
-
-    count_errored = 0
-
-    items_queued = OrderedDict()
-
-    items_in_progress = OrderedDict()
-
-    items_finished = OrderedDict()
-
-    items_cancelled = OrderedDict()
-
-    items_errored = OrderedDict()
-
     def __init__(self, options):
         """Constructs a Queue instance.
 
@@ -84,6 +60,17 @@ class Queue:
         """
 
         self.__options = options
+        self.count_total = 0
+        self.count_queued = 0
+        self.count_in_progress = 0
+        self.count_finished = 0
+        self.count_cancelled = 0
+        self.count_errored = 0
+        self.items_queued = OrderedDict()
+        self.items_in_progress = OrderedDict()
+        self.items_finished = OrderedDict()
+        self.items_cancelled = OrderedDict()
+        self.items_errored = OrderedDict()
 
     def add_request(self, request):
         """Add a request to the queue.
@@ -128,11 +115,15 @@ class Queue:
 
         """
 
+        hash_key = self.__get_hash(queue_item)
         items = self.__get_var("items_" + queue_item.status)
         items_count = self.__get_var("count_" + queue_item.status)
 
-        items[self.__get_hash(queue_item)] = queue_item
+        if hash_key in items.keys():
+            return
+
         self.__set_var("count_" + queue_item.status, (items_count + 1))
+        items[self.__get_hash(queue_item)] = queue_item
 
         self.count_total += 1
 
