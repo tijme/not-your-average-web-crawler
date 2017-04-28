@@ -109,9 +109,8 @@ class Crawler:
     def __crawler_start(self):
         """Spawn the first X queued request, where X is the max threads option.
 
-        Note: The main thread will sleep until the crawler stopped or on keyboard
-        interruption. This prevents race conditions where sub threads will callback
-        to the main thread while the main thread is already finished.
+        Note: The main thread will sleep until the crawler is finished. This enables
+        quiting the application using sigints (see http://stackoverflow.com/a/11816038/2491049)
 
         """
 
