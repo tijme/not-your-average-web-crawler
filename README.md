@@ -39,7 +39,7 @@ First make sure you're on [Python 3.3](https://www.python.org/) or higher. Then 
 ## Crawling flow
 
 1. Add the start request to the queue.
-2. Start first first request in the queue _(repeat until  `max threads` option reached)_.
+2. Start first request in the queue _(repeat until  `max threads` option reached)_.
 3. Add all requests found in the response to the queue _(except duplicates)_.
 4. Go to step #2 again to spawn new requests.
 
