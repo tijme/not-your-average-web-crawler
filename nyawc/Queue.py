@@ -220,10 +220,12 @@ class Queue:
         if self.__options.scope.subdomain_must_match:
             key += URLHelper.get_subdomain(queue_item.request.url)
 
+        if queue_item.request.data is not None:
+            key += str(queue_item.request.data.keys())
+
         key += URLHelper.get_domain(queue_item.request.url)
         key += URLHelper.get_path(queue_item.request.url)
         key += str(URLHelper.get_ordered_params(queue_item.request.url))
-
         return key
 
     def __set_var(self, name, value):
