@@ -23,6 +23,7 @@
 # SOFTWARE.
 
 from nyawc.http.Handler import Handler
+from nyawc.QueueItem import QueueItem
 
 import threading
 
@@ -65,6 +66,7 @@ class CrawlerThread(threading.Thread):
         """
 
         new_requests = []
+        new_status = None
             
         try:
             handler = Handler(self.__options, self.__queue_item)
@@ -74,17 +76,17 @@ class CrawlerThread(threading.Thread):
                 self.__queue_item.response.raise_for_status()
             except Exception:
                 if self.__queue_item.request.parent_raised_error:
-                    self.__queue.move(self.__queue_item, QueueItem.STATUS_ERRORED)
+                    new_status = QueueItem.STATUS_ERRORED
                 else:
                     for new_request in new_requests:
                         new_request.parent_raised_error = True
 
         except Exception as e:
             print("Exception in crawler thread: " + str(e))
-            self.__queue.move(self.__queue_item, QueueItem.STATUS_ERRORED)
+            new_status = QueueItem.STATUS_ERRORED
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
 
         with self.__callback_lock:
-            self.__callback(self.__queue_item, new_requests)
+            self.__callback(self.__queue_item, new_requests, new_status)

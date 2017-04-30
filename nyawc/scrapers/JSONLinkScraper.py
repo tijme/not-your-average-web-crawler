@@ -39,8 +39,7 @@ class JSONLinkScraper:
     """
 
     content_types = [
-        "application/json",
-        "application/javascript",
+        "application/json"
     ]
 
     __expressions = [
