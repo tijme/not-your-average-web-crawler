@@ -22,7 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.Queue import Queue, QueueItem
+from nyawc.Queue import Queue
+from nyawc.QueueItem import QueueItem
 from nyawc.CrawlerThread import CrawlerThread
 from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
@@ -176,17 +177,21 @@ class Crawler:
             thread.daemon = True
             thread.start()
 
-    def __request_finish(self, queue_item, new_requests):
+    def __request_finish(self, queue_item, new_requests, new_queue_item_status=None):
         """Called when the crawler finished the given queued item.
 
         Args:
             queue_item (obj): The request/response pair that finished.
             new_requests list(obj): All the requests that were found during this request.
+            new_queue_item_status (str): The new status of the queue item (if it needs to be moved).
 
         """
 
         new_queue_items = []
         action = None
+
+        if new_queue_item_status:
+            self.__queue.move(queue_item, new_queue_item_status)
 
         if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
             for new_request in new_requests:
