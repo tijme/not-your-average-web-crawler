@@ -24,7 +24,7 @@
 
 from setuptools import find_packages, setup
 
-with open('requirements/production.txt') as file:
+with open('requirements.txt') as file:
     requirements = file.read().splitlines()
 
 setup(
