@@ -27,8 +27,8 @@ from nyawc.helpers.URLHelper import URLHelper
 
 import re
 
-class XMLLinkScraper:
-    """The XMLLinkScraper finds absolute and relative URLs in XML values.
+class JSONLinkScraper:
+    """The JSONLinkScraper finds absolute and relative URLs in JSON keys and values.
 
     Attributes:
         content_types list(str): The supported content types.
@@ -39,16 +39,16 @@ class XMLLinkScraper:
     """
 
     content_types = [
-        "text/xml",
-        "application/xml",
+        "application/json",
+        "application/javascript",
     ]
 
     __expressions = [
-        # Match absolute/relative URLs between any type of XML tag
-        { "group": 0, "raw": r">(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))<\/" },
+        # Match absolute/relative URLs between any type of JSON quote (in keys)
+        { "group": 1, "raw": r"\:\s*([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" },
 
-        # Match absolute/relative URLs between any type of XML quote
-        { "group": 1, "raw": r"=([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" }
+        # Match absolute/relative URLs between any type of JSON quote (in values)
+        { "group": 1, "raw": r"\:\s*([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" }
     ]
 
     __options = None
@@ -56,7 +56,7 @@ class XMLLinkScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the XMLLinkScraper instance.
+        """Construct the JSONLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.
