@@ -35,7 +35,7 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
     """The TestScrapersHTMLSoupFormScraper class tests if the HTMLSoupFormScraper is working correctly.
 
     Attributes:
-        __host str: The host were the new URLs were found on
+        __host (str): The host were the new URLs were found on
         __urls list(obj): The URLs that were found
 
     """

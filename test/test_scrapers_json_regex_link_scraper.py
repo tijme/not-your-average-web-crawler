@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.scrapers.XMLRegexLinkScraper import XMLRegexLinkScraper
+from nyawc.scrapers.JSONRegexLinkScraper import JSONRegexLinkScraper
 from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
@@ -31,8 +31,8 @@ from nyawc.Options import Options
 
 import unittest
  
-class TestScrapersXMLRegexLinkScraper(unittest.TestCase):
-    """The TestScrapersXMLRegexLinkScraper class tests if the XMLRegexLinkScraper is working correctly.
+class TestScrapersJSONRegexLinkScraper(unittest.TestCase):
+    """The TestScrapersJSONRegexLinkScraper class tests if the JSONRegexLinkScraper is working correctly.
 
     Attributes:
         __host (str): The host were the new URLs were found on
@@ -43,13 +43,13 @@ class TestScrapersXMLRegexLinkScraper(unittest.TestCase):
     __host = "https://example.ltd/"
 
     __urls = [
-        {"url": """https://example.ltd/?unique=1""", "must_pass": True, "test": """<link>https://example.ltd/?unique=1</link>"""},
-        {"url": """http://example.ltd/?unique=2""", "must_pass": True, "test": """<link>http://example.ltd/?unique=2</link>"""},
-        {"url": """https://example.ltd/?unique=3""", "must_pass": True, "test": """<link>//example.ltd/?unique=3</link>"""},
-        {"url": """https://example.ltd/aa/bb/?unique=4""", "must_pass": True, "test": """<link>/aa/bb/?unique=4</link>"""},
-        {"url": """https://example.ltd/aa/bb/?unique=5""", "must_pass": True, "test": """<abc>/aa/bb/?unique=5</def>"""},
+        {"url": """https://example.ltd/?unique=1""", "must_pass": True, "test": """[\"https://example.ltd/?unique=1\"]"""},
+        {"url": """http://example.ltd/?unique=2""", "must_pass": True, "test": """{\"http://example.ltd/?unique=2\":\"\"}"""},
+        {"url": """https://example.ltd/?unique=3""", "must_pass": True, "test": """{\"//example.ltd/?unique=3\":\"\"}"""},
+        {"url": """https://example.ltd/aa/bb/?unique=4""", "must_pass": True, "test": """{\"/aa/bb/?unique=4\":\"\"}"""},
+        {"url": """https://example.ltd/aa/bb/?unique=5""", "must_pass": True, "test": """{\"\":\"/aa/bb/?unique=5\"}"""},
 
-        {"url": None, "must_pass": False, "test": """<link>asdfasdf/asdfasdf</link>"""},
+        {"url": None, "must_pass": False, "test": """{\"\":\"asdfasdf/asdfasdf\"}"""},
     ]
 
     def test_xml_url_count(self):
@@ -59,7 +59,7 @@ class TestScrapersXMLRegexLinkScraper(unittest.TestCase):
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = XMLRegexLinkScraper(Options(), QueueItem(Request(""), Response()))
+        finder = JSONRegexLinkScraper(Options(), QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
         self.assertEqual(len(matches), 5)
@@ -68,7 +68,7 @@ class TestScrapersXMLRegexLinkScraper(unittest.TestCase):
         """Test if all the URLs match the found URLs."""
         
         for url in self.__urls:
-            finder = XMLRegexLinkScraper(Options(), QueueItem(Request(""), Response()))
+            finder = JSONRegexLinkScraper(Options(), QueueItem(Request(""), Response()))
             requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:

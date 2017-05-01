@@ -31,15 +31,30 @@ import unittest
 import os
  
 class TestSite(unittest.TestCase):
-    """The TestSite class checks if the crawler handles invalid responses correctly."""
+    """The TestSite class checks if the crawler handles invalid responses correctly.
+
+    Attributes:
+        travis (bool): If the current environment is in Travis CI.
+
+    """
 
     def __init__(self, *args, **kwargs):
-        super(TestSite, self).__init__(*args, **kwargs)
-        self.travis = "UNITTEST_NYAWC_SITE" in os.environ or True
+        """Initialize the unit test and mark if the current environment is Travis CI.
 
-    def test_make_absolute(self):
+        Args:
+            args list(str): The command line arguments.
+            kwargs **: Extra arguments
+
+        """
+
+        super(TestSite, self).__init__(*args, **kwargs)
+        self.travis = "UNITTEST_NYAWC_SITE" in os.environ
+
+    def test_crawl_website(self):
+        """Crawl the website in `test/` and check if the count is correct."""
+
         if not self.travis:
-            print("\n\nPlease not that the 'TestSite' unit test did not run.")
+            print("\n\nPlease note that the 'TestSite' unit test did not run.")
             print("It will only run in Travis since it needs a webserver.")
             return
 
