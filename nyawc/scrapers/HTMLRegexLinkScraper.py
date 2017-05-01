@@ -27,8 +27,8 @@ from nyawc.helpers.URLHelper import URLHelper
 
 import re
 
-class JSONLinkScraper:
-    """The JSONLinkScraper finds absolute and relative URLs in JSON keys and values.
+class HTMLRegexLinkScraper:
+    """The HTMLRegexLinkScraper finds absolute URLs between quotes.
 
     Attributes:
         content_types list(str): The supported content types.
@@ -39,15 +39,13 @@ class JSONLinkScraper:
     """
 
     content_types = [
-        "application/json"
+        "text/html",
+        "application/xhtml+xml"
     ]
 
     __expressions = [
-        # Match absolute/relative URLs between any type of JSON quote (in keys)
-        { "group": 1, "raw": r"\:\s*([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" },
-
-        # Match absolute/relative URLs between any type of JSON quote (in values)
-        { "group": 1, "raw": r"\:\s*([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1" }
+        # Match absolute/relative URLs between any type of HTML quote
+        { "group": 4, "raw": r"((src|link|href|url)(\=))([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)([^\s]*?))\4" },
     ]
 
     __options = None
@@ -55,7 +53,7 @@ class JSONLinkScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the JSONLinkScraper instance.
+        """Construct the HTMLRegexLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.

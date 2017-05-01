@@ -30,7 +30,7 @@ from nyawc.Options import Options
 import unittest
  
 class TestQueue(unittest.TestCase):
-    """The TestQueue tests if the hashes and counters of the queue work correctly."""
+    """The TestQueue class tests if the hashes and counters of the queue work correctly."""
 
     def test_hash_is_always_the_same(self):
         """Ensure the hashes are calculated correctly by checking for duplicates in the queue."""

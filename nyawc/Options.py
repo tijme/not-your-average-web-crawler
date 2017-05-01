@@ -102,10 +102,11 @@ class OptionsCallbacks:
 
         pass
 
-    def __null_route_request_before_start(self, queue_item):
+    def __null_route_request_before_start(self, queue, queue_item):
         """A null route for the 'request before start' callback.
 
         Args:
+            queue (obj): The current crawling queue.
             queue_item (obj): The queue item that's about to start.
 
         Returns:

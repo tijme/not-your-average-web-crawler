@@ -22,25 +22,30 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.helpers.URLHelper import URLHelper
+from nyawc.Options import Options
+from nyawc.Crawler import Crawler
+from nyawc.QueueItem import QueueItem
+from nyawc.http.Request import Request
 
 import unittest
+import os
  
-class TestUrlHelper(unittest.TestCase):
-    """The TestUrlHelper class checks if the methods in the URLHelper work correctly."""
+class TestSite(unittest.TestCase):
+    """The TestSite class checks if the crawler handles invalid responses correctly."""
+
+    def __init__(self, *args, **kwargs):
+        super(TestSite, self).__init__(*args, **kwargs)
+        self.travis = "UNITTEST_NYAWC_SITE" in os.environ or True
 
     def test_make_absolute(self):
-        """Ensure folder traversal works correclty."""
+        if not self.travis:
+            print("\n\nPlease not that the 'TestSite' unit test did not run.")
+            print("It will only run in Travis since it needs a webserver.")
+            return
 
-        host = "https://example.ltd/dir1/dir2/dir3"
+        options = Options()
+        options.callbacks.crawler_after_finish
+        crawler = Crawler(options)
+        crawler.start_with(Request("http://localhost/"))
 
-        tests = {
-            "../": "https://example.ltd/dir1/dir2",
-            "../../": "https://example.ltd/dir1",
-            "../../../": "https://example.ltd",
-            "../../../../": "https://example.ltd",
-            "../../../../../": "https://example.ltd"
-        }
-
-        for relative, absolute in tests.items():
-            self.assertEqual(URLHelper.make_absolute(host, relative), absolute)
+        self.assertEqual(crawler.queue.count_total, 16)

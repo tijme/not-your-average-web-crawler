@@ -28,8 +28,8 @@ from nyawc.helpers.URLHelper import URLHelper
 from nyawc.helpers.RandomInputHelper import RandomInputHelper
 from collections import OrderedDict
 
-class SoupFormScraper:
-    """The SoupLinkScraper finds requests from forms in HTML using BeautifulSoup.
+class HTMLSoupFormScraper:
+    """The HTMLSoupFormScraper finds requests from forms in HTML using BeautifulSoup.
 
     Attributes:
         content_types list(str): The supported content types.
@@ -48,7 +48,7 @@ class SoupFormScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the SoupFormScraper instance.
+        """Construct the HTMLSoupFormScraper instance.
 
         Args:
             options (obj): The settins/options object.

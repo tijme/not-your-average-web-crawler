@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.scrapers.SoupLinkScraper import SoupLinkScraper
+from nyawc.scrapers.HTMLSoupLinkScraper import HTMLSoupLinkScraper
 from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
@@ -31,8 +31,8 @@ from nyawc.Options import Options
 
 import unittest
  
-class TestScrapersSoupLinkScraper(unittest.TestCase):
-    """The TestScrapersSoupLinkScraper tests if the SoupLinkScraper is working correctly.
+class TestScrapersHTMLSoupLinkScraper(unittest.TestCase):
+    """The TestScrapersHTMLSoupLinkScraper class tests if the HTMLSoupLinkScraper is working correctly.
 
     Attributes:
         __host str: The host were the new URLs were found on
@@ -92,7 +92,7 @@ class TestScrapersSoupLinkScraper(unittest.TestCase):
         response = Response()
         response.text = html
 
-        finder = SoupLinkScraper(Options(), QueueItem(request, response))
+        finder = HTMLSoupLinkScraper(Options(), QueueItem(request, response))
         matches = finder.get_requests()
 
         self.assertEqual(len(matches), 36)
@@ -105,7 +105,7 @@ class TestScrapersSoupLinkScraper(unittest.TestCase):
             response = Response()
             response.text = url["test"]
 
-            finder = SoupLinkScraper(Options(), QueueItem(request, response))
+            finder = HTMLSoupLinkScraper(Options(), QueueItem(request, response))
             requests = finder.get_requests()
 
             if url["must_pass"]:

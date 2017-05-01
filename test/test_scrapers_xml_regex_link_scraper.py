@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.scrapers.XMLLinkScraper import XMLLinkScraper
+from nyawc.scrapers.XMLRegexLinkScraper import XMLRegexLinkScraper
 from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
@@ -31,8 +31,8 @@ from nyawc.Options import Options
 
 import unittest
  
-class TestScrapersXMLLinkScraper(unittest.TestCase):
-    """The TestScrapersXMLLinkScraper tests if the XMLLinkScraper is working correctly.
+class TestScrapersXMLRegexLinkScraper(unittest.TestCase):
+    """The TestScrapersXMLRegexLinkScraper class tests if the XMLRegexLinkScraper is working correctly.
 
     Attributes:
         __host str: The host were the new URLs were found on
@@ -59,7 +59,7 @@ class TestScrapersXMLLinkScraper(unittest.TestCase):
         for url in self.__urls:
             html += "\n" + url["test"]
 
-        finder = XMLLinkScraper(Options(), QueueItem(Request(""), Response()))
+        finder = XMLRegexLinkScraper(Options(), QueueItem(Request(""), Response()))
         matches = finder.get_requests_from_content(self.__host, html)
 
         self.assertEqual(len(matches), 5)
@@ -68,7 +68,7 @@ class TestScrapersXMLLinkScraper(unittest.TestCase):
         """Test if all the URLs match the found URLs."""
         
         for url in self.__urls:
-            finder = XMLLinkScraper(Options(), QueueItem(Request(""), Response()))
+            finder = XMLRegexLinkScraper(Options(), QueueItem(Request(""), Response()))
             requests = finder.get_requests_from_content(self.__host, url["test"])
 
             if url["must_pass"]:

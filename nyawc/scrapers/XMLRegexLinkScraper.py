@@ -27,8 +27,8 @@ from nyawc.helpers.URLHelper import URLHelper
 
 import re
 
-class XMLLinkScraper:
-    """The XMLLinkScraper finds absolute and relative URLs in XML values.
+class XMLRegexLinkScraper:
+    """The XMLRegexLinkScraper finds absolute and relative URLs in XML values.
 
     Attributes:
         content_types list(str): The supported content types.
@@ -56,7 +56,7 @@ class XMLLinkScraper:
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the XMLLinkScraper instance.
+        """Construct the XMLRegexLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.

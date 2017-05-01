@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.scrapers.SoupFormScraper import SoupFormScraper
+from nyawc.scrapers.HTMLSoupFormScraper import HTMLSoupFormScraper
 from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
@@ -31,8 +31,8 @@ from nyawc.Options import Options
 
 import unittest
  
-class TestScrapersSoupFormScraper(unittest.TestCase):
-    """The TestScrapersRegexLinkScraper tests if the SoupFormScraper is working correctly.
+class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
+    """The TestScrapersHTMLSoupFormScraper class tests if the HTMLSoupFormScraper is working correctly.
 
     Attributes:
         __host str: The host were the new URLs were found on
@@ -123,7 +123,7 @@ class TestScrapersSoupFormScraper(unittest.TestCase):
         response = Response()
         response.text = html
 
-        finder = SoupFormScraper(Options(), QueueItem(request, response))
+        finder = HTMLSoupFormScraper(Options(), QueueItem(request, response))
         matches = finder.get_requests()
 
         self.assertEqual(len(matches), 4)
@@ -136,7 +136,7 @@ class TestScrapersSoupFormScraper(unittest.TestCase):
             response = Response()
             response.text = url["test"]
 
-            finder = SoupFormScraper(Options(), QueueItem(request, response))
+            finder = HTMLSoupFormScraper(Options(), QueueItem(request, response))
             requests = finder.get_requests()
 
             if url["must_pass"]:

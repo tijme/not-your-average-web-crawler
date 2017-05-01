@@ -25,14 +25,11 @@
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
 
-import re
-
-class RegexLinkScraper:
-    """The RegexLinkScraper finds absolute URLs between quotes.
+class HTMLSoupLinkScraper:
+    """The HTMLSoupLinkScraper finds URLs from href attributes in HTML using BeautifulSoup.
 
     Attributes:
         content_types list(str): The supported content types.
-        __expressions list(obj): The queue item containing the response to scrape.
         __options (obj): The settins/options object.
         __queue_item (obj): The queue item containing the response to scrape.
 
@@ -43,17 +40,12 @@ class RegexLinkScraper:
         "application/xhtml+xml"
     ]
 
-    __expressions = [
-        # Match absolute/relative URLs between any type of HTML quote
-        { "group": 4, "raw": r"((src|link|href|url)(\=))([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)([^\s]*?))\4" },
-    ]
-
     __options = None
 
     __queue_item = None
 
     def __init__(self, options, queue_item):
-        """Construct the RegexLinkScraper instance.
+        """Construct the HTMLSoupLinkScraper instance.
 
         Args:
             options (obj): The settins/options object.
@@ -76,6 +68,7 @@ class RegexLinkScraper:
         content = self.__queue_item.response.text
 
         return self.get_requests_from_content(host, content)
+        
 
     def get_requests_from_content(self, host, content):
         """Find new requests from the given content.
@@ -89,14 +82,48 @@ class RegexLinkScraper:
 
         """
 
+        soup = self.__queue_item.get_soup_response()
+        a_elements = soup.find_all("a", href=True)
+        link_elements = soup.find_all("link", href=True)
+        script_elements = soup.find_all("script", src=True)
+
         found_requests = []
 
-        for expression in self.__expressions:
-            matches = re.findall(expression["raw"], content)
+        for a_element in a_elements:
+            found_url = self.__trim_grave_accent(a_element["href"])
+            if not URLHelper.is_mailto(found_url):
+                absolute_url = URLHelper.make_absolute(host, found_url)
+                found_requests.append(Request(absolute_url))
 
-            for match in matches:
-                found_url = match[expression["group"]]
+        for link_element in link_elements:
+            found_url = self.__trim_grave_accent(link_element["href"])
+            if not URLHelper.is_mailto(found_url):
+                absolute_url = URLHelper.make_absolute(host, found_url)
+                found_requests.append(Request(absolute_url))
+
+        for script_element in script_elements:
+            found_url = self.__trim_grave_accent(script_element["src"])
+            if not URLHelper.is_mailto(found_url):
                 absolute_url = URLHelper.make_absolute(host, found_url)
                 found_requests.append(Request(absolute_url))
 
         return found_requests
+
+    def __trim_grave_accent(self, href):
+        """Trim grave accents manually (because BeautifulSoup doesn't support it).
+
+        Args:
+            href (str): The BeautifulSoup href value.
+
+        Returns:
+            str: The BeautifulSoup href value without grave accents.
+
+        """
+
+        if href.startswith("`"):
+            href = href[1:]
+
+        if href.endswith("`"):
+            href = href[:-1]
+
+        return href

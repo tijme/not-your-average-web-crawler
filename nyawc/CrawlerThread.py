@@ -82,7 +82,7 @@ class CrawlerThread(threading.Thread):
                         new_request.parent_raised_error = True
 
         except Exception as e:
-            print("Exception in crawler thread: " + str(e))
+            print("Setting status of '{}' to '{}' because of an HTTP error.".format(self.__queue_item.request.url, QueueItem.STATUS_ERRORED))
             new_status = QueueItem.STATUS_ERRORED
 
         for new_request in new_requests:
