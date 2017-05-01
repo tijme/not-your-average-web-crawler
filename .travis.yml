@@ -17,7 +17,7 @@ install:
   - sudo apt-get install -y php5-common libapache2-mod-php5
   - sudo service apache2 restart
   - sudo rm -r /var/www/html/*
-  - sudo mv test/site /var/www/html
+  - sudo mv -T test/site /var/www/html
   - sudo chown -R www-data:www-data /var/www
   - pip install -r requirements.txt
 
