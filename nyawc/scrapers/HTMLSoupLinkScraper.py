@@ -82,28 +82,35 @@ class HTMLSoupLinkScraper:
 
         """
 
+        attributes = {
+            "src": True,
+            "href": True,
+            "link": True,
+            "script": True,
+            "url": True
+        }
+
         soup = self.__queue_item.get_soup_response()
-        a_elements = soup.find_all("a", href=True)
-        link_elements = soup.find_all("link", href=True)
-        script_elements = soup.find_all("script", src=True)
+        base_element = soup.find("base", href=True)
+        elements = soup.select("[{}]".format("],[".join(attributes.keys())))
+
+        # Always use the URL from the base element if it exists.
+        # https://www.w3schools.com/tags/tag_base.asp
+        if base_element:
+            host = base_element["href"]
 
         found_requests = []
 
-        for a_element in a_elements:
-            found_url = self.__trim_grave_accent(a_element["href"])
-            if not URLHelper.is_mailto(found_url):
-                absolute_url = URLHelper.make_absolute(host, found_url)
-                found_requests.append(Request(absolute_url))
+        for element in elements:
+            for attribute in attributes.keys():
+                if not element.has_attr(attribute):
+                    continue
 
-        for link_element in link_elements:
-            found_url = self.__trim_grave_accent(link_element["href"])
-            if not URLHelper.is_mailto(found_url):
-                absolute_url = URLHelper.make_absolute(host, found_url)
-                found_requests.append(Request(absolute_url))
+                found_url = self.__trim_grave_accent(element[attribute])
 
-        for script_element in script_elements:
-            found_url = self.__trim_grave_accent(script_element["src"])
-            if not URLHelper.is_mailto(found_url):
+                if URLHelper.is_mailto(found_url):
+                    continue
+
                 absolute_url = URLHelper.make_absolute(host, found_url)
                 found_requests.append(Request(absolute_url))
 

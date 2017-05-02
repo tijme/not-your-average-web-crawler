@@ -29,11 +29,11 @@ class URLHelper:
     """A helper for URL strings."""
 
     @staticmethod
-    def make_absolute(parent_absolute, relative):
+    def make_absolute(base, relative):
         """Make the given (relative) URL absolute.
 
         Args:
-            parent_absolute (str): The absolute URL the relative url was found on.
+            base (str): The absolute URL the relative url was found on.
             relative (str): The (possibly relative) url to make absolute.
 
         Returns:
@@ -41,18 +41,17 @@ class URLHelper:
 
         """
 
-
         # Python 3.4 and lower do not remove folder traversal strings.
         # This was fixed in 3.5 (https://docs.python.org/3/whatsnew/3.5.html#urllib)
         while(relative.startswith('/../') or relative.startswith('../')):
             relative = relative[3:]
 
-            parent_parsed = urlparse(parent_absolute)
-            new_path = parent_parsed.path.rsplit('/', 1)[0]
-            parent_parsed = parent_parsed._replace(path=new_path)
-            parent_absolute = parent_parsed.geturl()
+            base_parsed = urlparse(base)
+            new_path = base_parsed.path.rsplit('/', 1)[0]
+            base_parsed = base_parsed._replace(path=new_path)
+            base = base_parsed.geturl()
 
-        return urljoin(parent_absolute, relative)
+        return urljoin(base, relative)
 
     @staticmethod
     def append_with_data(url, data):
