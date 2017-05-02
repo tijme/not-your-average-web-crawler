@@ -85,7 +85,7 @@ options.identity.headers = {
 }
 
 # Performance options
-options.performance.max_threads = 8 # The maximum amount of simultaneous threads to use for crawling. Default is 4.
+options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
 
 crawler = Crawler(options)
 crawler.start_with(Request("https://finnwea.com/"))

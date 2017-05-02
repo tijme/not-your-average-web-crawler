@@ -169,7 +169,7 @@ class OptionsPerformance:
     def __init__(self):
         """Constructs an OptionsPerformance instance."""
         
-        self.max_threads = 4
+        self.max_threads = 8
 
 class OptionsIdentity:
     """The OptionsIdentity class contains the identity/footprint settings/options.
