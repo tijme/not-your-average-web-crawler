@@ -12,12 +12,7 @@
 Not Your Average Web Crawler
 ----------------------------
 
-A very useful web crawler for vulnerability scanning. Not Your Average
-Web Crawler (N.Y.A.W.C) is a Python application that enables you to
-crawl web applications for requests instead of URLs. It crawls every GET
-and POST request on the specified domain and keeps track of the request
-and response data. It's main purpose is to be used in web application
-vulnerability scanners.
+A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners.
 
 **Crawls:**
 
@@ -45,8 +40,7 @@ Table of contents
 Installation
 ------------
 
-First make sure you're on `Python 3.3 <https://www.python.org/>`__ or
-higher. Then run the command below to install N.Y.A.W.C.
+First make sure you're on `Python 3.3 <https://www.python.org/>`__ or higher. Then run the command below to install N.Y.A.W.C.
 
 ``$ pip install --upgrade nyawc``
 
@@ -54,30 +48,21 @@ Crawling flow
 -------------
 
 1. Add the start request to the queue.
-2. Start first request in the queue *(repeat until ``max threads``
-   option reached)*.
-3. Add all requests found in the response to the queue *(except
-   duplicates)*.
+2. Start first request in the queue *(repeat until ``max threads`` option reached)*.
+3. Add all requests found in the response to the queue *(except duplicates)*.
 4. Go to step #2 again to spawn new requests.
 
-**Please note that if the queue is empty and all crawler threads are
-finished, the crawler will stop.**
+**Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
 
 Documentation
 -------------
 
-Please refer to the
-`wiki <https://github.com/tijme/not-your-average-web-crawler/wiki>`__
-for all the documentation on N.Y.A.W.C.
+Please refer to the `wiki <https://github.com/tijme/not-your-average-web-crawler/wiki>`__ for all the documentation on N.Y.A.W.C.
 
 Example usage
 -------------
 
-You can use the callbacks in ``example.py`` to run your own exploit
-against the requests. If you want an example of automated exploit
-scanning, please take a look at `Angular CSTI
-scanner <https://github.com/tijme/angularjs-csti-scanner>`__ (it uses
-N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
+You can use the callbacks in ``example.py`` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at `Angular CSTI scanner <https://github.com/tijme/angularjs-csti-scanner>`__ (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 -  ``$ python example.py``
 -  ``$ python -u example.py > output.log``
@@ -157,21 +142,16 @@ N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 Testing
 -------
 
-The testing can and will automatically be done by `Travis
-CI <https://travis-ci.org/tijme/not-your-average-web-crawler>`__ on every push to the master branch. If
-you want to manually run the unit tests, use the command below.
+The testing can and will automatically be done by `Travis CI <https://travis-ci.org/tijme/not-your-average-web-crawler>`__ on every push to the master branch. If you want to manually run the unit tests, use the command below.
 
 ``$ python -m unittest discover``
 
 Issues
 ------
 
-Issues or new features can be reported via the GitHub issue tracker.
-Please make sure your issue or feature has not yet been reported by
-anyone else before submitting a new one.
+Issues or new features can be reported via the GitHub issue tracker. Please make sure your issue or feature has not yet been reported by anyone else before submitting a new one.
 
 License
 -------
 
-Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software
-licensed under the `MIT license <LICENSE.rst>`__.
+Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the `MIT license <LICENSE.rst>`__.
