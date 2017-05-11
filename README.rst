@@ -1,13 +1,26 @@
-.. raw:: html
+.. image:: https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/logo.png
+   :width: 300px
+   :height: 300px
+   :alt: N.Y.A.W.C. logo
+   :align: center
 
-   <p align="center">
-       <img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/logo.png" width="300" height="300" alt="NYAWC">
-       <br/>
-       <a href="https://travis-ci.org/tijme/not-your-average-web-crawler"><img src="https://travis-ci.org/tijme/not-your-average-web-crawler.svg?branch=master" alt="Build Status"></a>
-       <a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/nyawc.svg" alt="Python version"></a>
-       <a href="https://pypi.python.org/pypi/nyawc/"><img src="https://img.shields.io/pypi/v/nyawc.svg" alt="PyPi version"></a>
-       <a href="LICENSE.rst"><img src="https://img.shields.io/pypi/l/nyawc.svg" alt="License: MIT"></a>
-   </p>
+|
+
+.. image:: https://travis-ci.org/tijme/not-your-average-web-crawler.svg?branch=master
+   :target: https://travis-ci.org/tijme/not-your-average-web-crawler
+   :alt: Build Status
+
+.. image:: https://img.shields.io/pypi/pyversions/nyawc.svg
+   :target: https://www.python.org/
+   :alt: Python version
+
+.. image:: https://img.shields.io/pypi/v/nyawc.svg
+   :target: https://pypi.python.org/pypi/nyawc/
+   :alt: PyPi version
+
+.. image:: https://img.shields.io/pypi/l/nyawc.svg
+   :target: LICENSE.rst
+   :alt: License: MIT
 
 Not Your Average Web Crawler
 ----------------------------
@@ -52,9 +65,8 @@ Crawling flow
 3. Add all requests found in the response to the queue *(except duplicates)*.
 4. Go to step #2 again to spawn new requests.
 
-.. raw:: html
-
-    <img src="https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/flow.png">
+.. image:: https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/flow.png
+   :alt: N.Y.A.W.C crawling flow
 
 **Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
 
