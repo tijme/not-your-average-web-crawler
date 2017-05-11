@@ -226,6 +226,7 @@ class Queue:
         key += URLHelper.get_domain(queue_item.request.url)
         key += URLHelper.get_path(queue_item.request.url)
         key += str(URLHelper.get_ordered_params(queue_item.request.url))
+
         return key
 
     def __set_var(self, name, value):

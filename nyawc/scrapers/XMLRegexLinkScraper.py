@@ -41,6 +41,7 @@ class XMLRegexLinkScraper:
     content_types = [
         "text/xml",
         "application/xml",
+        "image/svg+xml"
     ]
 
     __expressions = [
