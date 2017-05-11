@@ -55,7 +55,7 @@ class TestSite(unittest.TestCase):
 
         if not self.travis:
             print("\n\nPlease note that the 'TestSite' unit test did not run.")
-            print("It will only run in Travis since it needs a webserver.")
+            print("It will only run in Travis CI since it requires a webserver.\n")
             return
 
         options = Options()
