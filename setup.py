@@ -31,7 +31,7 @@ with open('README.rst') as file:
     readme = file.read()
 
 setup(
-    version="1.4.6",
+    version="1.4.7",
     name="nyawc",
     description="A web crawler that gathers more than you can imagine.",
     long_description=readme,
