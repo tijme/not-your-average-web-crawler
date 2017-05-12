@@ -34,7 +34,6 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 
 **Future development:** 
 
-- Documentation/wiki improvements. 
 - Support rate limiting. 
 - Support XHR/JS scraping. 
 - Add other scrapers.
@@ -73,7 +72,7 @@ Crawling flow
 Documentation
 -------------
 
-Please refer to the `wiki <https://github.com/tijme/not-your-average-web-crawler/wiki>`__ for all the documentation on N.Y.A.W.C.
+Please refer to the `documentation <https://tijme.github.io/not-your-average-web-crawler/>`__ or the `API <https://tijme.github.io/not-your-average-web-crawler/build/html/py-modindex.html>`__ for all the information about N.Y.A.W.C.
 
 Example usage
 -------------

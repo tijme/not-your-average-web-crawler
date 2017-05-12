@@ -24,10 +24,10 @@
 
 import requests
 
-class Response(requests.Response):
+class Response():
     """Response placeholder class for before request is finished.
 
-	Note: This class extends the response class of Python's `requests` module. For more
-	information check http://docs.python-requests.org/en/master/api/#requests.Response.
+	Note: This class will be replaced with the response class of Python's `requests` module. 
+	For more information check http://docs.python-requests.org/en/master/api/#requests.Response.
 
     """
