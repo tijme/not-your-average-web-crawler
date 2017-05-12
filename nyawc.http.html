@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nyawc.http package &#8212; Not Your Average Web Crawler</title>
+    <title>nyawc.http package &#8212; Not Your Average Web Crawler v1.4.7</title>
     
     <link rel="stylesheet" href="_static/better.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -31,7 +31,7 @@
   </head>
   <body role="document">
     <header id="pageheader"><h1><a href="index.html ">
-        Not Your Average Web Crawler
+        Not Your Average Web Crawler v1.4.7
     </a></h1></header>
   <div class="related top">
   <nav id="rellinks">
@@ -75,6 +75,89 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="nyawc.http.Handler.Handler._Handler__content_type_matches">
+<code class="descname">_Handler__content_type_matches</code><span class="sig-paren">(</span><em>content_type</em>, <em>available_content_types</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__content_type_matches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the given content type matches one of the available content types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>content_type</strong> (<em>str</em>) &#8211; The given content type.</li>
+<li><strong>list</strong> (<em>available_content_types</em>) &#8211; All the available content types.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if a match was found, False otherwise.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.http.Handler.Handler._Handler__get_all_scrapers">
+<code class="descname">_Handler__get_all_scrapers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__get_all_scrapers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all available scraper references.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The scraper references.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(obj)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.http.Handler.Handler._Handler__get_all_scrapers_modules">
+<code class="descname">_Handler__get_all_scrapers_modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__get_all_scrapers_modules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all available scraper modules.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The scraper modules.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(obj)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.http.Handler.Handler._Handler__make_request">
+<code class="descname">_Handler__make_request</code><span class="sig-paren">(</span><em>url</em>, <em>method</em>, <em>data</em>, <em>cookies</em>, <em>headers</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__make_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a request with the given data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; The URL to call.</li>
+<li><strong>method</strong> (<em>str</em>) &#8211; The method (e.g. <cite>get</cite> or <cite>post</cite>).</li>
+<li><strong>data</strong> (<em>str</em>) &#8211; The data to call the URL with.</li>
+<li><strong>cookies</strong> (<em>obj</em>) &#8211; The cookie dict.</li>
+<li><strong>headers</strong> (<em>obj</em>) &#8211; The header dict.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The response object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">obj</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="nyawc.http.Handler.Handler.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct the HTTP handler.</p>
@@ -83,8 +166,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>options</strong> (<em>obj</em>) &#8211; The settins/options object.</li>
-<li><strong>queue_item</strong> (<em>obj</em>) &#8211; The queue item containing the request.</li>
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The settins/options object.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The queue item containing the request.</li>
 </ul>
 </td>
 </tr>
@@ -102,7 +185,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of request objects.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(obj)</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>)</td>
 </tr>
 </tbody>
 </table>
@@ -257,8 +340,11 @@
 <em class="property">class </em><code class="descclassname">nyawc.http.Response.</code><code class="descname">Response</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/http/Response.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Response.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Response placeholder class for before request is finished.</p>
-<p>Note: This class will be replaced with the response class of Python&#8217;s <cite>requests</cite> module.
-For more information check <a class="reference external" href="http://docs.python-requests.org/en/master/api/#requests.Response">http://docs.python-requests.org/en/master/api/#requests.Response</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This class will be replaced with the response class of Python&#8217;s <cite>requests</cite> module when the
+request is finished. For more information check <a class="reference external" href="http://docs.python-requests.org/en/master/api/#requests.Response">http://docs.python-requests.org/en/master/api/#requests.Response</a>.</p>
+</div>
 </dd></dl>
 
 </div>
@@ -300,12 +386,9 @@ For more information check <a class="reference external" href="http://docs.pytho
       </div>
       <div class="clearer"></div>
     </div>
-  <footer id="pagefooter">&copy; 2017, Tijme Gommers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
-      1.5.5.
+<footer id="pagefooter">
+	N.Y.A.W.C is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+</footer>
 
-  </footer>
-
-  
   </body>
 </html>

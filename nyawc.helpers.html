@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nyawc.helpers package &#8212; Not Your Average Web Crawler</title>
+    <title>nyawc.helpers package &#8212; Not Your Average Web Crawler v1.4.7</title>
     
     <link rel="stylesheet" href="_static/better.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -31,7 +31,7 @@
   </head>
   <body role="document">
     <header id="pageheader"><h1><a href="index.html ">
-        Not Your Average Web Crawler
+        Not Your Average Web Crawler v1.4.7
     </a></h1></header>
   <div class="related top">
   <nav id="rellinks">
@@ -71,9 +71,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>queue_item</strong> (<em>obj</em>) &#8211; The parent queue item of the new request.</li>
-<li><strong>new_request</strong> (<em>obj</em>) &#8211; The request to check.</li>
-<li><strong>scope</strong> (<em>obj</em>) &#8211; The scope to check.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The parent queue item of the new request.</li>
+<li><strong>new_request</strong> (<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>) &#8211; The request to check.</li>
+<li><strong>scope</strong> (<a class="reference internal" href="nyawc.html#nyawc.Options.OptionsScope" title="nyawc.Options.OptionsScope"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options.OptionsScope</span></code></a>) &#8211; The scope to check.</li>
 </ul>
 </td>
 </tr>
@@ -96,9 +96,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>request</strong> (<em>obj</em>) &#8211; The request to patch.</li>
-<li><strong>options</strong> (<em>obj</em>) &#8211; The options to patch the request with.</li>
-<li><strong>parent_queue_item</strong> (<em>obj</em>) &#8211; The parent queue item object (request/response pair) if exists.</li>
+<li><strong>request</strong> (<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>) &#8211; The request to patch.</li>
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The options to patch the request with.</li>
+<li><strong>parent_queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The parent queue item object (request/response pair) if exists.</li>
 </ul>
 </td>
 </tr>
@@ -116,11 +116,14 @@
 <em class="property">class </em><code class="descclassname">nyawc.helpers.RandomInputHelper.</code><code class="descname">RandomInputHelper</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/helpers/RandomInputHelper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.helpers.RandomInputHelper.RandomInputHelper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A helper for generating random user input.</p>
-<p>Note: We need to cache the generated values to prevent infinite crawling
-loops. For example, if two responses contain the same ?search= form, the
-random generated value must be the same both of the times because
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We need to cache the generated values to prevent infinite crawling
+loops. For example, if two responses contain the same ?search= form,
+the random generated value must be the same both of the times because
 otherwise the crawling would treat the new requests as two different
 requests.</p>
+</div>
 <dl class="attribute">
 <dt id="nyawc.helpers.RandomInputHelper.RandomInputHelper.cache">
 <code class="descname">cache</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/helpers/RandomInputHelper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.helpers.RandomInputHelper.RandomInputHelper.cache" title="Permalink to this definition">¶</a></dt>
@@ -206,8 +209,11 @@ requests.</p>
 <dt id="nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_password">
 <em class="property">static </em><code class="descname">get_random_password</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.4.7/nyawc/helpers/RandomInputHelper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_password" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a random password that complies with most of the requirements.</p>
-<p>Note: this random password is not strong and not &#8220;really&#8221; random, and should only be
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This random password is not strong and not &#8220;really&#8221; random, and should only be
 used for testing purposes.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -503,12 +509,9 @@ used for testing purposes.</p>
       </div>
       <div class="clearer"></div>
     </div>
-  <footer id="pagefooter">&copy; 2017, Tijme Gommers.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
-      1.5.5.
+<footer id="pagefooter">
+	N.Y.A.W.C is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+</footer>
 
-  </footer>
-
-  
   </body>
 </html>
