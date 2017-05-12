@@ -21,7 +21,7 @@ Not Your Average Web Crawler
    :alt: PyPi version
 
 .. image:: https://img.shields.io/pypi/l/nyawc.svg
-   :target: https://github.com/tijme/not-your-average-web-crawler/blob/master/README.rst
+   :target: https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst
    :alt: License: MIT
 
 
@@ -170,4 +170,4 @@ Issues or new features can be reported via the GitHub issue tracker. Please make
 License
 -------
 
-Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the `MIT license <https://github.com/tijme/not-your-average-web-crawler/blob/master/README.rst>`__.
+Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the `MIT license <https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst>`__.
