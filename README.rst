@@ -72,7 +72,7 @@ Crawling flow
 Documentation
 -------------
 
-Please refer to the `documentation <https://tijme.github.io/not-your-average-web-crawler/>`__ or the `API <https://tijme.github.io/not-your-average-web-crawler/build/html/py-modindex.html>`__ for all the information about N.Y.A.W.C.
+Please refer to the `documentation <https://tijme.github.io/not-your-average-web-crawler/>`__ or the `API <https://tijme.github.io/not-your-average-web-crawler/py-modindex.html>`__ for all the information about N.Y.A.W.C.
 
 Example usage
 -------------
