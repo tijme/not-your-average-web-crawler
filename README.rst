@@ -4,7 +4,9 @@
    :alt: N.Y.A.W.C. logo
    :align: center
 
-|
+Not Your Average Web Crawler
+----------------------------
+
 
 .. image:: https://travis-ci.org/tijme/not-your-average-web-crawler.svg?branch=master
    :target: https://travis-ci.org/tijme/not-your-average-web-crawler
@@ -19,11 +21,9 @@
    :alt: PyPi version
 
 .. image:: https://img.shields.io/pypi/l/nyawc.svg
-   :target: LICENSE.rst
+   :target: https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst
    :alt: License: MIT
 
-Not Your Average Web Crawler
-----------------------------
 
 A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners.
 
@@ -170,4 +170,4 @@ Issues or new features can be reported via the GitHub issue tracker. Please make
 License
 -------
 
-Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the `MIT license <LICENSE.rst>`__.
+Not Your Average Web Crawler (N.Y.A.W.C) is open-sourced software licensed under the `MIT license <https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst>`__.
