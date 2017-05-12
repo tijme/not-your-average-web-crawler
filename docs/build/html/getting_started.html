@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &#8212; Not Your Average Web Crawler</title>
+    
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.4.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+  </head>
+  <body role="document">
+    <header id="pageheader"><h1><a href="index.html ">
+        Not Your Average Web Crawler
+    </a></h1></header>
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="index.html">Home</a></li> 
+    </ul>
+  </nav>
+  </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#minimal-implementation" id="id1">Minimal implementation</a></li>
+<li><a class="reference internal" href="#running-the-crawler" id="id2">Running the crawler</a><ul>
+<li><a class="reference internal" href="#in-the-foreground" id="id3">In the foreground</a></li>
+<li><a class="reference internal" href="#in-the-background" id="id4">In the background</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="minimal-implementation">
+<h2><a class="toc-backref" href="#id1">Minimal implementation</a><a class="headerlink" href="#minimal-implementation" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># example.py</span>
+
+<span class="kn">from</span> <span class="nn">nyawc.Options</span> <span class="k">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">nyawc.Crawler</span> <span class="k">import</span> <span class="n">Crawler</span>
+<span class="kn">from</span> <span class="nn">nyawc.CrawlerActions</span> <span class="k">import</span> <span class="n">CrawlerActions</span>
+<span class="kn">from</span> <span class="nn">nyawc.http.Request</span> <span class="k">import</span> <span class="n">Request</span>
+
+<span class="k">def</span> <span class="nf">cb_crawler_before_start</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crawler started.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cb_crawler_after_finish</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crawler finished, found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">get_count</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; requests.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cb_request_before_start</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">queue_item</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">queue_item</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">CrawlerActions</span><span class="o">.</span><span class="n">DO_CONTINUE_CRAWLING</span>
+
+<span class="k">def</span> <span class="nf">cb_request_after_finish</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">queue_item</span><span class="p">,</span> <span class="n">new_queue_items</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">queue_item</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">CrawlerActions</span><span class="o">.</span><span class="n">DO_CONTINUE_CRAWLING</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">crawler_before_start</span> <span class="o">=</span> <span class="n">cb_crawler_before_start</span> <span class="c1"># Called before the crawler starts crawling. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">crawler_after_finish</span> <span class="o">=</span> <span class="n">cb_crawler_after_finish</span> <span class="c1"># Called after the crawler finished crawling. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_before_start</span> <span class="o">=</span> <span class="n">cb_request_before_start</span> <span class="c1"># Called before the crawler starts a new request. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_after_finish</span> <span class="o">=</span> <span class="n">cb_request_after_finish</span> <span class="c1"># Called after the crawler finishes a request. Default is a null route.</span>
+
+<span class="n">crawler</span> <span class="o">=</span> <span class="n">Crawler</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<span class="n">crawler</span><span class="o">.</span><span class="n">start_with</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;https://finnwea.com/&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-crawler">
+<h2><a class="toc-backref" href="#id2">Running the crawler</a><a class="headerlink" href="#running-the-crawler" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="in-the-foreground">
+<h3><a class="toc-backref" href="#id3">In the foreground</a><a class="headerlink" href="#in-the-foreground" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">example.py</span></code></p>
+</div>
+<div class="section" id="in-the-background">
+<h3><a class="toc-backref" href="#id4">In the background</a><a class="headerlink" href="#in-the-background" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">-u</span> <span class="pre">example.py</span> <span class="pre">&gt;</span> <span class="pre">output.log</span></code></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h1>Introduction</h1>
+<ul>
+	<li><a class="reference" href="index.html">Home</a></li>
+	<li><a class="reference" href="installation.html">Installation</a></li>
+	<li><a class="reference" href="getting_started.html">Getting started</a></li>
+	<li><a class="reference" href="kitchen_sink.html">Kitchen sink</a></li>
+</ul>
+<h1>Options</h1>
+<ul>
+	<li><a class="reference" href="options_callbacks.html">Callbacks</a></li>
+	<li><a class="reference" href="options_crawling_scope.html">Crawling scope</a></li>
+	<li><a class="reference" href="options_crawling_identity.html">Crawling identity</a></li>
+	<li><a class="reference" href="options_performance.html">Performance</a></li>
+</ul>
+<h1>Source</h1>
+<ul>
+	<li><a class="reference" href="py-modindex.html">Code API</a></li>
+	<li><a class="reference" href="https://github.com/tijme/not-your-average-web-crawler">GitHub</a></li>
+</ul><div id="searchbox" role="search">
+    <h3>Search</h3>
+    <form class="search" action="search.html" method="get">
+        <input type="text" name="q" placeholder="Queue.get_all()">
+        <input type="submit" value="Go">
+        <input type="hidden" name="check_keywords" value="yes">
+        <input type="hidden" name="area" value="default">
+    </form>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2017, Tijme Gommers.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a>
+      1.5.5.
+
+  </footer>
+
+  
+  </body>
+</html>
