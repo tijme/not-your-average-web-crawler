@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/logo.png
+.. image:: https://cdn.rawgit.com/tijme/not-your-average-web-crawler/develop/.github/logo.svg
    :width: 300px
    :height: 300px
    :alt: N.Y.A.W.C. logo
