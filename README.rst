@@ -65,7 +65,7 @@ Crawling flow
 3. Add all requests found in the response to the queue *(except duplicates)*.
 4. Go to step #2 again to spawn new requests.
 
-.. image:: https://raw.githubusercontent.com/tijme/not-your-average-web-crawler/develop/.github/flow.png
+.. image:: https://cdn.rawgit.com/tijme/not-your-average-web-crawler/develop/.github/flow.svg
    :alt: N.Y.A.W.C crawling flow
 
 **Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
