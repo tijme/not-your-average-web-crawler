@@ -33,8 +33,8 @@ class CrawlerThread(threading.Thread):
     Attributes:
         __callback (obj): The method to call when finished
         __callback_lock (bool): The callback lock that prevents race conditions.
-        __options (obj): The settins/options object.
-        __queue_item (obj): The queue item containing a request to execute.
+        __options (:class:`nyawc.Options`): The settins/options object.
+        __queue_item (:class:`nyawc.QueueItem`): The queue item containing a request to execute.
 
     """
 
@@ -44,8 +44,8 @@ class CrawlerThread(threading.Thread):
         Args:
             callback (obj): The method to call when finished
             callback_lock (bool): The callback lock that prevents race conditions.
-            options (obj): The settins/options object.
-            queue_item (obj): The queue item containing a request to execute.
+            options (:class:`nyawc.Options`): The settins/options object.
+            queue_item (:class:`nyawc.QueueItem`): The queue item containing a request to execute.
 
         """
 
@@ -59,9 +59,10 @@ class CrawlerThread(threading.Thread):
     def run(self):
         """Executes the HTTP call.
 
-        Note: If this and the parent handler raised an error, the queue item status 
-        will be set to errored instead of finished. This is to prevent e.g. 404 
-        recursion.
+        Note: 
+            If this and the parent handler raised an error, the queue item status 
+            will be set to errored instead of finished. This is to prevent e.g. 404 
+            recursion.
 
         """
 

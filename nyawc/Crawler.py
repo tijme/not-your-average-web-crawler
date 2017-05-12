@@ -36,8 +36,8 @@ class Crawler:
     """The main Crawler class which handles the crawling recursion, queue and processes.
 
     Attributes:
-        __options (obj): The options to use for the current crawling runtime.
-        queue (obj): The request/response pair queue containing everything to crawl.
+        __options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
+        queue (:class:`nyawc.Queue`): The request/response pair queue containing everything to crawl.
         __stopping (bool): If the crawler is topping the crawling process.
         __stopped (bool): If the crawler finished stopping the crawler process.
         __lock (obj): The callback lock to prevent race conditions.
@@ -48,7 +48,7 @@ class Crawler:
         """Constructs a Crawler instance.
 
         Args:
-            options (obj): The options to use for the current crawling runtime.
+            options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
 
         """
 
@@ -62,7 +62,7 @@ class Crawler:
         """Start the crawler using the given request.
 
         Args:
-            request (obj): The startpoint for the crawler.
+            request (:class:`nyawc.http.Request`): The startpoint for the crawler.
 
         """
 
@@ -74,8 +74,9 @@ class Crawler:
     def __spawn_new_requests(self):
         """Spawn new requests until the max processes option value is reached.
 
-        Note: If no new requests were spawned and there are no requests in progress
-        the crawler will stop crawling.
+        Note: 
+            If no new requests were spawned and there are no requests in progress
+            the crawler will stop crawling.
 
         """
 
@@ -110,8 +111,9 @@ class Crawler:
     def __crawler_start(self):
         """Spawn the first X queued request, where X is the max threads option.
 
-        Note: The main thread will sleep until the crawler is finished. This enables
-        quiting the application using sigints (see http://stackoverflow.com/a/11816038/2491049)
+        Note: 
+            The main thread will sleep until the crawler is finished. This enables
+            quiting the application using sigints (see http://stackoverflow.com/a/11816038/2491049)
 
         """
 
@@ -129,8 +131,8 @@ class Crawler:
         """Mark the crawler as stopped.
 
         Note:
-            If self.__stopped is True, the main thread will be stopped. Every piece of code that gets
-            executed after self.__stopped is True could cause Thread exceptions and or race conditions.
+            If :attr:`__stopped` is True, the main thread will be stopped. Every piece of code that gets
+            executed after :attr:`__stopped` is True could cause Thread exceptions and or race conditions.
 
         Args:
             force_quit (bool): Also cancel any ongoing requests.
@@ -156,7 +158,7 @@ class Crawler:
         """Execute the request in given queue item.
 
         Args:
-            queue_item (obj): The request/response pair to scrape.
+            queue_item (:class:`nyawc.QueueItem`): The request/response pair to scrape.
 
         """
 
@@ -181,8 +183,8 @@ class Crawler:
         """Called when the crawler finished the given queued item.
 
         Args:
-            queue_item (obj): The request/response pair that finished.
-            new_requests list(obj): All the requests that were found during this request.
+            queue_item (:class:`nyawc.QueueItem`): The request/response pair that finished.
+            new_requests list(:class:`nyawc.http.Request`): All the requests that were found during this request.
             new_queue_item_status (str): The new status of the queue item (if it needs to be moved).
 
         """

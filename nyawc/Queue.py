@@ -31,23 +31,24 @@ from collections import OrderedDict
 class Queue:
     """A 'hash' queue containing all the requests of the crawler.
 
-    Note: This queue uses a certain hash (from `__get_hash`) to prevent
-    duplicate entries and improve the time complexity by checking if the 
-    hash exists instead of iterating over all items.
+    Note: 
+        This queue uses a certain hash (from :meth:`__get_hash`) to prevent
+        duplicate entries and improve the time complexity by checking if the 
+        hash exists instead of iterating over all items.
 
     Attributes:
-        __options (obj): The options to use (used when generating queue item hashes).
+        __options (:class:`nyawc.Options`): The options to use (used when generating queue item hashes).
         count_total (int): The total count of requests in the queue.
         count_queued (int): The amount of queued items in the queue.
         count_in_progress (int): The amount of in progress items in the queue.
         count_finished (int): The amount of finished items in the queue.
         count_cancelled (int): The amount of cancelled items in the queue.
         count_errored (int): The amount of errored items in the queue.
-        items_queued (obj): The queued items (yet to be executed).
-        items_in_progress (obj): The items currently being executed.
-        items_finished (obj): The finished items.
-        items_cancelled (obj): Items that were cancelled.
-        items_errored (obj): Items that generated an error.
+        items_queued list(:class:`nyawc.QueueItem`): The queued items (yet to be executed).
+        items_in_progress list(:class:`nyawc.QueueItem`): The items currently being executed.
+        items_finished list(:class:`nyawc.QueueItem`): The finished items.
+        items_cancelled list(:class:`nyawc.QueueItem`): Items that were cancelled.
+        items_errored list(:class:`nyawc.QueueItem`): Items that generated an error.
 
     """
 
@@ -55,7 +56,7 @@ class Queue:
         """Constructs a Queue instance.
 
         Args:
-            options (obj): The options to use.
+            options (:class:`nyawc.Options`): The options to use.
 
         """
 
@@ -76,10 +77,10 @@ class Queue:
         """Add a request to the queue.
         
         Args:
-            request (obj): The request to add.
+            request (:class:`nyawc.http.Request`): The request to add.
         
         Returns:
-            obj: The created queue item.
+            :class:`nyawc.QueueItem`: The created queue item.
 
         """
 
@@ -91,7 +92,7 @@ class Queue:
         """Check if the given request already exists in the queue.
         
         Args:
-            request (obj): The request to check.
+            request (:class:`nyawc.http.Request`): The request to check.
         
         Returns:
             bool: True if already exists, False otherwise.
@@ -108,10 +109,10 @@ class Queue:
         return False
 
     def add(self, queue_item):
-        """Add a request/response pair (QueueItem) to the queue.
+        """Add a request/response pair to the queue.
 
         Args:
-            item (obj): The queue item to add.
+            item (:class:`nyawc.QueueItem`): The queue item to add.
 
         """
 
@@ -128,10 +129,10 @@ class Queue:
         self.count_total += 1
 
     def move(self, queue_item, status):
-        """Move a request/response pair (QueueItem) to another status.
+        """Move a request/response pair to another status.
 
         Args:
-            queue_item (obj): The queue item to move
+            queue_item (:class:`nyawc.QueueItem`): The queue item to move
             status (str): The new status of the queue item.
 
         """
@@ -153,7 +154,7 @@ class Queue:
             status (str): return the first item with this status.
 
         Returns:
-            obj: The first queue item with the given status.
+            :class:`nyawc.QueueItem`: The first queue item with the given status.
 
         """
 
@@ -171,7 +172,7 @@ class Queue:
             status (str): return the items with this status.
 
         Returns:
-            list(obj): All the queue items with the given status.
+            list(:class:`nyawc.QueueItem`): All the queue items with the given status.
 
         """
 
@@ -193,19 +194,22 @@ class Queue:
     def __get_hash(self, queue_item):
         """Generate and return the dict index hash of the given queue item.
 
-        Note: The hash is calculated by using the scope options. For example,
-        if the protocol of a request must match, it is included in the hash
-        otherwise it is omitted.
+        Note: 
+            The hash is calculated by using the scope options. For example,
+            if the protocol of a request must match, it is included in the hash
+            otherwise it is omitted.
 
-        Note: Cookies should not be included in the hash calculation because
-        otherwise requests are crawled multiple times with e.g. different
-        session keys, causing infinite crawling recursion.
+        Note: 
+            Cookies should not be included in the hash calculation because
+            otherwise requests are crawled multiple times with e.g. different
+            session keys, causing infinite crawling recursion.
 
-        ToDo: Do the actual hashing of the key (with fastest hashing algorithm)
-        and build hash collision handling.
+        Todo: 
+            Do the actual hashing of the key (with fastest hashing algorithm)
+            and build hash collision handling.
 
         Args:
-            queue_item (obj): The queue item to get the hash from.
+            queue_item (:class:`nyawc.QueueItem`): The queue item to get the hash from.
 
         Returns:
             str: The hash of the given queue item.

@@ -32,9 +32,9 @@ class JSONRegexLinkScraper:
 
     Attributes:
         content_types list(str): The supported content types.
-        __expressions list(obj): The queue item containing the response to scrape.
-        __options (obj): The settins/options object.
-        __queue_item (obj): The queue item containing the response to scrape.
+        __expressions list(obj): The regular expressions to execute.
+        __options (:class:`nyawc.Options`): The settins/options object.
+        __queue_item (:class:`nyawc.QueueItem`): The queue item containing the response to scrape.
 
     """
 
@@ -55,8 +55,8 @@ class JSONRegexLinkScraper:
         """Construct the JSONRegexLinkScraper instance.
 
         Args:
-            options (obj): The settins/options object.
-            queue_item (obj): The queue item containing a response the scrape.
+            options (:class:`nyawc.Options`): The settins/options object.
+            queue_item (:class:`nyawc.QueueItem`): The queue item containing a response the scrape.
 
         """
 
@@ -67,7 +67,7 @@ class JSONRegexLinkScraper:
         """Get all the new requests that were found in the response.
 
         Returns:
-            list(obj): A list of new requests.
+            list(:class:`nyawc.http.Request`): A list of new requests.
 
         """
 
@@ -84,7 +84,7 @@ class JSONRegexLinkScraper:
             content (obj): The HTML content.
 
         Returns:
-            list(obj): Requests that were found.
+            list(:class:`nyawc.http.Request`): A list of new requests that were found.
 
         """
 

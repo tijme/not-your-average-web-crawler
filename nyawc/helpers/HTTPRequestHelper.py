@@ -34,9 +34,9 @@ class HTTPRequestHelper:
         """Patch the given request with the given options (e.g. user agent).
 
         Args:
-            request (obj): The request to patch.
-            options (obj): The options to patch the request with.
-            parent_queue_item (obj): The parent queue item object (request/response pair) if exists.
+            request (:class:`nyawc.http.Request`): The request to patch. 
+            options (:class:`nyawc.Options`): The options to patch the request with.
+            parent_queue_item (:class:`nyawc.QueueItem`): The parent queue item object (request/response pair) if exists.
 
         """
 
@@ -55,9 +55,9 @@ class HTTPRequestHelper:
         """Check if the new request complies with the crawling scope.
 
         Args:
-            queue_item (obj): The parent queue item of the new request.
-            new_request (obj): The request to check.
-            scope (obj): The scope to check.
+            queue_item (:class:`nyawc.QueueItem`): The parent queue item of the new request.
+            new_request (:class:`nyawc.http.Request`): The request to check.
+            scope (:class:`nyawc.Options.OptionsScope`): The scope to check.
 
         Returns:
             bool: True if it complies, False otherwise.

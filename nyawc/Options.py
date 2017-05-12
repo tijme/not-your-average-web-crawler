@@ -30,10 +30,10 @@ class Options:
     """The Options class contains all the crawling settings/options.
 
     Attributes:
-        scope (obj): Can be used to define the crawling scope.
-        callbacks (obj): Can be used to define crawling callbacks.
-        performance (obj): Can be used to define performance options.
-        identity (obj): Can be used to define the identity/footprint options.
+        scope (:class:`nyawc.Options.OptionsScope`): Can be used to define the crawling scope.
+        callbacks (:class:`nyawc.Options.OptionsCallbacks`): Can be used to define crawling callbacks.
+        performance (:class:`nyawc.Options.OptionsPerformance`): Can be used to define performance options.
+        identity (:class:`nyawc.Options.OptionsIdentity`): Can be used to define the identity/footprint options.
 
     """
 
@@ -68,12 +68,12 @@ class OptionsCallbacks:
     """The OptionsCallbacks class contains all the callback methods.
 
     Attributes:
-        crawler_before_start (obj): called before the crawler starts crawling. Default is a null route.
-        crawler_after_finish (obj): called after the crawler finished crawling. Default is a null route.
-        request_before_start (obj): called before the crawler starts a new request. Default is a null route.
-        request_after_finish (obj): called after the crawler finishes a request. Default is a null route.
-        form_before_autofill (obj): called before the crawler starts autofilling a form. Default is a null route.
-        form_after_autofill (obj): called after the crawler finishes autofilling a form. Default is a null route.
+        crawler_before_start (obj): called before the crawler starts crawling. Default is a null route to :attr:`__null_route_crawler_before_start`.
+        crawler_after_finish (obj): called after the crawler finished crawling. Default is a null route to :attr:`__null_route_crawler_after_finish`.
+        request_before_start (obj): called before the crawler starts a new request. Default is a null route to :attr:`__null_route_request_before_start`.
+        request_after_finish (obj): called after the crawler finishes a request. Default is a null route to :attr:`__null_route_request_after_finish`.
+        form_before_autofill (obj): called before the crawler starts autofilling a form. Default is a null route to :attr:`__null_route_form_before_autofill`.
+        form_after_autofill (obj): called after the crawler finishes autofilling a form. Default is a null route to :attr:`__null_route_form_after_autofill`.
 
     """
 
@@ -106,8 +106,8 @@ class OptionsCallbacks:
         """A null route for the 'request before start' callback.
 
         Args:
-            queue (obj): The current crawling queue.
-            queue_item (obj): The queue item that's about to start.
+            queue (:class:`nyawc.Queue`): The current crawling queue.
+            queue_item (:class:`nyawc.QueueItem`): The queue item that's about to start.
 
         Returns:
             str: A crawler action (either DO_SKIP_TO_NEXT, DO_STOP_CRAWLING or DO_CONTINUE_CRAWLING).
@@ -120,9 +120,9 @@ class OptionsCallbacks:
         """A null route for the 'request after finish' callback.
 
         Args:
-            queue (obj): The current crawling queue.
-            queue_item (obj): The queue item that was finished.
-            new_queue_items (obj): The new queue items that were found in the one that finished.
+            queue (:class:`nyawc.Queue`): The current crawling queue.
+            queue_item (:class:`nyawc.QueueItem`): The queue item that was finished.
+            new_queue_items list(:class:`nyawc.QueueItem`): The new queue items that were found in the one that finished.
 
         Returns:
             str: A crawler action (either DO_STOP_CRAWLING or DO_CONTINUE_CRAWLING).
@@ -135,7 +135,7 @@ class OptionsCallbacks:
         """A null route for the 'form before autofill' callback.
 
         Args:
-            queue_item (obj): The queue item that was finished.
+            queue_item (:class:`nyawc.QueueItem`): The queue item that was finished.
             elements list(obj): The soup elements found in the form.
             form_data (obj): The {key: value} form fields to be autofilled.
 
@@ -150,7 +150,7 @@ class OptionsCallbacks:
         """A null route for the 'form after autofill' callback.
 
         Args:
-            queue_item (obj): The queue item that was finished.
+            queue_item (:class:`nyawc.QueueItem`): The queue item that was finished.
             elements list(obj): The soup elements found in the form.
             form_data (obj): The {key: value} form fields.
 

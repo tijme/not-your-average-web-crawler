@@ -39,8 +39,8 @@ class Handler:
         """Construct the HTTP handler.
 
         Args:
-            options (obj): The settins/options object.
-            queue_item (obj): The queue item containing the request.
+            options (:class:`nyawc.Options`): The settins/options object.
+            queue_item (:class:`nyawc.QueueItem`): The queue item containing the request.
 
         """
 
@@ -59,7 +59,7 @@ class Handler:
         """Retrieve all the new request that were found in this request.
 
         Returns:
-            list(obj): A list of request objects.
+            list(:class:`nyawc.http.Request`): A list of request objects.
 
         """
 

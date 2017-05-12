@@ -33,8 +33,8 @@ class HTMLSoupFormScraper:
 
     Attributes:
         content_types list(str): The supported content types.
-        __options (obj): The settins/options object.
-        __queue_item (obj): The queue item containing the response to scrape.
+        __options (:class:`nyawc.Options`): The settins/options object.
+        __queue_item (:class:`nyawc.QueueItem`): The queue item containing the response to scrape.
 
     """
 
@@ -51,8 +51,8 @@ class HTMLSoupFormScraper:
         """Construct the HTMLSoupFormScraper instance.
 
         Args:
-            options (obj): The settins/options object.
-            queue_item (obj): The queue item containing a response the scrape.
+            options (:class:`nyawc.Options`): The settins/options object.
+            queue_item (:class:`nyawc.QueueItem`): The queue item containing a response the scrape.
 
         """
 
@@ -63,7 +63,7 @@ class HTMLSoupFormScraper:
         """Get all the new requests that were found in the response.
 
         Returns:
-            list(obj): A list of new requests.
+            list(:class:`nyawc.http.Request`): A list of new requests.
 
         """
 
@@ -80,7 +80,7 @@ class HTMLSoupFormScraper:
             content (obj): The HTML content.
 
         Returns:
-            list(obj): Requests that were found.
+            list(:class:`nyawc.http.Request`): A list of new requests that were found.
 
         """
 
@@ -102,7 +102,7 @@ class HTMLSoupFormScraper:
             soup (obj): The BeautifulSoup form.
 
         Returns:
-            obj: The new Request.
+            :class:`nyawc.http.Request`: The new Request.
 
         """
 
@@ -157,8 +157,9 @@ class HTMLSoupFormScraper:
     def __get_valid_form_data_elements(self, soup):
         """Get all valid form input elements.
 
-        Note: an element is valid when the value can be updated client-side
-        and the element has a name attribute.
+        Note: 
+            An element is valid when the value can be updated client-side
+            and the element has a name attribute.
 
         Args:
             soup (obj): The BeautifulSoup form.

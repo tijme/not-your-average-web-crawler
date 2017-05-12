@@ -9,5 +9,9 @@
 }
 
 #pagefooter {
+    box-sizing: border-box;
+    text-align: center;
+    
+    padding-left: 15rem;
 	font-size: 12px;
 }

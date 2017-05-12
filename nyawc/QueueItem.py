@@ -35,8 +35,8 @@ class QueueItem:
         STATUS_ERRORED (str): Status for when the crawler could not execute the request.
         STATUSES (arr): All statuses.
         status (str): The current crawling status.
-        request (obj): The Request object.
-        response (obj): The Response object.
+        request (:class:`nyawc.http.Request`): The Request object.
+        response (:class:`nyawc.http.Response`): The Response object.
         response_soup (obj): The BeautifulSoup container for the response text.
 
     """
@@ -63,8 +63,8 @@ class QueueItem:
         """Constructs a QueueItem instance.
 
         Args:
-            request (obj): The Request object.
-            response (obj): The Response object (empty object when initialized).
+            request (:class:`nyawc.http.Request`): The Request object.
+            response (:class:`nyawc.http.Response`): The Response object (empty object when initialized).
 
         """
 

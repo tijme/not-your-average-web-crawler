@@ -28,11 +28,12 @@ import string
 class RandomInputHelper:
     """A helper for generating random user input.
 
-    Note: We need to cache the generated values to prevent infinite crawling
-    loops. For example, if two responses contain the same ?search= form, the 
-    random generated value must be the same both of the times because 
-    otherwise the crawling would treat the new requests as two different 
-    requests.
+    Note: 
+        We need to cache the generated values to prevent infinite crawling
+        loops. For example, if two responses contain the same ?search= form, 
+        the random generated value must be the same both of the times because 
+        otherwise the crawling would treat the new requests as two different 
+        requests.
 
     Attributes:
         cache (obj): Cached values of the generated data.
@@ -165,8 +166,9 @@ class RandomInputHelper:
     def get_random_password():
         """Get a random password that complies with most of the requirements.
 
-        Note: this random password is not strong and not "really" random, and should only be
-        used for testing purposes.
+        Note:
+            This random password is not strong and not "really" random, and should only be
+            used for testing purposes.
 
         Returns:
             str: The random password.

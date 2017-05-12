@@ -21,7 +21,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
-
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -84,7 +83,6 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
-
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -144,12 +142,10 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'NYAWCdoc'
-
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -179,7 +175,6 @@ latex_documents = [
      'Tijme Gommers', 'manual'),
 ]
 
-
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
@@ -189,7 +184,6 @@ man_pages = [
      [author], 1)
 ]
 
-
 # -- Options for Texinfo output -------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
@@ -197,13 +191,12 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'NYAWC', 'N.Y.A.W.C Documentation',
-     author, 'NYAWC', 'One line description of project.',
+     author, 'NYAWC', 'A web crawler that gathers more than you can imagine.',
      'Miscellaneous'),
 ]
 
-
 # Title of the documentation
-html_title = "Not Your Average Web Crawler"
+html_title = "Not Your Average Web Crawler v{}".format(semver)
 
 # Home button title
 html_short_title = "Home"
@@ -222,8 +215,9 @@ def linkcode_resolve(domain, info):
         return None
 
     filename = info['module'].replace('.', '/')
-    return "https://github.com/tijme/not-your-average-web-crawler/tree/" + semver + "/" + filename + ".py"
+    return "https://github.com/tijme/not-your-average-web-crawler/tree/{}/{}.py".format(semver, filename)
 
 # Napoleon
 napoleon_google_docstring = True
 napoleon_include_init_with_doc = True
+napoleon_include_private_with_doc  = True
