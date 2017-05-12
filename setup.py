@@ -28,7 +28,7 @@ with open("requirements.txt") as file:
     requirements = file.read().splitlines()
 
 with open("README.rst") as file:
-    readme = file.read().replace(".svg", ".png")
+    readme = file.read().replace(".svg?pypi=png", ".png")
 
 with open(".semver") as file:
     semver = file.read()
