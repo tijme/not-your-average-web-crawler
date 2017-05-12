@@ -22,5 +22,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class Response:
-    """Response placeholder class for before request is finished."""
+import requests
+
+class Response(requests.Response):
+    """Response placeholder class for before request is finished.
+
+	Note: This class extends the response class of Python's `requests` module. For more
+	information check http://docs.python-requests.org/en/master/api/#requests.Response.
+
+    """

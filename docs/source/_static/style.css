@@ -1,0 +1,13 @@
+.search input[type="text"] {
+	display: inline-block;
+	width: 60%;
+}
+
+.search input[type="submit"] {
+	display: inline-block;
+	width: 20%;
+}
+
+#pagefooter {
+	font-size: 12px;
+}

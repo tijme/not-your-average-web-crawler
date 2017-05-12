@@ -30,8 +30,11 @@ with open("requirements.txt") as file:
 with open("README.rst") as file:
     readme = file.read()
 
+with open(".semver") as file:
+    semver = file.read()
+
 setup(
-    version="1.4.7",
+    version=semver,
     name="nyawc",
     description="A web crawler that gathers more than you can imagine.",
     long_description=readme,

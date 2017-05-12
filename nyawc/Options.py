@@ -175,7 +175,7 @@ class OptionsIdentity:
     """The OptionsIdentity class contains the identity/footprint settings/options.
 
     Attributes:
-        cookies (obj): The (requests module) cookie jar to use when making a request.
+        cookies (obj): The (requests module) cookie jar to use when making a request. For more information check http://docs.python-requests.org/en/master/user/quickstart/#cookies.
         headers (obj): The headers {key: value} to use when making a request.
         
     """
