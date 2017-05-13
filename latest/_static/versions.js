@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$.getJSON('_static/releases.json', function(releases) {
+	$.getJSON('/releases.json', function(releases) {
 		var html = "";
 		var current = $('#releases').attr('data-selected');
 
