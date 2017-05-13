@@ -13,12 +13,17 @@ All releases of N.Y.A.W.C are available on PyPi (`link <https://pypi.python.org/
 #. Make sure you are using Python 3.3 or higher.
 #. ``$ pip install --upgrade nyawc``
 
+Install using EasyInstall
+-------------------------
+
+#. Make sure you are using Python 3.3 or higher.
+#. ``$ easy_install --upgrade nyawc``
+
 Download as ZIP
 ---------------
 
 #. Make sure you are using Python 3.3 or higher.
-#. Download and extract the ZIP file
-   (`link <https://github.com/tijme/not-your-average-web-crawler/archive/master.zip>`__).
+#. Download and extract the ZIP file (`link <https://github.com/tijme/not-your-average-web-crawler/archive/master.zip>`__).
 #. Run the unit-tests to verify you have a working version.
 
    #. ``$ python -m unittest discover``.
