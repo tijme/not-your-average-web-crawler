@@ -1,7 +1,25 @@
 {% extends '!layout.html' %}
 
+{% block header %}
+    <header id="pageheader">
+        <a href="index.html ">
+            <img id="pagelogo" src="_static/logo.svg" />
+        </a>
+        <div id="pagedetails">
+            <a href="index.html ">
+                <h1>
+                    {{ docstitle }}
+                </h1>
+            </a>
+            <select disabled id="releases" data-selected="{{release}}" onchange="if (this.value) window.location.href=this.value">
+                <option value="../{{release}}/index.html">Version {{release}}</option>
+            </select>
+        </div>
+    </header>
+{% endblock %}
+
 {% block footer %}
-<footer id="pagefooter">
-	N.Y.A.W.C is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
-</footer>
+    <footer id="pagefooter">
+        N.Y.A.W.C v{{release}} is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+    </footer>
 {% endblock %}

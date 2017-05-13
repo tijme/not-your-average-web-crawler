@@ -14,7 +14,7 @@ All releases of N.Y.A.W.C are available on PyPi (`link <https://pypi.python.org/
 #. ``$ pip install --upgrade nyawc``
 
 Install using EasyInstall
------------------
+-------------------------
 
 #. Make sure you are using Python 3.3 or higher.
 #. ``$ easy_install --upgrade nyawc``

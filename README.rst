@@ -79,6 +79,8 @@ Example usage
 
 You can use the callbacks in ``example.py`` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at `Angular CSTI scanner <https://github.com/tijme/angularjs-csti-scanner>`__ (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
+You can also use the `kitchen sink <https://tijme.github.io/not-your-average-web-crawler/latest/kitchen_sink.html>`__ (which contains all the functionalities from N.Y.A.W.C.) instead of the example below. The code below is a minimal implementation of N.Y.A.W.C.
+
 -  ``$ python example.py``
 -  ``$ python -u example.py > output.log``
 
@@ -87,7 +89,6 @@ You can use the callbacks in ``example.py`` to run your own exploit against the 
     # example.py
 
     from nyawc.Options import Options
-    from nyawc.QueueItem import QueueItem
     from nyawc.Crawler import Crawler
     from nyawc.CrawlerActions import CrawlerActions
     from nyawc.http.Request import Request
@@ -96,60 +97,22 @@ You can use the callbacks in ``example.py`` to run your own exploit against the 
         print("Crawler started.")
 
     def cb_crawler_after_finish(queue):
-        print("Crawler finished. Found " + str(queue.count_finished) + " requests.")
-
-        for queue_item in queue.get_all(QueueItem.STATUS_FINISHED).values():
-            print("[" + queue_item.request.method + "] " + queue_item.request.url + " (PostData: " + str(queue_item.request.data) + ")")
+        print("Crawler finished, found " + str(queue.get_count()) + " requests.")
 
     def cb_request_before_start(queue, queue_item):
-        # return CrawlerActions.DO_SKIP_TO_NEXT
-        # return CrawlerActions.DO_STOP_CRAWLING
-
+        print("Starting: {}".format(queue_item.request.url))
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
     def cb_request_after_finish(queue, queue_item, new_queue_items):
-        percentage = str(int(queue.get_progress()))
-        total_requests = str(queue.count_total)
-
-        print("At " + percentage + "% of " + total_requests + " requests ([" + str(queue_item.response.status_code) + "] " + queue_item.request.url + ").")
-
-        # return CrawlerActions.DO_STOP_CRAWLING
+        print("Finished: {}".format(queue_item.request.url))
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
-    def cb_form_before_autofill(queue_item, elements, form_data):
-
-        # return CrawlerActions.DO_NOT_AUTOFILL_FORM
-        return CrawlerActions.DO_AUTOFILL_FORM
-
-    def cb_form_after_autofill(queue_item, elements, form_data):
-        pass
-
-    # Declare the options
     options = Options()
 
-    # Callback options
-    options.callbacks.crawler_before_start = cb_crawler_before_start
-    options.callbacks.crawler_after_finish = cb_crawler_after_finish
-    options.callbacks.request_before_start = cb_request_before_start
-    options.callbacks.request_after_finish = cb_request_after_finish
-    options.callbacks.form_before_autofill = cb_form_before_autofill
-    options.callbacks.form_after_autofill = cb_form_after_autofill
-
-    # Scope options
-    options.scope.protocol_must_match = False
-    options.scope.subdomain_must_match = False
-    options.scope.domain_must_match = True
-    options.scope.max_depth = None
-
-    # Identity options
-    options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
-    options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea.com', path='/elsewhere')
-    options.identity.headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
-    }
-
-    # Performance options
-    options.performance.max_threads = 8
+    options.callbacks.crawler_before_start = cb_crawler_before_start # Called before the crawler starts crawling. Default is a null route.
+    options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called after the crawler finished crawling. Default is a null route.
+    options.callbacks.request_before_start = cb_request_before_start # Called before the crawler starts a new request. Default is a null route.
+    options.callbacks.request_after_finish = cb_request_after_finish # Called after the crawler finishes a request. Default is a null route.
 
     crawler = Crawler(options)
     crawler.start_with(Request("https://finnwea.com/"))

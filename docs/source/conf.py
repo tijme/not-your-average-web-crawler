@@ -33,7 +33,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinxcontrib.napoleon',
-    'sphinx.ext.linkcode'
+    'sphinx.ext.linkcode',
+    'sphinx.ext.todo'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -134,7 +135,10 @@ html_theme_options = {
   'footertextcolor': '',
 
   # Custom CSS
-  'cssfiles': ['_static/style.css']
+  'cssfiles': ['_static/style.css'],
+
+  # Custom JS
+  'scriptfiles': ['_static/versions.js']
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -196,14 +200,14 @@ texinfo_documents = [
 ]
 
 # Title of the documentation
-html_title = "Not Your Average Web Crawler v{}".format(semver)
+html_title = "Not Your Average Web Crawler"
 
 # Home button title
 html_short_title = "Home"
 
 # Sidebar contents
 html_sidebars = {
-    '**': ['sidebar.html', 'searchbox.html'],
+  '**': ['sidebar.html', 'searchbox.html'],
 }
 
 # Absolute link the the source code
@@ -221,3 +225,13 @@ def linkcode_resolve(domain, info):
 napoleon_google_docstring = True
 napoleon_include_init_with_doc = True
 napoleon_include_private_with_doc  = True
+
+# Always make sure current release is in releases.json
+import json
+
+releases = json.loads(open('_static/releases.json').read());
+
+releases[release] = True
+
+with open('_static/releases.json', 'w') as outfile:
+    json.dump(releases, outfile)

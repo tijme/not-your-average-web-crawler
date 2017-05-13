@@ -17,17 +17,17 @@ Welcome to the N.Y.A.W.C documentation
    :target: https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst
    :alt: License: MIT
 
-What is N.Y.A.W.C?
-------------------
+A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners
 
-A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python 3 application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used as a web application vulnerability scanner.
+How it works
+------------
 
-What is it for?
----------------
+1. Add your start request to the queue.
+2. Crawler starts first request in the queue *(repeats until ``max threads`` option reached)*.
+3. Crawler adds all requests found in the response to the queue *(except duplicates)*.
+4. Crawler goes to step #2 again to spawn new requests.
 
-It helps you to execute your own exploit against all resources on a domain without having to worry about the latter. N.Y.A.W.C does all the crawling work for you. You can use the callbacks to implement your exploit and then sit back and relax.
+.. image:: https://cdn.rawgit.com/tijme/not-your-average-web-crawler/develop/.github/flow.svg
+   :alt: N.Y.A.W.C crawling flow
 
-What does it solve?
--------------------
-
-It saves your precious time because you no longer have to worry about the crawling mechanism and the maintenance of it. N.Y.A.W.C ensures that you can focus on the exploiting itself.
+**Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
