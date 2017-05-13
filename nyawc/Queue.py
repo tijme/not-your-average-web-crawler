@@ -112,7 +112,7 @@ class Queue:
         """Add a request/response pair to the queue.
 
         Args:
-            item (:class:`nyawc.QueueItem`): The queue item to add.
+            queue_item (:class:`nyawc.QueueItem`): The queue item to add.
 
         """
 
