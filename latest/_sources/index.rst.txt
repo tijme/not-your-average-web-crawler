@@ -27,7 +27,7 @@ How it works
 3. Crawler adds all requests found in the response to the queue *(except duplicates)*.
 4. Crawler goes to step #2 again to spawn new requests.
 
-.. image:: https://cdn.rawgit.com/tijme/not-your-average-web-crawler/develop/.github/flow.svg
+.. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/flow.svg
    :alt: N.Y.A.W.C crawling flow
 
 **Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
