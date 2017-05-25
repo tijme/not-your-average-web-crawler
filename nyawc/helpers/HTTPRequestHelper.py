@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from urllib.parse import urlparse
-
 import copy
+
+from urllib.parse import urlparse
 
 class HTTPRequestHelper:
     """A helper for the src.http.Request module."""
@@ -34,7 +34,7 @@ class HTTPRequestHelper:
         """Patch the given request with the given options (e.g. user agent).
 
         Args:
-            request (:class:`nyawc.http.Request`): The request to patch. 
+            request (:class:`nyawc.http.Request`): The request to patch.
             options (:class:`nyawc.Options`): The options to patch the request with.
             parent_queue_item (:class:`nyawc.QueueItem`): The parent queue item object (request/response pair) if exists.
 

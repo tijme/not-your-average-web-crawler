@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,10 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import threading
+
 from nyawc.http.Handler import Handler
 from nyawc.QueueItem import QueueItem
-
-import threading
 
 class CrawlerThread(threading.Thread):
     """The crawler thread executes the HTTP request using the HTTP handler.
@@ -50,7 +50,7 @@ class CrawlerThread(threading.Thread):
         """
 
         threading.Thread.__init__(self)
-        
+
         self.__callback = callback
         self.__callback_lock = callback_lock
         self.__options = options
@@ -59,16 +59,16 @@ class CrawlerThread(threading.Thread):
     def run(self):
         """Executes the HTTP call.
 
-        Note: 
-            If this and the parent handler raised an error, the queue item status 
-            will be set to errored instead of finished. This is to prevent e.g. 404 
+        Note:
+            If this and the parent handler raised an error, the queue item status
+            will be set to errored instead of finished. This is to prevent e.g. 404
             recursion.
 
         """
 
         new_requests = []
         new_status = None
-            
+
         try:
             handler = Handler(self.__options, self.__queue_item)
             new_requests = handler.get_new_requests()
@@ -82,7 +82,7 @@ class CrawlerThread(threading.Thread):
                     for new_request in new_requests:
                         new_request.parent_raised_error = True
 
-        except Exception as e:
+        except Exception:
             print("Setting status of '{}' to '{}' because of an HTTP error.".format(self.__queue_item.request.url, QueueItem.STATUS_ERRORED))
             new_status = QueueItem.STATUS_ERRORED
 

@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.CrawlerActions import CrawlerActions
-
 import requests
+
+from nyawc.CrawlerActions import CrawlerActions
 
 class Options:
     """The Options class contains all the crawling settings/options.
@@ -163,12 +163,12 @@ class OptionsPerformance:
 
     Attributes:
         max_threads (obj): the maximum amount of simultaneous threads to use for crawling.
-        
+
     """
 
     def __init__(self):
         """Constructs an OptionsPerformance instance."""
-        
+
         self.max_threads = 8
 
 class OptionsIdentity:
@@ -177,12 +177,12 @@ class OptionsIdentity:
     Attributes:
         cookies (obj): The (requests module) cookie jar to use when making a request. For more information check http://docs.python-requests.org/en/master/user/quickstart/#cookies.
         headers (obj): The headers {key: value} to use when making a request.
-        
+
     """
 
     def __init__(self):
         """Constructs an OptionsIdentity instance."""
-        
+
         self.cookies = requests.cookies.RequestsCookieJar()
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"

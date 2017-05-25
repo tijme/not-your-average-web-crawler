@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,18 +22,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nyawc.http.Request import Request
+from collections import OrderedDict
 from nyawc.http.Response import Response
 from nyawc.QueueItem import QueueItem
 from nyawc.helpers.URLHelper import URLHelper
-from collections import OrderedDict
 
 class Queue:
     """A 'hash' queue containing all the requests of the crawler.
 
-    Note: 
+    Note:
         This queue uses a certain hash (from :meth:`__get_hash`) to prevent
-        duplicate entries and improve the time complexity by checking if the 
+        duplicate entries and improve the time complexity by checking if the
         hash exists instead of iterating over all items.
 
     Attributes:
@@ -75,10 +74,10 @@ class Queue:
 
     def add_request(self, request):
         """Add a request to the queue.
-        
+
         Args:
             request (:class:`nyawc.http.Request`): The request to add.
-        
+
         Returns:
             :class:`nyawc.QueueItem`: The created queue item.
 
@@ -90,10 +89,10 @@ class Queue:
 
     def has_request(self, request):
         """Check if the given request already exists in the queue.
-        
+
         Args:
             request (:class:`nyawc.http.Request`): The request to check.
-        
+
         Returns:
             bool: True if already exists, False otherwise.
 
@@ -160,7 +159,7 @@ class Queue:
 
         items = self.get_all(status)
 
-        if len(items) > 0:
+        if items:
             return list(items.items())[0][1]
 
         return None
@@ -194,17 +193,17 @@ class Queue:
     def __get_hash(self, queue_item):
         """Generate and return the dict index hash of the given queue item.
 
-        Note: 
+        Note:
             The hash is calculated by using the scope options. For example,
             if the protocol of a request must match, it is included in the hash
             otherwise it is omitted.
 
-        Note: 
+        Note:
             Cookies should not be included in the hash calculation because
             otherwise requests are crawled multiple times with e.g. different
             session keys, causing infinite crawling recursion.
 
-        Todo: 
+        Todo:
             Do the actual hashing of the key (with fastest hashing algorithm)
             and build hash collision handling.
 

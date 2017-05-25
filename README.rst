@@ -32,10 +32,10 @@ A very useful web crawler for vulnerability scanning. Not Your Average Web Crawl
 -  **Links:** URLs in HTML, XML, etc.
 -  **Forms:** GET & POST forms and their request data.
 
-**Future development:** 
+**Future development:**
 
-- Support rate limiting. 
-- Support XHR/JS scraping. 
+- Support rate limiting.
+- Support XHR/JS scraping.
 - Add other scrapers.
 
 Table of contents

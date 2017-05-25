@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,11 +28,11 @@ import string
 class RandomInputHelper:
     """A helper for generating random user input.
 
-    Note: 
+    Note:
         We need to cache the generated values to prevent infinite crawling
-        loops. For example, if two responses contain the same ?search= form, 
-        the random generated value must be the same both of the times because 
-        otherwise the crawling would treat the new requests as two different 
+        loops. For example, if two responses contain the same ?search= form,
+        the random generated value must be the same both of the times because
+        otherwise the crawling would treat the new requests as two different
         requests.
 
     Attributes:
@@ -60,11 +60,9 @@ class RandomInputHelper:
         types = {
             "text": RandomInputHelper.get_random_value,
             "hidden": RandomInputHelper.get_random_value,
-            "text": RandomInputHelper.get_random_value,
             "search": RandomInputHelper.get_random_value,
             "color": RandomInputHelper.get_random_color,
             "week": {"function": RandomInputHelper.get_random_value, "params": [2, ["1234"]]},
-            "email": RandomInputHelper.get_random_email,
             "password": RandomInputHelper.get_random_password,
             "number": RandomInputHelper.get_random_number,
             "tel": RandomInputHelper.get_random_telephonenumber,
@@ -87,7 +85,7 @@ class RandomInputHelper:
         return value
 
     @staticmethod
-    def get_random_value(length=10, character_sets=[string.ascii_uppercase,string.ascii_lowercase]):
+    def get_random_value(length=10, character_sets=[string.ascii_uppercase, string.ascii_lowercase]):
         """Get a random string with the given length.
 
         Args:
@@ -217,7 +215,7 @@ class RandomInputHelper:
         phone = [
             RandomInputHelper.get_random_value(3, "123456789"),
             RandomInputHelper.get_random_value(3, "12345678"),
-            "".join(map(str, random.sample(range(10),4)))
+            "".join(map(str, random.sample(range(10), 4)))
         ]
 
         return "-".join(phone)

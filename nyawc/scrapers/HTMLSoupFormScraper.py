@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -157,7 +157,7 @@ class HTMLSoupFormScraper:
     def __get_valid_form_data_elements(self, soup):
         """Get all valid form input elements.
 
-        Note: 
+        Note:
             An element is valid when the value can be updated client-side
             and the element has a name attribute.
 
@@ -208,7 +208,7 @@ class HTMLSoupFormScraper:
             elements list(obj): Soup elements.
 
         Returns:
-            obj: The {key: value} 
+            obj: The {key: value}
 
         """
 
@@ -245,12 +245,12 @@ class HTMLSoupFormScraper:
                 option for option in options
                 if option.has_attr("selected")
             ]
-            
+
             if not selected_options and options:
                 selected_options = [options[0]]
 
             selected_values = []
-            
+
             if is_multiple:
                 for option in selected_options:
                     value = option["value"] if option.has_attr("value") else option.string
@@ -264,7 +264,7 @@ class HTMLSoupFormScraper:
                     return selected_options[0].string
 
             return ""
-            
+
         if element.name == "textarea":
             return element.string if element.string is not None else ""
 
