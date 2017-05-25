@@ -60,24 +60,6 @@ class HTMLSoupLinkScraper:
         """Get all the new requests that were found in the response.
 
         Returns:
-            list(:class:`nyawc.http.Request`): A list of new requests.
-
-        """
-
-        host = self.__queue_item.request.url
-        content = self.__queue_item.response.text
-
-        return self.get_requests_from_content(host, content)
-
-
-    def get_requests_from_content(self, host, content):
-        """Find new requests from the given content.
-
-        Args:
-            host (str): The parent request URL.
-            content (obj): The HTML content.
-
-        Returns:
             list(:class:`nyawc.http.Request`): A list of new requests that were found.
 
         """
@@ -90,6 +72,7 @@ class HTMLSoupLinkScraper:
             "url": True
         }
 
+        host = self.__queue_item.request.url
         soup = self.__queue_item.get_soup_response()
         base_element = soup.find("base", href=True)
         elements = soup.select("[{}]".format("],[".join(attributes.keys())))

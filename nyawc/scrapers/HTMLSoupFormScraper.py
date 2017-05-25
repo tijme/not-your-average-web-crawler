@@ -63,33 +63,16 @@ class HTMLSoupFormScraper:
         """Get all the new requests that were found in the response.
 
         Returns:
-            list(:class:`nyawc.http.Request`): A list of new requests.
-
-        """
-
-        host = self.__queue_item.request.url
-        content = self.__queue_item.response.text
-
-        return self.get_requests_from_content(host, content)
-
-    def get_requests_from_content(self, host, content):
-        """Find new requests from the given content.
-
-        Args:
-            host (str): The parent request URL.
-            content (obj): The HTML content.
-
-        Returns:
             list(:class:`nyawc.http.Request`): A list of new requests that were found.
 
         """
 
+        host = self.__queue_item.request.url
         soup = self.__queue_item.get_soup_response()
-        forms = soup.find_all("form")
 
         found_requests = []
 
-        for form in forms:
+        for form in soup.find_all("form"):
             found_requests.append(self.__get_request(host, form))
 
         return found_requests

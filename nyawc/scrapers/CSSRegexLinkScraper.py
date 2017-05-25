@@ -66,19 +66,6 @@ class CSSRegexLinkScraper:
     def get_requests(self):
         """Get all the new requests that were found in the response.
 
-        Returns:
-            list(:class:`nyawc.http.Request`): A list of new requests.
-
-        """
-
-        host = self.__queue_item.request.url
-        content = self.__queue_item.response.text
-
-        return self.get_requests_from_content(host, content)
-
-    def get_requests_from_content(self, host, content):
-        """Find new requests from the given content.
-
         Args:
             host (str): The parent request URL.
             content (obj): The HTML content.
@@ -87,6 +74,9 @@ class CSSRegexLinkScraper:
             list(:class:`nyawc.http.Request`): A list of new requests that were found.
 
         """
+
+        host = self.__queue_item.request.url
+        content = self.__queue_item.response.text
 
         found_requests = []
 

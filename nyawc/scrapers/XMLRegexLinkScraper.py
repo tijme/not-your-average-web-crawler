@@ -72,26 +72,12 @@ class XMLRegexLinkScraper:
         """Get all the new requests that were found in the response.
 
         Returns:
-            list(:class:`nyawc.http.Request`): A list of new requests.
+            list(:class:`nyawc.http.Request`): A list of new requests that were found.
 
         """
 
         host = self.__queue_item.request.url
         content = self.__queue_item.response.text
-
-        return self.get_requests_from_content(host, content)
-
-    def get_requests_from_content(self, host, content):
-        """Find new requests from the given content.
-
-        Args:
-            host (str): The parent request URL.
-            content (obj): The HTML content.
-
-        Returns:
-            list(:class:`nyawc.http.Request`): A list of new requests that were found.
-
-        """
 
         found_requests = []
 
