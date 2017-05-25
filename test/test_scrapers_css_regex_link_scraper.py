@@ -22,14 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import unittest
+
 from nyawc.scrapers.CSSRegexLinkScraper import CSSRegexLinkScraper
-from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
 from nyawc.Options import Options
-
-import unittest
 
 class TestScrapersCSSRegexLinkScraper(unittest.TestCase):
     """The TestScrapersCSSRegexLinkScraper class tests if the CSSRegexLinkScraper is working correctly.

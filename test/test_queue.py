@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,13 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import unittest
+
 from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 from nyawc.Queue import Queue
 from nyawc.http.Request import Request
 from nyawc.Options import Options
 
-import unittest
- 
 class TestQueue(unittest.TestCase):
     """The TestQueue class tests if the hashes and counters of the queue work correctly."""
 
@@ -38,10 +38,10 @@ class TestQueue(unittest.TestCase):
         options = Options()
         queue = Queue(options)
 
-        for x in range(0, 100):
+        for index in range(0, 100):
             request = Request("https://example.ltd?1=1#2=2")
             HTTPRequestHelper.patch_with_options(request, options)
-            request.cookies.set(name='tasty_cookie{}'.format(x), value='yum', domain='example.ltd')
+            request.cookies.set(name='tasty_cookie{}'.format(index), value='yum', domain='example.ltd')
             queue.add_request(request)
 
         self.assertEqual(queue.count_total, 1)

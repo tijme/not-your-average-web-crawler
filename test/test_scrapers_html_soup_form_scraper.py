@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT License
-# 
+#
 # Copyright (c) 2017 Tijme Gommers
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,15 +22,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import unittest
+
 from nyawc.scrapers.HTMLSoupFormScraper import HTMLSoupFormScraper
-from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.http.Request import Request
 from nyawc.http.Response import Response
 from nyawc.Options import Options
 
-import unittest
- 
 class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
     """The TestScrapersHTMLSoupFormScraper class tests if the HTMLSoupFormScraper is working correctly.
 
@@ -44,13 +43,13 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
 
     __urls = [
         {
-            "url": """https://example.ltd/action_page1.php""", 
+            "url": """https://example.ltd/action_page1.php""",
             "method": Request.METHOD_POST,
             "data": {
                 "lastname": "Mouse",
                 "name": "TestContent"
             },
-            "must_pass": True, 
+            "must_pass": True,
             "test": """
                 <form action="/action_page1.php" method="post">
                     First name:<br>
@@ -63,12 +62,12 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
             """
         },
         {
-            "url": """https://example.ltd/action_page2.php""", 
+            "url": """https://example.ltd/action_page2.php""",
             "method": Request.METHOD_POST,
             "data": {
                 "lastname": "Mouse"
             },
-            "must_pass": True, 
+            "must_pass": True,
             "test": """
                 <form action=`/action_page2.php` method="Post">
                     First name:<br>
@@ -80,10 +79,10 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
             """
         },
         {
-            "url": """https://example.ltd/?lastname=Mouse""", 
+            "url": """https://example.ltd/?lastname=Mouse""",
             "method": Request.METHOD_GET,
             "data": None,
-            "must_pass": True, 
+            "must_pass": True,
             "test": """
                 <form method="geT">
                     First name:<br>
@@ -95,10 +94,10 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
             """
         },
         {
-            "url": """https://example.ltd/?lastname=Mouse&test=TestContent""", 
+            "url": """https://example.ltd/?lastname=Mouse&test=TestContent""",
             "method": Request.METHOD_GET,
             "data": None,
-            "must_pass": True, 
+            "must_pass": True,
             "test": """
                 <form>
                     First name:<br>
@@ -127,10 +126,10 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
         matches = finder.get_requests()
 
         self.assertEqual(len(matches), 4)
- 
+
     def test_soup_url_matches(self):
         """Test if all the URLs match the found URLs."""
-        
+
         for url in self.__urls:
             request = Request(self.__host)
             response = Response()
