@@ -23,7 +23,7 @@ Download as ZIP
 
    #. ``$ python -m unittest discover``.
 
-#. Install N.Y.Q.W.C.
+#. Install N.Y.A.W.C.
 
    #. ``$ python setup.py install``
 
@@ -39,6 +39,6 @@ Clone using GIT
 
    #. ``$ python -m unittest discover``.
 
-#. Install N.Y.Q.W.C.
+#. Install N.Y.A.W.C.
 
    #. ``$ python setup.py install``
