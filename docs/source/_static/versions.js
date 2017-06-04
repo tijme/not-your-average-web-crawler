@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$.getJSON('/releases.json', function(releases) {
+	$.getJSON('/not-your-average-web-crawler/releases.json', function(releases) {
 		var html = "";
 		var current = $('#releases').attr('data-selected');
 
@@ -11,7 +11,7 @@ $(document).ready(function() {
 			var disabled = releases[release] ? '' : 'disabled';
 			var selected = current == release ? 'selected' : '';
 			var status = !releases[release] ? 'n/a' : last ? 'latest' : 'old';
-			var value = !disabled ? '../' + release + '/index.html' : '';
+			var value = !disabled ? '../' + (last ? 'latest' : release) + '/index.html' : '';
 
 			html += '<option ' + disabled + ' ' + selected + ' value="' + value + '">Version ' + release + ' (' + status + ')</option>';
 
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 			index ++;
 		}
-		
+
 		$('#releases').html(html);
 		$('#releases').removeAttr('disabled');
 	});
