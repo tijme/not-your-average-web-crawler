@@ -82,7 +82,7 @@ Can be used to run some code after the crawler finished crawling. It receives on
 
     def cb_crawler_after_finish(queue):
         # Print the amount of request/response pairs that were found.
-        print("Crawler finished, found " + str(queue.get_count()) + " requests.")
+        print("Crawler finished, found " + str(queue.count_total) + " requests.")
 
         # Iterate over all request/response pairs that were found.
         for queue_item in queue.get_all():
@@ -132,7 +132,7 @@ Can be used to run some code after the request finished executing. It receives t
 
     def cb_request_after_finish(queue, queue_item, new_queue_items):
         percentage = str(int(queue.get_progress()))
-        total_requests = str(queue.get_count())
+        total_requests = str(queue.count_total))
 
         print("At " + percentage + "% of " + total_requests + " requests ([" + str(queue_item.response.status_code) + "] " + queue_item.request.url + ").")
 

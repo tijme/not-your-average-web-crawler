@@ -21,7 +21,7 @@ Minimal implementation
         print("Crawler started.")
 
     def cb_crawler_after_finish(queue):
-        print("Crawler finished, found " + str(queue.get_count()) + " requests.")
+        print("Crawler finished, found " + str(queue.count_finished) + " requests.")
 
     def cb_request_before_start(queue, queue_item):
         print("Starting: {}".format(queue_item.request.url))

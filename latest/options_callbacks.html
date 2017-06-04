@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.5.0',
+        VERSION:     '1.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,8 +41,8 @@
                     Not Your Average Web Crawler
                 </h1>
             </a>
-            <select disabled id="releases" data-selected="1.5.0" onchange="if (this.value) window.location.href=this.value">
-                <option value="../1.5.0/index.html">Version 1.5.0</option>
+            <select disabled id="releases" data-selected="1.5.1" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.5.1/index.html">Version 1.5.1</option>
             </select>
         </div>
     </header>
@@ -151,7 +151,7 @@
 
 <span class="k">def</span> <span class="nf">cb_crawler_after_finish</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
     <span class="c1"># Print the amount of request/response pairs that were found.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crawler finished, found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">get_count</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; requests.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crawler finished, found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">count_total</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; requests.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Iterate over all request/response pairs that were found.</span>
     <span class="k">for</span> <span class="n">queue_item</span> <span class="ow">in</span> <span class="n">queue</span><span class="o">.</span><span class="n">get_all</span><span class="p">():</span>
@@ -199,7 +199,7 @@
 
 <span class="k">def</span> <span class="nf">cb_request_after_finish</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">queue_item</span><span class="p">,</span> <span class="n">new_queue_items</span><span class="p">):</span>
     <span class="n">percentage</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">get_progress</span><span class="p">()))</span>
-    <span class="n">total_requests</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">get_count</span><span class="p">())</span>
+    <span class="n">total_requests</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">count_total</span><span class="p">))</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;At &quot;</span> <span class="o">+</span> <span class="n">percentage</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f &quot;</span> <span class="o">+</span> <span class="n">total_requests</span> <span class="o">+</span> <span class="s2">&quot; requests ([&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue_item</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;] &quot;</span> <span class="o">+</span> <span class="n">queue_item</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;).&quot;</span><span class="p">)</span>
 
@@ -287,7 +287,7 @@
       <div class="clearer"></div>
     </div>
     <footer id="pagefooter">
-        N.Y.A.W.C v1.5.0 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+        N.Y.A.W.C v1.5.1 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
     </footer>
 
   </body>
