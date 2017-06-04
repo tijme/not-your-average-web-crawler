@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$.getJSON('/not-your-average-web-crawler/releases.json', function(releases) {
+	$.getJSON('/not-your-average-web-crawler/releases.json' + new Date().getTime(), function(releases) {
 		var html = "";
 		var current = $('#releases').attr('data-selected');
 
