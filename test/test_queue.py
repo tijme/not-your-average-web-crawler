@@ -46,58 +46,6 @@ class TestQueue(unittest.TestCase):
 
         self.assertEqual(queue.count_total, 1)
 
-    def test_hash_option_protocol_must_match(self):
-        """Ensure different protocols are treated separately if protocols must match is True."""
-
-        options = Options()
-        options.scope.protocol_must_match = True
-        queue = Queue(options)
-
-        queue.add_request(Request("https://example.ltd"))
-        queue.add_request(Request("http://example.ltd"))
-        queue.add_request(Request("ftp://example.ltd"))
-
-        self.assertEqual(queue.count_total, 3)
-
-    def test_hash_option_protocol_must_not_match(self):
-        """Ensure different protocols are treated as one queue item if protocols must match is False."""
-
-        options = Options()
-        options.scope.protocol_must_match = False
-        queue = Queue(options)
-
-        queue.add_request(Request("https://example.ltd"))
-        queue.add_request(Request("http://example.ltd"))
-        queue.add_request(Request("ftp://example.ltd"))
-
-        self.assertEqual(queue.count_total, 1)
-
-    def test_hash_option_subdomain_must_match(self):
-        """Ensure different subdomains are treated separately if subdomains must match is True."""
-
-        options = Options()
-        options.scope.subdomain_must_match = True
-        queue = Queue(options)
-
-        queue.add_request(Request("https://www.example.ltd"))
-        queue.add_request(Request("https://webmail.example.ltd"))
-        queue.add_request(Request("https://subdomain.example.ltd"))
-
-        self.assertEqual(queue.count_total, 3)
-
-    def test_hash_option_subdomain_must_not_match(self):
-        """Ensure different subdomains are treated as one queue item if subdomains must match is False."""
-
-        options = Options()
-        options.scope.subdomain_must_match = False
-        queue = Queue(options)
-
-        queue.add_request(Request("https://www.example.ltd"))
-        queue.add_request(Request("https://webmail.example.ltd"))
-        queue.add_request(Request("https://subdomain.example.ltd"))
-
-        self.assertEqual(queue.count_total, 1)
-
     def test_hash_different_query_order(self):
         """Ensure query parameters in different orders are treated as one queue item."""
 

@@ -194,18 +194,13 @@ class Queue:
         """Generate and return the dict index hash of the given queue item.
 
         Note:
-            The hash is calculated by using the scope options. For example,
-            if the protocol of a request must match, it is included in the hash
-            otherwise it is omitted.
-
-        Note:
             Cookies should not be included in the hash calculation because
             otherwise requests are crawled multiple times with e.g. different
             session keys, causing infinite crawling recursion.
 
-        Todo:
-            Do the actual hashing of the key (with fastest hashing algorithm)
-            and build hash collision handling.
+        Note:
+            At this moment the keys do not actually get hashed since it works perfectly without and
+            since hashing the keys requires us to built hash collision management.
 
         Args:
             queue_item (:class:`nyawc.QueueItem`): The queue item to get the hash from.
@@ -217,18 +212,16 @@ class Queue:
 
         key = queue_item.request.method
 
-        if self.__options.scope.protocol_must_match:
-            key += URLHelper.get_protocol(queue_item.request.url)
+        key += URLHelper.get_protocol(queue_item.request.url)
+        key += URLHelper.get_subdomain(queue_item.request.url)
+        key += URLHelper.get_hostname(queue_item.request.url)
+        key += URLHelper.get_tld(queue_item.request.url)
+        key += URLHelper.get_path(queue_item.request.url)
 
-        if self.__options.scope.subdomain_must_match:
-            key += URLHelper.get_subdomain(queue_item.request.url)
+        key += str(URLHelper.get_ordered_params(queue_item.request.url))
 
         if queue_item.request.data is not None:
             key += str(queue_item.request.data.keys())
-
-        key += URLHelper.get_domain(queue_item.request.url)
-        key += URLHelper.get_path(queue_item.request.url)
-        key += str(URLHelper.get_ordered_params(queue_item.request.url))
 
         return key
 

@@ -25,6 +25,7 @@
 import copy
 
 from urllib.parse import urlparse
+from nyawc.helpers.URLHelper import URLHelper
 
 class HTTPRequestHelper:
     """A helper for the src.http.Request module."""
@@ -64,25 +65,26 @@ class HTTPRequestHelper:
 
         """
 
-        try:
-            parsed_url = urlparse(queue_item.request.url)
-            parsed_new_url = urlparse(new_request.url)
-        except:
+        if not URLHelper.is_parsable(queue_item.request.url):
             return False
 
-        subdomain = parsed_url.netloc.split(".")[:-2]
-        subdomain_new = parsed_new_url.netloc.split(".")[:-2]
+        if not URLHelper.is_parsable(new_request.url):
+            return False
 
         if scope.protocol_must_match:
-            if parsed_url.scheme != parsed_new_url.scheme:
+            if URLHelper.get_protocol(queue_item.request.url) != URLHelper.get_protocol(new_request.url):
                 return False
 
         if scope.subdomain_must_match:
-            if subdomain != subdomain_new:
+            if URLHelper.get_subdomain(queue_item.request.url) != URLHelper.get_subdomain(new_request.url):
                 return False
 
-        if scope.domain_must_match:
-            if parsed_url.netloc != parsed_new_url.netloc:
+        if scope.hostname_must_match:
+            if URLHelper.get_hostname(queue_item.request.url) != URLHelper.get_hostname(new_request.url):
+                return False
+
+        if scope.tld_must_match:
+            if URLHelper.get_tld(queue_item.request.url) != URLHelper.get_tld(new_request.url):
                 return False
 
         return True

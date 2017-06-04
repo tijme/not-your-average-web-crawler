@@ -105,20 +105,35 @@ class TestUrlHelper(unittest.TestCase):
         for test in tests:
             self.assertEqual(URLHelper.get_subdomain(test[1]), test[0])
 
-    def test_get_domain(self):
-        """Check if the get domain method works correctly."""
+    def test_get_hostname(self):
+        """Check if the get hostname method works correctly."""
 
         tests = [
             ("", ""),
             ("", "http://"),
             ("domain", "http://domain"),
-            ("domain.tld", "http://domain.tld"),
-            ("domain.tld", "http://sub1.domain.tld"),
-            ("domain.tld", "http://sub2.sub1.domain.tld")
+            ("domain", "http://domain.tld"),
+            ("domain", "http://sub1.domain.tld"),
+            ("domain", "http://sub2.sub1.domain.tld")
         ]
 
         for test in tests:
-            self.assertEqual(URLHelper.get_domain(test[1]), test[0])
+            self.assertEqual(URLHelper.get_hostname(test[1]), test[0])
+
+    def test_get_tld(self):
+        """Check if the get tld method works correctly."""
+
+        tests = [
+            ("", ""),
+            ("", "http://"),
+            ("", "http://domain"),
+            ("tld", "http://domain.tld"),
+            ("tld", "http://sub1.domain.tld"),
+            ("tld", "http://sub2.sub1.domain.tld")
+        ]
+
+        for test in tests:
+            self.assertEqual(URLHelper.get_tld(test[1]), test[0])
 
     def test_get_ordered_params(self):
         """Check if the get ordered params method works correctly."""

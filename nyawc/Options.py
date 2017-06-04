@@ -51,7 +51,8 @@ class OptionsScope:
     Attributes:
         protocol_must_match (bool): only crawl pages with the same protocol as the startpoint (e.g. only https).
         subdomain_must_match (bool): only crawl pages with the same subdomain as the startpoint, if the startpoint is not a subdomain, no subdomains will be crawled.
-        domain_must_match (bool): only crawl pages with the same domain as the startpoint (e.g. only finnwea.com).
+        hostname_must_match (bool): only crawl pages with the same hostname as the startpoint (e.g. only `finnwea`).
+        tld_must_match (bool): only crawl pages with the same tld as the startpoint (e.g. only `.com`)
         max_depth (obj): the maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
 
     """
@@ -61,7 +62,8 @@ class OptionsScope:
 
         self.protocol_must_match = False
         self.subdomain_must_match = True
-        self.domain_must_match = True
+        self.hostname_must_match = True
+        self.tld_must_match = True
         self.max_depth = None
 
 class OptionsCallbacks:

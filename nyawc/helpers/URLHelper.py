@@ -26,7 +26,14 @@ from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
 from collections import OrderedDict
 
 class URLHelper:
-    """A helper for URL strings."""
+    """A helper for URL strings.
+
+    Attributes:
+        cache (obj): Cached values of parsed URL data.
+
+    """
+
+    cache = {}
 
     @staticmethod
     def make_absolute(base, relative):
@@ -93,6 +100,25 @@ class URLHelper:
         return url.startswith("mailto:")
 
     @staticmethod
+    def is_parsable(url):
+        """Check if the given URL is parsable (make sure it's a valid URL). If it is parsable, also cache it.
+
+        Args:
+            url (str): The URL to check.
+
+        Returns:
+            bool: True if parsable, False otherwise.
+
+        """
+
+        try:
+            parsed = urlparse(url)
+            URLHelper.cache[url] = parsed
+            return True
+        except:
+            return False
+
+    @staticmethod
     def get_protocol(url):
         """Get the protocol (e.g. http, https or ftp) of the given URL.
 
@@ -104,8 +130,10 @@ class URLHelper:
 
         """
 
-        parsed_url = urlparse(url)
-        return parsed_url.scheme
+        if url not in URLHelper.cache:
+            URLHelper.cache[url] = urlparse(url)
+
+        return URLHelper.cache[url].scheme
 
     @staticmethod
     def get_subdomain(url):
@@ -119,23 +147,54 @@ class URLHelper:
 
         """
 
-        parsed_url = urlparse(url)
-        return ".".join(parsed_url.netloc.split(".")[:-2])
+        if url not in URLHelper.cache:
+            URLHelper.cache[url] = urlparse(url)
+
+        return ".".join(URLHelper.cache[url].netloc.split(".")[:-2])
 
     @staticmethod
-    def get_domain(url):
-        """Get the domain of the given URL.
+    def get_hostname(url):
+        """Get the hostname of the given URL.
 
         Args:
-            url (str): The URL to get the domain from.
+            url (str): The URL to get the hostname from.
 
         Returns:
-            str: The domain
+            str: The hostname
 
         """
 
-        parsed_url = urlparse(url)
-        return ".".join(parsed_url.netloc.split(".")[-2:])
+        if url not in URLHelper.cache:
+            URLHelper.cache[url] = urlparse(url)
+
+        parts = URLHelper.cache[url].netloc.split(".")
+
+        if len(parts) == 1:
+            return ".".join(parts)
+        else:
+            return ".".join(parts[-2:-1])
+
+    @staticmethod
+    def get_tld(url):
+        """Get the tld of the given URL.
+
+        Args:
+            url (str): The URL to get the tld from.
+
+        Returns:
+            str: The tld
+
+        """
+
+        if url not in URLHelper.cache:
+            URLHelper.cache[url] = urlparse(url)
+
+        parts = URLHelper.cache[url].netloc.split(".")
+
+        if len(parts) == 1:
+            return ""
+        else:
+            return ".".join(parts[-1:])
 
     @staticmethod
     def get_path(url):
@@ -149,8 +208,10 @@ class URLHelper:
 
         """
 
-        parsed_url = urlparse(url)
-        return parsed_url.path
+        if url not in URLHelper.cache:
+            URLHelper.cache[url] = urlparse(url)
+
+        return URLHelper.cache[url].path
 
     @staticmethod
     def get_ordered_params(url):
@@ -164,7 +225,9 @@ class URLHelper:
 
         """
 
-        parsed_url = urlparse(url)
-        params = dict(parse_qsl(parsed_url.query, keep_blank_values=True))
+        if url not in URLHelper.cache:
+            URLHelper.cache[url] = urlparse(url)
+
+        params = dict(parse_qsl(URLHelper.cache[url].query, keep_blank_values=True))
 
         return OrderedDict(sorted(params.items()))
