@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$.getJSON('/not-your-average-web-crawler/releases.json', function(releases) {
+	$.getJSON('/releases.json', function(releases) {
 		var html = "";
 		var current = $('#releases').attr('data-selected');
 

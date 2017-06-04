@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.4.7',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,8 +41,8 @@
                     Not Your Average Web Crawler
                 </h1>
             </a>
-            <select disabled id="releases" data-selected="1.4.7" onchange="if (this.value) window.location.href=this.value">
-                <option value="../1.4.7/index.html">Version 1.4.7</option>
+            <select disabled id="releases" data-selected="1.5.0" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.5.0/index.html">Version 1.5.0</option>
             </select>
         </div>
     </header>
@@ -85,7 +85,8 @@
 
 <span class="n">options</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">protocol_must_match</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">options</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">subdomain_must_match</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">options</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">domain_must_match</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">options</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">hostname_must_match</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">options</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">tld_must_match</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">options</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">max_depth</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="n">crawler</span> <span class="o">=</span> <span class="n">Crawler</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
@@ -101,10 +102,13 @@
 <p><strong>Subdomain must match</strong></p>
 <p>Only crawl pages with the same subdomain as the startpoint if True. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.</p>
 <p><code class="docutils literal"><span class="pre">options.scope.subdomain_must_match</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
-<p><strong>Domain must match</strong></p>
-<p>Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com) if True. Default is True.</p>
+<p><strong>Hostname must match</strong></p>
+<p>Only crawl pages with the same hostname as the startpoint (e.g. only <cite>finnwea</cite>) if True. Default is True.</p>
 <p>Please note that if you set this to false, chances are that it never stops crawling.</p>
-<p><code class="docutils literal"><span class="pre">options.scope.domain_must_match</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+<p><code class="docutils literal"><span class="pre">options.scope.hostname_must_match</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+<p><strong>TLD must match</strong></p>
+<p>Only crawl pages with the same tld as the startpoint (e.g. only <cite>.com</cite>) if True. Default is True.</p>
+<p><code class="docutils literal"><span class="pre">options.scope.tld_must_match</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
 <p><strong>Maximum crawling depth</strong></p>
 <p>The maximum search depth. Default is None (unlimited).</p>
 <ul class="simple">
@@ -154,7 +158,7 @@
       <div class="clearer"></div>
     </div>
     <footer id="pagefooter">
-        N.Y.A.W.C v1.4.7 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+        N.Y.A.W.C v1.5.0 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
     </footer>
 
   </body>

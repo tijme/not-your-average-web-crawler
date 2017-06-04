@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.4.7',
+        VERSION:     '1.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,8 +42,8 @@
                     Not Your Average Web Crawler
                 </h1>
             </a>
-            <select disabled id="releases" data-selected="1.4.7" onchange="if (this.value) window.location.href=this.value">
-                <option value="../1.4.7/index.html">Version 1.4.7</option>
+            <select disabled id="releases" data-selected="1.5.0" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.5.0/index.html">Version 1.5.0</option>
             </select>
         </div>
     </header>
@@ -85,6 +85,7 @@
  | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#X"><strong>X</strong></a>
  
@@ -251,7 +252,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.cache">cache (nyawc.helpers.RandomInputHelper.RandomInputHelper attribute)</a>, <a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.cache">[1]</a>
+
+      <ul>
+        <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.cache">(nyawc.helpers.URLHelper.URLHelper attribute)</a>, <a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.cache">[1]</a>
 </li>
+      </ul></li>
       <li><a href="nyawc.html#nyawc.Options.Options.callbacks">callbacks (nyawc.Options.Options attribute)</a>
 </li>
       <li><a href="nyawc.helpers.html#nyawc.helpers.HTTPRequestHelper.HTTPRequestHelper.complies_with_scope">complies_with_scope() (nyawc.helpers.HTTPRequestHelper.HTTPRequestHelper static method)</a>
@@ -274,10 +279,10 @@
         <li><a href="nyawc.html#nyawc.Options.OptionsIdentity.cookies">(nyawc.Options.OptionsIdentity attribute)</a>
 </li>
       </ul></li>
-      <li><a href="nyawc.html#nyawc.Queue.Queue.count_cancelled">count_cancelled (nyawc.Queue.Queue attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nyawc.html#nyawc.Queue.Queue.count_cancelled">count_cancelled (nyawc.Queue.Queue attribute)</a>
+</li>
       <li><a href="nyawc.html#nyawc.Queue.Queue.count_errored">count_errored (nyawc.Queue.Queue attribute)</a>
 </li>
       <li><a href="nyawc.html#nyawc.Queue.Queue.count_finished">count_finished (nyawc.Queue.Queue attribute)</a>
@@ -312,17 +317,15 @@
 </li>
       <li><a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_AUTOFILL_FORM">DO_AUTOFILL_FORM (nyawc.CrawlerActions.CrawlerActions attribute)</a>, <a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_AUTOFILL_FORM">[1]</a>
 </li>
-      <li><a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_CONTINUE_CRAWLING">DO_CONTINUE_CRAWLING (nyawc.CrawlerActions.CrawlerActions attribute)</a>, <a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_CONTINUE_CRAWLING">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_CONTINUE_CRAWLING">DO_CONTINUE_CRAWLING (nyawc.CrawlerActions.CrawlerActions attribute)</a>, <a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_CONTINUE_CRAWLING">[1]</a>
+</li>
       <li><a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_NOT_AUTOFILL_FORM">DO_NOT_AUTOFILL_FORM (nyawc.CrawlerActions.CrawlerActions attribute)</a>, <a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_NOT_AUTOFILL_FORM">[1]</a>
 </li>
       <li><a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_SKIP_TO_NEXT">DO_SKIP_TO_NEXT (nyawc.CrawlerActions.CrawlerActions attribute)</a>, <a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_SKIP_TO_NEXT">[1]</a>
 </li>
       <li><a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_STOP_CRAWLING">DO_STOP_CRAWLING (nyawc.CrawlerActions.CrawlerActions attribute)</a>, <a href="nyawc.html#nyawc.CrawlerActions.CrawlerActions.DO_STOP_CRAWLING">[1]</a>
-</li>
-      <li><a href="nyawc.html#nyawc.Options.OptionsScope.domain_must_match">domain_must_match (nyawc.Options.OptionsScope attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -344,11 +347,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nyawc.html#nyawc.Queue.Queue.get_all">get_all() (nyawc.Queue.Queue method)</a>
 </li>
-      <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.get_domain">get_domain() (nyawc.helpers.URLHelper.URLHelper static method)</a>
-</li>
       <li><a href="nyawc.html#nyawc.Queue.Queue.get_first">get_first() (nyawc.Queue.Queue method)</a>
 </li>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_for_type">get_for_type() (nyawc.helpers.RandomInputHelper.RandomInputHelper static method)</a>
+</li>
+      <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.get_hostname">get_hostname() (nyawc.helpers.URLHelper.URLHelper static method)</a>
 </li>
       <li><a href="nyawc.http.html#nyawc.http.Handler.Handler.get_new_requests">get_new_requests() (nyawc.http.Handler.Handler method)</a>
 </li>
@@ -366,12 +369,12 @@
 </li>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_number">get_random_number() (nyawc.helpers.RandomInputHelper.RandomInputHelper static method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_password">get_random_password() (nyawc.helpers.RandomInputHelper.RandomInputHelper static method)</a>
 </li>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_telephonenumber">get_random_telephonenumber() (nyawc.helpers.RandomInputHelper.RandomInputHelper static method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_text">get_random_text() (nyawc.helpers.RandomInputHelper.RandomInputHelper static method)</a>
 </li>
       <li><a href="nyawc.helpers.html#nyawc.helpers.RandomInputHelper.RandomInputHelper.get_random_url">get_random_url() (nyawc.helpers.RandomInputHelper.RandomInputHelper static method)</a>
@@ -390,21 +393,11 @@
         <li><a href="nyawc.scrapers.html#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.get_requests">(nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper method)</a>
 </li>
       </ul></li>
-      <li><a href="nyawc.scrapers.html#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.get_requests_from_content">get_requests_from_content() (nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper method)</a>
-
-      <ul>
-        <li><a href="nyawc.scrapers.html#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.get_requests_from_content">(nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper method)</a>
-</li>
-        <li><a href="nyawc.scrapers.html#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.get_requests_from_content">(nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper method)</a>
-</li>
-        <li><a href="nyawc.scrapers.html#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.get_requests_from_content">(nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper method)</a>
-</li>
-        <li><a href="nyawc.scrapers.html#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.get_requests_from_content">(nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper method)</a>
-</li>
-      </ul></li>
       <li><a href="nyawc.html#nyawc.QueueItem.QueueItem.get_soup_response">get_soup_response() (nyawc.QueueItem.QueueItem method)</a>
 </li>
       <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.get_subdomain">get_subdomain() (nyawc.helpers.URLHelper.URLHelper static method)</a>
+</li>
+      <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.get_tld">get_tld() (nyawc.helpers.URLHelper.URLHelper static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -424,6 +417,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nyawc.html#nyawc.Options.OptionsScope.hostname_must_match">hostname_must_match (nyawc.Options.OptionsScope attribute)</a>
+</li>
       <li><a href="nyawc.scrapers.html#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper">HTMLSoupFormScraper (class in nyawc.scrapers.HTMLSoupFormScraper)</a>
 </li>
       <li><a href="nyawc.scrapers.html#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper">HTMLSoupLinkScraper (class in nyawc.scrapers.HTMLSoupLinkScraper)</a>
@@ -441,6 +436,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.is_mailto">is_mailto() (nyawc.helpers.URLHelper.URLHelper static method)</a>
+</li>
+      <li><a href="nyawc.helpers.html#nyawc.helpers.URLHelper.URLHelper.is_parsable">is_parsable() (nyawc.helpers.URLHelper.URLHelper static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -635,6 +632,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nyawc.html#nyawc.Options.OptionsScope.tld_must_match">tld_must_match (nyawc.Options.OptionsScope attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -693,7 +698,7 @@
       <div class="clearer"></div>
     </div>
     <footer id="pagefooter">
-        N.Y.A.W.C v1.4.7 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+        N.Y.A.W.C v1.5.0 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
     </footer>
 
   </body>

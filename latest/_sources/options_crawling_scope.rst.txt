@@ -20,8 +20,9 @@ How to use scope options
 
     options.scope.protocol_must_match = False
     options.scope.subdomain_must_match = True
-    options.scope.domain_must_match = True
-    options.scope.max_depth = None 
+    options.scope.hostname_must_match = True
+    options.scope.tld_must_match = True
+    options.scope.max_depth = None
 
     crawler = Crawler(options)
     crawler.start_with(Request("https://finnwea.com/"))
@@ -41,13 +42,19 @@ Only crawl pages with the same subdomain as the startpoint if True. If the start
 
 ``options.scope.subdomain_must_match = True``
 
-**Domain must match**
+**Hostname must match**
 
-Only crawl pages with the same domain as the startpoint (e.g. only finnwea.com) if True. Default is True.
+Only crawl pages with the same hostname as the startpoint (e.g. only `finnwea`) if True. Default is True.
 
 Please note that if you set this to false, chances are that it never stops crawling.
 
-``options.scope.domain_must_match = True``
+``options.scope.hostname_must_match = True``
+
+**TLD must match**
+
+Only crawl pages with the same tld as the startpoint (e.g. only `.com`) if True. Default is True.
+
+``options.scope.tld_must_match = True``
 
 **Maximum crawling depth**
 
