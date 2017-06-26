@@ -22,8 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
 from collections import OrderedDict
+
+try: # Python 3
+    from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
+except: # Python 2
+    from urllib import urlencode
+    from urlparse import urljoin, urlparse, parse_qsl, urlunparse
 
 class URLHelper:
     """A helper for URL strings.

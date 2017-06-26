@@ -52,7 +52,7 @@ Table of contents
 Installation
 ------------
 
-First make sure you're on `Python 3.3 <https://www.python.org/>`__ or higher. Then run the command below to install N.Y.A.W.C.
+First make sure you're on `Python 2.7/3.3 <https://www.python.org/>`__ or higher. Then run the command below to install N.Y.A.W.C.
 
 ``$ pip install --upgrade nyawc``
 

@@ -37,6 +37,10 @@ class TestScrapersHTMLSoupLinkScraper(unittest.TestCase):
         __host (str): The host were the new URLs were found on
         __urls list(obj): The URLs that were found
 
+    Note:
+        URL 12 (?unique=12) is a unicode type since it contains UTF-8 characters. The `requests`
+        library does encode/decode response bodies causing the test to fail if it's an UTF-8 string.
+
     """
 
     __host = "https://example.ltd/"
@@ -53,7 +57,7 @@ class TestScrapersHTMLSoupLinkScraper(unittest.TestCase):
         {"url": """https://example.ltd/?unique=9""", "must_pass": True, "test": """<a a="b" c=d href="//example.ltd/?unique=9" a=b c="d">test</a>"""},
         {"url": """https://example.ltd/index.php?unique=10""", "must_pass": True, "test": """<a href="https://example.ltd/index.php?unique=10">test</a>"""},
         {"url": """https://example.ltd/index.php?unique=11&d=c""", "must_pass": True, "test": """<a href="https://example.ltd/index.php?unique=11&d=c">test</a>"""},
-        {"url": """https://example.ltd/index.php?unique=12&utf8=✓""", "must_pass": True, "test": """<a href="https://example.ltd/index.php?unique=12&utf8=✓">test</a>"""},
+        {"url": u"""https://example.ltd/index.php?unique=12&utf8=\u2713""", "must_pass": True, "test": u"""<a href="https://example.ltd/index.php?unique=12&utf8=\u2713">test</a>"""},
         {"url": """https://example.ltd/index.php?unique=13#anchor""", "must_pass": True, "test": """<a href="https://example.ltd/index.php?unique=13#anchor">test</a>"""},
         {"url": """https://example.ltd/folder1/folder2/folder3?unique=14""", "must_pass": True, "test": """<a href="https://example.ltd/folder1/folder2/folder3?unique=14">test</a>"""},
         {"url": """https://example.ltd/folder1/../folder2/folder3?unique=15""", "must_pass": True, "test": """<a href="https://example.ltd/folder1/../folder2/folder3?unique=15">test</a>"""},

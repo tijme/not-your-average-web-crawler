@@ -24,7 +24,15 @@
 
 import sys
 
-if sys.version_info.major != 3 or sys.version_info.minor < 3:
-    print("N.Y.A.W.C requires Python 3.3 or higher!")
+python_version_compatible_with_nyawc = False
+
+if sys.version_info.major == 3 and sys.version_info.minor >= 3:
+    python_version_compatible_with_nyawc = True
+
+if sys.version_info.major == 2 and sys.version_info.minor >= 7:
+    python_version_compatible_with_nyawc = True
+
+if not python_version_compatible_with_nyawc:
+    print("N.Y.A.W.C requires Python 2.7/3.3 or higher!")
     print("You are currently using Python {}.{}.".format(sys.version_info.major, sys.version_info.minor))
     sys.exit(1)
