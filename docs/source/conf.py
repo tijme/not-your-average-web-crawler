@@ -226,12 +226,13 @@ napoleon_google_docstring = True
 napoleon_include_init_with_doc = True
 napoleon_include_private_with_doc  = True
 
-# Always make sure current release is in releases.json
+# Always make sure current release is in releases.js
 import json
 
-releases = json.loads(open('_static/releases.json').read());
+releasesjs = open('_static/releases.js').read().replace("var releases = ", "")
+releases = json.loads(releasesjs);
 
 releases[release] = True
 
-with open('_static/releases.json', 'w') as outfile:
-    json.dump(releases, outfile)
+with open('_static/releases.js', 'w') as outfile:
+    outfile.write("var releases = " + json.dump(releases))
