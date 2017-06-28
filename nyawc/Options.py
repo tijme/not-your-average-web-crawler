@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 import requests
 
 from nyawc.CrawlerActions import CrawlerActions
@@ -190,7 +191,10 @@ class OptionsIdentity:
     def __init__(self):
         """Constructs an OptionsIdentity instance."""
 
-        semver = open(".semver", "r")
+        file = os.path.realpath(__file__)
+        folder = os.path.dirname(file)
+
+        semver = open(folder + "/../.semver", "r")
 
         self.auth = None
         self.cookies = requests.cookies.RequestsCookieJar()
