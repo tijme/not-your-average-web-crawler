@@ -23,6 +23,9 @@
 # SOFTWARE.
 
 from setuptools import find_packages, setup
+from shutil import copyfile
+
+copyfile(".semver", "nyawc/.semver")
 
 with open("requirements.txt") as file:
     requirements = file.read().splitlines()
@@ -59,6 +62,11 @@ setup(
         "Topic :: Security"
     ],
     packages=find_packages(),
+    package_data={
+        "nyawc": [
+            ".semver"
+        ]
+    },
     platforms=["any"],
     author="Tijme Gommers",
     author_email="tijme@finnwea.com",
