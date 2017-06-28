@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.6.0',
+        VERSION:     '1.6.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,8 +42,8 @@
                     Not Your Average Web Crawler
                 </h1>
             </a>
-            <select disabled id="releases" data-selected="1.6.0" onchange="if (this.value) window.location.href=this.value">
-                <option value="../1.6.0/index.html">Version 1.6.0</option>
+            <select disabled id="releases" data-selected="1.6.3" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.6.3/index.html">Version 1.6.3</option>
             </select>
         </div>
     </header>
@@ -74,24 +74,24 @@
 <span id="nyawc-http-handler-module"></span><h2>nyawc.http.Handler module<a class="headerlink" href="#module-nyawc.http.Handler" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="nyawc.http.Handler.Handler">
-<em class="property">class </em><code class="descclassname">nyawc.http.Handler.</code><code class="descname">Handler</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nyawc.http.Handler.</code><code class="descname">Handler</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The Handler class executes HTTP requests.</p>
 <dl class="attribute">
 <dt id="nyawc.http.Handler.Handler.__options">
-<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__options" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__options" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The settins/options object.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Handler.Handler.__queue_item">
-<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__queue_item" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__queue_item" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The queue item containing a request to execute.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="nyawc.http.Handler.Handler._Handler__content_type_matches">
-<code class="descname">_Handler__content_type_matches</code><span class="sig-paren">(</span><em>content_type</em>, <em>available_content_types</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__content_type_matches" title="Permalink to this definition">¶</a></dt>
+<code class="descname">_Handler__content_type_matches</code><span class="sig-paren">(</span><em>content_type</em>, <em>available_content_types</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__content_type_matches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the given content type matches one of the available content types.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -115,7 +115,7 @@
 
 <dl class="method">
 <dt id="nyawc.http.Handler.Handler._Handler__get_all_scrapers">
-<code class="descname">_Handler__get_all_scrapers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__get_all_scrapers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">_Handler__get_all_scrapers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__get_all_scrapers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find all available scraper references.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -131,7 +131,7 @@
 
 <dl class="method">
 <dt id="nyawc.http.Handler.Handler._Handler__get_all_scrapers_modules">
-<code class="descname">_Handler__get_all_scrapers_modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__get_all_scrapers_modules" title="Permalink to this definition">¶</a></dt>
+<code class="descname">_Handler__get_all_scrapers_modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__get_all_scrapers_modules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find all available scraper modules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -147,7 +147,7 @@
 
 <dl class="method">
 <dt id="nyawc.http.Handler.Handler._Handler__make_request">
-<code class="descname">_Handler__make_request</code><span class="sig-paren">(</span><em>url</em>, <em>method</em>, <em>data</em>, <em>auth</em>, <em>cookies</em>, <em>headers</em>, <em>proxies</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__make_request" title="Permalink to this definition">¶</a></dt>
+<code class="descname">_Handler__make_request</code><span class="sig-paren">(</span><em>url</em>, <em>method</em>, <em>data</em>, <em>auth</em>, <em>cookies</em>, <em>headers</em>, <em>proxies</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler._Handler__make_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a request with the given data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -176,7 +176,7 @@
 
 <dl class="method">
 <dt id="nyawc.http.Handler.Handler.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct the HTTP handler.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -194,7 +194,7 @@
 
 <dl class="method">
 <dt id="nyawc.http.Handler.Handler.get_new_requests">
-<code class="descname">get_new_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.get_new_requests" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_new_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Handler.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Handler.Handler.get_new_requests" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve all the new request that were found in this request.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -215,132 +215,132 @@
 <span id="nyawc-http-request-module"></span><h2>nyawc.http.Request module<a class="headerlink" href="#module-nyawc.http.Request" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="nyawc.http.Request.Request">
-<em class="property">class </em><code class="descclassname">nyawc.http.Request.</code><code class="descname">Request</code><span class="sig-paren">(</span><em>url</em>, <em>method='get'</em>, <em>data=None</em>, <em>auth=None</em>, <em>cookies=None</em>, <em>headers=None</em>, <em>proxies=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nyawc.http.Request.</code><code class="descname">Request</code><span class="sig-paren">(</span><em>url</em>, <em>method='get'</em>, <em>data=None</em>, <em>auth=None</em>, <em>cookies=None</em>, <em>headers=None</em>, <em>proxies=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The Request class contains details that were used to request the specified URL.</p>
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.METHOD_OPTIONS">
-<code class="descname">METHOD_OPTIONS</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_OPTIONS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">METHOD_OPTIONS</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_OPTIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A request method that can be used to request the URL.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.METHOD_GET">
-<code class="descname">METHOD_GET</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_GET" title="Permalink to this definition">¶</a></dt>
+<code class="descname">METHOD_GET</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_GET" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A request method that can be used to request the URL.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.METHOD_HEAD">
-<code class="descname">METHOD_HEAD</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_HEAD" title="Permalink to this definition">¶</a></dt>
+<code class="descname">METHOD_HEAD</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_HEAD" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A request method that can be used to request the URL.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.METHOD_POST">
-<code class="descname">METHOD_POST</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_POST" title="Permalink to this definition">¶</a></dt>
+<code class="descname">METHOD_POST</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_POST" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A request method that can be used to request the URL.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.METHOD_PUT">
-<code class="descname">METHOD_PUT</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_PUT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">METHOD_PUT</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_PUT" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A request method that can be used to request the URL.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.METHOD_DELETE">
-<code class="descname">METHOD_DELETE</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_DELETE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">METHOD_DELETE</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.METHOD_DELETE" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; A request method that can be used to request the URL.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.parent_raised_error">
-<code class="descname">parent_raised_error</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.parent_raised_error" title="Permalink to this definition">¶</a></dt>
+<code class="descname">parent_raised_error</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.parent_raised_error" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>bool</em> &#8211; If the parent request raised an error (e.g. 404).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.depth">
-<code class="descname">depth</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.depth" title="Permalink to this definition">¶</a></dt>
+<code class="descname">depth</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.depth" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>int</em> &#8211; The current crawling depth.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.url">
-<code class="descname">url</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.url" title="Permalink to this definition">¶</a></dt>
+<code class="descname">url</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.url" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The absolute URL to use when making the request.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.method">
-<code class="descname">method</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.method" title="Permalink to this definition">¶</a></dt>
+<code class="descname">method</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.method" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The request method to use for the request.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.data">
-<code class="descname">data</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.data" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The post data {key: value} OrderedDict that will be sent.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.auth">
-<code class="descname">auth</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.auth" title="Permalink to this definition">¶</a></dt>
+<code class="descname">auth</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.auth" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The (requests module) authentication class to use for the request.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.cookies">
-<code class="descname">cookies</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.cookies" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cookies</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.cookies" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The (requests module) cookie jar to use for the request.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.headers">
-<code class="descname">headers</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.headers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">headers</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.headers" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The headers {key: value} to use for the request.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="nyawc.http.Request.Request.proxies">
-<code class="descname">proxies</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.proxies" title="Permalink to this definition">¶</a></dt>
+<code class="descname">proxies</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.proxies" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>obj</em> &#8211; The proxies {key: value} to use for the request.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">METHOD_DELETE</code><em class="property"> = 'delete'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">METHOD_DELETE</code><em class="property"> = 'delete'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">METHOD_GET</code><em class="property"> = 'get'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">METHOD_GET</code><em class="property"> = 'get'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">METHOD_HEAD</code><em class="property"> = 'head'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">METHOD_HEAD</code><em class="property"> = 'head'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">METHOD_OPTIONS</code><em class="property"> = 'options'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">METHOD_OPTIONS</code><em class="property"> = 'options'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">METHOD_POST</code><em class="property"> = 'post'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">METHOD_POST</code><em class="property"> = 'post'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="descname">METHOD_PUT</code><em class="property"> = 'put'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">METHOD_PUT</code><em class="property"> = 'put'</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="nyawc.http.Request.Request.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>url</em>, <em>method='get'</em>, <em>data=None</em>, <em>auth=None</em>, <em>cookies=None</em>, <em>headers=None</em>, <em>proxies=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>url</em>, <em>method='get'</em>, <em>data=None</em>, <em>auth=None</em>, <em>cookies=None</em>, <em>headers=None</em>, <em>proxies=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Request.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Request.Request.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a Request instance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -368,7 +368,7 @@
 <span id="nyawc-http-response-module"></span><h2>nyawc.http.Response module<a class="headerlink" href="#module-nyawc.http.Response" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="nyawc.http.Response.Response">
-<em class="property">class </em><code class="descclassname">nyawc.http.Response.</code><code class="descname">Response</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.0/nyawc/http/Response.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Response.Response" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nyawc.http.Response.</code><code class="descname">Response</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.6.3/nyawc/http/Response.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.http.Response.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Response placeholder class for before request is finished.</p>
 <div class="admonition note">
@@ -420,7 +420,7 @@ request is finished. For more information check <a class="reference external" hr
       <div class="clearer"></div>
     </div>
     <footer id="pagefooter">
-        N.Y.A.W.C v1.6.0 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+        N.Y.A.W.C v1.6.3 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
     </footer>
 
   </body>
