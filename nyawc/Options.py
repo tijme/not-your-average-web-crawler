@@ -194,7 +194,10 @@ class OptionsIdentity:
         file = os.path.realpath(__file__)
         folder = os.path.dirname(file)
 
-        semver = open(folder + "/.semver", "r")
+        try: # If installed via PIP
+            semver = open(folder + "/.semver", "r")
+        except: # If installed via GIT
+            semver = open(folder + "/../.semver", "r")
 
         self.auth = None
         self.cookies = requests.cookies.RequestsCookieJar()
