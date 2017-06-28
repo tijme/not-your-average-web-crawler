@@ -1,26 +1,26 @@
 $(document).ready(function() {
-	var html = "";
-	var current = $('#releases').attr('data-selected');
+    var html = "";
+    var current = $('#releases').attr('data-selected');
 
-	var index = 1;
-	var length = Object.keys(releases).length;
+    var index = 1;
+    var length = Object.keys(releases).length;
 
-	for (release in releases) {
-		var last = index === length;
-		var disabled = releases[release] ? '' : 'disabled';
-		var selected = current == release ? 'selected' : '';
-		var status = !releases[release] ? 'n/a' : last ? 'latest' : 'old';
-		var value = !disabled ? '../' + (last ? 'latest' : release) + '/index.html' : '';
+    for (release in releases) {
+        var last = index === length;
+        var disabled = releases[release] ? '' : 'disabled';
+        var selected = current == release ? 'selected' : '';
+        var status = !releases[release] ? 'n/a' : last ? 'latest' : 'old';
+        var value = !disabled ? '../' + (last ? 'latest' : release) + '/index.html' : '';
 
-		html += '<option ' + disabled + ' ' + selected + ' value="' + value + '">Version ' + release + ' (' + status + ')</option>';
+        html += '<option ' + disabled + ' ' + selected + ' value="' + value + '">Version ' + release + ' (' + status + ')</option>';
 
-		if (last && current != release) {
-			$('#releases').addClass('old');
-		}
+        if (last && current != release) {
+            $('#releases').addClass('old');
+        }
 
-		index ++;
-	}
+        index ++;
+    }
 
-	$('#releases').html(html);
-	$('#releases').removeAttr('disabled');
+    $('#releases').html(html);
+    $('#releases').removeAttr('disabled');
 });

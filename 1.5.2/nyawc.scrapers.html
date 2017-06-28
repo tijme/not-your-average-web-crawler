@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>nyawc.scrapers package &#8212; Not Your Average Web Crawler</title>
+
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.5.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <script src="../releases.js" type="text/javascript"></script><script src="_static/releases-dropdown.js" type="text/javascript"></script>
+  </head>
+  <body role="document">
+    <header id="pageheader">
+        <a href="index.html ">
+            <img id="pagelogo" src="_static/logo.svg" />
+        </a>
+        <div id="pagedetails">
+            <a href="index.html ">
+                <h1>
+                    Not Your Average Web Crawler
+                </h1>
+            </a>
+            <select disabled id="releases" data-selected="1.5.2" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.5.2/index.html">Version 1.5.2</option>
+            </select>
+        </div>
+    </header>
+
+  <div class="related top">
+  <nav id="rellinks">
+    <ul>
+    </ul>
+  </nav>
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </nav>
+  </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+
+  <div class="section" id="module-nyawc.scrapers">
+<span id="nyawc-scrapers-package"></span><h1>nyawc.scrapers package<a class="headerlink" href="#module-nyawc.scrapers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-nyawc.scrapers.CSSRegexLinkScraper">
+<span id="nyawc-scrapers-cssregexlinkscraper-module"></span><h2>nyawc.scrapers.CSSRegexLinkScraper module<a class="headerlink" href="#module-nyawc.scrapers.CSSRegexLinkScraper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper">
+<em class="property">class </em><code class="descclassname">nyawc.scrapers.CSSRegexLinkScraper.</code><code class="descname">CSSRegexLinkScraper</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/CSSRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The CSSRegexLinkScraper finds absolute and relative URLs in Cascading Style Sheets.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">content_types list</code></dt>
+<dd><p><em>str</em> &#8211; The supported content types.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">__expressions list</code></dt>
+<dd><p><em>obj</em> &#8211; The regular expressions to execute.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.__options">
+<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/CSSRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.__options" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a> &#8211; The settins/options object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.__queue_item">
+<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/CSSRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.__queue_item" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a> &#8211; The queue item containing the response to scrape.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/CSSRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the CSSRegexLinkScraper instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The settins/options object.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The queue item containing a response the scrape.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.content_types">
+<code class="descname">content_types</code><em class="property"> = ['text/css']</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/CSSRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.content_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.get_requests">
+<code class="descname">get_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/CSSRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.CSSRegexLinkScraper.CSSRegexLinkScraper.get_requests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the new requests that were found in the response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>host</strong> (<em>str</em>) &#8211; The parent request URL.</li>
+<li><strong>content</strong> (<em>obj</em>) &#8211; The HTML content.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of new requests that were found.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list(<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nyawc.scrapers.HTMLSoupFormScraper">
+<span id="nyawc-scrapers-htmlsoupformscraper-module"></span><h2>nyawc.scrapers.HTMLSoupFormScraper module<a class="headerlink" href="#module-nyawc.scrapers.HTMLSoupFormScraper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper">
+<em class="property">class </em><code class="descclassname">nyawc.scrapers.HTMLSoupFormScraper.</code><code class="descname">HTMLSoupFormScraper</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The HTMLSoupFormScraper finds requests from forms in HTML using BeautifulSoup.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">content_types list</code></dt>
+<dd><p><em>str</em> &#8211; The supported content types.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.__options">
+<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.__options" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a> &#8211; The settins/options object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.__queue_item">
+<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.__queue_item" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a> &#8211; The queue item containing the response to scrape.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__autofill_form_data">
+<code class="descname">_HTMLSoupFormScraper__autofill_form_data</code><span class="sig-paren">(</span><em>form_data</em>, <em>elements</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__autofill_form_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autofill empty form data with random data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>form_data</strong> (<em>obj</em>) &#8211; The {key: value} form data</li>
+<li><strong>list</strong> (<em>elements</em>) &#8211; Soup elements.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The {key: value}</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">obj</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_default_form_data_input">
+<code class="descname">_HTMLSoupFormScraper__get_default_form_data_input</code><span class="sig-paren">(</span><em>elements</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_default_form_data_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the default form data {key: value} for the given elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list</strong> (<em>elements</em>) &#8211; Soup elements.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The {key: value} form data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">obj</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_default_value_from_element">
+<code class="descname">_HTMLSoupFormScraper__get_default_value_from_element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_default_value_from_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the default value of a form element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elements</strong> (<em>obj</em>) &#8211; The soup element.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The default value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_form_data">
+<code class="descname">_HTMLSoupFormScraper__get_form_data</code><span class="sig-paren">(</span><em>soup</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_form_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a form data dict from the given form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>soup</strong> (<em>obj</em>) &#8211; The BeautifulSoup form.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The form data (key/value).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">obj</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_request">
+<code class="descname">_HTMLSoupFormScraper__get_request</code><span class="sig-paren">(</span><em>host</em>, <em>soup</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a request from the given soup form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str</strong> (<em>host</em>) &#8211; The URL of the current queue item.</li>
+<li><strong>soup</strong> (<em>obj</em>) &#8211; The BeautifulSoup form.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The new Request.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_valid_form_data_elements">
+<code class="descname">_HTMLSoupFormScraper__get_valid_form_data_elements</code><span class="sig-paren">(</span><em>soup</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__get_valid_form_data_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all valid form input elements.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An element is valid when the value can be updated client-side
+and the element has a name attribute.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>soup</strong> (<em>obj</em>) &#8211; The BeautifulSoup form.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Soup elements.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list(obj)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__trim_grave_accent">
+<code class="descname">_HTMLSoupFormScraper__trim_grave_accent</code><span class="sig-paren">(</span><em>href</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper._HTMLSoupFormScraper__trim_grave_accent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trim grave accents manually (because BeautifulSoup doesn&#8221;t support it).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>href</strong> (<em>str</em>) &#8211; The BeautifulSoup href value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The BeautifulSoup href value without grave accents.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the HTMLSoupFormScraper instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The settins/options object.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The queue item containing a response the scrape.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.content_types">
+<code class="descname">content_types</code><em class="property"> = ['text/html', 'application/xhtml+xml']</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.content_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.get_requests">
+<code class="descname">get_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupFormScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupFormScraper.HTMLSoupFormScraper.get_requests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the new requests that were found in the response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of new requests that were found.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nyawc.scrapers.HTMLSoupLinkScraper">
+<span id="nyawc-scrapers-htmlsouplinkscraper-module"></span><h2>nyawc.scrapers.HTMLSoupLinkScraper module<a class="headerlink" href="#module-nyawc.scrapers.HTMLSoupLinkScraper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper">
+<em class="property">class </em><code class="descclassname">nyawc.scrapers.HTMLSoupLinkScraper.</code><code class="descname">HTMLSoupLinkScraper</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The HTMLSoupLinkScraper finds URLs from href attributes in HTML using BeautifulSoup.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">content_types list</code></dt>
+<dd><p><em>str</em> &#8211; The supported content types.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.__options">
+<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.__options" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a> &#8211; The settins/options object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.__queue_item">
+<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.__queue_item" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a> &#8211; The queue item containing the response to scrape.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper._HTMLSoupLinkScraper__trim_grave_accent">
+<code class="descname">_HTMLSoupLinkScraper__trim_grave_accent</code><span class="sig-paren">(</span><em>href</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper._HTMLSoupLinkScraper__trim_grave_accent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trim grave accents manually (because BeautifulSoup doesn&#8217;t support it).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>href</strong> (<em>str</em>) &#8211; The BeautifulSoup href value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The BeautifulSoup href value without grave accents.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the HTMLSoupLinkScraper instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The settins/options object.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The queue item containing a response the scrape.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.content_types">
+<code class="descname">content_types</code><em class="property"> = ['text/html', 'application/xhtml+xml']</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.content_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.get_requests">
+<code class="descname">get_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/HTMLSoupLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.HTMLSoupLinkScraper.HTMLSoupLinkScraper.get_requests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the new requests that were found in the response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of new requests that were found.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nyawc.scrapers.JSONRegexLinkScraper">
+<span id="nyawc-scrapers-jsonregexlinkscraper-module"></span><h2>nyawc.scrapers.JSONRegexLinkScraper module<a class="headerlink" href="#module-nyawc.scrapers.JSONRegexLinkScraper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper">
+<em class="property">class </em><code class="descclassname">nyawc.scrapers.JSONRegexLinkScraper.</code><code class="descname">JSONRegexLinkScraper</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/JSONRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The JSONRegexLinkScraper finds absolute and relative URLs in JSON keys and values.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">content_types list</code></dt>
+<dd><p><em>str</em> &#8211; The supported content types.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">__expressions list</code></dt>
+<dd><p><em>obj</em> &#8211; The regular expressions to execute.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.__options">
+<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/JSONRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.__options" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a> &#8211; The settins/options object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.__queue_item">
+<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/JSONRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.__queue_item" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a> &#8211; The queue item containing the response to scrape.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/JSONRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the JSONRegexLinkScraper instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The settins/options object.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The queue item containing a response the scrape.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.content_types">
+<code class="descname">content_types</code><em class="property"> = ['application/json']</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/JSONRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.content_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.get_requests">
+<code class="descname">get_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/JSONRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.JSONRegexLinkScraper.JSONRegexLinkScraper.get_requests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the new requests that were found in the response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of new requests that were found.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-nyawc.scrapers.XMLRegexLinkScraper">
+<span id="nyawc-scrapers-xmlregexlinkscraper-module"></span><h2>nyawc.scrapers.XMLRegexLinkScraper module<a class="headerlink" href="#module-nyawc.scrapers.XMLRegexLinkScraper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper">
+<em class="property">class </em><code class="descclassname">nyawc.scrapers.XMLRegexLinkScraper.</code><code class="descname">XMLRegexLinkScraper</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/XMLRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The XMLRegexLinkScraper finds absolute and relative URLs in XML values.</p>
+<dl class="attribute">
+<dt>
+<code class="descname">content_types list</code></dt>
+<dd><p><em>str</em> &#8211; The supported content types.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">__expressions list</code></dt>
+<dd><p><em>obj</em> &#8211; The regular expressions to execute.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.__options">
+<code class="descname">__options</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/XMLRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.__options" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a> &#8211; The settins/options object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.__queue_item">
+<code class="descname">__queue_item</code><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/XMLRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.__queue_item" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a> &#8211; The queue item containing the response to scrape.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>options</em>, <em>queue_item</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/XMLRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the XMLRegexLinkScraper instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.Options" title="nyawc.Options"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Options</span></code></a>) &#8211; The settins/options object.</li>
+<li><strong>queue_item</strong> (<a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>) &#8211; The queue item containing a response the scrape.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.content_types">
+<code class="descname">content_types</code><em class="property"> = ['text/xml', 'application/xml', 'image/svg+xml']</em><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/XMLRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.content_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.get_requests">
+<code class="descname">get_requests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/tijme/not-your-average-web-crawler/tree/1.5.2/nyawc/scrapers/XMLRegexLinkScraper.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nyawc.scrapers.XMLRegexLinkScraper.XMLRegexLinkScraper.get_requests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the new requests that were found in the response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of new requests that were found.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="nyawc.http.html#module-nyawc.http.Request" title="nyawc.http.Request"><code class="xref py py-class docutils literal"><span class="pre">nyawc.http.Request</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h1>Introduction</h1>
+<ul>
+	<li><a class="reference" href="index.html">Home</a></li>
+	<li><a class="reference" href="installation.html">Installation</a></li>
+	<li><a class="reference" href="getting_started.html">Getting started</a></li>
+	<li><a class="reference" href="kitchen_sink.html">Kitchen sink</a></li>
+</ul>
+<h1>Options</h1>
+<ul>
+	<li><a class="reference" href="options_callbacks.html">Callbacks</a></li>
+	<li><a class="reference" href="options_crawling_scope.html">Crawling scope</a></li>
+	<li><a class="reference" href="options_crawling_identity.html">Crawling identity</a></li>
+	<li><a class="reference" href="options_performance.html">Performance</a></li>
+</ul>
+<h1>API</h1>
+<ul>
+	<li><a class="reference" href="py-modindex.html">Code API</a></li>
+	<li><a class="reference" href="https://github.com/tijme/not-your-average-web-crawler">Source (GitHub)</a></li>
+</ul><div id="searchbox" role="search">
+    <h3>Search</h3>
+    <form class="search" action="search.html" method="get">
+        <input type="text" name="q" placeholder="Queue.get_all()">
+        <input type="submit" value="Go">
+        <input type="hidden" name="check_keywords" value="yes">
+        <input type="hidden" name="area" value="default">
+    </form>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <footer id="pagefooter">
+        N.Y.A.W.C v1.5.2 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+    </footer>
+
+  </body>
+</html>
