@@ -138,7 +138,7 @@ html_theme_options = {
   'cssfiles': ['_static/style.css'],
 
   # Custom JS
-  'scriptfiles': ['../releases.js']
+  'scriptfiles': ['../releases.js', '_static/releases-dropdown.js']
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
