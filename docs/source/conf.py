@@ -138,7 +138,7 @@ html_theme_options = {
   'cssfiles': ['_static/style.css'],
 
   # Custom JS
-  'scriptfiles': ['_static/versions.js']
+  'scriptfiles': ['../releases.js']
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -235,4 +235,4 @@ releases = json.loads(releasesjs);
 releases[release] = True
 
 with open('_static/releases.js', 'w') as outfile:
-    outfile.write("var releases = " + json.dump(releases))
+    outfile.write("var releases = " + json.dumps(releases))
