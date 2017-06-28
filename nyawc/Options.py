@@ -25,15 +25,17 @@
 import requests
 
 from nyawc.CrawlerActions import CrawlerActions
+from requests_toolbelt import user_agent
 
 class Options:
-    """The Options class contains all the crawling settings/options.
+    """The Options class contains all the crawling options.
 
     Attributes:
         scope (:class:`nyawc.Options.OptionsScope`): Can be used to define the crawling scope.
         callbacks (:class:`nyawc.Options.OptionsCallbacks`): Can be used to define crawling callbacks.
         performance (:class:`nyawc.Options.OptionsPerformance`): Can be used to define performance options.
         identity (:class:`nyawc.Options.OptionsIdentity`): Can be used to define the identity/footprint options.
+        debug (bool): If debug is enabled extra information will be logged to the console. Default is False.
 
     """
 
@@ -44,9 +46,10 @@ class Options:
         self.callbacks = OptionsCallbacks()
         self.performance = OptionsPerformance()
         self.identity = OptionsIdentity()
+        self.debug = False
 
 class OptionsScope:
-    """The OptionsScope class contains the scope settings/options.
+    """The OptionsScope class contains the scope options.
 
     Attributes:
         protocol_must_match (bool): only crawl pages with the same protocol as the startpoint (e.g. only https).
@@ -161,7 +164,7 @@ class OptionsCallbacks:
         pass
 
 class OptionsPerformance:
-    """The OptionsPerformance class contains the performance settings/options.
+    """The OptionsPerformance class contains the performance options.
 
     Attributes:
         max_threads (obj): the maximum amount of simultaneous threads to use for crawling.
@@ -174,18 +177,29 @@ class OptionsPerformance:
         self.max_threads = 8
 
 class OptionsIdentity:
-    """The OptionsIdentity class contains the identity/footprint settings/options.
+    """The OptionsIdentity class contains the identity/footprint options.
 
     Attributes:
+        auth (obj): The (requests module) authentication class to use when making a request. For more information check http://docs.python-requests.org/en/master/user/authentication/.
         cookies (obj): The (requests module) cookie jar to use when making a request. For more information check http://docs.python-requests.org/en/master/user/quickstart/#cookies.
         headers (obj): The headers {key: value} to use when making a request.
+        proxies (obj): The proxies {key: value} to use when making a request. For more information check http://docs.python-requests.org/en/master/user/advanced/#proxies.
 
     """
 
     def __init__(self):
         """Constructs an OptionsIdentity instance."""
 
+        semver = open(".semver", "r")
+
+        self.auth = None
         self.cookies = requests.cookies.RequestsCookieJar()
-        self.headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+        self.headers = requests.utils.default_headers()
+        self.headers.update({
+            "User-Agent": user_agent("nyawc", semver.read())
+        })
+        self.proxies = {
+
         }
+
+        semver.close()

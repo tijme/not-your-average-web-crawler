@@ -39,8 +39,10 @@ class Request:
         url (str): The absolute URL to use when making the request.
         method (str): The request method to use for the request.
         data (obj): The post data {key: value} OrderedDict that will be sent.
+        auth (obj): The (requests module) authentication class to use for the request.
         cookies (obj): The (requests module) cookie jar to use for the request.
         headers (obj): The headers {key: value} to use for the request.
+        proxies (obj): The proxies {key: value} to use for the request.
 
     """
 
@@ -56,15 +58,17 @@ class Request:
 
     METHOD_DELETE = "delete"
 
-    def __init__(self, url, method=METHOD_GET, data=None, cookies=None, headers=None):
+    def __init__(self, url, method=METHOD_GET, data=None, auth=None, cookies=None, headers=None, proxies=None):
         """Constructs a Request instance.
 
         Args:
             url (str): The absolute URL to use when making the request.
             method (str): The request method to use for the request.
             data (obj): The post data {key: value} OrderedDict that will be sent.
+            auth (obj): The (requests module) authentication class to use for the request.
             cookies (obj): The (requests module) cookie jar to use for the request.
             headers (obj): The headers {key: value} to use for the request.
+            proxies (obj): The proxies {key: value} to use for the request.
 
         """
 
@@ -73,8 +77,10 @@ class Request:
 
         self.url = url
         self.method = method
+        self.auth = auth
         self.cookies = cookies
         self.headers = headers
+        self.proxies = proxies
 
         if method == self.METHOD_GET:
             self.url = URLHelper.append_with_data(self.url, data)

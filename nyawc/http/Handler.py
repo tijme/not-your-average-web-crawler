@@ -51,8 +51,10 @@ class Handler:
             self.__queue_item.request.url,
             self.__queue_item.request.method,
             self.__queue_item.request.data,
+            self.__queue_item.request.auth,
             self.__queue_item.request.cookies,
-            self.__queue_item.request.headers
+            self.__queue_item.request.headers,
+            self.__queue_item.request.proxies
         )
 
     def get_new_requests(self):
@@ -74,15 +76,17 @@ class Handler:
 
         return new_requests
 
-    def __make_request(self, url, method, data, cookies, headers):
+    def __make_request(self, url, method, data, auth, cookies, headers, proxies):
         """Execute a request with the given data.
 
         Args:
             url (str): The URL to call.
             method (str): The method (e.g. `get` or `post`).
             data (str): The data to call the URL with.
+            auth (obj): The authentication class.
             cookies (obj): The cookie dict.
             headers (obj): The header dict.
+            proxies (obj): The proxies dict.
 
         Returns:
             obj: The response object.
@@ -93,8 +97,10 @@ class Handler:
         return request_by_method(
             url=url,
             data=data,
+            auth=auth,
             cookies=cookies,
             headers=headers,
+            proxies=proxies,
             allow_redirects=True,
             stream=False
         )

@@ -45,8 +45,10 @@ class HTTPRequestHelper:
 
         """
 
-        request.headers = copy.deepcopy(options.identity.headers)
+        request.auth = copy.deepcopy(options.identity.auth)
         request.cookies = copy.deepcopy(options.identity.cookies)
+        request.headers = copy.deepcopy(options.identity.headers)
+        request.proxies = copy.deepcopy(options.identity.proxies)
 
         if parent_queue_item != None:
             for cookie in parent_queue_item.request.cookies:

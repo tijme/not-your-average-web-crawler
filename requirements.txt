@@ -1,6 +1,7 @@
-beautifulsoup4==4.5.3
-lxml==3.7.3
-requests==2.13.0
+beautifulsoup4==4.6.0
+lxml==3.8.0
+requests==2.18.1
+requests_toolbelt==0.8.0
 sphinx==1.5.5
 sphinx-better-theme==0.13
 sphinxcontrib-napoleon==0.6.1

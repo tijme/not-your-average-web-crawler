@@ -27,12 +27,14 @@ from nyawc.QueueItem import QueueItem
 from nyawc.Crawler import Crawler
 from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
+from requests.auth import HTTPBasicAuth
 
 def cb_crawler_before_start():
     print("Crawler started.")
 
 def cb_crawler_after_finish(queue):
-    print("Crawler finished. Found " + str(queue.count_finished) + " requests.")
+    print("Crawler finished.")
+    print("Found " + str(queue.count_finished) + " requests.")
 
     for queue_item in queue.get_all(QueueItem.STATUS_FINISHED).values():
         print("[" + queue_item.request.method + "] " + queue_item.request.url + " (PostData: " + str(queue_item.request.data) + ")")
@@ -79,14 +81,31 @@ options.scope.tld_must_match = True # Only crawl pages with the same tld as the 
 options.scope.max_depth = None # The maximum search depth. 0 only crawls the start request. 1 will also crawl all the requests found on the start request. 2 goes one level deeper, and so on. Default is None (unlimited).
 
 # Identity options
+options.identity.auth = HTTPBasicAuth('user', 'pass') # Or any other authentication (http://docs.python-requests.org/en/master/user/authentication/). Default is None.
 options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
 options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea.com', path='/elsewhere')
-options.identity.headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36" # The user agent to make requests with. Default is Chrome.
+options.identity.proxies = {
+    # No authentication
+    # 'http': 'http://host:port',
+    # 'https': 'http://host:port',
+
+    # Basic authentication
+    # 'http': 'http://user:pass@host:port',
+    # 'https': 'https://user:pass@host:port',
+
+    # SOCKS
+    # 'http': 'socks5://user:pass@host:port',
+    # 'https': 'socks5://user:pass@host:port'
 }
+options.identity.headers.update({
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+})
 
 # Performance options
 options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
+
+# Debug option
+options.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
 
 crawler = Crawler(options)
 crawler.start_with(Request("https://finnwea.com/"))
