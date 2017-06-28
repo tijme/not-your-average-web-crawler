@@ -85,7 +85,7 @@ class CrawlerThread(threading.Thread):
         except Exception as e:
             new_status = QueueItem.STATUS_ERRORED
 
-            if self.__options.debug:
+            if self.__options.misc.debug:
                 print("Setting status of '{}' to '{}' because of an HTTP error.".format(self.__queue_item.request.url, QueueItem.STATUS_ERRORED))
                 print(e)
 

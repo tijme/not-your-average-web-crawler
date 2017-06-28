@@ -35,7 +35,7 @@ class Options:
         callbacks (:class:`nyawc.Options.OptionsCallbacks`): Can be used to define crawling callbacks.
         performance (:class:`nyawc.Options.OptionsPerformance`): Can be used to define performance options.
         identity (:class:`nyawc.Options.OptionsIdentity`): Can be used to define the identity/footprint options.
-        debug (bool): If debug is enabled extra information will be logged to the console. Default is False.
+        misc (:class:`nyawc.Options.OptionsMisc`): Can be used to define the other options.
 
     """
 
@@ -46,7 +46,7 @@ class Options:
         self.callbacks = OptionsCallbacks()
         self.performance = OptionsPerformance()
         self.identity = OptionsIdentity()
-        self.debug = False
+        self.misc = OptionsMisc()
 
 class OptionsScope:
     """The OptionsScope class contains the scope options.
@@ -195,11 +195,20 @@ class OptionsIdentity:
         self.auth = None
         self.cookies = requests.cookies.RequestsCookieJar()
         self.headers = requests.utils.default_headers()
-        self.headers.update({
-            "User-Agent": user_agent("nyawc", semver.read())
-        })
-        self.proxies = {
-
-        }
+        self.headers.update({"User-Agent": user_agent("nyawc", semver.read())})
+        self.proxies = None
 
         semver.close()
+
+class OptionsMisc:
+    """The OptionsMisc class contains all kind of misc options.
+
+    Attributes:
+        debug (bool): If debug is enabled extra information will be logged to the console. Default is False.
+
+    """
+
+    def __init__(self):
+        """Constructs an OptionsMisc instance."""
+
+        self.debug = False

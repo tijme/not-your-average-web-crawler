@@ -104,8 +104,8 @@ options.identity.headers.update({
 # Performance options
 options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
 
-# Debug option
-options.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
+# Misc options
+options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
 
 crawler = Crawler(options)
 crawler.start_with(Request("https://finnwea.com/"))
