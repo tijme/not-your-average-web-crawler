@@ -34,11 +34,11 @@ class URLHelper:
     """A helper for URL strings.
 
     Attributes:
-        cache (obj): Cached values of parsed URL data.
+        __cache (obj): Cached values of parsed URL data.
 
     """
 
-    cache = {}
+    __cache = {}
 
     @staticmethod
     def make_absolute(base, relative):
@@ -118,7 +118,7 @@ class URLHelper:
 
         try:
             parsed = urlparse(url)
-            URLHelper.cache[url] = parsed
+            URLHelper.__cache[url] = parsed
             return True
         except:
             return False
@@ -135,10 +135,10 @@ class URLHelper:
 
         """
 
-        if url not in URLHelper.cache:
-            URLHelper.cache[url] = urlparse(url)
+        if url not in URLHelper.__cache:
+            URLHelper.__cache[url] = urlparse(url)
 
-        return URLHelper.cache[url].scheme
+        return URLHelper.__cache[url].scheme
 
     @staticmethod
     def get_subdomain(url):
@@ -152,10 +152,10 @@ class URLHelper:
 
         """
 
-        if url not in URLHelper.cache:
-            URLHelper.cache[url] = urlparse(url)
+        if url not in URLHelper.__cache:
+            URLHelper.__cache[url] = urlparse(url)
 
-        return ".".join(URLHelper.cache[url].netloc.split(".")[:-2])
+        return ".".join(URLHelper.__cache[url].netloc.split(".")[:-2])
 
     @staticmethod
     def get_hostname(url):
@@ -169,10 +169,10 @@ class URLHelper:
 
         """
 
-        if url not in URLHelper.cache:
-            URLHelper.cache[url] = urlparse(url)
+        if url not in URLHelper.__cache:
+            URLHelper.__cache[url] = urlparse(url)
 
-        parts = URLHelper.cache[url].netloc.split(".")
+        parts = URLHelper.__cache[url].netloc.split(".")
 
         if len(parts) == 1:
             return ".".join(parts)
@@ -191,10 +191,10 @@ class URLHelper:
 
         """
 
-        if url not in URLHelper.cache:
-            URLHelper.cache[url] = urlparse(url)
+        if url not in URLHelper.__cache:
+            URLHelper.__cache[url] = urlparse(url)
 
-        parts = URLHelper.cache[url].netloc.split(".")
+        parts = URLHelper.__cache[url].netloc.split(".")
 
         if len(parts) == 1:
             return ""
@@ -213,10 +213,10 @@ class URLHelper:
 
         """
 
-        if url not in URLHelper.cache:
-            URLHelper.cache[url] = urlparse(url)
+        if url not in URLHelper.__cache:
+            URLHelper.__cache[url] = urlparse(url)
 
-        return URLHelper.cache[url].path
+        return URLHelper.__cache[url].path
 
     @staticmethod
     def get_ordered_params(url):
@@ -230,9 +230,9 @@ class URLHelper:
 
         """
 
-        if url not in URLHelper.cache:
-            URLHelper.cache[url] = urlparse(url)
+        if url not in URLHelper.__cache:
+            URLHelper.__cache[url] = urlparse(url)
 
-        params = dict(parse_qsl(URLHelper.cache[url].query, keep_blank_values=True))
+        params = dict(parse_qsl(URLHelper.__cache[url].query, keep_blank_values=True))
 
         return OrderedDict(sorted(params.items()))

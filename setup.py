@@ -23,22 +23,18 @@
 # SOFTWARE.
 
 from setuptools import find_packages, setup
-from shutil import copyfile
-
-copyfile(".semver", "nyawc/.semver")
+from nyawc.helpers.PackageHelper import PackageHelper
 
 with open("requirements.txt") as file:
     requirements = file.read().splitlines()
 
 with open("README.rst") as file:
+    # The PyPi description does not support the SVG file type.
     readme = file.read().replace(".svg?pypi=png.from.svg", ".png")
 
-with open(".semver") as file:
-    semver = file.read()
-
 setup(
-    version=semver,
-    name="nyawc",
+    name=PackageHelper.get_alias(),
+    version=PackageHelper.get_version(),
     description="A web crawler that gathers more than you can imagine.",
     long_description=readme,
     keywords = ["vulnerability", "bug-bounty", "security", "post", "get", "request", "crawler", "scraper", "scanner"],
@@ -62,15 +58,10 @@ setup(
         "Topic :: Security"
     ],
     packages=find_packages(),
-    package_data={
-        "nyawc": [
-            ".semver"
-        ]
-    },
     platforms=["any"],
     author="Tijme Gommers",
     author_email="tijme@finnwea.com",
     license="MIT",
-    url="https://github.com/tijme/not-your-average-web-crawler",
+    url="https://tijme.github.io/not-your-average-web-crawler/",
     install_requires=requirements
 )

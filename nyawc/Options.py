@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import os
 import requests
 
+from nyawc.helpers.PackageHelper import PackageHelper
 from nyawc.CrawlerActions import CrawlerActions
 from requests_toolbelt import user_agent
 
@@ -191,21 +191,11 @@ class OptionsIdentity:
     def __init__(self):
         """Constructs an OptionsIdentity instance."""
 
-        file = os.path.realpath(__file__)
-        folder = os.path.dirname(file)
-
-        try: # If installed via PIP
-            semver = open(folder + "/.semver", "r")
-        except: # If installed via GIT
-            semver = open(folder + "/../.semver", "r")
-
         self.auth = None
         self.cookies = requests.cookies.RequestsCookieJar()
         self.headers = requests.utils.default_headers()
-        self.headers.update({"User-Agent": user_agent("nyawc", semver.read())})
+        self.headers.update({"User-Agent": user_agent("nyawc", PackageHelper.get_version())})
         self.proxies = None
-
-        semver.close()
 
 class OptionsMisc:
     """The OptionsMisc class contains all kind of misc options.
