@@ -66,7 +66,7 @@ class PackageHelper:
         """
 
         if PackageHelper.__version:
-            return self.__version
+            return PackageHelper.__version
 
         PackageHelper.__version = "Unknown"
 
