@@ -194,7 +194,7 @@ class OptionsIdentity:
         self.auth = None
         self.cookies = requests.cookies.RequestsCookieJar()
         self.headers = requests.utils.default_headers()
-        self.headers.update({"User-Agent": user_agent("nyawc", PackageHelper.get_version())})
+        self.headers.update({"User-Agent": user_agent(PackageHelper.get_alias(), PackageHelper.get_version())})
         self.proxies = None
 
 class OptionsMisc:
