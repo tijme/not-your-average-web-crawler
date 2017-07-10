@@ -39,6 +39,10 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
         # return CrawlerActions.DO_STOP_CRAWLING
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
+    def cb_request_on_error(queue_item, message):
+        print("A request failed with an error message.")
+        print(message)
+
     def cb_form_before_autofill(queue_item, elements, form_data):
 
         # return CrawlerActions.DO_NOT_AUTOFILL_FORM
@@ -55,6 +59,7 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
     options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called after the crawler finished crawling. Default is a null route.
     options.callbacks.request_before_start = cb_request_before_start # Called before the crawler starts a new request. Default is a null route.
     options.callbacks.request_after_finish = cb_request_after_finish # Called after the crawler finishes a request. Default is a null route.
+    options.callbacks.request_on_error = cb_request_on_error # Called if a request failed. Default is a null route.
     options.callbacks.form_before_autofill = cb_form_before_autofill # Called before the crawler autofills a form. Default is a null route.
     options.callbacks.form_after_autofill = cb_form_after_autofill # Called after the crawler autofills a form. Default is a null route.
 

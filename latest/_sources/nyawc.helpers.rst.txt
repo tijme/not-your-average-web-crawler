@@ -17,6 +17,14 @@ nyawc\.helpers\.HTTPRequestHelper module
     :undoc-members:
     :show-inheritance:
 
+nyawc\.helpers\.PackageHelper module
+------------------------------------
+
+.. automodule:: nyawc.helpers.PackageHelper
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 nyawc\.helpers\.RandomInputHelper module
 ----------------------------------------
 

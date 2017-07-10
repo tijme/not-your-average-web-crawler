@@ -31,6 +31,10 @@ How to use callbacks
         print("Finished request: {}".format(queue_item.request.url))
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
+    def cb_request_on_error(queue_item, message):
+        print("A request failed with an error message.")
+        print(message)
+
     def cb_form_before_autofill(queue_item, elements, form_data):
         return CrawlerActions.DO_AUTOFILL_FORM
 
@@ -43,6 +47,7 @@ How to use callbacks
     options.callbacks.crawler_after_finish = cb_crawler_after_finish
     options.callbacks.request_before_start = cb_request_before_start
     options.callbacks.request_after_finish = cb_request_after_finish
+    options.callbacks.request_on_error = cb_request_on_error
     options.callbacks.form_before_autofill = cb_form_before_autofill
     options.callbacks.form_after_autofill = cb_form_after_autofill
 
@@ -140,6 +145,23 @@ Can be used to run some code after the request finished executing. It receives t
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
     options.callbacks.request_after_finish = cb_request_after_finish
+
+    ...
+
+On request error
+~~~~~~~~~~~~~~~~
+
+Can be used to run some code if a request failed to execute. It receives two arguments, :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that will now be executed and ``message`` (str), which contains a detailed error message.
+
+.. code:: python
+
+    ...
+
+    def cb_request_on_error(queue_item, message):
+        print("A request failed with an error message.")
+        print(message)
+
+    options.callbacks.request_on_error = cb_request_on_error
 
     ...
 
