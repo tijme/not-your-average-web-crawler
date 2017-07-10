@@ -59,7 +59,7 @@ class TestScrapersJSONRegexLinkScraper(unittest.TestCase):
             html += "\n" + url["test"]
 
         request = Request(self.__host)
-        response = Response()
+        response = Response(self.__host)
         response.text = html
 
         finder = JSONRegexLinkScraper(Options(), QueueItem(request, response))
@@ -72,7 +72,7 @@ class TestScrapersJSONRegexLinkScraper(unittest.TestCase):
 
         for url in self.__urls:
             request = Request(self.__host)
-            response = Response()
+            response = Response(self.__host)
             response.text = url["test"]
 
             finder = JSONRegexLinkScraper(Options(), QueueItem(request, response))

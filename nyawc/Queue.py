@@ -83,7 +83,7 @@ class Queue:
 
         """
 
-        queue_item = QueueItem(request, Response())
+        queue_item = QueueItem(request, Response(request.url))
         self.add(queue_item)
         return queue_item
 
@@ -98,7 +98,7 @@ class Queue:
 
         """
 
-        queue_item = QueueItem(request, Response())
+        queue_item = QueueItem(request, Response(request.url))
         key = self.__get_hash(queue_item)
 
         for status in QueueItem.STATUSES:

@@ -78,6 +78,7 @@ class OptionsCallbacks:
         crawler_after_finish (obj): called after the crawler finished crawling. Default is a null route to :attr:`__null_route_crawler_after_finish`.
         request_before_start (obj): called before the crawler starts a new request. Default is a null route to :attr:`__null_route_request_before_start`.
         request_after_finish (obj): called after the crawler finishes a request. Default is a null route to :attr:`__null_route_request_after_finish`.
+        request_on_error (obj): called if a request failed. Default is a null route to :attr:`__null_route_request_on_error`.
         form_before_autofill (obj): called before the crawler starts autofilling a form. Default is a null route to :attr:`__null_route_form_before_autofill`.
         form_after_autofill (obj): called after the crawler finishes autofilling a form. Default is a null route to :attr:`__null_route_form_after_autofill`.
 
@@ -90,6 +91,7 @@ class OptionsCallbacks:
         self.crawler_after_finish = self.__null_route_crawler_after_finish
         self.request_before_start = self.__null_route_request_before_start
         self.request_after_finish = self.__null_route_request_after_finish
+        self.request_on_error = self.__null_route_request_on_error
         self.form_before_autofill = self.__null_route_form_before_autofill
         self.form_after_autofill = self.__null_route_form_after_autofill
 
@@ -136,6 +138,17 @@ class OptionsCallbacks:
         """
 
         return CrawlerActions.DO_CONTINUE_CRAWLING
+
+    def __null_route_request_on_error(self, queue_item, message):
+        """A null route for the 'request on error' callback.
+
+        Args:
+            queue_item (:class:`nyawc.QueueItem`): The queue item that was finished.
+            message str: The error message.
+
+        """
+
+        pass
 
     def __null_route_form_before_autofill(self, queue_item, elements, form_data):
         """A null route for the 'form before autofill' callback.

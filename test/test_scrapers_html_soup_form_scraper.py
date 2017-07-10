@@ -119,7 +119,7 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
             html += "\n" + url["test"]
 
         request = Request(self.__host)
-        response = Response()
+        response = Response(self.__host)
         response.text = html
 
         finder = HTMLSoupFormScraper(Options(), QueueItem(request, response))
@@ -132,7 +132,7 @@ class TestScrapersHTMLSoupFormScraper(unittest.TestCase):
 
         for url in self.__urls:
             request = Request(self.__host)
-            response = Response()
+            response = Response(self.__host)
             response.text = url["test"]
 
             finder = HTMLSoupFormScraper(Options(), QueueItem(request, response))

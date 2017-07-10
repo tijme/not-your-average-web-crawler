@@ -58,7 +58,7 @@ class TestScrapersCSSRegexLinkScraper(unittest.TestCase):
             html += "\n" + url["test"]
 
         request = Request(self.__host)
-        response = Response()
+        response = Response(self.__host)
         response.text = html
 
         finder = CSSRegexLinkScraper(Options(), QueueItem(request, response))
@@ -71,7 +71,7 @@ class TestScrapersCSSRegexLinkScraper(unittest.TestCase):
 
         for url in self.__urls:
             request = Request(self.__host)
-            response = Response()
+            response = Response(self.__host)
             response.text = url["test"]
 
             finder = CSSRegexLinkScraper(Options(), QueueItem(request, response))

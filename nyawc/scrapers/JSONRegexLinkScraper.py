@@ -71,7 +71,7 @@ class JSONRegexLinkScraper:
 
         """
 
-        host = self.__queue_item.request.url
+        host = self.__queue_item.response.url
         content = self.__queue_item.response.text
 
         found_requests = []

@@ -67,7 +67,7 @@ class HTMLSoupFormScraper:
 
         """
 
-        host = self.__queue_item.request.url
+        host = self.__queue_item.response.url
         soup = self.__queue_item.get_soup_response()
 
         found_requests = []

@@ -72,7 +72,7 @@ class HTMLSoupLinkScraper:
             "url": True
         }
 
-        host = self.__queue_item.request.url
+        host = self.__queue_item.response.url
         soup = self.__queue_item.get_soup_response()
         base_element = soup.find("base", href=True)
         elements = soup.select("[{}]".format("],[".join(attributes.keys())))

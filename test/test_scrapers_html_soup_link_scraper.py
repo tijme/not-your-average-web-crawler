@@ -92,7 +92,7 @@ class TestScrapersHTMLSoupLinkScraper(unittest.TestCase):
             html += "\n" + url["test"]
 
         request = Request(self.__host)
-        response = Response()
+        response = Response(self.__host)
         response.text = html
 
         finder = HTMLSoupLinkScraper(Options(), QueueItem(request, response))
@@ -105,7 +105,7 @@ class TestScrapersHTMLSoupLinkScraper(unittest.TestCase):
 
         for url in self.__urls:
             request = Request(self.__host)
-            response = Response()
+            response = Response(self.__host)
             response.text = url["test"]
 
             finder = HTMLSoupLinkScraper(Options(), QueueItem(request, response))

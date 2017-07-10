@@ -25,8 +25,21 @@
 class Response():
     """Response placeholder class for before request is finished.
 
+    Attributes:
+        url (str): The absolute URL of the request/response.
+
     Note:
         This class will be replaced with the response class of Python's `requests` module when the
         request is finished. For more information check http://docs.python-requests.org/en/master/api/#requests.Response.
 
     """
+
+    def __init__(self, url):
+        """Constructs a Response instance.
+
+        Args:
+            url (str): The absolute URL of the request/response.
+
+        """
+
+        self.url = url

@@ -89,6 +89,7 @@ class CrawlerThread(threading.Thread):
                 print("Setting status of '{}' to '{}' because of an HTTP error.".format(self.__queue_item.request.url, QueueItem.STATUS_ERRORED))
                 print(e)
 
+            self.__options.callbacks.request_on_error(self.__queue_item, e)
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
