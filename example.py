@@ -54,13 +54,18 @@ def cb_request_after_finish(queue, queue_item, new_queue_items):
     # return CrawlerActions.DO_STOP_CRAWLING
     return CrawlerActions.DO_CONTINUE_CRAWLING
 
+def cb_request_in_thread_before_start(queue_item):
+    pass
+
+def cb_request_in_thread_after_finish(queue_item):
+    pass
+
 def cb_request_on_error(queue_item, message):
-    print("A request failed with an error message.")
     print(message)
 
 def cb_form_before_autofill(queue_item, elements, form_data):
-
     # return CrawlerActions.DO_NOT_AUTOFILL_FORM
+
     return CrawlerActions.DO_AUTOFILL_FORM
 
 def cb_form_after_autofill(queue_item, elements, form_data):
@@ -74,6 +79,8 @@ options.callbacks.crawler_before_start = cb_crawler_before_start # Called before
 options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called after the crawler finished crawling. Default is a null route.
 options.callbacks.request_before_start = cb_request_before_start # Called before the crawler starts a new request. Default is a null route.
 options.callbacks.request_after_finish = cb_request_after_finish # Called after the crawler finishes a request. Default is a null route.
+options.callbacks.request_in_thread_before_start = cb_request_in_thread_before_start # Called in the crawling thread (when it started). Default is a null route.
+options.callbacks.request_in_thread_after_finish = cb_request_in_thread_after_finish # Called in the crawling thread (when it finished). Default is a null route.
 options.callbacks.request_on_error = cb_request_on_error # Called if a request failed. Default is a null route.
 options.callbacks.form_before_autofill = cb_form_before_autofill # Called before the crawler autofills a form. Default is a null route.
 options.callbacks.form_after_autofill = cb_form_after_autofill # Called after the crawler autofills a form. Default is a null route.
@@ -113,4 +120,4 @@ options.performance.max_threads = 10 # The maximum amount of simultaneous thread
 options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
 
 crawler = Crawler(options)
-crawler.start_with(Request("http://finnwea.com/"))
+crawler.start_with(Request("https://finnwea.com/"))

@@ -66,6 +66,8 @@ class CrawlerThread(threading.Thread):
 
         """
 
+        self.__options.callbacks.request_in_thread_before_start(self.__queue_item)
+
         new_requests = []
         new_status = None
 
@@ -93,6 +95,8 @@ class CrawlerThread(threading.Thread):
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
+
+        self.__options.callbacks.request_in_thread_after_finish(self.__queue_item)
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests, new_status)
