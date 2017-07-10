@@ -76,7 +76,7 @@ class PackageHelper:
 
         try:
             semver = open(folder + "/../../.semver", "r")
-            PackageHelper.__version = semver.read()
+            PackageHelper.__version = semver.read().rstrip()
             semver.close()
             return PackageHelper.__version
         except:
