@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.6.4',
+        VERSION:     '1.6.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,8 +42,8 @@
                     Not Your Average Web Crawler
                 </h1>
             </a>
-            <select disabled id="releases" data-selected="1.6.4" onchange="if (this.value) window.location.href=this.value">
-                <option value="../1.6.4/index.html">Version 1.6.4</option>
+            <select disabled id="releases" data-selected="1.6.5" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.6.5/index.html">Version 1.6.5</option>
             </select>
         </div>
     </header>
@@ -76,9 +76,11 @@
 <li><a class="reference internal" href="#after-crawler-finish" id="id4">After crawler finish</a></li>
 <li><a class="reference internal" href="#before-request-start" id="id5">Before request start</a></li>
 <li><a class="reference internal" href="#after-request-finish" id="id6">After request finish</a></li>
-<li><a class="reference internal" href="#on-request-error" id="id7">On request error</a></li>
-<li><a class="reference internal" href="#before-form-autofill" id="id8">Before form autofill</a></li>
-<li><a class="reference internal" href="#after-form-autofill" id="id9">After form autofill</a></li>
+<li><a class="reference internal" href="#before-request-start-in-thread" id="id7">Before request start (in thread)</a></li>
+<li><a class="reference internal" href="#after-request-finish-in-thread" id="id8">After request finish (in thread)</a></li>
+<li><a class="reference internal" href="#on-request-error" id="id9">On request error</a></li>
+<li><a class="reference internal" href="#before-form-autofill" id="id10">Before form autofill</a></li>
+<li><a class="reference internal" href="#after-form-autofill" id="id11">After form autofill</a></li>
 </ul>
 </li>
 </ul>
@@ -106,6 +108,12 @@
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished request: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">queue_item</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">CrawlerActions</span><span class="o">.</span><span class="n">DO_CONTINUE_CRAWLING</span>
 
+<span class="k">def</span> <span class="nf">cb_request_in_thread_before_start</span><span class="p">(</span><span class="n">queue_item</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">cb_request_in_thread_after_finish</span><span class="p">(</span><span class="n">queue_item</span><span class="p">):</span>
+    <span class="k">pass</span>
+
 <span class="k">def</span> <span class="nf">cb_request_on_error</span><span class="p">(</span><span class="n">queue_item</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A request failed with an error message.&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -122,6 +130,8 @@
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">crawler_after_finish</span> <span class="o">=</span> <span class="n">cb_crawler_after_finish</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_before_start</span> <span class="o">=</span> <span class="n">cb_request_before_start</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_after_finish</span> <span class="o">=</span> <span class="n">cb_request_after_finish</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_in_thread_before_start</span> <span class="o">=</span> <span class="n">cb_request_in_thread_before_start</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_in_thread_after_finish</span> <span class="o">=</span> <span class="n">cb_request_in_thread_after_finish</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_on_error</span> <span class="o">=</span> <span class="n">cb_request_on_error</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">form_before_autofill</span> <span class="o">=</span> <span class="n">cb_form_before_autofill</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">form_after_autofill</span> <span class="o">=</span> <span class="n">cb_form_after_autofill</span>
@@ -175,7 +185,7 @@
 </div>
 <div class="section" id="before-request-start">
 <h3><a class="toc-backref" href="#id5">Before request start</a><a class="headerlink" href="#before-request-start" title="Permalink to this headline">¶</a></h3>
-<p>Can be used to run some code after the request started executing. It receives two arguments, <a class="reference internal" href="nyawc.html#module-nyawc.Queue" title="nyawc.Queue"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Queue</span></code></a>, which contains all the items currently in the queue (also finished items) and <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that will now be executed.</p>
+<p>Can be used to run some code before the request starts executing. It receives two arguments, <a class="reference internal" href="nyawc.html#module-nyawc.Queue" title="nyawc.Queue"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Queue</span></code></a>, which contains all the items currently in the queue (also finished items) and <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that will now be executed.</p>
 <ul class="simple">
 <li>By returning <code class="docutils literal"><span class="pre">CrawlerActions.DO_SKIP_TO_NEXT</span></code>, this queue_item (request/response pair) will be skipped.</li>
 <li>By returning <code class="docutils literal"><span class="pre">CrawlerActions.DO_STOP_CRAWLING</span></code>, the crawler will stop crawling entirely.</li>
@@ -197,7 +207,7 @@
 </div>
 <div class="section" id="after-request-finish">
 <h3><a class="toc-backref" href="#id6">After request finish</a><a class="headerlink" href="#after-request-finish" title="Permalink to this headline">¶</a></h3>
-<p>Can be used to run some code after the request finished executing. It receives three arguments, <a class="reference internal" href="nyawc.html#module-nyawc.Queue" title="nyawc.Queue"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Queue</span></code></a>, which contains all the items currently in the queue (also finished items), <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that will now be executed and <code class="docutils literal"><span class="pre">new_queue_items</span></code> (array of <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>), which contains the request/response pairs that were found during this request.</p>
+<p>Can be used to run some code after the request finished executing. It receives three arguments, <a class="reference internal" href="nyawc.html#module-nyawc.Queue" title="nyawc.Queue"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Queue</span></code></a>, which contains all the items currently in the queue (also finished items), <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that was executed and <code class="docutils literal"><span class="pre">new_queue_items</span></code> (array of <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>), which contains the request/response pairs that were found during this request.</p>
 <ul class="simple">
 <li>By returning <code class="docutils literal"><span class="pre">CrawlerActions.DO_STOP_CRAWLING</span></code>, the crawler will stop crawling entirely.</li>
 <li>When returning <code class="docutils literal"><span class="pre">CrawlerActions.DO_CONTINUE_CRAWLING</span></code>, the crawler will continue like normally.</li>
@@ -219,9 +229,40 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="before-request-start-in-thread">
+<h3><a class="toc-backref" href="#id7">Before request start (in thread)</a><a class="headerlink" href="#before-request-start-in-thread" title="Permalink to this headline">¶</a></h3>
+<p>Can be used to run some code before the request starts executing. It receives one argument, <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that will now be executed.</p>
+<p><strong>Please note</strong> that this method will be executed in the crawler thread.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">cb_request_in_thread_before_start</span><span class="p">(</span><span class="n">queue_item</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_in_thread_before_start</span> <span class="o">=</span> <span class="n">cb_request_in_thread_before_start</span>
+
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="after-request-finish-in-thread">
+<h3><a class="toc-backref" href="#id8">After request finish (in thread)</a><a class="headerlink" href="#after-request-finish-in-thread" title="Permalink to this headline">¶</a></h3>
+<p>Can be used to run some code after the request finished executing. It receives one argument, <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that was executed.</p>
+<p><strong>Please note</strong> that this method will be executed in the crawler thread.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">cb_request_in_thread_after_finish</span><span class="p">(</span><span class="n">queue_item</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_in_thread_after_finish</span> <span class="o">=</span> <span class="n">cb_request_in_thread_after_finish</span>
+
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="on-request-error">
-<h3><a class="toc-backref" href="#id7">On request error</a><a class="headerlink" href="#on-request-error" title="Permalink to this headline">¶</a></h3>
-<p>Can be used to run some code if a request failed to execute. It receives two arguments, <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that will now be executed and <code class="docutils literal"><span class="pre">message</span></code> (str), which contains a detailed error message.</p>
+<h3><a class="toc-backref" href="#id9">On request error</a><a class="headerlink" href="#on-request-error" title="Permalink to this headline">¶</a></h3>
+<p>Can be used to run some code if a request failed to execute. It receives two arguments, <a class="reference internal" href="nyawc.html#module-nyawc.QueueItem" title="nyawc.QueueItem"><code class="xref py py-class docutils literal"><span class="pre">nyawc.QueueItem</span></code></a>, which is the item (request/response pair) in the queue that was executed and <code class="docutils literal"><span class="pre">message</span></code> (str), which contains a detailed error message.</p>
+<p><strong>Please note</strong> that this method will be executed in the crawler thread.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
 
 <span class="k">def</span> <span class="nf">cb_request_on_error</span><span class="p">(</span><span class="n">queue_item</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
@@ -235,7 +276,7 @@
 </div>
 </div>
 <div class="section" id="before-form-autofill">
-<h3><a class="toc-backref" href="#id8">Before form autofill</a><a class="headerlink" href="#before-form-autofill" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Before form autofill</a><a class="headerlink" href="#before-form-autofill" title="Permalink to this headline">¶</a></h3>
 <p>Can be used to run some code before automatically filling in a form. It receives three arguments, <a class="reference internal" href="nyawc.html#module-nyawc.Queue" title="nyawc.Queue"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Queue</span></code></a>, which contains all the items currently in the queue (also finished items), <code class="docutils literal"><span class="pre">elements</span></code>, which is an array of BeautifulSoup4 input elements found in the form and <code class="docutils literal"><span class="pre">form_data</span></code>, which is the (editable) form data that will be used in the request.</p>
 <ul class="simple">
 <li>By returning <code class="docutils literal"><span class="pre">CrawlerActions.DO_AUTOFILL_FORM</span></code>, the form will be filled with random data.</li>
@@ -255,7 +296,7 @@
 </div>
 </div>
 <div class="section" id="after-form-autofill">
-<h3><a class="toc-backref" href="#id9">After form autofill</a><a class="headerlink" href="#after-form-autofill" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">After form autofill</a><a class="headerlink" href="#after-form-autofill" title="Permalink to this headline">¶</a></h3>
 <p>Can be used to run some code after the crawler automatically filled in a form. It receives three arguments, <a class="reference internal" href="nyawc.html#module-nyawc.Queue" title="nyawc.Queue"><code class="xref py py-class docutils literal"><span class="pre">nyawc.Queue</span></code></a>, which contains all the items currently in the queue (also finished items), <code class="docutils literal"><span class="pre">elements</span></code>, which is an array of BeautifulSoup4 input elements found in the form and <code class="docutils literal"><span class="pre">form_data</span></code>, which is the (editable) form data that will be used in the request.</p>
 <p>Please note that this callback will not be called if <code class="docutils literal"><span class="pre">CrawlerActions.DO_NOT_AUTOFILL_FORM</span></code> was returned in the before callback.</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
@@ -311,7 +352,7 @@
       <div class="clearer"></div>
     </div>
     <footer id="pagefooter">
-        N.Y.A.W.C v1.6.4 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+        N.Y.A.W.C v1.6.5 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
     </footer>
 
   </body>

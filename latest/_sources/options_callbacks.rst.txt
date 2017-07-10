@@ -31,6 +31,12 @@ How to use callbacks
         print("Finished request: {}".format(queue_item.request.url))
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
+    def cb_request_in_thread_before_start(queue_item):
+        pass
+
+    def cb_request_in_thread_after_finish(queue_item):
+        pass
+
     def cb_request_on_error(queue_item, message):
         print("A request failed with an error message.")
         print(message)
@@ -47,6 +53,8 @@ How to use callbacks
     options.callbacks.crawler_after_finish = cb_crawler_after_finish
     options.callbacks.request_before_start = cb_request_before_start
     options.callbacks.request_after_finish = cb_request_after_finish
+    options.callbacks.request_in_thread_before_start = cb_request_in_thread_before_start
+    options.callbacks.request_in_thread_after_finish = cb_request_in_thread_after_finish
     options.callbacks.request_on_error = cb_request_on_error
     options.callbacks.form_before_autofill = cb_form_before_autofill
     options.callbacks.form_after_autofill = cb_form_after_autofill
@@ -103,7 +111,7 @@ Can be used to run some code after the crawler finished crawling. It receives on
 Before request start
 ~~~~~~~~~~~~~~~~~~~~
 
-Can be used to run some code after the request started executing. It receives two arguments, :class:`nyawc.Queue`, which contains all the items currently in the queue (also finished items) and :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that will now be executed.
+Can be used to run some code before the request starts executing. It receives two arguments, :class:`nyawc.Queue`, which contains all the items currently in the queue (also finished items) and :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that will now be executed.
 
 -  By returning ``CrawlerActions.DO_SKIP_TO_NEXT``, this queue\_item (request/response pair) will be skipped.
 -  By returning ``CrawlerActions.DO_STOP_CRAWLING``, the crawler will stop crawling entirely.
@@ -126,7 +134,7 @@ Can be used to run some code after the request started executing. It receives tw
 After request finish
 ~~~~~~~~~~~~~~~~~~~~
 
-Can be used to run some code after the request finished executing. It receives three arguments, :class:`nyawc.Queue`, which contains all the items currently in the queue (also finished items), :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that will now be executed and ``new_queue_items`` (array of :class:`nyawc.QueueItem`), which contains the request/response pairs that were found during this request.
+Can be used to run some code after the request finished executing. It receives three arguments, :class:`nyawc.Queue`, which contains all the items currently in the queue (also finished items), :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that was executed and ``new_queue_items`` (array of :class:`nyawc.QueueItem`), which contains the request/response pairs that were found during this request.
 
 -  By returning ``CrawlerActions.DO_STOP_CRAWLING``, the crawler will stop crawling entirely.
 -  When returning ``CrawlerActions.DO_CONTINUE_CRAWLING``, the crawler will continue like normally.
@@ -148,10 +156,48 @@ Can be used to run some code after the request finished executing. It receives t
 
     ...
 
+Before request start (in thread)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Can be used to run some code before the request starts executing. It receives one argument, :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that will now be executed.
+
+**Please note** that this method will be executed in the crawler thread.
+
+.. code:: python
+
+    ...
+
+    def cb_request_in_thread_before_start(queue_item):
+        pass
+
+    options.callbacks.request_in_thread_before_start = cb_request_in_thread_before_start
+
+    ...
+
+After request finish (in thread)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Can be used to run some code after the request finished executing. It receives one argument, :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that was executed.
+
+**Please note** that this method will be executed in the crawler thread.
+
+.. code:: python
+
+    ...
+
+    def cb_request_in_thread_after_finish(queue_item):
+        pass
+
+    options.callbacks.request_in_thread_after_finish = cb_request_in_thread_after_finish
+
+    ...
+
 On request error
 ~~~~~~~~~~~~~~~~
 
-Can be used to run some code if a request failed to execute. It receives two arguments, :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that will now be executed and ``message`` (str), which contains a detailed error message.
+Can be used to run some code if a request failed to execute. It receives two arguments, :class:`nyawc.QueueItem`, which is the item (request/response pair) in the queue that was executed and ``message`` (str), which contains a detailed error message.
+
+**Please note** that this method will be executed in the crawler thread.
 
 .. code:: python
 

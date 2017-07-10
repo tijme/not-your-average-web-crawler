@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.6.4',
+        VERSION:     '1.6.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,8 +42,8 @@
                     Not Your Average Web Crawler
                 </h1>
             </a>
-            <select disabled id="releases" data-selected="1.6.4" onchange="if (this.value) window.location.href=this.value">
-                <option value="../1.6.4/index.html">Version 1.6.4</option>
+            <select disabled id="releases" data-selected="1.6.5" onchange="if (this.value) window.location.href=this.value">
+                <option value="../1.6.5/index.html">Version 1.6.5</option>
             </select>
         </div>
     </header>
@@ -102,6 +102,12 @@
     <span class="c1"># return CrawlerActions.DO_STOP_CRAWLING</span>
     <span class="k">return</span> <span class="n">CrawlerActions</span><span class="o">.</span><span class="n">DO_CONTINUE_CRAWLING</span>
 
+<span class="k">def</span> <span class="nf">cb_request_in_thread_before_start</span><span class="p">(</span><span class="n">queue_item</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">cb_request_in_thread_after_finish</span><span class="p">(</span><span class="n">queue_item</span><span class="p">):</span>
+    <span class="k">pass</span>
+
 <span class="k">def</span> <span class="nf">cb_request_on_error</span><span class="p">(</span><span class="n">queue_item</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A request failed with an error message.&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -122,6 +128,8 @@
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">crawler_after_finish</span> <span class="o">=</span> <span class="n">cb_crawler_after_finish</span> <span class="c1"># Called after the crawler finished crawling. Default is a null route.</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_before_start</span> <span class="o">=</span> <span class="n">cb_request_before_start</span> <span class="c1"># Called before the crawler starts a new request. Default is a null route.</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_after_finish</span> <span class="o">=</span> <span class="n">cb_request_after_finish</span> <span class="c1"># Called after the crawler finishes a request. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_in_thread_before_start</span> <span class="o">=</span> <span class="n">cb_request_in_thread_before_start</span> <span class="c1"># Called in the crawling thread (when it started). Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_in_thread_after_finish</span> <span class="o">=</span> <span class="n">cb_request_in_thread_after_finish</span> <span class="c1"># Called in the crawling thread (when it finished). Default is a null route.</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_on_error</span> <span class="o">=</span> <span class="n">cb_request_on_error</span> <span class="c1"># Called if a request failed. Default is a null route.</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">form_before_autofill</span> <span class="o">=</span> <span class="n">cb_form_before_autofill</span> <span class="c1"># Called before the crawler autofills a form. Default is a null route.</span>
 <span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">form_after_autofill</span> <span class="o">=</span> <span class="n">cb_form_after_autofill</span> <span class="c1"># Called after the crawler autofills a form. Default is a null route.</span>
@@ -205,7 +213,7 @@
       <div class="clearer"></div>
     </div>
     <footer id="pagefooter">
-        N.Y.A.W.C v1.6.4 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
+        N.Y.A.W.C v1.6.5 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst">MIT license</a>.
     </footer>
 
   </body>
