@@ -59,7 +59,7 @@ author = 'Tijme Gommers'
 # built documents.
 
 with open("../../.semver") as file:
-    semver = file.read()
+    semver = file.read().rstrip()
 
 # The short X.Y version.
 version = semver
@@ -229,10 +229,10 @@ napoleon_include_private_with_doc  = True
 # Always make sure current release is in releases.js
 import json
 
-releasesjs = open('_static/releases.js').read().replace("var releases = ", "")
+releasesjs = open('../../releases.js').read().replace("var releases = ", "")
 releases = json.loads(releasesjs);
 
 releases[release] = True
 
-with open('_static/releases.js', 'w') as outfile:
+with open('../../releases.js', 'w') as outfile:
     outfile.write("var releases = " + json.dumps(releases))
