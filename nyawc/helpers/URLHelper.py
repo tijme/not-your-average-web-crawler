@@ -236,3 +236,17 @@ class URLHelper:
         params = dict(parse_qsl(URLHelper.__cache[url].query, keep_blank_values=True))
 
         return OrderedDict(sorted(params.items()))
+
+    @staticmethod
+    def remove_hash(url):
+        """Remove the #hash from the given URL.
+
+        Args:
+            url (str): The URL to remove the hash from.
+
+        Returns:
+            str: The URL without the hash
+
+        """
+
+        return "".join(url.split("#")[:1])

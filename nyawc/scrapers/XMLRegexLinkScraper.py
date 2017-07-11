@@ -26,15 +26,14 @@ import re
 
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
+from nyawc.scrapers.BaseScraper import BaseScraper
 
-class XMLRegexLinkScraper:
+class XMLRegexLinkScraper(BaseScraper):
     """The XMLRegexLinkScraper finds absolute and relative URLs in XML values.
 
     Attributes:
         content_types list(str): The supported content types.
         __expressions list(obj): The regular expressions to execute.
-        __options (:class:`nyawc.Options`): The settins/options object.
-        __queue_item (:class:`nyawc.QueueItem`): The queue item containing the response to scrape.
 
     """
 
@@ -52,23 +51,7 @@ class XMLRegexLinkScraper:
         {"group": 1, "raw": r"=([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1"}
     ]
 
-    __options = None
-
-    __queue_item = None
-
-    def __init__(self, options, queue_item):
-        """Construct the XMLRegexLinkScraper instance.
-
-        Args:
-            options (:class:`nyawc.Options`): The settins/options object.
-            queue_item (:class:`nyawc.QueueItem`): The queue item containing a response the scrape.
-
-        """
-
-        self.__options = options
-        self.__queue_item = queue_item
-
-    def get_requests(self):
+    def derived_get_requests(self):
         """Get all the new requests that were found in the response.
 
         Returns:
@@ -76,8 +59,8 @@ class XMLRegexLinkScraper:
 
         """
 
-        host = self.__queue_item.response.url
-        content = self.__queue_item.response.text
+        host = self.queue_item.response.url
+        content = self.queue_item.response.text
 
         found_requests = []
 

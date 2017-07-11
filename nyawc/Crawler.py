@@ -33,7 +33,7 @@ from nyawc.CrawlerThread import CrawlerThread
 from nyawc.CrawlerActions import CrawlerActions
 from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 
-class Crawler:
+class Crawler(object):
     """The main Crawler class which handles the crawling recursion, queue and processes.
 
     Attributes:

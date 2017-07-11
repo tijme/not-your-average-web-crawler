@@ -130,4 +130,4 @@ options.performance.request_timeout = 15 # The request timeout in seconds (throw
 options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
 
 crawler = Crawler(options)
-crawler.start_with(Request("https://finnwea.com/"))
+crawler.start_with(Request("http://finnwea.com/"))

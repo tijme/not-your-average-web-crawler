@@ -22,24 +22,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class CrawlerActions(object):
-    """The actions that crawler callbacks can return.
+from nyawc.http.Request import Request
+from nyawc.helpers.URLHelper import URLHelper
+
+class BaseScraper(object):
+    """The BaseScraper can be used to create other scrapers.
 
     Attributes:
-        DO_CONTINUE_CRAWLING (int): Continue by crawling the request.
-        DO_SKIP_TO_NEXT (int): Skip the current request and continue with the next one in line.
-        DO_STOP_CRAWLING (int): Stop crawling and quit ongoing requests.
-        DO_AUTOFILL_FORM (int): Autofill this form with random values.
-        DO_NOT_AUTOFILL_FORM (int): Do not autofill this form with random values.
+        __options (:class:`nyawc.Options`): The settins/options object.
+        __queue_item (:class:`nyawc.QueueItem`): The queue item containing the response to scrape.
 
     """
 
-    DO_CONTINUE_CRAWLING = 1
+    def __init__(self, options, queue_item):
+        """Construct the HTMLSoupLinkScraper instance.
 
-    DO_SKIP_TO_NEXT = 2
+        Args:
+            options (:class:`nyawc.Options`): The settins/options object.
+            queue_item (:class:`nyawc.QueueItem`): The queue item containing a response the scrape.
 
-    DO_STOP_CRAWLING = 3
+        """
 
-    DO_AUTOFILL_FORM = 4
+        self.options = options
+        self.queue_item = queue_item
 
-    DO_NOT_AUTOFILL_FORM = 5
+    def get_requests(self):
+        """Get all the new requests that were found in the response.
+
+        Returns:
+            list(:class:`nyawc.http.Request`): A list of new requests that were found.
+
+        """
+
+        requests = self.derived_get_requests()
+
+        for request in requests:
+            request.url = URLHelper.remove_hash(request.url)
+
+        return requests

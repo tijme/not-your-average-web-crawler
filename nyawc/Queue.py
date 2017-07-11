@@ -26,7 +26,7 @@ from collections import OrderedDict
 from nyawc.http.Response import Response
 from nyawc.QueueItem import QueueItem
 
-class Queue:
+class Queue(object):
     """A 'hash' queue containing all the requests of the crawler.
 
     Note:

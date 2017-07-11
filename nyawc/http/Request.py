@@ -24,7 +24,7 @@
 
 from nyawc.helpers.URLHelper import URLHelper
 
-class Request:
+class Request(object):
     """The Request class contains details that were used to request the specified URL.
 
     Attributes:

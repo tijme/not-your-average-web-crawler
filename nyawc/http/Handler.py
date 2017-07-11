@@ -26,7 +26,7 @@ import os
 import importlib
 import requests
 
-class Handler:
+class Handler(object):
     """The Handler class executes HTTP requests.
 
     Attributes:
@@ -139,7 +139,7 @@ class Handler:
         folder = os.path.dirname(file)
 
         for filename in os.listdir(folder + "/../scrapers"):
-            if filename.endswith("Scraper.py"):
+            if filename.endswith("Scraper.py") and not filename.startswith("Base"):
                 modules.append(filename[:-3])
 
         return modules

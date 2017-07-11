@@ -26,15 +26,14 @@ from nyawc.CrawlerActions import CrawlerActions
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
 from nyawc.helpers.RandomInputHelper import RandomInputHelper
+from nyawc.scrapers.BaseScraper import BaseScraper
 from collections import OrderedDict
 
-class HTMLSoupFormScraper:
+class HTMLSoupFormScraper(BaseScraper):
     """The HTMLSoupFormScraper finds requests from forms in HTML using BeautifulSoup.
 
     Attributes:
         content_types list(str): The supported content types.
-        __options (:class:`nyawc.Options`): The settins/options object.
-        __queue_item (:class:`nyawc.QueueItem`): The queue item containing the response to scrape.
 
     """
 
@@ -43,23 +42,7 @@ class HTMLSoupFormScraper:
         "application/xhtml+xml"
     ]
 
-    __options = None
-
-    __queue_item = None
-
-    def __init__(self, options, queue_item):
-        """Construct the HTMLSoupFormScraper instance.
-
-        Args:
-            options (:class:`nyawc.Options`): The settins/options object.
-            queue_item (:class:`nyawc.QueueItem`): The queue item containing a response the scrape.
-
-        """
-
-        self.__options = options
-        self.__queue_item = queue_item
-
-    def get_requests(self):
+    def derived_get_requests(self):
         """Get all the new requests that were found in the response.
 
         Returns:
@@ -67,8 +50,8 @@ class HTMLSoupFormScraper:
 
         """
 
-        host = self.__queue_item.response.url
-        soup = self.__queue_item.get_soup_response()
+        host = self.queue_item.response.url
+        soup = self.queue_item.get_soup_response()
 
         found_requests = []
 
@@ -129,8 +112,8 @@ class HTMLSoupFormScraper:
 
         elements = self.__get_valid_form_data_elements(soup)
         form_data = self.__get_default_form_data_input(elements)
-        callback = self.__options.callbacks.form_before_autofill
-        action = callback(self.__queue_item, elements, form_data)
+        callback = self.options.callbacks.form_before_autofill
+        action = callback(self.queue_item, elements, form_data)
 
         if action == CrawlerActions.DO_AUTOFILL_FORM:
             self.__autofill_form_data(form_data, elements)

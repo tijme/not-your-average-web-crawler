@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-class Response():
+class Response(object):
     """Response placeholder class for before request is finished.
 
     Attributes:

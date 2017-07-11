@@ -29,7 +29,7 @@ from nyawc.helpers.PackageHelper import PackageHelper
 from nyawc.CrawlerActions import CrawlerActions
 from requests_toolbelt import user_agent
 
-class Options:
+class Options(object):
     """The Options class contains all the crawling options.
 
     Attributes:
@@ -50,7 +50,7 @@ class Options:
         self.identity = OptionsIdentity()
         self.misc = OptionsMisc()
 
-class OptionsScope:
+class OptionsScope(object):
     """The OptionsScope class contains the scope options.
 
     Attributes:
@@ -73,7 +73,7 @@ class OptionsScope:
         self.max_depth = None
         self.request_methods = []
 
-class OptionsCallbacks:
+class OptionsCallbacks(object):
     """The OptionsCallbacks class contains all the callback methods.
 
     Attributes:
@@ -210,7 +210,7 @@ class OptionsCallbacks:
 
         pass
 
-class OptionsPerformance:
+class OptionsPerformance(object):
     """The OptionsPerformance class contains the performance options.
 
     Attributes:
@@ -225,7 +225,7 @@ class OptionsPerformance:
         self.max_threads = 8
         self.request_timeout = 30
 
-class OptionsIdentity:
+class OptionsIdentity(object):
     """The OptionsIdentity class contains the identity/footprint options.
 
     Attributes:
@@ -245,7 +245,7 @@ class OptionsIdentity:
         self.headers.update({"User-Agent": user_agent(PackageHelper.get_alias(), PackageHelper.get_version())})
         self.proxies = None
 
-class OptionsMisc:
+class OptionsMisc(object):
     """The OptionsMisc class contains all kind of misc options.
 
     Attributes:

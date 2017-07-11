@@ -25,7 +25,7 @@
 from nyawc.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 
-class QueueItem:
+class QueueItem(object):
     """The QueueItem class keeps track of the request and response and the crawling status.
 
     Attributes:

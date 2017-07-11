@@ -24,14 +24,13 @@
 
 from nyawc.http.Request import Request
 from nyawc.helpers.URLHelper import URLHelper
+from nyawc.scrapers.BaseScraper import BaseScraper
 
-class HTMLSoupLinkScraper:
+class HTMLSoupLinkScraper(BaseScraper):
     """The HTMLSoupLinkScraper finds URLs from href attributes in HTML using BeautifulSoup.
 
     Attributes:
         content_types list(str): The supported content types.
-        __options (:class:`nyawc.Options`): The settins/options object.
-        __queue_item (:class:`nyawc.QueueItem`): The queue item containing the response to scrape.
 
     """
 
@@ -40,23 +39,7 @@ class HTMLSoupLinkScraper:
         "application/xhtml+xml"
     ]
 
-    __options = None
-
-    __queue_item = None
-
-    def __init__(self, options, queue_item):
-        """Construct the HTMLSoupLinkScraper instance.
-
-        Args:
-            options (:class:`nyawc.Options`): The settins/options object.
-            queue_item (:class:`nyawc.QueueItem`): The queue item containing a response the scrape.
-
-        """
-
-        self.__options = options
-        self.__queue_item = queue_item
-
-    def get_requests(self):
+    def derived_get_requests(self):
         """Get all the new requests that were found in the response.
 
         Returns:
@@ -72,8 +55,8 @@ class HTMLSoupLinkScraper:
             "url": True
         }
 
-        host = self.__queue_item.response.url
-        soup = self.__queue_item.get_soup_response()
+        host = self.queue_item.response.url
+        soup = self.queue_item.get_soup_response()
         base_element = soup.find("base", href=True)
         elements = soup.select("[{}]".format("],[".join(attributes.keys())))
 
