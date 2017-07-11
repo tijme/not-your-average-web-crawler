@@ -124,7 +124,7 @@ class Crawler:
             while not self.__stopped:
                 time.sleep(1)
         except (KeyboardInterrupt, SystemExit):
-            pass
+            self.__crawler_stop()
 
     def __crawler_stop(self):
         """Mark the crawler as stopped.
