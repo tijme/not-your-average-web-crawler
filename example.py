@@ -61,7 +61,7 @@ def cb_request_in_thread_after_finish(queue_item):
     pass
 
 def cb_request_on_error(queue_item, message):
-    print(message)
+    print("[error] " + message)
 
 def cb_form_before_autofill(queue_item, elements, form_data):
     # return CrawlerActions.DO_NOT_AUTOFILL_FORM
@@ -115,6 +115,7 @@ options.identity.headers.update({
 
 # Performance options
 options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
+options.performance.request_timeout = 15 # The request timeout in seconds (throws an exception if exceeded). Default is 30.
 
 # Misc options
 options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.

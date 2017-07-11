@@ -101,6 +101,7 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
 
     # Performance options
     options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
+    options.performance.request_timeout = 10 # The request timeout in seconds (throws an exception if exceeded). Default is 30.
 
     # Misc options
     options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.

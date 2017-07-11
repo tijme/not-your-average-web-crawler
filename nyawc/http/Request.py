@@ -43,6 +43,7 @@ class Request:
         cookies (obj): The (requests module) cookie jar to use for the request.
         headers (obj): The headers {key: value} to use for the request.
         proxies (obj): The proxies {key: value} to use for the request.
+        timeout (int): The amount of seconds to wait before a timeout exception will be thrown.
 
     """
 
@@ -58,7 +59,7 @@ class Request:
 
     METHOD_DELETE = "delete"
 
-    def __init__(self, url, method=METHOD_GET, data=None, auth=None, cookies=None, headers=None, proxies=None):
+    def __init__(self, url, method=METHOD_GET, data=None, auth=None, cookies=None, headers=None, proxies=None, timeout=30):
         """Constructs a Request instance.
 
         Args:
@@ -69,6 +70,7 @@ class Request:
             cookies (obj): The (requests module) cookie jar to use for the request.
             headers (obj): The headers {key: value} to use for the request.
             proxies (obj): The proxies {key: value} to use for the request.
+            timeout (int): The amount of seconds to wait before a timeout exception will be thrown.
 
         """
 
@@ -81,6 +83,7 @@ class Request:
         self.cookies = cookies
         self.headers = headers
         self.proxies = proxies
+        self.timeout = timeout
 
         if method == self.METHOD_GET:
             self.url = URLHelper.append_with_data(self.url, data)

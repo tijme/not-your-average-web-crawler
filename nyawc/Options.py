@@ -212,6 +212,7 @@ class OptionsPerformance:
 
     Attributes:
         max_threads (obj): the maximum amount of simultaneous threads to use for crawling.
+        request_timeout (int): the request timeout in seconds (throws an exception if exceeded).
 
     """
 
@@ -219,6 +220,7 @@ class OptionsPerformance:
         """Constructs an OptionsPerformance instance."""
 
         self.max_threads = 8
+        self.request_timeout = 30
 
 class OptionsIdentity:
     """The OptionsIdentity class contains the identity/footprint options.

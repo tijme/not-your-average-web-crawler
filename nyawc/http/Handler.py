@@ -54,7 +54,8 @@ class Handler:
             self.__queue_item.request.auth,
             self.__queue_item.request.cookies,
             self.__queue_item.request.headers,
-            self.__queue_item.request.proxies
+            self.__queue_item.request.proxies,
+            self.__queue_item.request.timeout
         )
 
     def get_new_requests(self):
@@ -76,7 +77,7 @@ class Handler:
 
         return new_requests
 
-    def __make_request(self, url, method, data, auth, cookies, headers, proxies):
+    def __make_request(self, url, method, data, auth, cookies, headers, proxies, timeout):
         """Execute a request with the given data.
 
         Args:
@@ -87,6 +88,7 @@ class Handler:
             cookies (obj): The cookie dict.
             headers (obj): The header dict.
             proxies (obj): The proxies dict.
+            timeout (int): The request timeout in seconds
 
         Returns:
             obj: The response object.
@@ -101,6 +103,7 @@ class Handler:
             cookies=cookies,
             headers=headers,
             proxies=proxies,
+            timeout=timeout,
             allow_redirects=True,
             stream=False
         )

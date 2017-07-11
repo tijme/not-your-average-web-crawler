@@ -5,6 +5,19 @@ Migration
    :depth: 2
    :local:
 
+From 1.6 to 1.7
+---------------
+
+**Default request timeout is now 30 seconds**
+
+From now on there is a default request timeout of 30 seconds. In previous versions it was always infinite and you couldn't specify it.
+
+If you want to keep the request timeout on infinite set the request timeout option to ``None``.
+
+.. code:: python
+
+    options.performance.request_timeout = 30
+
 From 1.5 to 1.6
 ---------------
 

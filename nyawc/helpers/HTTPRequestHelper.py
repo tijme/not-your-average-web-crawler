@@ -49,6 +49,7 @@ class HTTPRequestHelper:
         request.cookies = copy.deepcopy(options.identity.cookies)
         request.headers = copy.deepcopy(options.identity.headers)
         request.proxies = copy.deepcopy(options.identity.proxies)
+        request.timeout = copy.copy(options.performance.request_timeout)
 
         if parent_queue_item != None:
             for cookie in parent_queue_item.request.cookies:
