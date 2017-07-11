@@ -22,6 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from nyawc.helpers.URLHelper import URLHelper
 from bs4 import BeautifulSoup
 
 class QueueItem:
@@ -87,3 +88,35 @@ class QueueItem:
                 self.response_soup = BeautifulSoup(self.response.text, "lxml")
 
         return self.response_soup
+
+    def get_hash(self):
+        """Generate and return the dict index hash of the given queue item.
+
+        Note:
+            Cookies should not be included in the hash calculation because
+            otherwise requests are crawled multiple times with e.g. different
+            session keys, causing infinite crawling recursion.
+
+        Note:
+            At this moment the keys do not actually get hashed since it works perfectly without and
+            since hashing the keys requires us to built hash collision management.
+
+        Returns:
+            str: The hash of the given queue item.
+
+        """
+
+        key = self.request.method
+
+        key += URLHelper.get_protocol(self.request.url)
+        key += URLHelper.get_subdomain(self.request.url)
+        key += URLHelper.get_hostname(self.request.url)
+        key += URLHelper.get_tld(self.request.url)
+        key += URLHelper.get_path(self.request.url)
+
+        key += str(URLHelper.get_ordered_params(self.request.url))
+
+        if self.request.data is not None:
+            key += str(self.request.data.keys())
+
+        return key

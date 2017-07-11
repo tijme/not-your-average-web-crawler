@@ -22,7 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import sys
 import time
+import signal
 import threading
 
 from nyawc.Queue import Queue
@@ -40,6 +42,7 @@ class Crawler:
         __stopping (bool): If the crawler is topping the crawling process.
         __stopped (bool): If the crawler finished stopping the crawler process.
         __lock (obj): The callback lock to prevent race conditions.
+        __threads (obj): All currently running threads, as queue item hash => :class:`nyawc.CrawlerThread`.
 
     """
 
@@ -56,6 +59,7 @@ class Crawler:
         self.__stopping = False
         self.__stopped = False
         self.__lock = threading.Lock()
+        self.__threads = {}
 
     def start_with(self, request):
         """Start the crawler using the given request.
@@ -107,6 +111,17 @@ class Crawler:
         self.__request_start(first_in_line)
         return True
 
+    def __signal_handler(self, signum, frame):
+        """On sigint stop the crawler
+
+        Args:
+            signum (int): The signal number
+            frame (obj): The current stack frame
+
+        """
+
+        self.__crawler_stop()
+
     def __crawler_start(self):
         """Spawn the first X queued request, where X is the max threads option.
 
@@ -116,15 +131,13 @@ class Crawler:
 
         """
 
+        signal.signal(signal.SIGINT, self.__signal_handler)
         self.__options.callbacks.crawler_before_start()
 
-        try:
-            self.__spawn_new_requests()
+        self.__spawn_new_requests()
 
-            while not self.__stopped:
-                time.sleep(1)
-        except (KeyboardInterrupt, SystemExit):
-            self.__crawler_stop()
+        while not self.__stopped:
+            time.sleep(1)
 
     def __crawler_stop(self):
         """Mark the crawler as stopped.
@@ -139,6 +152,9 @@ class Crawler:
             return
 
         self.__stopping = True
+
+        for thread in list(self.__threads.values()):
+            thread.join()
 
         for status in [QueueItem.STATUS_QUEUED, QueueItem.STATUS_IN_PROGRESS]:
             for queue_item in list(self.queue.get_all(status).values()):
@@ -175,6 +191,7 @@ class Crawler:
             self.queue.move(queue_item, QueueItem.STATUS_IN_PROGRESS)
 
             thread = CrawlerThread(self.__request_finish, self.__lock, self.__options, queue_item)
+            self.__threads[queue_item.get_hash()] = thread
             thread.daemon = True
             thread.start()
 
@@ -188,9 +205,10 @@ class Crawler:
 
         """
 
-        # Please note that the status may have changed to cancelled because the crawler was stopped.
-        if queue_item.status == QueueItem.STATUS_CANCELLED:
+        if self.__stopping:
             return
+
+        del self.__threads[queue_item.get_hash()]
 
         new_queue_items = []
         action = None

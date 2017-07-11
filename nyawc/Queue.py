@@ -25,15 +25,14 @@
 from collections import OrderedDict
 from nyawc.http.Response import Response
 from nyawc.QueueItem import QueueItem
-from nyawc.helpers.URLHelper import URLHelper
 
 class Queue:
     """A 'hash' queue containing all the requests of the crawler.
 
     Note:
-        This queue uses a certain hash (from :meth:`__get_hash`) to prevent
-        duplicate entries and improve the time complexity by checking if the
-        hash exists instead of iterating over all items.
+        This queue uses a certain hash to prevent duplicate entries and improve
+        the time complexity by checking if the hash exists instead of iterating
+        over all items.
 
     Attributes:
         __options (:class:`nyawc.Options`): The options to use (used when generating queue item hashes).
@@ -99,7 +98,7 @@ class Queue:
         """
 
         queue_item = QueueItem(request, Response(request.url))
-        key = self.__get_hash(queue_item)
+        key = queue_item.get_hash()
 
         for status in QueueItem.STATUSES:
             if key in self.__get_var("items_" + status).keys():
@@ -115,7 +114,7 @@ class Queue:
 
         """
 
-        hash_key = self.__get_hash(queue_item)
+        hash_key = queue_item.get_hash()
         items = self.__get_var("items_" + queue_item.status)
         items_count = self.__get_var("count_" + queue_item.status)
 
@@ -123,7 +122,7 @@ class Queue:
             return
 
         self.__set_var("count_" + queue_item.status, (items_count + 1))
-        items[self.__get_hash(queue_item)] = queue_item
+        items[queue_item.get_hash()] = queue_item
 
         self.count_total += 1
 
@@ -139,7 +138,7 @@ class Queue:
         items = self.__get_var("items_" + queue_item.status)
         items_count = self.__get_var("count_" + queue_item.status)
 
-        del items[self.__get_hash(queue_item)]
+        del items[queue_item.get_hash()]
         self.__set_var("count_" + queue_item.status, (items_count - 1))
         self.count_total -= 1
 
@@ -189,41 +188,6 @@ class Queue:
         percentage_remaining = 100 / self.count_total * count_remaining
 
         return 100 - percentage_remaining
-
-    def __get_hash(self, queue_item):
-        """Generate and return the dict index hash of the given queue item.
-
-        Note:
-            Cookies should not be included in the hash calculation because
-            otherwise requests are crawled multiple times with e.g. different
-            session keys, causing infinite crawling recursion.
-
-        Note:
-            At this moment the keys do not actually get hashed since it works perfectly without and
-            since hashing the keys requires us to built hash collision management.
-
-        Args:
-            queue_item (:class:`nyawc.QueueItem`): The queue item to get the hash from.
-
-        Returns:
-            str: The hash of the given queue item.
-
-        """
-
-        key = queue_item.request.method
-
-        key += URLHelper.get_protocol(queue_item.request.url)
-        key += URLHelper.get_subdomain(queue_item.request.url)
-        key += URLHelper.get_hostname(queue_item.request.url)
-        key += URLHelper.get_tld(queue_item.request.url)
-        key += URLHelper.get_path(queue_item.request.url)
-
-        key += str(URLHelper.get_ordered_params(queue_item.request.url))
-
-        if queue_item.request.data is not None:
-            key += str(queue_item.request.data.keys())
-
-        return key
 
     def __set_var(self, name, value):
         """Set an instance/class var by name.

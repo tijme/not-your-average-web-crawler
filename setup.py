@@ -29,13 +29,12 @@ with open("requirements.txt") as file:
     requirements = file.read().splitlines()
 
 with open("README.rst") as file:
-    # The PyPi description does not support the SVG file type.
-    readme = file.read().replace(".svg?pypi=png.from.svg", ".png")
+    readme = PackageHelper.rst_to_pypi(file.read())
 
 setup(
     name=PackageHelper.get_alias(),
     version=PackageHelper.get_version(),
-    description="A web crawler that gathers more than you can imagine.",
+    description=PackageHelper.get_description(),
     long_description=readme,
     keywords = ["vulnerability", "bug-bounty", "security", "post", "get", "request", "crawler", "scraper", "scanner"],
     classifiers=[
