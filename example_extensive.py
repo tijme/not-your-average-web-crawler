@@ -91,6 +91,15 @@ options.scope.subdomain_must_match = True # Only crawl pages with the same subdo
 options.scope.hostname_must_match = True # Only crawl pages with the same hostname as the startpoint (e.g. only `finnwea`). Default is True.
 options.scope.tld_must_match = True # Only crawl pages with the same tld as the startpoint (e.g. only `.com`). Default is True.
 options.scope.max_depth = None # The maximum search depth. 0 only crawls the start request. 1 will also crawl all the requests found on the start request. 2 goes one level deeper, and so on. Default is None (unlimited).
+options.scope.request_methods = [
+    # The request methods to crawl. Default is all request methods
+    Request.METHOD_GET,
+    Request.METHOD_POST,
+    Request.METHOD_PUT,
+    Request.METHOD_DELETE,
+    Request.METHOD_OPTIONS,
+    Request.METHOD_HEAD
+]
 
 # Identity options
 options.identity.auth = HTTPBasicAuth('user', 'pass') # Or any other authentication (http://docs.python-requests.org/en/master/user/authentication/). Default is None.

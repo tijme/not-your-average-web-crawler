@@ -78,6 +78,10 @@ class HTTPRequestHelper:
         if not URLHelper.is_parsable(new_request.url):
             return False
 
+        if scope.request_methods:
+            if not queue_item.request.method in scope.request_methods:
+                return False
+
         if scope.protocol_must_match:
             if URLHelper.get_protocol(queue_item.request.url) != URLHelper.get_protocol(new_request.url):
                 return False

@@ -24,6 +24,7 @@
 
 import requests
 
+from nyawc.http.Request import Request
 from nyawc.helpers.PackageHelper import PackageHelper
 from nyawc.CrawlerActions import CrawlerActions
 from requests_toolbelt import user_agent
@@ -58,6 +59,7 @@ class OptionsScope:
         hostname_must_match (bool): only crawl pages with the same hostname as the startpoint (e.g. only `finnwea`).
         tld_must_match (bool): only crawl pages with the same tld as the startpoint (e.g. only `.com`)
         max_depth (obj): the maximum search depth. For example, 2 would be the startpoint and all the pages found on it. Default is None (unlimited).
+        request_methods list(str): only crawl these request methods. If empty or ``None`` all request methods will be crawled. Default is all.
 
     """
 
@@ -69,6 +71,7 @@ class OptionsScope:
         self.hostname_must_match = True
         self.tld_must_match = True
         self.max_depth = None
+        self.request_methods = []
 
 class OptionsCallbacks:
     """The OptionsCallbacks class contains all the callback methods.
