@@ -41,8 +41,8 @@ class Crawler(object):
         __options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
         __stopping (bool): If the crawler is topping the crawling process.
         __stopped (bool): If the crawler finished stopping the crawler process.
-        __lock (obj): The callback lock to prevent race conditions.
         __threads (obj): All currently running threads, as queue item hash => :class:`nyawc.CrawlerThread`.
+        __lock (obj): The callback lock to prevent race conditions.
 
     """
 
@@ -58,8 +58,8 @@ class Crawler(object):
         self.__options = options
         self.__stopping = False
         self.__stopped = False
-        self.__lock = threading.Lock()
         self.__threads = {}
+        self.__lock = threading.Lock()
 
     def start_with(self, request):
         """Start the crawler using the given request.
@@ -83,7 +83,7 @@ class Crawler(object):
 
         """
 
-        concurrent_requests_count = self.queue.count_in_progress
+        concurrent_requests_count = len(self.queue.get_all(QueueItem.STATUS_IN_PROGRESS))
         new_requests_spawned = False
 
         while concurrent_requests_count < self.__options.performance.max_threads:
@@ -156,9 +156,10 @@ class Crawler(object):
         for thread in list(self.__threads.values()):
             thread.join()
 
-        for status in [QueueItem.STATUS_QUEUED, QueueItem.STATUS_IN_PROGRESS]:
-            for queue_item in list(self.queue.get_all(status).values()):
-                self.queue.move(queue_item, QueueItem.STATUS_CANCELLED)
+        self.queue.move_bulk([
+            QueueItem.STATUS_QUEUED,
+            QueueItem.STATUS_IN_PROGRESS
+        ], QueueItem.STATUS_CANCELLED)
 
         self.__crawler_finish()
 

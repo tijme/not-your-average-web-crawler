@@ -34,7 +34,7 @@ def cb_crawler_before_start():
 
 def cb_crawler_after_finish(queue):
     print("Crawler finished.")
-    print("Found " + str(queue.count_finished) + " requests.")
+    print("Found " + str(len(queue.get_all(QueueItem.STATUS_FINISHED))) + " requests.")
 
     for queue_item in queue.get_all(QueueItem.STATUS_FINISHED).values():
         print("[" + queue_item.request.method + "] " + queue_item.request.url + " (PostData: " + str(queue_item.request.data) + ")")
@@ -130,4 +130,4 @@ options.performance.request_timeout = 15 # The request timeout in seconds (throw
 options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
 
 crawler = Crawler(options)
-crawler.start_with(Request("http://finnwea.com/"))
+crawler.start_with(Request("https://finnwea.com/"))

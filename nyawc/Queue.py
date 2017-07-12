@@ -37,11 +37,6 @@ class Queue(object):
     Attributes:
         __options (:class:`nyawc.Options`): The options to use (used when generating queue item hashes).
         count_total (int): The total count of requests in the queue.
-        count_queued (int): The amount of queued items in the queue.
-        count_in_progress (int): The amount of in progress items in the queue.
-        count_finished (int): The amount of finished items in the queue.
-        count_cancelled (int): The amount of cancelled items in the queue.
-        count_errored (int): The amount of errored items in the queue.
         items_queued list(:class:`nyawc.QueueItem`): The queued items (yet to be executed).
         items_in_progress list(:class:`nyawc.QueueItem`): The items currently being executed.
         items_finished list(:class:`nyawc.QueueItem`): The finished items.
@@ -60,11 +55,6 @@ class Queue(object):
 
         self.__options = options
         self.count_total = 0
-        self.count_queued = 0
-        self.count_in_progress = 0
-        self.count_finished = 0
-        self.count_cancelled = 0
-        self.count_errored = 0
         self.items_queued = OrderedDict()
         self.items_in_progress = OrderedDict()
         self.items_finished = OrderedDict()
@@ -116,12 +106,10 @@ class Queue(object):
 
         hash_key = queue_item.get_hash()
         items = self.__get_var("items_" + queue_item.status)
-        items_count = self.__get_var("count_" + queue_item.status)
 
         if hash_key in items.keys():
             return
 
-        self.__set_var("count_" + queue_item.status, (items_count + 1))
         items[queue_item.get_hash()] = queue_item
 
         self.count_total += 1
@@ -136,14 +124,28 @@ class Queue(object):
         """
 
         items = self.__get_var("items_" + queue_item.status)
-        items_count = self.__get_var("count_" + queue_item.status)
 
         del items[queue_item.get_hash()]
-        self.__set_var("count_" + queue_item.status, (items_count - 1))
         self.count_total -= 1
 
         queue_item.status = status
         self.add(queue_item)
+
+    def move_bulk(self, from_statuses, to_status):
+        """Move a bulk of request/response pairs to another status
+
+        Args:
+            from_statuses list(str): The statuses to move from
+            to_status (str): The status to move to
+
+        """
+
+        for status in from_statuses:
+            from_status_items = self.__get_var("items_" + status)
+            self.__set_var("items_" + status, OrderedDict())
+
+            to_status_items = self.__get_var("items_" + to_status)
+            to_status_items.update(from_status_items)
 
     def get_first(self, status):
         """Get the first item in the queue that has the given status.
@@ -184,7 +186,7 @@ class Queue(object):
 
         """
 
-        count_remaining = self.count_queued + self.count_in_progress
+        count_remaining = len(self.items_queued) + len(self.items_in_progress)
         percentage_remaining = 100 / self.count_total * count_remaining
 
         return 100 - percentage_remaining

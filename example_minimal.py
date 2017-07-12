@@ -32,7 +32,7 @@ def cb_crawler_before_start():
 
 def cb_crawler_after_finish(queue):
     print("Crawler finished.")
-    print("Found " + str(queue.count_finished) + " requests.")
+    print("Found " + str(len(queue.get_all(QueueItem.STATUS_FINISHED))) + " requests.")
 
 def cb_request_before_start(queue, queue_item):
     print("Starting: {}".format(queue_item.request.url))
