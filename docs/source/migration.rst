@@ -18,6 +18,18 @@ If you want to keep the request timeout on infinite set the request timeout opti
 
     options.performance.request_timeout = 30
 
+**Count attributes removed from queue**
+
+The count attributes (e.g. ``queue.count_in_progress``) are removed since the time complexity of Python's native ``len()`` method is already O(n).
+
+.. code:: python
+
+    # Old
+    print("In progress count: " + str(queue.count_in_progress))
+
+    # New
+    print("In progress count: " + str(len(queue.get_all(QueueItem.STATUS_IN_PROGRESS))))
+
 From 1.5 to 1.6
 ---------------
 

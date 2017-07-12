@@ -19,7 +19,7 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
 
     def cb_crawler_after_finish(queue):
         print("Crawler finished.")
-        print("Found " + str(queue.count_finished) + " requests.")
+        print("Found " + str(len(queue.get_all(QueueItem.STATUS_FINISHED))) + " requests.")
 
         for queue_item in queue.get_all(QueueItem.STATUS_FINISHED).values():
             print("[" + queue_item.request.method + "] " + queue_item.request.url + " (PostData: " + str(queue_item.request.data) + ")")
