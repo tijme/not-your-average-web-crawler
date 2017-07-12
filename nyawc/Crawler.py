@@ -54,12 +54,25 @@ class Crawler(object):
 
         """
 
+        signal.signal(signal.SIGINT, self.__signal_handler)
+
         self.queue = Queue(options)
         self.__options = options
         self.__stopping = False
         self.__stopped = False
         self.__threads = {}
         self.__lock = threading.Lock()
+
+    def __signal_handler(self, signum, frame):
+        """On sigint (e.g. CTRL+C) stop the crawler.
+
+        Args:
+            signum (int): The signal number.
+            frame (obj): The current stack frame.
+
+        """
+
+        self.__crawler_stop()
 
     def start_with(self, request):
         """Start the crawler using the given request.
@@ -75,7 +88,7 @@ class Crawler(object):
         self.__crawler_start()
 
     def __spawn_new_requests(self):
-        """Spawn new requests until the max processes option value is reached.
+        """Spawn new requests until the max threads option value is reached.
 
         Note:
             If no new requests were spawned and there are no requests in progress
@@ -83,24 +96,22 @@ class Crawler(object):
 
         """
 
-        concurrent_requests_count = len(self.queue.get_all(QueueItem.STATUS_IN_PROGRESS))
-        new_requests_spawned = False
+        in_progress_count = len(self.queue.get_all(QueueItem.STATUS_IN_PROGRESS))
 
-        while concurrent_requests_count < self.__options.performance.max_threads:
+        while in_progress_count < self.__options.performance.max_threads:
             if self.__spawn_new_request():
-                new_requests_spawned = True
-                concurrent_requests_count += 1
+                in_progress_count += 1
             else:
                 break
 
-        if concurrent_requests_count == 0 and not new_requests_spawned and not self.__stopping:
+        if in_progress_count == 0:
             self.__crawler_stop()
 
     def __spawn_new_request(self):
         """Spawn the first queued request if there is one available.
 
         Returns:
-            bool: If a new request was spawned.
+            bool: True if a new request was spawned, false otherwise.
 
         """
 
@@ -111,27 +122,21 @@ class Crawler(object):
         self.__request_start(first_in_line)
         return True
 
-    def __signal_handler(self, signum, frame):
-        """On sigint stop the crawler
+    def __wait_for_current_threads(self):
+        """Wait until all the current threads are finished."""
 
-        Args:
-            signum (int): The signal number
-            frame (obj): The current stack frame
-
-        """
-
-        self.__crawler_stop()
+        for thread in list(self.__threads.values()):
+            thread.join()
 
     def __crawler_start(self):
         """Spawn the first X queued request, where X is the max threads option.
 
         Note:
             The main thread will sleep until the crawler is finished. This enables
-            quiting the application using sigints (see http://stackoverflow.com/a/11816038/2491049)
+            quiting the application using sigints (see http://stackoverflow.com/a/11816038/2491049).
 
         """
 
-        signal.signal(signal.SIGINT, self.__signal_handler)
         self.__options.callbacks.crawler_before_start()
 
         self.__spawn_new_requests()
@@ -152,9 +157,7 @@ class Crawler(object):
             return
 
         self.__stopping = True
-
-        for thread in list(self.__threads.values()):
-            thread.join()
+        self.__wait_for_current_threads()
 
         self.queue.move_bulk([
             QueueItem.STATUS_QUEUED,
@@ -162,7 +165,6 @@ class Crawler(object):
         ], QueueItem.STATUS_CANCELLED)
 
         self.__crawler_finish()
-
         self.__stopped = True
 
     def __crawler_finish(self):
@@ -182,11 +184,9 @@ class Crawler(object):
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__crawler_stop()
-            return
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
             self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
-            return
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             self.queue.move(queue_item, QueueItem.STATUS_IN_PROGRESS)
@@ -196,13 +196,13 @@ class Crawler(object):
             thread.daemon = True
             thread.start()
 
-    def __request_finish(self, queue_item, new_requests, new_queue_item_status=None):
-        """Called when the crawler finished the given queued item.
+    def __request_finish(self, queue_item, new_requests, request_failed=False):
+        """Called when the crawler finished the given queue item.
 
         Args:
             queue_item (:class:`nyawc.QueueItem`): The request/response pair that finished.
             new_requests list(:class:`nyawc.http.Request`): All the requests that were found during this request.
-            new_queue_item_status (str): The new status of the queue item (if it needs to be moved).
+            request_failed (bool): True if the request failed (if needs to be moved to errored).
 
         """
 
@@ -211,37 +211,50 @@ class Crawler(object):
 
         del self.__threads[queue_item.get_hash()]
 
-        new_queue_items = []
-        action = None
+        if request_failed:
+            self.queue.move(queue_item, QueueItem.STATUS_ERRORED)
+            return
 
-        if new_queue_item_status:
-            self.queue.move(queue_item, new_queue_item_status)
+        new_queue_items = self.__add_scraped_requests_to_queue(queue_item, new_requests)
+        self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
 
-        if queue_item.status not in [QueueItem.STATUS_ERRORED, QueueItem.STATUS_CANCELLED]:
-            for new_request in new_requests:
-                HTTPRequestHelper.patch_with_options(new_request, self.__options, queue_item)
-
-                if not HTTPRequestHelper.complies_with_scope(queue_item, new_request, self.__options.scope):
-                    continue
-
-                if self.queue.has_request(new_request):
-                    continue
-
-                new_request.depth = queue_item.request.depth + 1
-                if self.__options.scope.max_depth is not None:
-                    if new_request.depth > self.__options.scope.max_depth:
-                        continue
-
-                new_queue_item = self.queue.add_request(new_request)
-                new_queue_items.append(new_queue_item)
-
-            self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
-            action = self.__options.callbacks.request_after_finish(self.queue, queue_item, new_queue_items)
+        action = self.__options.callbacks.request_after_finish(self.queue, queue_item, new_queue_items)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__crawler_stop()
-            return
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             self.__spawn_new_requests()
-            return
+
+    def __add_scraped_requests_to_queue(self, queue_item, scraped_requests):
+        """Convert the scraped requests to queue items, return them and also add them to the queue.
+
+        Args:
+            queue_item (:class:`nyawc.QueueItem`): The request/response pair that finished.
+            new_requests list(:class:`nyawc.http.Request`): All the requests that were found during this request.
+
+        Returns:
+            list(:class:`nyawc.QueueItem`): The new queue items.
+
+        """
+
+        new_queue_items = []
+
+        for scraped_request in scraped_requests:
+            HTTPRequestHelper.patch_with_options(scraped_request, self.__options, queue_item)
+
+            if not HTTPRequestHelper.complies_with_scope(queue_item, scraped_request, self.__options.scope):
+                continue
+
+            if self.queue.has_request(scraped_request):
+                continue
+
+            scraped_request.depth = queue_item.request.depth + 1
+            if self.__options.scope.max_depth is not None:
+                if scraped_request.depth > self.__options.scope.max_depth:
+                    continue
+
+            new_queue_item = self.queue.add_request(scraped_request)
+            new_queue_items.append(new_queue_item)
+
+        return new_queue_items

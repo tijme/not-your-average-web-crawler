@@ -69,7 +69,7 @@ class CrawlerThread(threading.Thread):
         self.__options.callbacks.request_in_thread_before_start(self.__queue_item)
 
         new_requests = []
-        new_status = None
+        failed = False
 
         try:
             handler = Handler(self.__options, self.__queue_item)
@@ -79,13 +79,13 @@ class CrawlerThread(threading.Thread):
                 self.__queue_item.response.raise_for_status()
             except Exception:
                 if self.__queue_item.request.parent_raised_error:
-                    new_status = QueueItem.STATUS_ERRORED
+                    failed = True
                 else:
                     for new_request in new_requests:
                         new_request.parent_raised_error = True
 
         except Exception as e:
-            new_status = QueueItem.STATUS_ERRORED
+            failed = True
 
             if self.__options.misc.debug:
                 print("Setting status of '{}' to '{}' because of an HTTP error.".format(self.__queue_item.request.url, QueueItem.STATUS_ERRORED))
@@ -99,4 +99,4 @@ class CrawlerThread(threading.Thread):
         self.__options.callbacks.request_in_thread_after_finish(self.__queue_item)
 
         with self.__callback_lock:
-            self.__callback(self.__queue_item, new_requests, new_status)
+            self.__callback(self.__queue_item, new_requests, failed)
