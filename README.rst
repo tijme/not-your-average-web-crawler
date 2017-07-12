@@ -2,7 +2,7 @@
 
     <p align="center">
 
-.. image:: https://github.com/tijme/not-your-average-web-crawler/blob/develop/.github/logo.svg
+.. image:: https://rawgit.com/tijme/not-your-average-web-crawler/develop/.github/logo.svg
     :width: 300px
     :height: 300px
     :alt: N.Y.A.W.C. logo
