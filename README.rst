@@ -67,10 +67,10 @@ First make sure you're on `Python 2.7/3.3 <https://www.python.org/>`__ or higher
 Crawling flow
 -------------
 
-1. Add the start request to the queue.
-2. Start first request in the queue *(repeat until ``max threads`` option reached)*.
-3. Add all requests found in the response to the queue *(except duplicates)*.
-4. Go to step #2 again to spawn new requests.
+1. You can define your startpoint (a request) and the crawling scope and then start the crawler.
+2. The crawler repeatedly starts the first request in the queue until ``max threads`` is reached.
+3. The crawler adds all requests found in the response to the end of the queue (except duplicates).
+4. The crawler goes back to step #2 to spawn new requests repeatedly until ``max threads`` is reached.
 
 .. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/img/flow.svg
    :alt: N.Y.A.W.C crawling flow
