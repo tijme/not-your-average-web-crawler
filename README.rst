@@ -2,7 +2,7 @@
 
     <p align="center">
 
-.. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/logo.svg?pypi=png.from.svg
+.. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/img/logo.svg?pypi=png.from.svg
     :width: 300px
     :height: 300px
     :alt: N.Y.A.W.C. logo
@@ -72,7 +72,7 @@ Crawling flow
 3. Add all requests found in the response to the queue *(except duplicates)*.
 4. Go to step #2 again to spawn new requests.
 
-.. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/flow.svg
+.. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/img/flow.svg
    :alt: N.Y.A.W.C crawling flow
 
 **Please note that if the queue is empty and all crawler threads are finished, the crawler will stop.**
