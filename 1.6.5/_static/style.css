@@ -1,0 +1,90 @@
+#pageheader {
+    margin-top: 1rem !important;
+    width: 100%;
+}
+
+#pageheader a {
+    display: inline-block;
+}
+
+#pageheader a:hover {
+    text-decoration: none;
+}
+
+#pageheader #pagedetails {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#pageheader #pagedetails a {
+    display: block;
+}
+
+#pageheader #pagedetails a h1 {
+    margin-top: 1.5rem;
+    margin-bottom: 0rem;
+}
+
+#pageheader #pagedetails select {
+    display: block;
+}
+
+#pageheader #pagedetails select.old {
+    border: 2px solid red;
+    border-radius: 2px;
+}
+
+#pageheader #pagelogo {
+    vertical-align: middle;
+    display: inline-block;
+    height: 120px;
+}
+
+.related.top {
+    display: none;
+}
+
+.document {
+    margin-top: 20px !important;
+    border-top: 1px solid #aaa;
+}
+
+.document img {
+    max-width: 100%;
+}
+
+.div.sphinxsidebar ul {
+    margin-bottom: 1rem;
+}
+
+.search input[type="text"] {
+    display: inline-block;
+    width: 60%;
+}
+
+.search input[type="submit"] {
+    display: inline-block;
+    width: 20%;
+}
+
+#pagefooter {
+    box-sizing: border-box;
+    text-align: center;
+    
+    padding-left: 15rem;
+    font-size: 12px;
+}
+
+@media (max-width: 820px) {
+    div.sphinxsidebar {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    #pagefooter {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
