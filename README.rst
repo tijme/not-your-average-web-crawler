@@ -2,7 +2,7 @@
 
     <p align="center">
 
-.. image:: https://rawgit.com/tijme/not-your-average-web-crawler/develop/.github/logo.svg?pypi=png.from.svg
+.. image:: https://tijme.github.io/not-your-average-web-crawler/latest/_static/logo.svg?pypi=png.from.svg
     :width: 300px
     :height: 300px
     :alt: N.Y.A.W.C. logo
@@ -52,7 +52,7 @@ Table of contents
 -  `Installation <#installation>`__
 -  `Crawling flow <#crawling-flow>`__
 -  `Documentation <#documentation>`__
--  `Example usage <#example-usage>`__
+-  `Minimal implementation <#minimal-implementation>`__
 -  `Testing <#testing>`__
 -  `Issues <#issues>`__
 -  `License <#license>`__
@@ -82,19 +82,19 @@ Documentation
 
 Please refer to the `documentation <https://tijme.github.io/not-your-average-web-crawler/>`__ or the `API <https://tijme.github.io/not-your-average-web-crawler/latest/py-modindex.html>`__ for all the information about N.Y.A.W.C.
 
-Example usage
--------------
+Minimal implementation
+----------------------
 
-You can use the callbacks in ``example.py`` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at `Angular CSTI scanner <https://github.com/tijme/angularjs-csti-scanner>`__ (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
+You can use the callbacks in ``example_minimal.py`` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at `Angular CSTI scanner <https://github.com/tijme/angularjs-csti-scanner>`__ (it uses N.Y.A.W.C to scan for the AngularJS sandbox escape vulnerability).
 
 You can also use the `kitchen sink <https://tijme.github.io/not-your-average-web-crawler/latest/kitchen_sink.html>`__ (which contains all the functionalities from N.Y.A.W.C.) instead of the example below. The code below is a minimal implementation of N.Y.A.W.C.
 
--  ``$ python example.py``
--  ``$ python -u example.py > output.log``
+-  ``$ python example_minimal.py``
+-  ``$ python -u example_minimal.py > output.log``
 
 .. code:: python
 
-    # example.py
+    # example_minimal.py
 
     from nyawc.Options import Options
     from nyawc.Crawler import Crawler

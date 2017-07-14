@@ -220,7 +220,7 @@ class URLHelper:
 
     @staticmethod
     def get_ordered_params(url):
-        """Get the query parameters of the given URL.
+        """Get the query parameters of the given URL in alphabetical order.
 
         Args:
             url (str): The URL to get the query parameters from.

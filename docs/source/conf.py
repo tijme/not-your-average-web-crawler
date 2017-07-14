@@ -111,7 +111,7 @@ html_theme_options = {
 
   # show the breadcrumbs and index|next|previous links at the top of
   # the page
-  'showrelbartop': True,
+  'showrelbartop': False,
   # same for bottom of the page
   'showrelbarbottom': False,
 
@@ -121,7 +121,7 @@ html_theme_options = {
   # width of the sidebar. page width is determined by a CSS rule.
   # I prefer to define things in rem because it scales with the
   # global font size rather than pixels or the local font size.
-  'sidebarwidth': '15rem',
+  'sidebarwidth': '0px',
 
   # color of all body text
   'textcolor': '#000000',
@@ -135,10 +135,10 @@ html_theme_options = {
   'footertextcolor': '',
 
   # Custom CSS
-  'cssfiles': ['_static/style.css'],
+  'cssfiles': ['_static/css/bootstrap.min.css', '_static/css/bootstrap-theme.css'],
 
   # Custom JS
-  'scriptfiles': ['../releases.js', '_static/releases-dropdown.js']
+  'scriptfiles': ['../releases.js', '_static/js/bootstrap.min.js', '_static/js/releases-dropdown.js', '_static/js/bootstrap-theme.js']
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -207,7 +207,7 @@ html_short_title = "Home"
 
 # Sidebar contents
 html_sidebars = {
-  '**': ['sidebar.html', 'searchbox.html'],
+  '**': [],
 }
 
 # Absolute link the the source code
