@@ -24,11 +24,6 @@
 
 import copy
 
-try: # Python 3
-    from urllib.parse import urlparse
-except: # Python 2
-    from urlparse import urlparse
-
 from nyawc.helpers.URLHelper import URLHelper
 
 class HTTPRequestHelper:

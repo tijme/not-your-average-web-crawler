@@ -175,7 +175,7 @@ class URLHelper:
         parts = URLHelper.__cache[url].netloc.split(".")
 
         if len(parts) == 1:
-            return ".".join(parts)
+            return parts[0]
         else:
             return ".".join(parts[-2:-1])
 
@@ -199,7 +199,7 @@ class URLHelper:
         if len(parts) == 1:
             return ""
         else:
-            return ".".join(parts[-1:])
+            return parts[-1]
 
     @staticmethod
     def get_path(url):
@@ -249,4 +249,4 @@ class URLHelper:
 
         """
 
-        return "".join(url.split("#")[:1])
+        return url.split("#")[0]
