@@ -39,7 +39,8 @@ class Crawler(object):
     Attributes:
         queue (:class:`nyawc.Queue`): The request/response pair queue containing everything to crawl.
         __options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
-        __stopping (bool): If the crawler is topping the crawling process.
+        __should_stop (bool): If the crawler should stop the crawling process.
+        __stopping (bool): If the crawler is stopping the crawling process.
         __stopped (bool): If the crawler finished stopping the crawler process.
         __threads (obj): All currently running threads, as queue item hash => :class:`nyawc.CrawlerThread`.
         __lock (obj): The callback lock to prevent race conditions.
@@ -58,6 +59,7 @@ class Crawler(object):
 
         self.queue = Queue(options)
         self.__options = options
+        self.__should_stop = False
         self.__stopping = False
         self.__stopped = False
         self.__threads = {}
@@ -142,6 +144,9 @@ class Crawler(object):
         self.__spawn_new_requests()
 
         while not self.__stopped:
+            if self.__should_stop:
+                self.__crawler_stop()
+
             time.sleep(1)
 
     def __crawler_stop(self):
@@ -183,7 +188,7 @@ class Crawler(object):
         action = self.__options.callbacks.request_before_start(self.queue, queue_item)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
-            self.__crawler_stop()
+            self.__should_stop = True
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
             self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
@@ -221,7 +226,7 @@ class Crawler(object):
         action = self.__options.callbacks.request_after_finish(self.queue, queue_item, new_queue_items)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
-            self.__crawler_stop()
+            self.__should_stop = True
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             self.__spawn_new_requests()
