@@ -26,7 +26,7 @@ class DebugHelper:
     """A helper for printing debug messages."""
 
     @staticmethod
-    def print(options, message):
+    def output(options, message):
         """Print the given message if the debug option in the given options is on.
 
         Args:
