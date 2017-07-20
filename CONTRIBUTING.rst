@@ -21,8 +21,8 @@ Making Changes
    -  This is usually the develop branch.
    -  To quickly create a topic branch based on master;
 
-      -  ``git checkout -b bugfix_my_contribution``,
-      -  ``git checkout -b feature_my_contribution``.
+      -  ``git checkout -b bugfix-my-contribution``,
+      -  ``git checkout -b feature-my-contribution``.
 
    -  Please avoid working directly on the ``master`` branch.
 
