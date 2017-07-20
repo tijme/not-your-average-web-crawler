@@ -9,6 +9,14 @@ nyawc\.helpers package
 Submodules
 ----------
 
+nyawc\.helpers\.DebugHelper module
+----------------------------------
+
+.. automodule:: nyawc.helpers.DebugHelper
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 nyawc\.helpers\.HTTPRequestHelper module
 ----------------------------------------
 

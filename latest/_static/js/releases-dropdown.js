@@ -21,7 +21,7 @@ $(document).ready(function() {
      * Show message if not viewing the latest version
      */
     if (latestVersion != currentVersion) {
-        var message = "<strong>Warning!</strong> Version <a class=\"alert-link\" href=\"../latest/index.html\">" + latestVersion + "</a> is available (you are currently viewing version " + currentVersion + ").";
+        var message = "<strong>Warning!</strong> Version <a href=\"../latest/index.html\">" + latestVersion + "</a> is available (you are currently viewing version " + currentVersion + ").";
         var messageHtml = '<div class="container"><div class="row"><div class="col-lg-10 col-lg-offset-1"><div class="alert alert-danger" role="alert">' + message + '</div></div></div></div>';
         $(messageHtml).insertAfter($('.jumbotron'))
     }

@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Migration &#8212; Not Your Average Web Crawler</title>
+    
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap-theme.css" type="text/css" />
+    <script src="../releases.js" type="text/javascript"></script>
+    <script src="_static/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="_static/js/releases-dropdown.js" type="text/javascript"></script>
+    <script src="_static/js/bootstrap-theme.js" type="text/javascript"></script>
+  </head>
+  <body role="document">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html"><span class="text">Home</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Introduction</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="installation.html">Installation</a></li>
+                                    <li><a href="migration.html">Migration</a></li>
+                                    <li><a href="getting_started.html">Getting started</a></li>
+                                    <li><a href="kitchen_sink.html">Kitchen sink</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="options_callbacks.html">Callbacks</a></li>
+                                    <li><a href="options_crawling_scope.html">Crawling scope</a></li>
+                                    <li><a href="options_crawling_identity.html">Crawling identity</a></li>
+                                    <li><a href="options_performance.html">Performance</a></li>
+                                    <li><a href="options_misc.html">Misc</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">API</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="py-modindex.html">Code API</a></li>
+                                    <li><a href="https://github.com/tijme/not-your-average-web-crawler" target="_blank">Source (GitHub)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="releases" class="dropdown" data-selected="1.7.1">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.7.1</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="default jumbotron">
+            <div class="jumbotron-darken">
+                <div class="vertical-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <h1 class="headline">Migration</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="background" src="_static/img/header.jpg">
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                    <div class="row">
+                        <nav class="col-sm-3 col-sm-push-9 visible-xs">
+                            <strong>Table of Contents</strong>
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">From 1.6 to 1.7</a></li>
+<li><a class="reference internal" href="#from-1-5-to-1-6">From 1.5 to 1.6</a></li>
+<li><a class="reference internal" href="#from-1-4-to-1-5">From 1.4 to 1.5</a></li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <nav class="col-sm-3 col-sm-push-9 hidden-xs" id="tocscroll">
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">From 1.6 to 1.7</a></li>
+<li><a class="reference internal" href="#from-1-5-to-1-6">From 1.5 to 1.6</a></li>
+<li><a class="reference internal" href="#from-1-4-to-1-5">From 1.4 to 1.5</a></li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <div class="col-sm-9 col-sm-pull-3">
+
+                <div class="content-container">
+                    
+  <div class="section" id="from-1-6-to-1-7">
+<h1>From 1.6 to 1.7<a class="headerlink" href="#from-1-6-to-1-7" title="Permalink to this headline">¶</a></h1>
+<p><code>pip install --upgrade nyawc</code></p><br><p><strong>Default request timeout is now 30 seconds</strong></p>
+<p>From now on there is a default request timeout of 30 seconds. In previous versions it was always infinite and you couldn&#8217;t specify it.</p>
+<p>If you want to keep the request timeout on infinite set the request timeout option to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">options</span><span class="o">.</span><span class="n">performance</span><span class="o">.</span><span class="n">request_timeout</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<p><strong>Count attributes removed from queue</strong></p>
+<p>The count attributes (e.g. <code class="docutils literal"><span class="pre">queue.count_in_progress</span></code>) are removed since the time complexity of Python&#8217;s native <code class="docutils literal"><span class="pre">len()</span></code> method is already O(n).</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Old</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;In progress count: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">count_in_progress</span><span class="p">))</span>
+
+<span class="c1"># New</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;In progress count: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">QueueItem</span><span class="o">.</span><span class="n">STATUS_IN_PROGRESS</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="from-1-5-to-1-6">
+<h1>From 1.5 to 1.6<a class="headerlink" href="#from-1-5-to-1-6" title="Permalink to this headline">¶</a></h1>
+<p><code>pip install --upgrade nyawc</code></p><br><p><strong>Headers have default values and are case insensitive</strong></p>
+<p>From now on the headers identity option has default values and is a case insensitive dict. When changing headers the <code class="docutils literal"><span class="pre">.update()</span></code> method should be used so the default headers remain the same.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Old</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;MyCustomUserAgent&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># New</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;MyCustomUserAgent&quot;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p><strong>New default user agent</strong></p>
+<p>The default user agent for the crawler has changed. In version 1.5 it was a fake Chrome user agent and from now on it is <code class="docutils literal"><span class="pre">nyawc/1.6.0</span> <span class="pre">CPython/3.6.1</span> <span class="pre">Windows/10</span></code> based on the versions you use.</p>
+<p>The Chrome user agent from version 1.5 can still be faked by using the code below.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36&quot;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="from-1-4-to-1-5">
+<h1>From 1.4 to 1.5<a class="headerlink" href="#from-1-4-to-1-5" title="Permalink to this headline">¶</a></h1>
+<p><code>pip install --upgrade nyawc</code></p><br><p><strong>Renamed the domain must match scope option</strong></p>
+<p>Since version 1.5 the domain_must_match option is now called hostname_must_match.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Old</span>
+<span class="n">Options</span><span class="p">()</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">domain_must_match</span> <span class="o">=</span> <span class="kc">True</span><span class="o">/</span><span class="kc">False</span>
+
+<span class="c1"># New</span>
+<span class="n">Options</span><span class="p">()</span><span class="o">.</span><span class="n">scope</span><span class="o">.</span><span class="n">hostname_must_match</span> <span class="o">=</span> <span class="kc">True</span><span class="o">/</span><span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+
+
+                </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <p>N.Y.A.W.C v1.7.1 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  </body>
+</html>
