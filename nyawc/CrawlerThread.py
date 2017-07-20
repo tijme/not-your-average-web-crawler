@@ -24,6 +24,7 @@
 
 import threading
 
+from nyawc.helpers.DebugHelper import DebugHelper
 from nyawc.http.Handler import Handler
 from nyawc.QueueItem import QueueItem
 
@@ -66,7 +67,10 @@ class CrawlerThread(threading.Thread):
 
         """
 
-        self.__options.callbacks.request_in_thread_before_start(self.__queue_item)
+        try:
+            self.__options.callbacks.request_in_thread_before_start(self.__queue_item)
+        except Exception as e:
+            DebugHelper.output(self.__options, e)
 
         new_requests = []
         failed = False
@@ -87,16 +91,26 @@ class CrawlerThread(threading.Thread):
         except Exception as e:
             failed = True
 
-            if self.__options.misc.debug:
-                print("Setting status of '{}' to '{}' because of an HTTP error.".format(self.__queue_item.request.url, QueueItem.STATUS_ERRORED))
-                print(e)
+            error_message = "Setting status of '{}' to '{}' because of an HTTP error.".format(
+                self.__queue_item.request.url,
+                QueueItem.STATUS_ERRORED
+            )
 
-            self.__options.callbacks.request_on_error(self.__queue_item, str(e))
+            DebugHelper.output(self.__options, error_message)
+            DebugHelper.output(self.__options, e)
+
+            try:
+                self.__options.callbacks.request_on_error(self.__queue_item, str(e))
+            except Exception as e:
+                DebugHelper.output(self.__options, e)
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
 
-        self.__options.callbacks.request_in_thread_after_finish(self.__queue_item)
+        try:
+            self.__options.callbacks.request_in_thread_after_finish(self.__queue_item)
+        except Exception as e:
+            DebugHelper.output(self.__options, e)
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests, failed)

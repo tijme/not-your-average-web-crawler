@@ -217,11 +217,11 @@ class Crawler(object):
         del self.__threads[queue_item.get_hash()]
 
         if request_failed:
+            new_queue_items = []
             self.queue.move(queue_item, QueueItem.STATUS_ERRORED)
-            return
-
-        new_queue_items = self.__add_scraped_requests_to_queue(queue_item, new_requests)
-        self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
+        else:
+            new_queue_items = self.__add_scraped_requests_to_queue(queue_item, new_requests)
+            self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
 
         action = self.__options.callbacks.request_after_finish(self.queue, queue_item, new_queue_items)
 
