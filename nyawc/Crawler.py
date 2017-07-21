@@ -139,7 +139,10 @@ class Crawler(object):
 
         """
 
-        self.__options.callbacks.crawler_before_start()
+        try:
+            self.__options.callbacks.crawler_before_start()
+        except Exception as e:
+            print(e)
 
         self.__spawn_new_requests()
 
@@ -175,7 +178,10 @@ class Crawler(object):
     def __crawler_finish(self):
         """Called when the crawler is finished because there are no queued requests left or it was stopped."""
 
-        self.__options.callbacks.crawler_after_finish(self.queue)
+        try:
+            self.__options.callbacks.crawler_after_finish(self.queue)
+        except Exception as e:
+            print(e)
 
     def __request_start(self, queue_item):
         """Execute the request in given queue item.
@@ -185,7 +191,11 @@ class Crawler(object):
 
         """
 
-        action = self.__options.callbacks.request_before_start(self.queue, queue_item)
+        try:
+            action = self.__options.callbacks.request_before_start(self.queue, queue_item)
+        except Exception as e:
+            action = None
+            print(e)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__should_stop = True
@@ -223,7 +233,11 @@ class Crawler(object):
             new_queue_items = self.__add_scraped_requests_to_queue(queue_item, new_requests)
             self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
 
-        action = self.__options.callbacks.request_after_finish(self.queue, queue_item, new_queue_items)
+        try:
+            action = self.__options.callbacks.request_after_finish(self.queue, queue_item, new_queue_items)
+        except Exception as e:
+            action = None
+            print(e)
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__should_stop = True

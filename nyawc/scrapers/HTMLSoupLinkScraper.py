@@ -63,7 +63,7 @@ class HTMLSoupLinkScraper(BaseScraper):
         # Always use the URL from the base element if it exists.
         # https://www.w3schools.com/tags/tag_base.asp
         if base_element:
-            host = base_element["href"]
+            host = URLHelper.make_absolute(host, base_element["href"])
 
         found_requests = []
 
