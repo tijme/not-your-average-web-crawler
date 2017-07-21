@@ -45,6 +45,8 @@ Only crawl pages with the same protocol as the startpoint (e.g. only https) if T
 
 Only crawl pages with the same subdomain as the startpoint if True. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 
+Please note that the `www` subdomain will be treated the same as no subdomain.
+
 .. code:: python
 
     options.scope.subdomain_must_match = True
