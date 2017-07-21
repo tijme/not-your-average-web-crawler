@@ -70,7 +70,7 @@ class CrawlerThread(threading.Thread):
         try:
             self.__options.callbacks.request_in_thread_before_start(self.__queue_item)
         except Exception as e:
-            DebugHelper.output(self.__options, e)
+            print(e)
 
         new_requests = []
         failed = False
@@ -102,7 +102,7 @@ class CrawlerThread(threading.Thread):
             try:
                 self.__options.callbacks.request_on_error(self.__queue_item, str(e))
             except Exception as e:
-                DebugHelper.output(self.__options, e)
+                print(e)
 
         for new_request in new_requests:
             new_request.parent_url = self.__queue_item.request.url
@@ -110,7 +110,7 @@ class CrawlerThread(threading.Thread):
         try:
             self.__options.callbacks.request_in_thread_after_finish(self.__queue_item)
         except Exception as e:
-            DebugHelper.output(self.__options, e)
+            print(e)
 
         with self.__callback_lock:
             self.__callback(self.__queue_item, new_requests, failed)
