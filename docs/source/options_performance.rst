@@ -22,13 +22,15 @@ How to use performance options
 Available performance options
 -----------------------------
 
-**Maximum threads**
+Maximum threads
+~~~~~~~~~~~~~~~
 
 The maximum amount of simultaneous threads to use for crawling. Default is 8.
 
 ``options.performance.max_threads = 8``
 
-**Request timeout**
+Request timeout
+~~~~~~~~~~~~~~~
 
 The request timeout in seconds (throws an exception if exceeded). Default is 30.
 

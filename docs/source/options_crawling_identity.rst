@@ -39,7 +39,8 @@ How to use identity options
 Available identity options
 --------------------------
 
-**Authentication**
+Authentication
+~~~~~~~~~~~~~~
 
 Set the authentication for the crawler. Please check `python-requests <http://docs.python-requests.org/en/master/user/authentication/>`__ authentication for all the options. Default is None (no authentication).
 
@@ -56,7 +57,8 @@ You can find examples of different types of authentication below.
     from requests_oauthlib import OAuth1
     options.identity.auth = OAuth1('YOUR_APP_KEY', 'YOUR_APP_SECRET', 'USER_OAUTH_TOKEN', 'USER_OAUTH_TOKEN_SECRET')
 
-**Cookies**
+Cookies
+~~~~~~~
 
 Set custom cookies for the crawler. Please check `python-requests <http://docs.python-requests.org/en/master/user/quickstart/#cookies>`__ cookie jar for all the cookie options.
 
@@ -64,7 +66,8 @@ Set custom cookies for the crawler. Please check `python-requests <http://docs.p
 
     options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
 
-**Proxy**
+Proxy
+~~~~~
 
 Set a proxy for the crawler. Please check `python-requests <http://docs.python-requests.org/en/master/user/advanced/#proxies>`__ proxies for all the proxy options. Default is None (no proxy).
 
@@ -90,7 +93,8 @@ You can find examples of different types of proxies below.
         'https': 'socks5://user:pass@host:port'
     }
 
-**Headers**
+Headers
+~~~~~~~
 
 Set custom headers for the crawler (as {key: value} CaseInsensitiveDict). For example, you can set a new user agent by using ``User-Agent`` as key, as shown below.
 

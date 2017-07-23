@@ -135,10 +135,10 @@ html_theme_options = {
   'footertextcolor': '',
 
   # Custom CSS
-  'cssfiles': ['_static/css/bootstrap.min.css', '_static/css/bootstrap-theme.css'],
+  'cssfiles': ['_static/css/bootstrap.min.css?' + version, '_static/css/bootstrap-theme.css?' + version],
 
   # Custom JS
-  'scriptfiles': ['../releases.js', '_static/js/bootstrap.min.js', '_static/js/releases-dropdown.js', '_static/js/bootstrap-theme.js']
+  'scriptfiles': ['../releases.js?' + version, '_static/js/bootstrap.min.js?' + version, '_static/js/releases-dropdown.js?' + version, '_static/js/bootstrap-theme.js?' + version]
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

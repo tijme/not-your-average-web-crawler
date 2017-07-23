@@ -33,7 +33,8 @@ How to use scope options
 Available scope options
 -----------------------
 
-**Protocol must match**
+Protocol must match
+~~~~~~~~~~~~~~~~~~~
 
 Only crawl pages with the same protocol as the startpoint (e.g. only https) if True. Default is False.
 
@@ -41,7 +42,8 @@ Only crawl pages with the same protocol as the startpoint (e.g. only https) if T
 
     options.scope.protocol_must_match = False
 
-**Subdomain must match**
+Subdomain must match
+~~~~~~~~~~~~~~~~~~~~
 
 Only crawl pages with the same subdomain as the startpoint if True. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
 
@@ -51,7 +53,8 @@ Please note that the `www` subdomain will be treated the same as no subdomain.
 
     options.scope.subdomain_must_match = True
 
-**Hostname must match**
+Hostname must match
+~~~~~~~~~~~~~~~~~~~
 
 Only crawl pages with the same hostname as the startpoint (e.g. only `finnwea`) if True. Default is True.
 
@@ -61,7 +64,8 @@ Please note that if you set this to false, chances are that it never stops crawl
 
     options.scope.hostname_must_match = True
 
-**TLD must match**
+TLD must match
+~~~~~~~~~~~~~~
 
 Only crawl pages with the same tld as the startpoint (e.g. only `.com`) if True. Default is True.
 
@@ -69,7 +73,8 @@ Only crawl pages with the same tld as the startpoint (e.g. only `.com`) if True.
 
     options.scope.tld_must_match = True
 
-**Maximum crawling depth**
+Maximum crawling depth
+~~~~~~~~~~~~~~~~~~~~~~
 
 The maximum search depth. Default is None (unlimited).
 
@@ -82,7 +87,8 @@ The maximum search depth. Default is None (unlimited).
 
     options.scope.max_depth = None
 
-**Allowed request methods**
+Allowed request methods
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Only crawl these request methods. If empty or ``None`` all request methods will be crawled. Default is all.
 

@@ -33,18 +33,7 @@
    </p>
    <h1>Not Your Average Web Crawler</h1>
 
-A very useful web crawler for vulnerability scanning. Not Your Average Web Crawler (N.Y.A.W.C) is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners.
-
-**Crawls:**
-
--  **Links:** URLs in HTML, XML, etc.
--  **Forms:** GET & POST forms and their request data.
-
-**Future development:**
-
-- Support rate limiting.
-- Support XHR/JS scraping.
-- Add other scrapers.
+Did you ever want to test your payload against all requests of a certain domain? N.Y.A.W.C can help you with that. It crawls all requests (e.g. GET, POST or PUT) on the specified domain and keeps track of the request and response data. During the crawling process, the callbacks enable you to insert your payload at specific places and test if they worked.
 
 Table of contents
 -----------------
