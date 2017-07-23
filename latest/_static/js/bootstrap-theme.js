@@ -21,7 +21,12 @@ function tocInitializeAffix() {
     $('#tocscroll .nav').affix({
         offset: {
             top: function () {
-                return (this.top = $('.jumbotron').outerHeight() + $('.alert-version').outerHeight())
+                var alertHeight = 0;
+                if ($('.alert-version').lenght) {
+                    alertHeight = $('.alert-version').outerHeight()
+                }
+
+                return (this.top = $('.jumbotron').outerHeight() + alertHeight)
             },
             bottom: function () {
                 return (this.bottom = $('.footer').outerHeight())
