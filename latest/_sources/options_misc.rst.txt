@@ -21,7 +21,8 @@ How to use misc options
 Available misc options
 ----------------------
 
-**Debug**
+Debug
+~~~~~
 
 If debug is enabled extra information will be logged to the console. Default is False.
 

@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-    <div class="alert alert-warning" role="alert"><strong>Hold on!</strong> Are you upgrading to a newer version? Please check our <a href="migration.html">migration guide</a> for the instructions.</div>
+    <div class="alert alert-warning" role="alert"><strong>Hold on!</strong> Are you upgrading to a newer version? Please check our <a class="alert-link" href="migration.html">migration guide</a> for the instructions.</div>
 
 Install using PIP
 -----------------

@@ -1,7 +1,9 @@
-.. title:: Getting started
+.. title:: Getting Started
 
-Minimal implementation
-----------------------
+Minimal example
+---------------
+
+N.Y.A.W.C does not have a CLI entry point, so you need to create one yourself. Save the code below as ``example.py``. The example code prints all request URLs that were found by the crawler.
 
 .. code:: python
 
@@ -37,15 +39,42 @@ Minimal implementation
     crawler = Crawler(options)
     crawler.start_with(Request("https://finnwea.com/"))
 
-Running the crawler
--------------------
+Testing example.py
+------------------
 
 In the foreground
 ~~~~~~~~~~~~~~~~~
+
+Output all contents to the console.
 
 ``$ python example.py``
 
 In the background
 ~~~~~~~~~~~~~~~~~
 
+Output all contents to a file and run the process in the background.
+
 ``$ python -u example.py > output.log``
+
+Adding extra options
+--------------------
+
+Callbacks
+~~~~~~~~~
+
+All the available callbacks are documented `here <options_callbacks.html>`_.
+
+Scope
+~~~~~
+
+You can set scope options to, for example, only crawl certain subdomains or certain request methods. See `this <options_crawling_scope.html>`_ page for all the available scope options.
+
+Identity
+~~~~~~~~~
+
+Do you want to use authentication, set headers or use a proxy? Check `these <options_crawling_identity.html>`_ identity options for documentation.
+
+The kitchen sink
+----------------
+
+The kitchen sink is an example that implements all the features/options of N.Y.A.W.C. The kitchen sink is available for copy paste. `Check it out <kitchen_sink.html>`_!

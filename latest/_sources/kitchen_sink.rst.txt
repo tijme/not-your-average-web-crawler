@@ -1,4 +1,4 @@
-.. title:: Kitchen sink
+.. title:: Kitchen Sink
 
 The English phrase "Everything but the kitchen sink" means "almost anything one can think of". The example below contains all the functionalities from N.Y.A.W.C.
 

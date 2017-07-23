@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <p>N.Y.A.W.C is a Python application that enables you to crawl web applications for requests instead of URLs. It crawls every GET and POST request on the specified domain and keeps track of the request and response data. It's main purpose is to be used in web application vulnerability scanners.</p>
+            <p>Did you ever want to test your payload against all requests of a certain domain? N.Y.A.W.C can help you with that. It crawls all requests (e.g. GET, POST or PUT) on the specified domain and keeps track of the request and response data. During the crawling process, the callbacks enable you to insert your payload at specific places and test if they worked. And using the built in options you can do even more. <a href="getting_started.html">Get started</a>!</p>
         </div>
     </div>
     <hr>

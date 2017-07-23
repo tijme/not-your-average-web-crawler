@@ -43,13 +43,21 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.nav-stacked > ul {
-    display: none;
+.nav-stacked ul {
+    padding-left: 35px;
+    list-style: none;
 }
 
-.nav-stacked > li > ul {
-    display: none;
+.nav-stacked ul li {
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
+
+
+.nav-stacked ul li a {
+    font-size: 13px;
+}
+
 
 #tocscroll .affix {
     top: 20px;
@@ -232,26 +240,38 @@ h1, h2, h3, h4, h5, h6 {
         }
     }
 
+.jumbotron .jumbotron-darken .btn {
+    border: none;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+}
+
 /**
  *
  * Content
  *
  */
+.content-container h1 {
+    color: #000000;
+
+    margin-top: 40px;
+    font-size: 28px;
+}
+
 .content-container .section:first-child h1:first-child {
     margin-top: 0px;
 }
 
-.content-container h1 {
-    margin-top: 25px;
-    font-size: 28px;
-}
-
 .content-container h2 {
+    color: #333333;
+
     margin-top: 20px;
     font-size: 22px;
 }
 
 .content-container h3 {
+    color: #333333;
+
     margin-top: 15px;
     font-size: 18px;
 }
