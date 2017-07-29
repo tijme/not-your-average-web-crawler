@@ -86,7 +86,7 @@ class URLHelper:
         query = OrderedDict(parse_qsl(url_parts[4], keep_blank_values=True))
         query.update(data)
 
-        url_parts[4] = urlencode(query)
+        url_parts[4] = URLHelper.query_dict_to_string(query)
 
         return urlunparse(url_parts)
 
@@ -233,7 +233,7 @@ class URLHelper:
         if url not in URLHelper.__cache:
             URLHelper.__cache[url] = urlparse(url)
 
-        params = dict(parse_qsl(URLHelper.__cache[url].query, keep_blank_values=True))
+        params = URLHelper.query_string_to_dict(URLHelper.__cache[url].query)
 
         return OrderedDict(sorted(params.items()))
 
@@ -250,3 +250,54 @@ class URLHelper:
         """
 
         return url.split("#")[0]
+
+    @staticmethod
+    def query_dict_to_string(query):
+        """Convert an OrderedDict to a query string.
+
+        Args:
+            query (obj): The key value object with query params.
+
+        Returns:
+            str: The query string.
+
+        Note:
+            This method does the same as urllib.parse.urlencode except
+            that it doesn't actually encode the values.
+
+        """
+
+        query_params = []
+
+        for key, value in query.items():
+            query_params.append(key + "=" + value)
+
+        return "&".join(query_params)
+
+    @staticmethod
+    def query_string_to_dict(query):
+        """Convert a string to a query dict.
+
+        Args:
+            query (str): The query string.
+
+        Returns:
+            obj: The key value object with query params.
+
+        Note:
+            This method does the same as urllib.parse.parse_qsl except
+            that it doesn't actually decode the values.
+
+        """
+
+        query_params = {}
+
+        for key_value in query.split("&"):
+            key_value_pair = key_value.split("=", 1)
+
+            key = key_value_pair[0] if len(key_value_pair) >= 1 else ""
+            value = key_value_pair[1] if len(key_value_pair) == 2 else ""
+
+            query_params[key] = value
+
+        return query_params

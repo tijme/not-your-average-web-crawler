@@ -142,3 +142,12 @@ class TestUrlHelper(unittest.TestCase):
         val2 = URLHelper.get_ordered_params("http://sub.domain.ltd?c=c&b=b&a=a&d=d")
 
         self.assertEqual(val1, val2)
+
+    def test_append_with_data_encoded_and_decoded(self):
+        """Make sure values do not get decoded or encoded."""
+
+        val1 = URLHelper.append_with_data("http://example.tld/", {"val": "{{aaaa}}"})
+        val2 = URLHelper.append_with_data("http://example.tld/", {"val": "%7B%7Baaaa%7D%7D"})
+
+        self.assertEqual(val1, "http://example.tld/?val={{aaaa}}")
+        self.assertEqual(val2, "http://example.tld/?val=%7B%7Baaaa%7D%7D")

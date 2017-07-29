@@ -56,3 +56,14 @@ class TestQueue(unittest.TestCase):
         queue.add_request(Request("https://www.example.ltd?a=a&b=b&c=c"))
 
         self.assertEqual(queue.count_total, 1)
+
+
+    def test_hash_different_encoded_and_decoded_values(self):
+        """Ensure encoded and decoded values have a different hash."""
+
+        queue = Queue(Options())
+
+        queue.add_request(Request("http://example.ltd?val={{aaaa}}"))
+        queue.add_request(Request("http://example.ltd?val=%7B%7Baaaa%7D%7D"))
+
+        self.assertEqual(queue.count_total, 2)
