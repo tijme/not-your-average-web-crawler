@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Search &#8212; Not Your Average Web Crawler</title>
+    
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/searchtools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="#" />
+  <script type="text/javascript">
+    jQuery(function() { Search.loadIndex("searchindex.js"); });
+  </script>
+  
+  <script type="text/javascript" id="searchindexloader"></script>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css?1.7.4" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap-theme.css?1.7.4" type="text/css" />
+    <script src="../releases.js?1.7.4" type="text/javascript"></script>
+    <script src="_static/js/bootstrap.min.js?1.7.4" type="text/javascript"></script>
+    <script src="_static/js/releases-dropdown.js?1.7.4" type="text/javascript"></script>
+    <script src="_static/js/bootstrap-theme.js?1.7.4" type="text/javascript"></script>
+
+  </head>
+  <body role="document">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html"><span class="text">Home</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Introduction</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="installation.html">Installation</a></li>
+                                    <li><a href="migration.html">Migration</a></li>
+                                    <li><a href="getting_started.html">Getting Started</a></li>
+                                    <li><a href="kitchen_sink.html">Kitchen Sink</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="options_callbacks.html">Callbacks</a></li>
+                                    <li><a href="options_crawling_scope.html">Crawling scope</a></li>
+                                    <li><a href="options_crawling_identity.html">Crawling identity</a></li>
+                                    <li><a href="options_performance.html">Performance</a></li>
+                                    <li><a href="options_misc.html">Misc</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">API</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="py-modindex.html">Code API</a></li>
+                                    <li><a href="https://github.com/tijme/not-your-average-web-crawler" target="_blank">Source (GitHub)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="releases" class="dropdown" data-selected="1.7.4">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.7.4</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="default jumbotron">
+            <div class="jumbotron-darken">
+                <div class="vertical-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <h1 class="headline">Search</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="background" src="_static/img/header.jpg">
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+
+                <div class="content-container">
+                    
+  <h1 id="search-documentation">Search</h1>
+  <div id="fallback" class="admonition warning">
+  <script type="text/javascript">$('#fallback').hide();</script>
+  <p>
+    Please activate JavaScript to enable the search
+    functionality.
+  </p>
+  </div>
+  <p>
+    From here you can search these documents. Enter your search
+    words into the box below and click "search". Note that the search
+    function will automatically search for all of the words. Pages
+    containing fewer words won't appear in the result list.
+  </p>
+  <form action="" method="get">
+    <input type="text" name="q" value="" />
+    <input type="submit" value="search" />
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>
+  
+  <div id="search-results">
+  
+  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <p>N.Y.A.W.C v1.7.4 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  </body>
+</html>

@@ -7,6 +7,7 @@ How to use identity options
 
     # identity_example.py
 
+    from requests.auth import HTTPBasicAuth
     from nyawc.Options import Options
     from nyawc.Crawler import Crawler
     from nyawc.http.Request import Request

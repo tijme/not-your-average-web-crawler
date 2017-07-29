@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Crawling identity &#8212; Not Your Average Web Crawler</title>
+    
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.7.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css?1.7.4" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap-theme.css?1.7.4" type="text/css" />
+    <script src="../releases.js?1.7.4" type="text/javascript"></script>
+    <script src="_static/js/bootstrap.min.js?1.7.4" type="text/javascript"></script>
+    <script src="_static/js/releases-dropdown.js?1.7.4" type="text/javascript"></script>
+    <script src="_static/js/bootstrap-theme.js?1.7.4" type="text/javascript"></script>
+  </head>
+  <body role="document">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html"><span class="text">Home</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Introduction</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="installation.html">Installation</a></li>
+                                    <li><a href="migration.html">Migration</a></li>
+                                    <li><a href="getting_started.html">Getting Started</a></li>
+                                    <li><a href="kitchen_sink.html">Kitchen Sink</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="options_callbacks.html">Callbacks</a></li>
+                                    <li><a href="options_crawling_scope.html">Crawling scope</a></li>
+                                    <li><a href="options_crawling_identity.html">Crawling identity</a></li>
+                                    <li><a href="options_performance.html">Performance</a></li>
+                                    <li><a href="options_misc.html">Misc</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">API</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="py-modindex.html">Code API</a></li>
+                                    <li><a href="https://github.com/tijme/not-your-average-web-crawler" target="_blank">Source (GitHub)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="releases" class="dropdown" data-selected="1.7.4">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.7.4</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="default jumbotron">
+            <div class="jumbotron-darken">
+                <div class="vertical-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <h1 class="headline">Crawling identity</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="background" src="_static/img/header.jpg">
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                    <div class="row">
+                        <nav class="col-sm-3 col-sm-push-9 visible-xs">
+                            <strong>Table of Contents</strong>
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">How to use identity options</a></li>
+<li><a class="reference internal" href="#available-identity-options">Available identity options</a><ul>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+<li><a class="reference internal" href="#cookies">Cookies</a></li>
+<li><a class="reference internal" href="#proxy">Proxy</a></li>
+<li><a class="reference internal" href="#headers">Headers</a></li>
+</ul>
+</li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <nav class="col-sm-3 col-sm-push-9 hidden-xs" id="tocscroll">
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">How to use identity options</a></li>
+<li><a class="reference internal" href="#available-identity-options">Available identity options</a><ul>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+<li><a class="reference internal" href="#cookies">Cookies</a></li>
+<li><a class="reference internal" href="#proxy">Proxy</a></li>
+<li><a class="reference internal" href="#headers">Headers</a></li>
+</ul>
+</li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <div class="col-sm-9 col-sm-pull-3">
+
+                <div class="content-container">
+                    
+  <div class="section" id="how-to-use-identity-options">
+<h1>How to use identity options<a class="headerlink" href="#how-to-use-identity-options" title="Permalink to this headline">¶</a></h1>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># identity_example.py</span>
+
+<span class="kn">from</span> <span class="nn">nyawc.Options</span> <span class="k">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">nyawc.Crawler</span> <span class="k">import</span> <span class="n">Crawler</span>
+<span class="kn">from</span> <span class="nn">nyawc.http.Request</span> <span class="k">import</span> <span class="n">Request</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">)</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;tasty_cookie&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;yum&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;finnwea.com&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/cookies&#39;</span><span class="p">)</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;gross_cookie&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;blech&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;finnwea.com&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/elsewhere&#39;</span><span class="p">)</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># No authentication</span>
+    <span class="c1"># &#39;http&#39;: &#39;http://host:port&#39;,</span>
+    <span class="c1"># &#39;https&#39;: &#39;http://host:port&#39;,</span>
+
+    <span class="c1"># Basic authentication</span>
+    <span class="c1"># &#39;http&#39;: &#39;http://user:pass@host:port&#39;,</span>
+    <span class="c1"># &#39;https&#39;: &#39;https://user:pass@host:port&#39;,</span>
+
+    <span class="c1"># SOCKS</span>
+    <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;socks5://user:pass@host:port&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;socks5://user:pass@host:port&#39;</span>
+<span class="p">}</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36&quot;</span>
+<span class="p">})</span>
+
+<span class="n">crawler</span> <span class="o">=</span> <span class="n">Crawler</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<span class="n">crawler</span><span class="o">.</span><span class="n">start_with</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;https://finnwea.com/&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="available-identity-options">
+<h1>Available identity options<a class="headerlink" href="#available-identity-options" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>Set the authentication for the crawler. Please check <a class="reference external" href="http://docs.python-requests.org/en/master/user/authentication/">python-requests</a> authentication for all the options. Default is None (no authentication).</p>
+<p>You can find examples of different types of authentication below.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">requests.auth</span> <span class="k">import</span> <span class="n">HTTPBasicAuth</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="k">import</span> <span class="n">HTTPDigestAuth</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPDigestAuth</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">requests_oauthlib</span> <span class="k">import</span> <span class="n">OAuth1</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">OAuth1</span><span class="p">(</span><span class="s1">&#39;YOUR_APP_KEY&#39;</span><span class="p">,</span> <span class="s1">&#39;YOUR_APP_SECRET&#39;</span><span class="p">,</span> <span class="s1">&#39;USER_OAUTH_TOKEN&#39;</span><span class="p">,</span> <span class="s1">&#39;USER_OAUTH_TOKEN_SECRET&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cookies">
+<h2>Cookies<a class="headerlink" href="#cookies" title="Permalink to this headline">¶</a></h2>
+<p>Set custom cookies for the crawler. Please check <a class="reference external" href="http://docs.python-requests.org/en/master/user/quickstart/#cookies">python-requests</a> cookie jar for all the cookie options.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;tasty_cookie&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;yum&#39;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;finnwea.com&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/cookies&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="proxy">
+<h2>Proxy<a class="headerlink" href="#proxy" title="Permalink to this headline">¶</a></h2>
+<p>Set a proxy for the crawler. Please check <a class="reference external" href="http://docs.python-requests.org/en/master/user/advanced/#proxies">python-requests</a> proxies for all the proxy options. Default is None (no proxy).</p>
+<p>You can find examples of different types of proxies below.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Without authentication</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://host:port&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;http://host:port&#39;</span>
+<span class="p">}</span>
+
+<span class="c1"># With basic authentication</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://user:pass@host:port&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;https://user:pass@host:port&#39;</span>
+<span class="p">}</span>
+
+<span class="c1"># With SOCKS</span>
+<span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;socks5://user:pass@host:port&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;socks5://user:pass@host:port&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="headers">
+<h2>Headers<a class="headerlink" href="#headers" title="Permalink to this headline">¶</a></h2>
+<p>Set custom headers for the crawler (as {key: value} CaseInsensitiveDict). For example, you can set a new user agent by using <code class="docutils literal"><span class="pre">User-Agent</span></code> as key, as shown below.</p>
+<p>Please note that you should use the <code class="docutils literal"><span class="pre">.update()</span></code> method so the default headers remain the same.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">options</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36&quot;</span> <span class="c1"># The user agent to make requests with.</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <p>N.Y.A.W.C v1.7.4 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  </body>
+</html>
