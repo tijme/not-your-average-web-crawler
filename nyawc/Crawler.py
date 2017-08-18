@@ -26,6 +26,7 @@ import sys
 import time
 import signal
 import threading
+import traceback
 
 from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
@@ -143,6 +144,7 @@ class Crawler(object):
             self.__options.callbacks.crawler_before_start()
         except Exception as e:
             print(e)
+            print(traceback.format_exc())
 
         self.__spawn_new_requests()
 
@@ -182,6 +184,7 @@ class Crawler(object):
             self.__options.callbacks.crawler_after_finish(self.queue)
         except Exception as e:
             print(e)
+            print(traceback.format_exc())
 
     def __request_start(self, queue_item):
         """Execute the request in given queue item.
@@ -196,6 +199,7 @@ class Crawler(object):
         except Exception as e:
             action = None
             print(e)
+            print(traceback.format_exc())
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__should_stop = True
@@ -239,6 +243,7 @@ class Crawler(object):
         except Exception as e:
             action = None
             print(e)
+            print(traceback.format_exc())
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__should_stop = True
