@@ -202,6 +202,7 @@ class Crawler(object):
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
             self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
+            self.__spawn_new_requests()
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             self.queue.move(queue_item, QueueItem.STATUS_IN_PROGRESS)
