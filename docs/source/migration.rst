@@ -19,7 +19,7 @@ If you want to keep the request timeout on infinite set the request timeout opti
 
 **Count attributes removed from queue**
 
-The count attributes (e.g. ``queue.count_in_progress``) are removed since the time complexity of Python's native ``len()`` method is already O(n).
+The count attributes (e.g. ``queue.count_in_progress``) are removed since the time complexity of Python's native ``len()`` method is already O(1).
 
 .. code:: python
 
