@@ -59,8 +59,8 @@ class XMLRegexLinkScraper(BaseScraper):
 
         """
 
-        host = self.queue_item.response.url
-        content = self.queue_item.response.content.decode('utf-8')
+        host = self.queue_item.response.url.encode('utf-8')
+        content = self.queue_item.response.content
 
         found_requests = []
 

@@ -50,7 +50,7 @@ class HTMLSoupFormScraper(BaseScraper):
 
         """
 
-        host = self.queue_item.response.url
+        host = self.queue_item.response.url.encode('utf-8')
         soup = self.queue_item.get_soup_response()
 
         found_requests = []
