@@ -54,7 +54,7 @@ class JSONRegexLinkScraper(BaseScraper):
 
         """
 
-        host = self.queue_item.response.url.encode('utf-8')
+        host = self.queue_item.response.url
         content = self.queue_item.response.text
 
         found_requests = []
