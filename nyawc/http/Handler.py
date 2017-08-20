@@ -60,7 +60,7 @@ class Handler(object):
 
         # In Python 2.x it could occur that the requests module returns a unicode URL.
         # See this issue for more info (https://github.com/tijme/not-your-average-web-crawler/issues/5)
-        self.__queue_item.response.url = self.__queue_item.response.url.encode('utf-8').decode('utf-8')
+        self.__queue_item.response.url = str(self.__queue_item.response.url)
 
     def get_new_requests(self):
         """Retrieve all the new request that were found in this request.
