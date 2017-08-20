@@ -85,7 +85,7 @@ class QueueItem(object):
 
         if self.response is not None:
             if self.response_soup is None:
-                self.response_soup = BeautifulSoup(self.response.content, "lxml")
+                self.response_soup = BeautifulSoup(self.response.text, "lxml")
 
         return self.response_soup
 

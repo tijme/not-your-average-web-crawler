@@ -55,7 +55,7 @@ class CSSRegexLinkScraper(BaseScraper):
         """
 
         host = self.queue_item.response.url.encode('utf-8')
-        content = self.queue_item.response.content
+        content = self.queue_item.response.text
 
         found_requests = []
 
