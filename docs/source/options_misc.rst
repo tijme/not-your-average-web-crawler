@@ -44,6 +44,6 @@ Trusted certificates
 
 To trust certain certificates (e.g. if you are using a proxy), you can pass the path to a CA_BUNDLE file or directory with certificates of additional trusted CAs. Default is None (which means only domains with valid SSL certificates can be crawled).
 
-**If verify is set to a path to a directory, the directory must have been processed using the c_rehash utility supplied with OpenSSL.**
+**If verify is set to a directory, the directory must have been processed using the c_rehash utility supplied with OpenSSL.**
 
 ``options.misc.trusted_certificates = '/path/to/certificate.pem'``
