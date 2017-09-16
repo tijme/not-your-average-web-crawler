@@ -55,7 +55,8 @@ class Handler(object):
             self.__queue_item.request.cookies,
             self.__queue_item.request.headers,
             self.__queue_item.request.proxies,
-            self.__queue_item.request.timeout
+            self.__queue_item.request.timeout,
+            self.__queue_item.request.verify
         )
 
         # In Python 2.x it could occur that the requests module returns a unicode URL.
@@ -81,7 +82,7 @@ class Handler(object):
 
         return new_requests
 
-    def __make_request(self, url, method, data, auth, cookies, headers, proxies, timeout):
+    def __make_request(self, url, method, data, auth, cookies, headers, proxies, timeout, verify):
         """Execute a request with the given data.
 
         Args:
@@ -92,7 +93,8 @@ class Handler(object):
             cookies (obj): The cookie dict.
             headers (obj): The header dict.
             proxies (obj): The proxies dict.
-            timeout (int): The request timeout in seconds
+            timeout (int): The request timeout in seconds.
+            verify (mixed): SSL verification.
 
         Returns:
             obj: The response object.
@@ -108,6 +110,7 @@ class Handler(object):
             headers=headers,
             proxies=proxies,
             timeout=timeout,
+            verify=verify,
             allow_redirects=True,
             stream=False
         )

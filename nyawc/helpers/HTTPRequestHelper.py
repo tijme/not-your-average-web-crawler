@@ -53,6 +53,11 @@ class HTTPRequestHelper:
             for cookie in parent_queue_item.response.cookies:
                 request.cookies.set(cookie.name, cookie.value, domain=cookie.domain, path=cookie.path)
 
+        if options.misc.verify_ssl_certificates and options.misc.trusted_certificates:
+            request.verify = options.misc.trusted_certificates
+        else:
+            request.verify = options.misc.verify_ssl_certificates
+
     @staticmethod
     def complies_with_scope(queue_item, new_request, scope):
         """Check if the new request complies with the crawling scope.

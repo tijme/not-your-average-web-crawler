@@ -44,6 +44,7 @@ class Request(object):
         headers (obj): The headers {key: value} to use for the request.
         proxies (obj): The proxies {key: value} to use for the request.
         timeout (int): The amount of seconds to wait before a timeout exception will be thrown.
+        verify (mixed): True or False based on if certificates should be checked or else a path to a trusted bundle.
 
     """
 
@@ -59,7 +60,7 @@ class Request(object):
 
     METHOD_DELETE = "delete"
 
-    def __init__(self, url, method=METHOD_GET, data=None, auth=None, cookies=None, headers=None, proxies=None, timeout=30):
+    def __init__(self, url, method=METHOD_GET, data=None, auth=None, cookies=None, headers=None, proxies=None, timeout=30, verify=True):
         """Constructs a Request instance.
 
         Args:
@@ -71,6 +72,7 @@ class Request(object):
             headers (obj): The headers {key: value} to use for the request.
             proxies (obj): The proxies {key: value} to use for the request.
             timeout (int): The amount of seconds to wait before a timeout exception will be thrown.
+            verify (mixed): True or False based on if certificates should be checked or else a path to a trusted bundle.
 
         """
 
@@ -84,6 +86,7 @@ class Request(object):
         self.headers = headers
         self.proxies = proxies
         self.timeout = timeout
+        self.verify = verify
 
         if method == self.METHOD_GET:
             self.url = URLHelper.append_with_data(self.url, data)

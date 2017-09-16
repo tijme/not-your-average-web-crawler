@@ -128,6 +128,8 @@ options.performance.request_timeout = 15 # The request timeout in seconds (throw
 
 # Misc options
 options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
+options.misc.verify_ssl_certificates = True # If verification is enabled all SSL certificates will be checked for validity. Default is True.
+options.misc.trusted_certificates = None # You can pass the path to a CA_BUNDLE file or directory with certificates of trusted CAs. Default is None.
 
 crawler = Crawler(options)
 crawler.start_with(Request("https://finnwea.com/"))

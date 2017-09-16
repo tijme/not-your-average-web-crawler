@@ -250,6 +250,8 @@ class OptionsMisc(object):
 
     Attributes:
         debug (bool): If debug is enabled extra information will be logged to the console. Default is False.
+        verify_ssl_certificates (bool): If verification is enabled all SSL certificates will be checked for validity. Default is True.
+        trusted_certificates (str): You can pass the path to a CA_BUNDLE file or directory with certificates of trusted CAs. Default is None.
 
     """
 
@@ -257,3 +259,5 @@ class OptionsMisc(object):
         """Constructs an OptionsMisc instance."""
 
         self.debug = False
+        self.verify_ssl_certificates = True
+        self.trusted_certificates = None
