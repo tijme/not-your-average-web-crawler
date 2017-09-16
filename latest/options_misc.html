@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.7.6',
+        VERSION:     '1.7.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,12 +27,12 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="_static/css/bootstrap.min.css?1.7.6" type="text/css" />
-    <link rel="stylesheet" href="_static/css/bootstrap-theme.css?1.7.6" type="text/css" />
-    <script src="../releases.js?1.7.6" type="text/javascript"></script>
-    <script src="_static/js/bootstrap.min.js?1.7.6" type="text/javascript"></script>
-    <script src="_static/js/releases-dropdown.js?1.7.6" type="text/javascript"></script>
-    <script src="_static/js/bootstrap-theme.js?1.7.6" type="text/javascript"></script>
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css?1.7.8" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap-theme.css?1.7.8" type="text/css" />
+    <script src="../releases.js?1.7.8" type="text/javascript"></script>
+    <script src="_static/js/bootstrap.min.js?1.7.8" type="text/javascript"></script>
+    <script src="_static/js/releases-dropdown.js?1.7.8" type="text/javascript"></script>
+    <script src="_static/js/bootstrap-theme.js?1.7.8" type="text/javascript"></script>
   </head>
   <body role="document">
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -78,8 +78,8 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li id="releases" class="dropdown" data-selected="1.7.6">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.7.6</span> <span class="caret"></span></a>
+                            <li id="releases" class="dropdown" data-selected="1.7.8">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.7.8</span> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                 </ul>
                             </li>
@@ -116,6 +116,8 @@
 <li><a class="reference internal" href="#">How to use misc options</a></li>
 <li><a class="reference internal" href="#available-misc-options">Available misc options</a><ul>
 <li><a class="reference internal" href="#debug">Debug</a></li>
+<li><a class="reference internal" href="#verify-ssl-certificates">Verify SSL certificates</a></li>
+<li><a class="reference internal" href="#trusted-certificates">Trusted certificates</a></li>
 </ul>
 </li>
 </ul>
@@ -128,6 +130,8 @@
 <li><a class="reference internal" href="#">How to use misc options</a></li>
 <li><a class="reference internal" href="#available-misc-options">Available misc options</a><ul>
 <li><a class="reference internal" href="#debug">Debug</a></li>
+<li><a class="reference internal" href="#verify-ssl-certificates">Verify SSL certificates</a></li>
+<li><a class="reference internal" href="#trusted-certificates">Trusted certificates</a></li>
 </ul>
 </li>
 </ul>
@@ -149,6 +153,8 @@
 <span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
 
 <span class="n">options</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">options</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">verify_ssl_certificates</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">options</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">trusted_certificates</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="n">crawler</span> <span class="o">=</span> <span class="n">Crawler</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 <span class="n">crawler</span><span class="o">.</span><span class="n">start_with</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;https://finnwea.com/&quot;</span><span class="p">))</span>
@@ -161,6 +167,17 @@
 <h2>Debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h2>
 <p>If debug is enabled extra information will be logged to the console. Default is False.</p>
 <p><code class="docutils literal"><span class="pre">options.misc.debug</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+</div>
+<div class="section" id="verify-ssl-certificates">
+<h2>Verify SSL certificates<a class="headerlink" href="#verify-ssl-certificates" title="Permalink to this headline">¶</a></h2>
+<p>If verification is enabled all SSL certificates will be checked for validity. Default is True.</p>
+<p><code class="docutils literal"><span class="pre">options.misc.verify_ssl_certificates</span> <span class="pre">=</span> <span class="pre">True</span></code></p>
+</div>
+<div class="section" id="trusted-certificates">
+<h2>Trusted certificates<a class="headerlink" href="#trusted-certificates" title="Permalink to this headline">¶</a></h2>
+<p>To trust certain certificates (e.g. if you are using a proxy), you can pass the path to a CA_BUNDLE file or directory with certificates of additional trusted CAs. Default is None (which means only domains with valid SSL certificates can be crawled).</p>
+<p><strong>If verify is set to a path to a directory, the directory must have been processed using the c_rehash utility supplied with OpenSSL.</strong></p>
+<p><code class="docutils literal"><span class="pre">options.misc.trusted_certificates</span> <span class="pre">=</span> <span class="pre">'/path/to/certificate.pem'</span></code></p>
 </div>
 </div>
 
@@ -176,7 +193,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <p>N.Y.A.W.C v1.7.6 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
+                    <p>N.Y.A.W.C v1.7.8 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
                 </div>
             </div>
         </div>
