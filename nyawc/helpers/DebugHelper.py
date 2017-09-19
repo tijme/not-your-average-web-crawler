@@ -22,8 +22,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import urllib3
+import requests
+
 class DebugHelper:
     """A helper for printing debug messages."""
+
+    @staticmethod
+    def setup(options):
+        """Initialize debug/logging in third party libraries correctly.
+
+        Args:
+            options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
+
+        """
+
+        if not options.misc.debug:
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
     @staticmethod
     def output(options, message):

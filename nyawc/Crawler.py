@@ -32,6 +32,7 @@ from nyawc.Queue import Queue
 from nyawc.QueueItem import QueueItem
 from nyawc.CrawlerThread import CrawlerThread
 from nyawc.CrawlerActions import CrawlerActions
+from nyawc.helpers.DebugHelper import DebugHelper
 from nyawc.helpers.HTTPRequestHelper import HTTPRequestHelper
 
 class Crawler(object):
@@ -56,8 +57,6 @@ class Crawler(object):
 
         """
 
-        signal.signal(signal.SIGINT, self.__signal_handler)
-
         self.queue = Queue(options)
         self.__options = options
         self.__should_stop = False
@@ -65,6 +64,9 @@ class Crawler(object):
         self.__stopped = False
         self.__threads = {}
         self.__lock = threading.Lock()
+
+        signal.signal(signal.SIGINT, self.__signal_handler)
+        DebugHelper.setup(self.__options)
 
     def __signal_handler(self, signum, frame):
         """On sigint (e.g. CTRL+C) stop the crawler.
