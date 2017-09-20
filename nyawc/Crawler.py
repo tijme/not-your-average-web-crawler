@@ -41,6 +41,7 @@ class Crawler(object):
     Attributes:
         queue (:class:`nyawc.Queue`): The request/response pair queue containing everything to crawl.
         __options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
+        __should_spawn_new_requests (bool): If the crawler should start spwaning new requests.
         __should_stop (bool): If the crawler should stop the crawling process.
         __stopping (bool): If the crawler is stopping the crawling process.
         __stopped (bool): If the crawler finished stopping the crawler process.
@@ -59,6 +60,7 @@ class Crawler(object):
 
         self.queue = Queue(options)
         self.__options = options
+        self.__should_spawn_new_requests = False
         self.__should_stop = False
         self.__stopping = False
         self.__stopped = False
@@ -101,6 +103,8 @@ class Crawler(object):
 
         """
 
+        self.__should_spawn_new_requests = False
+
         in_progress_count = len(self.queue.get_all(QueueItem.STATUS_IN_PROGRESS))
 
         while in_progress_count < self.__options.performance.max_threads:
@@ -140,6 +144,10 @@ class Crawler(object):
             The main thread will sleep until the crawler is finished. This enables
             quiting the application using sigints (see http://stackoverflow.com/a/11816038/2491049).
 
+        Note:
+            `__crawler_stop()` and `__spawn_new_requests()` are called here on the main thread to
+            prevent thread recursion and deadlocks.
+
         """
 
         try:
@@ -153,6 +161,9 @@ class Crawler(object):
         while not self.__stopped:
             if self.__should_stop:
                 self.__crawler_stop()
+
+            if self.__should_spawn_new_requests:
+                self.__spawn_new_requests()
 
             time.sleep(1)
 
@@ -208,7 +219,7 @@ class Crawler(object):
 
         if action == CrawlerActions.DO_SKIP_TO_NEXT:
             self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
-            self.__spawn_new_requests()
+            self.__should_spawn_new_requests = True
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
             self.queue.move(queue_item, QueueItem.STATUS_IN_PROGRESS)
@@ -251,7 +262,7 @@ class Crawler(object):
             self.__should_stop = True
 
         if action == CrawlerActions.DO_CONTINUE_CRAWLING or action is None:
-            self.__spawn_new_requests()
+            self.__should_spawn_new_requests = True
 
     def __add_scraped_requests_to_queue(self, queue_item, scraped_requests):
         """Convert the scraped requests to queue items, return them and also add them to the queue.
