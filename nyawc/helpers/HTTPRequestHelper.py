@@ -110,3 +110,24 @@ class HTTPRequestHelper:
                 return False
 
         return True
+
+    @staticmethod
+    def get_cookie_header(queue_item):
+        """Convert a requests cookie jar to a HTTP request cookie header value.
+
+        Args:
+            queue_item (:class:`nyawc.QueueItem`): The parent queue item of the new request.
+
+        Returns:
+            str: The HTTP cookie header value.
+
+        """
+
+        header = []
+        path = URLHelper.get_path(queue_item.request.url)
+
+        for cookie in queue_item.request.cookies:
+            if path.startswith(cookie.path):
+                header.append(cookie.name + "=" + cookie.value)
+
+        return "&".join(header)
