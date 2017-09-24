@@ -127,7 +127,8 @@ class HTTPRequestHelper:
         path = URLHelper.get_path(queue_item.request.url)
 
         for cookie in queue_item.request.cookies:
-            if path.startswith(cookie.path):
+            root_path = cookie.path == "" or cookie.path == "/"
+            if path.startswith(cookie.path) or root_path:
                 header.append(cookie.name + "=" + cookie.value)
 
         return "&".join(header)
