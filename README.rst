@@ -33,7 +33,7 @@
    </p>
    <h1>Not Your Average Web Crawler</h1>
 
-N.Y.A.W.C is a Python library that helps you to test your payload against all requests of a certain domain. It crawls all requests (e.g. GET, POST or PUT) in the specified scope and keeps track of the request and response data. During the crawling process, the callbacks enable you to insert your payload at specific places and test if they worked.
+N.Y.A.W.C is a Python library that enables you to test your payload against all requests of a certain domain. It crawls all requests (e.g. GET, POST or PUT) in the specified scope and keeps track of the request and response data. During the crawling process the callbacks enable you to insert your payload at specific places and test if they worked.
 
 Table of contents
 -----------------
