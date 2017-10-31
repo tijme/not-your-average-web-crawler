@@ -28,6 +28,7 @@ import unittest
 from nyawc.Options import Options
 from nyawc.Crawler import Crawler
 from nyawc.http.Request import Request
+from nyawc.CrawlerActions import CrawlerActions
 
 class TestSite(unittest.TestCase):
     """The TestSite class checks if the crawler handles invalid responses correctly.
@@ -49,6 +50,22 @@ class TestSite(unittest.TestCase):
         super(TestSite, self).__init__(*args, **kwargs)
         self.travis = "UNITTEST_NYAWC_SITE" in os.environ
 
+    def cb_request_after_finish(self, queue, queue_item, new_queue_items):
+        """Crawler callback for when a request is finished crawling.
+
+        Args:
+            queue (:class:`nyawc.Queue`): The current crawling queue.
+            queue_item (:class:`nyawc.QueueItem`): The queue item that was finished.
+            new_queue_items list(:class:`nyawc.QueueItem`): The new queue items that were found in the one that finished.
+
+        Returns:
+            str: A crawler action (either DO_STOP_CRAWLING or DO_CONTINUE_CRAWLING).
+
+        """
+        
+        print("Finished: {}".format(queue_item.request.url))
+        return CrawlerActions.DO_CONTINUE_CRAWLING
+
     def test_crawl_website(self):
         """Crawl the website in `test/` and check if the count is correct."""
 
@@ -58,7 +75,8 @@ class TestSite(unittest.TestCase):
             return
 
         options = Options()
+        options.callbacks.request_after_finish = self.cb_request_after_finish
         crawler = Crawler(options)
         crawler.start_with(Request("http://localhost/"))
 
-        self.assertEqual(crawler.queue.count_total, 18)
+        self.assertEqual(crawler.queue.count_total, 10008)
