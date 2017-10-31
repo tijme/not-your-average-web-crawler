@@ -62,7 +62,7 @@ class TestSite(unittest.TestCase):
             str: A crawler action (either DO_STOP_CRAWLING or DO_CONTINUE_CRAWLING).
 
         """
-        
+
         print("Finished: {}".format(queue_item.request.url))
         return CrawlerActions.DO_CONTINUE_CRAWLING
 
@@ -79,4 +79,4 @@ class TestSite(unittest.TestCase):
         crawler = Crawler(options)
         crawler.start_with(Request("http://localhost/"))
 
-        self.assertEqual(crawler.queue.count_total, 10008)
+        self.assertEqual(crawler.queue.count_total, 15018)

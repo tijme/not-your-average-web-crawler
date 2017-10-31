@@ -2,7 +2,7 @@
 <html>
     <body>
         <?php
-            $depth = 10000;
+            $depth = 15000 - 1;
             $current = isset($_GET['depth']) ? (int) $_GET['depth'] : 1;
 
             $from = $current <= $depth && $current >= 1 ? $current : 1;
