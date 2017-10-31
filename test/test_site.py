@@ -79,4 +79,4 @@ class TestSite(unittest.TestCase):
         crawler = Crawler(options)
         crawler.start_with(Request("http://localhost/"))
 
-        self.assertEqual(crawler.queue.count_total, 15018)
+        self.assertEqual(crawler.queue.count_total, 18)
