@@ -33,7 +33,7 @@
    </p>
    <h1>Not Your Average Web Crawler</h1>
 
-Did you ever want to test your payload against all requests of a certain domain? N.Y.A.W.C can help you with that. It crawls all requests (e.g. GET, POST or PUT) on the specified domain and keeps track of the request and response data. During the crawling process, the callbacks enable you to insert your payload at specific places and test if they worked.
+N.Y.A.W.C is a Python library that enables you to test your payload against all requests of a certain domain. It crawls all requests (e.g. GET, POST or PUT) in the specified scope and keeps track of the request and response data. During the crawling process the callbacks enable you to insert your payload at specific places and test if they worked.
 
 Table of contents
 -----------------
@@ -74,7 +74,7 @@ Please refer to the `documentation <https://tijme.github.io/not-your-average-web
 Minimal implementation
 ----------------------
 
-You can use the callbacks in ``example_minimal.py`` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at `Detective <https://github.com/tijme/detective>`__ (it uses N.Y.A.W.C to scan for information disclosure vulnerabilities).
+You can use the callbacks in ``example_minimal.py`` to run your own exploit against the requests. If you want an example of automated exploit scanning, please take a look at `ACSTIS <https://github.com/tijme/angularjs-csti-scanner>`__ (it uses N.Y.A.W.C to scan for AngularJS client-side template injection vulnerabilities).
 
 You can also use the `kitchen sink <https://tijme.github.io/not-your-average-web-crawler/latest/kitchen_sink.html>`__ (which contains all the functionalities from N.Y.A.W.C.) instead of the example below. The code below is a minimal implementation of N.Y.A.W.C.
 
