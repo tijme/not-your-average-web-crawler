@@ -36,9 +36,14 @@ class QueueItem(object):
         STATUS_ERRORED (str): Status for when the crawler could not execute the request.
         STATUSES (arr): All statuses.
         status (str): The current crawling status.
+        decomposed (bool): If the this queue item is decomposed.
         request (:class:`nyawc.http.Request`): The Request object.
         response (:class:`nyawc.http.Response`): The Response object.
         response_soup (obj): The BeautifulSoup container for the response text.
+
+    Note:
+        A queue item will be decomposed (cached objects are deleted to free up memory) when it is
+        not likeley to be used again. After decompisition variables will not be cached anymore.
 
     """
 
@@ -70,6 +75,7 @@ class QueueItem(object):
         """
 
         self.status = QueueItem.STATUS_QUEUED
+        self.decomposed = False
         self.response_soup = None
 
         self.request = request
@@ -85,9 +91,26 @@ class QueueItem(object):
 
         if self.response is not None:
             if self.response_soup is None:
-                self.response_soup = BeautifulSoup(self.response.text, "lxml")
+                result = BeautifulSoup(self.response.text, "lxml")
+
+                if self.decomposed:
+                    return result
+                else:
+                    self.response_soup = BeautifulSoup(self.response.text, "lxml")
 
         return self.response_soup
+
+    def decompose(self):
+        """Decompose this queue item (set cached variables to None) to free up memory.
+
+        Note:
+            When setting cached variables to None memory will be released after the garbage 
+            collector ran.
+        
+        """
+
+        self.decomposed = True
+        self.response_soup = None
 
     def get_hash(self):
         """Generate and return the dict index hash of the given queue item.

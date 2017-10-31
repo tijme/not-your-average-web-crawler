@@ -257,6 +257,8 @@ class Crawler(object):
             action = None
             print(e)
             print(traceback.format_exc())
+        
+        queue_item.decompose()
 
         if action == CrawlerActions.DO_STOP_CRAWLING:
             self.__should_stop = True

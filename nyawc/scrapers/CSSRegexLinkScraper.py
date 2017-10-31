@@ -43,7 +43,7 @@ class CSSRegexLinkScraper(BaseScraper):
 
     __expressions = [
         # Match absolute/relative URLs between any type of CSS quote
-        {"group": 1, "raw": r"\(([\"\'])?(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))(\1)?\)"}
+        {"group": 1, "raw": r"\(([\"\'])?(((((https?:)?\/)?\/)|(\.\.\/)+)([^\n ]*?))(\1)?\)"}
     ]
 
     def derived_get_requests(self):

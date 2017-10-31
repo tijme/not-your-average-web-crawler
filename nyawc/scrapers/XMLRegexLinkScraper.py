@@ -45,10 +45,10 @@ class XMLRegexLinkScraper(BaseScraper):
 
     __expressions = [
         # Match absolute/relative URLs between any type of XML tag
-        {"group": 0, "raw": r">(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))<\/"},
+        {"group": 0, "raw": r">(((((https?:)?\/)?\/)|(\.\.\/)+)([^\n ]*?))<\/"},
 
         # Match absolute/relative URLs between any type of XML quote
-        {"group": 1, "raw": r"=([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)(.*?))\1"}
+        {"group": 1, "raw": r"=([\"\'\`])(((((https?:)?\/)?\/)|(\.\.\/)+)([^\n ]*?))\1"}
     ]
 
     def derived_get_requests(self):
