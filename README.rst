@@ -86,6 +86,7 @@ You can also use the `kitchen sink <https://tijme.github.io/not-your-average-web
     # example_minimal.py
 
     from nyawc.Options import Options
+    from nyawc.QueueItem import QueueItem
     from nyawc.Crawler import Crawler
     from nyawc.CrawlerActions import CrawlerActions
     from nyawc.http.Request import Request
