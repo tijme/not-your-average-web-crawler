@@ -126,6 +126,13 @@ options.identity.headers.update({
 options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
 options.performance.request_timeout = 15 # The request timeout in seconds (throws an exception if exceeded). Default is 30.
 
+# Routing options
+options.routing.minimum_threshold = 4 # The minimum amount of requests to crawl (matching a certain route) before ignoring the rest. Default is 20.
+options.routing.routes = [ 
+    # The regular expressions that represent routes that should not be cralwed more times than the minimum treshold. Default is an empty array.
+    "^(https?:\/\/)?(www\.)?finnwea\.com\/blog\/[^\n \/]+\/$" # Only crawl /blog/{some-blog-alias} 4 times.
+]
+
 # Misc options
 options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
 options.misc.verify_ssl_certificates = True # If verification is enabled all SSL certificates will be checked for validity. Default is True.

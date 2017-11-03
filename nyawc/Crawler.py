@@ -29,6 +29,7 @@ import threading
 import traceback
 
 from nyawc.Queue import Queue
+from nyawc.Routing import Routing
 from nyawc.QueueItem import QueueItem
 from nyawc.CrawlerThread import CrawlerThread
 from nyawc.CrawlerActions import CrawlerActions
@@ -40,6 +41,7 @@ class Crawler(object):
 
     Attributes:
         queue (:class:`nyawc.Queue`): The request/response pair queue containing everything to crawl.
+        routing (:class:`nyawc.Routing`): A class that identifies requests based on routes from the options.
         __options (:class:`nyawc.Options`): The options to use for the current crawling runtime.
         __should_spawn_new_requests (bool): If the crawler should start spwaning new requests.
         __should_stop (bool): If the crawler should stop the crawling process.
@@ -59,6 +61,7 @@ class Crawler(object):
         """
 
         self.queue = Queue(options)
+        self.routing = Routing(options)
         self.__options = options
         self.__should_spawn_new_requests = False
         self.__should_stop = False
@@ -125,8 +128,16 @@ class Crawler(object):
         """
 
         first_in_line = self.queue.get_first(QueueItem.STATUS_QUEUED)
+        
         if first_in_line is None:
             return False
+
+        while self.routing.is_treshold_reached(first_in_line.request):
+            self.queue.move(first_in_line, QueueItem.STATUS_CANCELLED)
+
+            first_in_line = self.queue.get_first(QueueItem.STATUS_QUEUED)
+            if first_in_line is None:
+                return False
 
         self.__request_start(first_in_line)
         return True
@@ -248,6 +259,7 @@ class Crawler(object):
             new_queue_items = []
             self.queue.move(queue_item, QueueItem.STATUS_ERRORED)
         else:
+            self.routing.increase_route_count(queue_item.request)
             new_queue_items = self.__add_scraped_requests_to_queue(queue_item, new_requests)
             self.queue.move(queue_item, QueueItem.STATUS_FINISHED)
 

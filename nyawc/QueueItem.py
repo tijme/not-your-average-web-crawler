@@ -39,7 +39,8 @@ class QueueItem(object):
         decomposed (bool): If the this queue item is decomposed.
         request (:class:`nyawc.http.Request`): The Request object.
         response (:class:`nyawc.http.Response`): The Response object.
-        response_soup (obj): The BeautifulSoup container for the response text.
+        __response_soup (obj): The BeautifulSoup container for the response text.
+        __index_hash (str): The index of the queue (if cached), otherwise None.
 
     Note:
         A queue item will be decomposed (cached objects are deleted to free up memory) when it is
@@ -76,7 +77,8 @@ class QueueItem(object):
 
         self.status = QueueItem.STATUS_QUEUED
         self.decomposed = False
-        self.response_soup = None
+        self.__response_soup = None
+        self.__index_hash = None
 
         self.request = request
         self.response = response
@@ -90,15 +92,15 @@ class QueueItem(object):
         """
 
         if self.response is not None:
-            if self.response_soup is None:
+            if self.__response_soup is None:
                 result = BeautifulSoup(self.response.text, "lxml")
 
                 if self.decomposed:
                     return result
                 else:
-                    self.response_soup = BeautifulSoup(self.response.text, "lxml")
+                    self.__response_soup = BeautifulSoup(self.response.text, "lxml")
 
-        return self.response_soup
+        return self.__response_soup
 
     def decompose(self):
         """Decompose this queue item (set cached variables to None) to free up memory.
@@ -109,8 +111,9 @@ class QueueItem(object):
         
         """
 
+        self.__response_soup = None
+
         self.decomposed = True
-        self.response_soup = None
 
     def get_hash(self):
         """Generate and return the dict index hash of the given queue item.
@@ -129,6 +132,9 @@ class QueueItem(object):
 
         """
 
+        if self.__index_hash:
+            return self.__index_hash
+
         key = self.request.method
 
         key += URLHelper.get_protocol(self.request.url)
@@ -142,4 +148,5 @@ class QueueItem(object):
         if self.request.data is not None:
             key += str(self.request.data.keys())
 
-        return key
+        self.__index_hash = key
+        return self.__index_hash
