@@ -224,7 +224,7 @@ class OptionsPerformance(object):
     def __init__(self):
         """Constructs an OptionsPerformance instance."""
 
-        self.max_threads = 8
+        self.max_threads = 40
         self.request_timeout = 30
 
 class OptionsIdentity(object):

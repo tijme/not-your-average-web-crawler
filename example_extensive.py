@@ -123,7 +123,7 @@ options.identity.headers.update({
 })
 
 # Performance options (https://tijme.github.io/not-your-average-web-crawler/latest/options_performance.html)
-options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
+options.performance.max_threads = 20 # The maximum amount of simultaneous threads to use for crawling. Default is 40.
 options.performance.request_timeout = 15 # The request timeout in seconds (throws an exception if exceeded). Default is 30.
 
 # Routing options (https://tijme.github.io/not-your-average-web-crawler/latest/options_routing.html)

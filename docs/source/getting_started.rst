@@ -70,9 +70,14 @@ Scope
 You can set scope options to, for example, only crawl certain subdomains or certain request methods. See `this <options_crawling_scope.html>`_ page for all the available scope options.
 
 Identity
-~~~~~~~~~
+~~~~~~~~
 
 Do you want to use authentication, set headers or use a proxy? Check `these <options_crawling_identity.html>`_ identity options for documentation.
+
+Routing
+~~~~~~~
+
+If you want to ignore similar requests (e.g. /news/1, /news/2, /news/3, etc) you can specify routes via the `routing <options_routing.html>`_ options.
 
 The kitchen sink
 ----------------

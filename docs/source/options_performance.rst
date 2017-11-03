@@ -13,7 +13,7 @@ How to use performance options
 
     options = Options()
 
-    options.performance.max_threads = 10
+    options.performance.max_threads = 20
     options.performance.request_timeout = 15
 
     crawler = Crawler(options)
@@ -25,9 +25,9 @@ Available performance options
 Maximum threads
 ~~~~~~~~~~~~~~~
 
-The maximum amount of simultaneous threads to use for crawling. Default is 8.
+The maximum amount of simultaneous threads to use for crawling. Default is 40.
 
-``options.performance.max_threads = 8``
+``options.performance.max_threads = 40``
 
 Request timeout
 ~~~~~~~~~~~~~~~

@@ -176,7 +176,7 @@ class Crawler(object):
             if self.__should_spawn_new_requests:
                 self.__spawn_new_requests()
 
-            time.sleep(1)
+            time.sleep(0.1)
 
     def __crawler_stop(self):
         """Mark the crawler as stopped.
