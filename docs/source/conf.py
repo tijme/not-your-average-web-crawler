@@ -228,9 +228,10 @@ napoleon_include_private_with_doc  = True
 
 # Always make sure current release is in releases.js
 import json
+from collections import OrderedDict
 
 releasesjs = open('../../releases.js').read().replace("var releases = ", "")
-releases = json.loads(releasesjs);
+releases = json.loads(releasesjs, object_pairs_hook=OrderedDict);
 
 releases[release] = True
 

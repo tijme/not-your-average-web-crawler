@@ -37,6 +37,7 @@ class Options(object):
         callbacks (:class:`nyawc.Options.OptionsCallbacks`): Can be used to define crawling callbacks.
         performance (:class:`nyawc.Options.OptionsPerformance`): Can be used to define performance options.
         identity (:class:`nyawc.Options.OptionsIdentity`): Can be used to define the identity/footprint options.
+        routing (:class:`nyawc.Options.OptionsRouting`): Can be used to define routes to ignore similar requests.
         misc (:class:`nyawc.Options.OptionsMisc`): Can be used to define the other options.
 
     """
@@ -48,6 +49,7 @@ class Options(object):
         self.callbacks = OptionsCallbacks()
         self.performance = OptionsPerformance()
         self.identity = OptionsIdentity()
+        self.routing = OptionsRouting()
         self.misc = OptionsMisc()
 
 class OptionsScope(object):
@@ -244,6 +246,30 @@ class OptionsIdentity(object):
         self.headers = requests.utils.default_headers()
         self.headers.update({"User-Agent": user_agent(PackageHelper.get_alias(), PackageHelper.get_version())})
         self.proxies = None
+
+class OptionsRouting(object):
+    """The OptionsRouting class can contain routes that prevent the crawler from crawling similar pages multiple times.
+
+    Attributes:
+        minimum_threshold (int): The minimum amount of requests to crawl (matching a certain route) before ignoring the rest. Default is 20.
+        routes (arr): The regular expressions that represent routes that should not be cralwed more times than the minimum treshold. Default is an empty array.
+
+    Note:
+        An example would be if you have a news site with URLs like (/news/3443, news/2132, news/9475, etc). You can add a regular expression
+        that matches this route so only X requests that match regular expression will be crawled (where X is the minimum treshold).
+
+    Note:
+        The crawler will only stop crawling requests of certain routes at exactly the minimum treshold if the maximum threads option is set to 1.
+        If the maximum threads option is set to a value higher than 1 the threshold will get a bit higher depending on the amount of threads used.
+
+    """
+
+    def __init__(self):
+        """Constructs an OptionsRouting instance."""
+
+        self.minimum_threshold = 20
+        self.routes = []
+
 
 class OptionsMisc(object):
     """The OptionsMisc class contains all kind of misc options.
