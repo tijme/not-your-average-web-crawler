@@ -45,12 +45,11 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
         pass
 
     def cb_request_on_error(queue_item, message):
-        print("A request failed with an error message.")
-        print(message)
+        print("[error] " + message)
 
     def cb_form_before_autofill(queue_item, elements, form_data):
-
         # return CrawlerActions.DO_NOT_AUTOFILL_FORM
+
         return CrawlerActions.DO_AUTOFILL_FORM
 
     def cb_form_after_autofill(queue_item, elements, form_data):
@@ -59,7 +58,7 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
     # Declare the options
     options = Options()
 
-    # Callback options
+    # Callback options (https://tijme.github.io/not-your-average-web-crawler/latest/options_callbacks.html)
     options.callbacks.crawler_before_start = cb_crawler_before_start # Called before the crawler starts crawling. Default is a null route.
     options.callbacks.crawler_after_finish = cb_crawler_after_finish # Called after the crawler finished crawling. Default is a null route.
     options.callbacks.request_before_start = cb_request_before_start # Called before the crawler starts a new request. Default is a null route.
@@ -70,7 +69,7 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
     options.callbacks.form_before_autofill = cb_form_before_autofill # Called before the crawler autofills a form. Default is a null route.
     options.callbacks.form_after_autofill = cb_form_after_autofill # Called after the crawler autofills a form. Default is a null route.
 
-    # Scope options
+    # Scope options (https://tijme.github.io/not-your-average-web-crawler/latest/options_crawling_scope.html)
     options.scope.protocol_must_match = False # Only crawl pages with the same protocol as the startpoint (e.g. only https). Default is False.
     options.scope.subdomain_must_match = True # Only crawl pages with the same subdomain as the startpoint. If the startpoint is not a subdomain, no subdomains will be crawled. Default is True.
     options.scope.hostname_must_match = True # Only crawl pages with the same hostname as the startpoint (e.g. only `finnwea`). Default is True.
@@ -86,7 +85,7 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
         Request.METHOD_HEAD
     ]
 
-    # Identity options
+    # Identity options (https://tijme.github.io/not-your-average-web-crawler/latest/options_crawling_identity.html)
     options.identity.auth = HTTPBasicAuth('user', 'pass') # Or any other authentication (http://docs.python-requests.org/en/master/user/authentication/). Default is None.
     options.identity.cookies.set(name='tasty_cookie', value='yum', domain='finnwea.com', path='/cookies')
     options.identity.cookies.set(name='gross_cookie', value='blech', domain='finnwea.com', path='/elsewhere')
@@ -107,14 +106,21 @@ The English phrase "Everything but the kitchen sink" means "almost anything one 
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
     })
 
-    # Performance options
+    # Performance options (https://tijme.github.io/not-your-average-web-crawler/latest/options_performance.html)
     options.performance.max_threads = 10 # The maximum amount of simultaneous threads to use for crawling. Default is 8.
-    options.performance.request_timeout = 10 # The request timeout in seconds (throws an exception if exceeded). Default is 30.
+    options.performance.request_timeout = 15 # The request timeout in seconds (throws an exception if exceeded). Default is 30.
 
-    # Misc options
+    # Routing options (https://tijme.github.io/not-your-average-web-crawler/latest/options_routing.html)
+    options.routing.minimum_threshold = 4 # The minimum amount of requests to crawl (matching a certain route) before ignoring the rest. Default is 20.
+    options.routing.routes = [ 
+        # The regular expressions that represent routes that should not be cralwed more times than the minimum treshold. Default is an empty array.
+        "^(https?:\/\/)?(www\.)?finnwea\.com\/blog\/[^\n \/]+\/$" # Only crawl /blog/{some-blog-alias} 4 times.
+    ]
+
+    # Misc options (https://tijme.github.io/not-your-average-web-crawler/latest/options_misc.html)
     options.misc.debug = False # If debug is enabled extra information will be logged to the console. Default is False.
     options.misc.verify_ssl_certificates = True # If verification is enabled all SSL certificates will be checked for validity. Default is True.
-    options.misc.trusted_certificates = None # You can pass the path to a CA_BUNDLE file or directory with certificates of trusted CAs. Default is None.
+    options.misc.trusted_certificates = None # You can pass the path to a CA_BUNDLE file (.pem) or directory with certificates of trusted CAs. Default is None.
 
     crawler = Crawler(options)
     crawler.start_with(Request("https://finnwea.com/"))

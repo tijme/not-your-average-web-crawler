@@ -1,7 +1,7 @@
 .. title:: Misc
 
 How to use misc options
-------------------------------
+-----------------------
 
 .. code:: python
 
