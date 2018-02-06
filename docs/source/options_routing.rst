@@ -52,6 +52,4 @@ The regular expressions that represent routes that should not be cralwed more ti
 
 For example the route below represents ``http://finnwea.com/blog/{a-variable-blog-alias}/``.
 
-``options.routing.routes = [ 
-        "^(https?:\/\/)?(www\.)?finnwea\.com\/blog\/[^\n \/]+\/$"
-]``
+``options.routing.routes = ["^(https?:\/\/)?(www\.)?finnwea\.com\/blog\/[^\n \/]+\/$"]``
