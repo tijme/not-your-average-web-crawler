@@ -16,17 +16,21 @@
     :target: https://travis-ci.org/tijme/not-your-average-web-crawler
     :alt: Build Status
 
-.. image:: https://img.shields.io/pypi/pyversions/nyawc.svg
+.. image:: https://img.shields.io/pypi/pyversions/nyawc.svg?colorB=brightgreen
     :target: https://www.python.org/
     :alt: Python version
 
-.. image:: https://img.shields.io/pypi/v/nyawc.svg
+.. image:: https://img.shields.io/pypi/v/nyawc.svg?colorB=brightgreen
     :target: https://pypi.python.org/pypi/nyawc/
     :alt: PyPi version
-
-.. image:: https://img.shields.io/pypi/l/nyawc.svg
-    :target: https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst
-    :alt: License: MIT
+    
+.. image:: https://img.shields.io/badge/donate-paypal-brightgreen.svg
+   :target: https://www.paypal.me/tijmegommers/25
+   :alt: Donate via PayPal
+   
+.. image:: https://img.shields.io/badge/license-mit-brightgreen.svg
+   :target: https://github.com/tijme/angularjs-csti-scanner/blob/master/LICENSE.rst
+   :alt: License: MIT
 
 .. raw:: html
 
