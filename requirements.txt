@@ -3,5 +3,4 @@ lxml==4.0.0
 requests==2.18.4
 requests_toolbelt==0.8.0
 sphinx==1.5.5
-sphinx-better-theme==0.13
 sphinxcontrib-napoleon==0.6.1
