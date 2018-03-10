@@ -11,6 +11,7 @@ N.Y.A.W.C does not have a CLI entry point, so you need to create one yourself. S
 
     from nyawc.Options import Options
     from nyawc.Crawler import Crawler
+    from nyawc.QueueItem import QueueItem
     from nyawc.CrawlerActions import CrawlerActions
     from nyawc.http.Request import Request
 
