@@ -16,7 +16,7 @@
    :target: https://bunq.me/tijme/0/Raivo;%20a%20native,%20lightweight%20and%20secure%20one-time%20&%20time-based%20password%20client%20built%20for%20iOS
    :alt: Donate via Bunq
    
-.. image:: https://raw.finnwea.com/shield/?typeKey=TravisBuildStatus&typeValue1=tijme/not-your-average-web-crawler&typeValue2=master
+.. image:: https://raw.finnwea.com/shield/?typeKey=TravisBuildStatus&typeValue1=tijme/not-your-average-web-crawler&typeValue2=master&cache=1
     :target: https://travis-ci.org/tijme/not-your-average-web-crawler
     :alt: Build Status
 
