@@ -1,5 +1,5 @@
-nyawc\.http package
-===================
+nyawc.http package
+==================
 
 .. automodule:: nyawc.http
     :members:
@@ -9,24 +9,24 @@ nyawc\.http package
 Submodules
 ----------
 
-nyawc\.http\.Handler module
----------------------------
+nyawc.http.Handler module
+-------------------------
 
 .. automodule:: nyawc.http.Handler
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.http\.Request module
----------------------------
+nyawc.http.Request module
+-------------------------
 
 .. automodule:: nyawc.http.Request
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.http\.Response module
-----------------------------
+nyawc.http.Response module
+--------------------------
 
 .. automodule:: nyawc.http.Response
     :members:

@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Routing &#8212; Not Your Average Web Crawler</title>
+    
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css?1.8.0" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap-theme.css?1.8.0" type="text/css" />
+    <script src="../releases.js?1.8.0" type="text/javascript"></script>
+    <script src="_static/js/bootstrap.min.js?1.8.0" type="text/javascript"></script>
+    <script src="_static/js/releases-dropdown.js?1.8.0" type="text/javascript"></script>
+    <script src="_static/js/bootstrap-theme.js?1.8.0" type="text/javascript"></script>
+  </head>
+  <body role="document">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html"><span class="text">Home</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Introduction</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="installation.html">Installation</a></li>
+                                    <li><a href="migration.html">Migration</a></li>
+                                    <li><a href="getting_started.html">Getting Started</a></li>
+                                    <li><a href="kitchen_sink.html">Kitchen Sink</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="options_callbacks.html">Callbacks</a></li>
+                                    <li><a href="options_crawling_scope.html">Crawling scope</a></li>
+                                    <li><a href="options_crawling_identity.html">Crawling identity</a></li>
+                                    <li><a href="options_performance.html">Performance</a></li>
+                                    <li><a href="options_routing.html">Routing</a></li>
+                                    <li><a href="options_misc.html">Misc</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">API</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="py-modindex.html">Code API</a></li>
+                                    <li><a href="https://github.com/tijme/not-your-average-web-crawler" target="_blank">Source (GitHub)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="releases" class="dropdown" data-selected="1.8.0">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.8.0</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="default jumbotron">
+            <div class="jumbotron-darken">
+                <div class="vertical-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <h1 class="headline">Routing</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="background" src="_static/img/header.jpg">
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                    <div class="row">
+                        <nav class="col-sm-3 col-sm-push-9 visible-xs">
+                            <strong>Table of Contents</strong>
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">How to use routing options</a></li>
+<li><a class="reference internal" href="#available-routing-options">Available routing options</a><ul>
+<li><a class="reference internal" href="#minimum-threshold">Minimum threshold</a></li>
+<li><a class="reference internal" href="#routes">Routes</a></li>
+</ul>
+</li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <nav class="col-sm-3 col-sm-push-9 hidden-xs" id="tocscroll">
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">How to use routing options</a></li>
+<li><a class="reference internal" href="#available-routing-options">Available routing options</a><ul>
+<li><a class="reference internal" href="#minimum-threshold">Minimum threshold</a></li>
+<li><a class="reference internal" href="#routes">Routes</a></li>
+</ul>
+</li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <div class="col-sm-9 col-sm-pull-3">
+
+                <div class="content-container">
+                    
+  <div class="section" id="how-to-use-routing-options">
+<h1>How to use routing options<a class="headerlink" href="#how-to-use-routing-options" title="Permalink to this headline">¶</a></h1>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># misc_example.py</span>
+
+<span class="kn">from</span> <span class="nn">nyawc.Options</span> <span class="k">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">nyawc.Crawler</span> <span class="k">import</span> <span class="n">Crawler</span>
+<span class="kn">from</span> <span class="nn">nyawc.http.Request</span> <span class="k">import</span> <span class="n">Request</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+
+<span class="n">options</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">minimum_threshold</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">options</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">routes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;^(https?:\/\/)?(www\.)?finnwea\.com\/blog\/[^</span><span class="se">\n</span><span class="s2"> \/]+\/$&quot;</span>
+<span class="p">]</span>
+
+<span class="n">crawler</span> <span class="o">=</span> <span class="n">Crawler</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<span class="n">crawler</span><span class="o">.</span><span class="n">start_with</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;https://finnwea.com/&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="available-routing-options">
+<h1>Available routing options<a class="headerlink" href="#available-routing-options" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="minimum-threshold">
+<h2>Minimum threshold<a class="headerlink" href="#minimum-threshold" title="Permalink to this headline">¶</a></h2>
+<p>The minimum amount of requests to crawl (matching a certain route) before ignoring the rest. Default is 20.</p>
+<p>For example, lets say we have these rquests;</p>
+<div class="code highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finnwea</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finnwea</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finnwea</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">3</span>
+<span class="o">...</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">finnwea</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="mi">54</span>
+</pre></div>
+</div>
+<p>It will only crawl the first 20 requests. After that it ignores the rest of the blog posts.</p>
+<p><strong>Please note that it will probably crawl a bit more than the minimum threshold depending on the maximum amount of threads to use.</strong></p>
+<p><code class="docutils literal"><span class="pre">options.routing.minimum_threshold</span> <span class="pre">=</span> <span class="pre">20</span></code></p>
+</div>
+<div class="section" id="routes">
+<h2>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h2>
+<p>The regular expressions that represent routes that should not be cralwed more times than the minimum treshold. Default is an empty array.</p>
+<p>For example the route below represents <code class="docutils literal"><span class="pre">http://finnwea.com/blog/{a-variable-blog-alias}/</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">options.routing.routes</span> <span class="pre">=</span> <span class="pre">[&quot;^(https?:\/\/)?(www\.)?finnwea\.com\/blog\/[^\n</span> <span class="pre">\/]+\/$&quot;]</span></code></p>
+</div>
+</div>
+
+
+                </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <p>N.Y.A.W.C v1.8.0 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  </body>
+</html>

@@ -1,5 +1,5 @@
-nyawc\.scrapers package
-=======================
+nyawc.scrapers package
+======================
 
 .. automodule:: nyawc.scrapers
     :members:
@@ -9,48 +9,48 @@ nyawc\.scrapers package
 Submodules
 ----------
 
-nyawc\.scrapers\.BaseScraper module
------------------------------------
+nyawc.scrapers.BaseScraper module
+---------------------------------
 
 .. automodule:: nyawc.scrapers.BaseScraper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.scrapers\.CSSRegexLinkScraper module
--------------------------------------------
+nyawc.scrapers.CSSRegexLinkScraper module
+-----------------------------------------
 
 .. automodule:: nyawc.scrapers.CSSRegexLinkScraper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.scrapers\.HTMLSoupFormScraper module
--------------------------------------------
+nyawc.scrapers.HTMLSoupFormScraper module
+-----------------------------------------
 
 .. automodule:: nyawc.scrapers.HTMLSoupFormScraper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.scrapers\.HTMLSoupLinkScraper module
--------------------------------------------
+nyawc.scrapers.HTMLSoupLinkScraper module
+-----------------------------------------
 
 .. automodule:: nyawc.scrapers.HTMLSoupLinkScraper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.scrapers\.JSONRegexLinkScraper module
---------------------------------------------
+nyawc.scrapers.JSONRegexLinkScraper module
+------------------------------------------
 
 .. automodule:: nyawc.scrapers.JSONRegexLinkScraper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.scrapers\.XMLRegexLinkScraper module
--------------------------------------------
+nyawc.scrapers.XMLRegexLinkScraper module
+-----------------------------------------
 
 .. automodule:: nyawc.scrapers.XMLRegexLinkScraper
     :members:

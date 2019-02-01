@@ -18,56 +18,56 @@ Subpackages
 Submodules
 ----------
 
-nyawc\.Crawler module
----------------------
+nyawc.Crawler module
+--------------------
 
 .. automodule:: nyawc.Crawler
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.CrawlerActions module
-----------------------------
+nyawc.CrawlerActions module
+---------------------------
 
 .. automodule:: nyawc.CrawlerActions
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.CrawlerThread module
----------------------------
+nyawc.CrawlerThread module
+--------------------------
 
 .. automodule:: nyawc.CrawlerThread
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.Options module
----------------------
+nyawc.Options module
+--------------------
 
 .. automodule:: nyawc.Options
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.Queue module
--------------------
+nyawc.Queue module
+------------------
 
 .. automodule:: nyawc.Queue
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.QueueItem module
------------------------
+nyawc.QueueItem module
+----------------------
 
 .. automodule:: nyawc.QueueItem
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.Routing module
----------------------
+nyawc.Routing module
+--------------------
 
 .. automodule:: nyawc.Routing
     :members:

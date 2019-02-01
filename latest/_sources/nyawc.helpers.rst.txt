@@ -1,5 +1,5 @@
-nyawc\.helpers package
-======================
+nyawc.helpers package
+=====================
 
 .. automodule:: nyawc.helpers
     :members:
@@ -9,40 +9,40 @@ nyawc\.helpers package
 Submodules
 ----------
 
-nyawc\.helpers\.DebugHelper module
-----------------------------------
+nyawc.helpers.DebugHelper module
+--------------------------------
 
 .. automodule:: nyawc.helpers.DebugHelper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.helpers\.HTTPRequestHelper module
-----------------------------------------
+nyawc.helpers.HTTPRequestHelper module
+--------------------------------------
 
 .. automodule:: nyawc.helpers.HTTPRequestHelper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.helpers\.PackageHelper module
-------------------------------------
+nyawc.helpers.PackageHelper module
+----------------------------------
 
 .. automodule:: nyawc.helpers.PackageHelper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.helpers\.RandomInputHelper module
-----------------------------------------
+nyawc.helpers.RandomInputHelper module
+--------------------------------------
 
 .. automodule:: nyawc.helpers.RandomInputHelper
     :members:
     :undoc-members:
     :show-inheritance:
 
-nyawc\.helpers\.URLHelper module
---------------------------------
+nyawc.helpers.URLHelper module
+------------------------------
 
 .. automodule:: nyawc.helpers.URLHelper
     :members:

@@ -5,7 +5,7 @@ How to use routing options
 
 .. code:: python
 
-    # misc_example.py
+    # routing_example.py
 
     from nyawc.Options import Options
     from nyawc.Crawler import Crawler

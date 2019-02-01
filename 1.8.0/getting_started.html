@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &#8212; Not Your Average Web Crawler</title>
+    
+    <link rel="stylesheet" href="_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="_static/css/bootstrap.min.css?1.8.0" type="text/css" />
+    <link rel="stylesheet" href="_static/css/bootstrap-theme.css?1.8.0" type="text/css" />
+    <script src="../releases.js?1.8.0" type="text/javascript"></script>
+    <script src="_static/js/bootstrap.min.js?1.8.0" type="text/javascript"></script>
+    <script src="_static/js/releases-dropdown.js?1.8.0" type="text/javascript"></script>
+    <script src="_static/js/bootstrap-theme.js?1.8.0" type="text/javascript"></script>
+  </head>
+  <body role="document">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html"><span class="text">Home</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Introduction</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="installation.html">Installation</a></li>
+                                    <li><a href="migration.html">Migration</a></li>
+                                    <li><a href="getting_started.html">Getting Started</a></li>
+                                    <li><a href="kitchen_sink.html">Kitchen Sink</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Options</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="options_callbacks.html">Callbacks</a></li>
+                                    <li><a href="options_crawling_scope.html">Crawling scope</a></li>
+                                    <li><a href="options_crawling_identity.html">Crawling identity</a></li>
+                                    <li><a href="options_performance.html">Performance</a></li>
+                                    <li><a href="options_routing.html">Routing</a></li>
+                                    <li><a href="options_misc.html">Misc</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">API</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="py-modindex.html">Code API</a></li>
+                                    <li><a href="https://github.com/tijme/not-your-average-web-crawler" target="_blank">Source (GitHub)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="releases" class="dropdown" data-selected="1.8.0">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text">Version 1.8.0</span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+        <div class="default jumbotron">
+            <div class="jumbotron-darken">
+                <div class="vertical-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <h1 class="headline">Getting Started</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="background" src="_static/img/header.jpg">
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                    <div class="row">
+                        <nav class="col-sm-3 col-sm-push-9 visible-xs">
+                            <strong>Table of Contents</strong>
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">Minimal example</a></li>
+<li><a class="reference internal" href="#testing-example-py">Testing example.py</a><ul>
+<li><a class="reference internal" href="#in-the-foreground">In the foreground</a></li>
+<li><a class="reference internal" href="#in-the-background">In the background</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#adding-extra-options">Adding extra options</a><ul>
+<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
+<li><a class="reference internal" href="#scope">Scope</a></li>
+<li><a class="reference internal" href="#identity">Identity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-kitchen-sink">The kitchen sink</a></li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <nav class="col-sm-3 col-sm-push-9 hidden-xs" id="tocscroll">
+                            <ul class="nav nav-pills nav-stacked">
+                                <ul>
+<li><a class="reference internal" href="#">Minimal example</a></li>
+<li><a class="reference internal" href="#testing-example-py">Testing example.py</a><ul>
+<li><a class="reference internal" href="#in-the-foreground">In the foreground</a></li>
+<li><a class="reference internal" href="#in-the-background">In the background</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#adding-extra-options">Adding extra options</a><ul>
+<li><a class="reference internal" href="#callbacks">Callbacks</a></li>
+<li><a class="reference internal" href="#scope">Scope</a></li>
+<li><a class="reference internal" href="#identity">Identity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-kitchen-sink">The kitchen sink</a></li>
+</ul>
+
+                            </ul>
+                        </nav>
+                        <div class="col-sm-9 col-sm-pull-3">
+
+                <div class="content-container">
+                    
+  <div class="section" id="minimal-example">
+<h1>Minimal example<a class="headerlink" href="#minimal-example" title="Permalink to this headline">¶</a></h1>
+<p>N.Y.A.W.C does not have a CLI entry point, so you need to create one yourself. Save the code below as <code class="docutils literal"><span class="pre">example.py</span></code>. The example code prints all request URLs that were found by the crawler.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># example.py</span>
+
+<span class="kn">from</span> <span class="nn">nyawc.Options</span> <span class="k">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">nyawc.Crawler</span> <span class="k">import</span> <span class="n">Crawler</span>
+<span class="kn">from</span> <span class="nn">nyawc.QueueItem</span> <span class="k">import</span> <span class="n">QueueItem</span>
+<span class="kn">from</span> <span class="nn">nyawc.CrawlerActions</span> <span class="k">import</span> <span class="n">CrawlerActions</span>
+<span class="kn">from</span> <span class="nn">nyawc.http.Request</span> <span class="k">import</span> <span class="n">Request</span>
+
+<span class="k">def</span> <span class="nf">cb_crawler_before_start</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crawler started.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cb_crawler_after_finish</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Crawler finished.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">QueueItem</span><span class="o">.</span><span class="n">STATUS_FINISHED</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; requests.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">cb_request_before_start</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">queue_item</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">queue_item</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">CrawlerActions</span><span class="o">.</span><span class="n">DO_CONTINUE_CRAWLING</span>
+
+<span class="k">def</span> <span class="nf">cb_request_after_finish</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">queue_item</span><span class="p">,</span> <span class="n">new_queue_items</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">queue_item</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">CrawlerActions</span><span class="o">.</span><span class="n">DO_CONTINUE_CRAWLING</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">crawler_before_start</span> <span class="o">=</span> <span class="n">cb_crawler_before_start</span> <span class="c1"># Called before the crawler starts crawling. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">crawler_after_finish</span> <span class="o">=</span> <span class="n">cb_crawler_after_finish</span> <span class="c1"># Called after the crawler finished crawling. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_before_start</span> <span class="o">=</span> <span class="n">cb_request_before_start</span> <span class="c1"># Called before the crawler starts a new request. Default is a null route.</span>
+<span class="n">options</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">request_after_finish</span> <span class="o">=</span> <span class="n">cb_request_after_finish</span> <span class="c1"># Called after the crawler finishes a request. Default is a null route.</span>
+
+<span class="n">crawler</span> <span class="o">=</span> <span class="n">Crawler</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<span class="n">crawler</span><span class="o">.</span><span class="n">start_with</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="s2">&quot;https://finnwea.com/&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-example-py">
+<h1>Testing example.py<a class="headerlink" href="#testing-example-py" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="in-the-foreground">
+<h2>In the foreground<a class="headerlink" href="#in-the-foreground" title="Permalink to this headline">¶</a></h2>
+<p>Output all contents to the console.</p>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">example.py</span></code></p>
+</div>
+<div class="section" id="in-the-background">
+<h2>In the background<a class="headerlink" href="#in-the-background" title="Permalink to this headline">¶</a></h2>
+<p>Output all contents to a file and run the process in the background.</p>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">-u</span> <span class="pre">example.py</span> <span class="pre">&gt;</span> <span class="pre">output.log</span></code></p>
+</div>
+</div>
+<div class="section" id="adding-extra-options">
+<h1>Adding extra options<a class="headerlink" href="#adding-extra-options" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
+<p>All the available callbacks are documented <a class="reference external" href="options_callbacks.html">here</a>.</p>
+</div>
+<div class="section" id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h2>
+<p>You can set scope options to, for example, only crawl certain subdomains or certain request methods. See <a class="reference external" href="options_crawling_scope.html">this</a> page for all the available scope options.</p>
+</div>
+<div class="section" id="identity">
+<h2>Identity<a class="headerlink" href="#identity" title="Permalink to this headline">¶</a></h2>
+<p>Do you want to use authentication, set headers or use a proxy? Check <a class="reference external" href="options_crawling_identity.html">these</a> identity options for documentation.</p>
+</div>
+</div>
+<div class="section" id="the-kitchen-sink">
+<h1>The kitchen sink<a class="headerlink" href="#the-kitchen-sink" title="Permalink to this headline">¶</a></h1>
+<p>The kitchen sink is an example that implements all the features/options of N.Y.A.W.C. The kitchen sink is available for copy paste. <a class="reference external" href="kitchen_sink.html">Check it out</a>!</p>
+</div>
+
+
+                </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <p>N.Y.A.W.C v1.8.0 is open-sourced software licensed under the <a href="https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst" target="_blank">MIT license</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  </body>
+</html>
