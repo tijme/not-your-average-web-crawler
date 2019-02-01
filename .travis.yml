@@ -1,5 +1,5 @@
 os: linux
-dist: xenial
+dist: trusty
 sudo: required
 language: python
 
@@ -12,7 +12,6 @@ python:
   - 3.4
   - 3.5
   - 3.6
-  - 3.7
 
 install:
   - sudo apt-get install -y apache2
