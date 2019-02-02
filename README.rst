@@ -13,7 +13,7 @@
     <br class="title">
 
 .. image:: https://raw.finnwea.com/shield/?firstText=Donate%20via&secondText=Bunq
-   :target: https://bunq.me/tijme/0/Raivo;%20a%20native,%20lightweight%20and%20secure%20one-time%20&%20time-based%20password%20client%20built%20for%20iOS
+   :target: https://bunq.me/tijme/0/A%20web%20crawler%20(for%20bug%20hunting)%20that%20gathers%20more%20than%20you%20can%20imagine
    :alt: Donate via Bunq
    
 .. image:: https://raw.finnwea.com/shield/?typeKey=TravisBuildStatus&typeValue1=tijme/not-your-average-web-crawler&typeValue2=master&cache=1
@@ -25,7 +25,7 @@
     :alt: PyPi version
    
 .. image:: https://raw.finnwea.com/shield/?firstText=License&secondText=MIT
-   :target: https://github.com/tijme/angularjs-csti-scanner/blob/master/LICENSE.rst
+   :target: https://github.com/tijme/not-your-average-web-crawler/blob/master/LICENSE.rst
    :alt: License: MIT
 
 .. raw:: html
