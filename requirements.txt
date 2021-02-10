@@ -1,5 +1,5 @@
 beautifulsoup4==4.7.1
-lxml==4.3.0
+lxml==4.6.2
 requests==2.21.0
 requests_toolbelt==0.9.1
 sphinx==1.8.3
