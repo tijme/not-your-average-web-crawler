@@ -20,7 +20,7 @@
     :target: https://travis-ci.org/tijme/not-your-average-web-crawler
     :alt: Build Status
 
-.. image:: https://raw.finnwea.com/shield/?typeKey=SemverVersion&typeValue1=not-your-average-web-crawler&typeValue2=master
+.. image:: https://raw.finnwea.com/vector-shields-v1/?typeKey=SemverVersion&typeValue1=tijme&typeValue2=not-your-average-web-crawler
     :target: https://pypi.python.org/pypi/nyawc/
     :alt: PyPi version
    
