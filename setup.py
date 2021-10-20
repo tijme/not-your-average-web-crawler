@@ -57,7 +57,6 @@ setup(
     packages=find_packages(),
     platforms=["any"],
     author="Tijme Gommers",
-    author_email="tijme@finnwea.com",
     license="MIT",
     url="https://tijme.github.io/not-your-average-web-crawler/",
     install_requires=requirements
