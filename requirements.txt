@@ -1,6 +1,6 @@
 beautifulsoup4==4.7.1
 lxml==4.9.1
-requests==2.21.0
+requests==2.31.0
 requests_toolbelt==0.9.1
 sphinx==1.8.3
 sphinx-better-theme==0.1.5
